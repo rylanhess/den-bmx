@@ -16,7 +16,12 @@
     "scrape:all:save": "tsx scripts/scrapeAllTracks.ts --save",
     "scrape:all:dry-run": "tsx scripts/scrapeAllTracks.ts --dry-run",
     "scrape:config": "tsx scripts/config.ts",
-    "scrape:test": "tsx scripts/test-simple.ts"
+    "scrape:test": "tsx scripts/test-simple.ts",
+    "events:process": "tsx scripts/processEvents.ts",
+    "events:process:dry-run": "tsx scripts/processEvents.ts --dry-run",
+    "events:stats": "tsx scripts/processEvents.ts --stats",
+    "events:clean-reprocess": "tsx scripts/cleanAndReprocess.ts",
+    "refresh": "./scripts/refreshData.sh"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.47.10",

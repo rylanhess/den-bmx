@@ -1,3 +1,5 @@
+import ThisWeeksEvents from '@/components/ThisWeeksEvents';
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
@@ -21,38 +23,8 @@ export default function Home() {
           </p>
         </div>
 
-        {/* This Week Section Preview */}
-        <div className="max-w-4xl mx-auto mb-12">
-          <h2 className="text-3xl font-bold text-white mb-6 text-center">
-            This Week&apos;s Events
-          </h2>
-          
-          <div className="bg-slate-800 rounded-lg p-6 shadow-xl border border-slate-700">
-            <p className="text-slate-400 text-center mb-4">
-              Coming soon: Next 10 events across all tracks, merged and sorted
-            </p>
-            
-            {/* Preview Event Cards */}
-            <div className="space-y-3">
-              {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="bg-slate-700 rounded-md p-4 border border-slate-600 opacity-50"
-                >
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <p className="text-white font-semibold">Event Title</p>
-                      <p className="text-sm text-slate-400">Track Name • Date & Time</p>
-                    </div>
-                    <span className="text-xs bg-slate-600 text-slate-300 px-2 py-1 rounded">
-                      Practice
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        {/* This Week's Events - Live Data! */}
+        <ThisWeeksEvents />
 
         {/* Action Buttons */}
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
