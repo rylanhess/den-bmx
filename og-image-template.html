@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>DEN BMX OG Image</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #000;
+        }
+        
+        .og-image {
+            width: 1200px;
+            height: 630px;
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #06b6d4 100%);
+            position: relative;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Geometric shapes */
+        .shape1 {
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 400px;
+            height: 400px;
+            background: #facc15;
+            opacity: 0.6;
+            clip-path: polygon(100% 0, 0 0, 100% 100%);
+        }
+        
+        .shape2 {
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 350px;
+            height: 350px;
+            background: #ff00ff;
+            opacity: 0.5;
+            clip-path: polygon(0 100%, 100% 100%, 0 0);
+        }
+        
+        .shape3 {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            width: 150px;
+            height: 150px;
+            background: #84cc16;
+            opacity: 0.7;
+            animation: rotate 3s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Content */
+        .content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 100px;
+        }
+        
+        .logo-box {
+            background: #000;
+            border: 12px solid #facc15;
+            padding: 40px 60px;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        
+        .title {
+            font-size: 120px;
+            font-weight: 900;
+            color: #facc15;
+            text-shadow: 6px 6px 0px #ff00ff, 12px 12px 0px #06b6d4;
+            margin: 0;
+            letter-spacing: 4px;
+        }
+        
+        .bmx {
+            color: #ec4899;
+        }
+        
+        .gradient-bar {
+            height: 8px;
+            background: linear-gradient(90deg, #ec4899, #facc15, #06b6d4);
+            margin-top: 20px;
+        }
+        
+        .tagline {
+            background: #000;
+            color: #ffffff;
+            font-size: 42px;
+            font-weight: 900;
+            padding: 20px 40px;
+            border: 6px solid #ec4899;
+            display: inline-block;
+            margin-top: 30px;
+        }
+        
+        .emoji {
+            font-size: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="og-image">
+        <div class="shape1"></div>
+        <div class="shape2"></div>
+        <div class="shape3"></div>
+        
+        <div class="content">
+            <div class="logo-box">
+                <h1 class="title">DEN<span class="bmx">BMX</span></h1>
+                <div class="gradient-bar"></div>
+            </div>
+            
+            <div class="tagline">
+                <span class="emoji">🏁</span> DENVER METRO BMX RACING <span class="emoji">🚴</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
