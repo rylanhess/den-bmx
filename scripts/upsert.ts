@@ -1,0 +1,274 @@
+/**
+ * Database Upsert Functions
+ * 
+ * Handles saving scraped data to Supabase
+ */
+
+import { supabase, getTrackMapping } from './config';
+import { normalizeToAlert, normalizePosts, validateAlert, filterPosts, deduplicatePosts } from './normalize';
+import type { ScraperResult } from './fetchFacebook';
+import type { AlertRecord } from './normalize';
+
+/**
+ * Upsert options
+ */
+export interface UpsertOptions {
+  dryRun?: boolean;        // If true, don't actually insert
+  alertsOnly?: boolean;    // Only save posts with alert keywords
+  eventsOnly?: boolean;    // Only save event-related posts
+  deduplicateFirst?: boolean;  // Remove duplicates before inserting
+}
+
+/**
+ * Result of upsert operation
+ */
+export interface UpsertResult {
+  success: boolean;
+  trackName: string;
+  trackSlug: string;
+  inserted: number;
+  skipped: number;
+  errors: number;
+  errorMessages: string[];
+}
+
+/**
+ * Save scraper results to database
+ */
+export const upsertScraperResults = async (
+  result: ScraperResult,
+  options: UpsertOptions = {}
+): Promise<UpsertResult> => {
+  const startTime = Date.now();
+  
+  console.log(`\n💾 Saving ${result.trackName} posts to database...`);
+  
+  const upsertResult: UpsertResult = {
+    success: false,
+    trackName: result.trackName,
+    trackSlug: result.trackSlug,
+    inserted: 0,
+    skipped: 0,
+    errors: 0,
+    errorMessages: []
+  };
+  
+  // Skip if scraping failed
+  if (!result.success) {
+    console.log(`⚠️  Skipping ${result.trackName} - scraping failed`);
+    upsertResult.skipped = result.posts.length;
+    return upsertResult;
+  }
+  
+  // Get track mapping
+  let trackMapping;
+  try {
+    trackMapping = getTrackMapping(result.trackSlug);
+  } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+    console.error(`❌ ${errorMsg}`);
+    upsertResult.errorMessages.push(errorMsg);
+    return upsertResult;
+  }
+  
+  let posts = result.posts;
+  
+  // Apply filters
+  if (options.alertsOnly || options.eventsOnly) {
+    const originalCount = posts.length;
+    posts = filterPosts(posts, {
+      alertsOnly: options.alertsOnly,
+      eventsOnly: options.eventsOnly
+    });
+    console.log(`   Filtered ${originalCount} posts → ${posts.length} posts`);
+  }
+  
+  // Deduplicate
+  if (options.deduplicateFirst) {
+    const originalCount = posts.length;
+    posts = deduplicatePosts(posts);
+    console.log(`   Deduplicated ${originalCount} posts → ${posts.length} posts`);
+  }
+  
+  if (posts.length === 0) {
+    console.log('   No posts to insert');
+    return upsertResult;
+  }
+  
+  // Normalize to alert records
+  const alerts = normalizePosts(posts, trackMapping.id);
+  
+  // Validate alerts
+  const validAlerts = alerts.filter(alert => {
+    if (!validateAlert(alert)) {
+      upsertResult.skipped++;
+      return false;
+    }
+    return true;
+  });
+  
+  console.log(`   ${validAlerts.length} valid alerts to insert`);
+  
+  if (options.dryRun) {
+    console.log('   🔍 DRY RUN - Not inserting to database');
+    console.log('   Would insert:', JSON.stringify(validAlerts, null, 2));
+    upsertResult.inserted = validAlerts.length;
+    upsertResult.success = true;
+    return upsertResult;
+  }
+  
+  // Insert alerts one by one (allows partial success)
+  for (const alert of validAlerts) {
+    try {
+      const { error } = await supabase
+        .from('alerts')
+        .insert(alert);
+      
+      if (error) {
+        // Check if it's a duplicate (violates unique constraint)
+        if (error.code === '23505') {
+          upsertResult.skipped++;
+        } else {
+          upsertResult.errors++;
+          upsertResult.errorMessages.push(`${error.code}: ${error.message}`);
+          console.error(`   ❌ Error inserting alert:`, error.message);
+        }
+      } else {
+        upsertResult.inserted++;
+      }
+    } catch (error) {
+      upsertResult.errors++;
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      upsertResult.errorMessages.push(errorMsg);
+      console.error(`   ❌ Exception:`, errorMsg);
+    }
+  }
+  
+  const duration = ((Date.now() - startTime) / 1000).toFixed(2);
+  
+  upsertResult.success = upsertResult.errors === 0;
+  
+  console.log(`   ✅ Inserted: ${upsertResult.inserted}`);
+  console.log(`   ⏭️  Skipped: ${upsertResult.skipped}`);
+  if (upsertResult.errors > 0) {
+    console.log(`   ❌ Errors: ${upsertResult.errors}`);
+  }
+  console.log(`   ⏱️  Duration: ${duration}s`);
+  
+  return upsertResult;
+};
+
+/**
+ * Save multiple scraper results to database
+ */
+export const upsertMultipleResults = async (
+  results: ScraperResult[],
+  options: UpsertOptions = {}
+): Promise<UpsertResult[]> => {
+  console.log('\n' + '='.repeat(80));
+  console.log('💾 SAVING ALL TRACKS TO DATABASE');
+  console.log('='.repeat(80));
+  
+  const upsertResults: UpsertResult[] = [];
+  
+  for (const result of results) {
+    const upsertResult = await upsertScraperResults(result, options);
+    upsertResults.push(upsertResult);
+  }
+  
+  // Print summary
+  console.log('\n' + '━'.repeat(80));
+  console.log('💾 DATABASE UPSERT SUMMARY');
+  console.log('━'.repeat(80) + '\n');
+  
+  upsertResults.forEach(result => {
+    const icon = result.success ? '✅' : '❌';
+    console.log(`${icon} ${result.trackName}`);
+    console.log(`   Inserted: ${result.inserted} | Skipped: ${result.skipped} | Errors: ${result.errors}`);
+    if (result.errorMessages.length > 0) {
+      console.log(`   Errors: ${result.errorMessages.slice(0, 3).join(', ')}`);
+    }
+  });
+  
+  const totals = upsertResults.reduce((acc, r) => ({
+    inserted: acc.inserted + r.inserted,
+    skipped: acc.skipped + r.skipped,
+    errors: acc.errors + r.errors
+  }), { inserted: 0, skipped: 0, errors: 0 });
+  
+  console.log('\n' + '─'.repeat(80));
+  console.log(`📊 TOTALS: ${upsertResults.filter(r => r.success).length}/${upsertResults.length} tracks successful`);
+  console.log(`   Inserted: ${totals.inserted} | Skipped: ${totals.skipped} | Errors: ${totals.errors}`);
+  console.log('━'.repeat(80) + '\n');
+  
+  return upsertResults;
+};
+
+/**
+ * Check for existing alerts to avoid duplicates
+ */
+export const checkExistingAlert = async (
+  trackId: string,
+  text: string,
+  postedAt: Date
+): Promise<boolean> => {
+  const { data, error } = await supabase
+    .from('alerts')
+    .select('id')
+    .eq('track_id', trackId)
+    .eq('text', text)
+    .gte('posted_at', new Date(postedAt.getTime() - 3600000).toISOString()) // Within 1 hour
+    .limit(1);
+  
+  if (error) {
+    console.error('Error checking for existing alert:', error);
+    return false;
+  }
+  
+  return (data?.length || 0) > 0;
+};
+
+/**
+ * Get recent alerts for a track
+ */
+export const getRecentAlerts = async (
+  trackSlug: string,
+  hours: number = 24
+): Promise<AlertRecord[]> => {
+  const trackMapping = getTrackMapping(trackSlug);
+  const cutoff = new Date();
+  cutoff.setHours(cutoff.getHours() - hours);
+  
+  const { data, error } = await supabase
+    .from('alerts')
+    .select('*')
+    .eq('track_id', trackMapping.id)
+    .gte('posted_at', cutoff.toISOString())
+    .order('posted_at', { ascending: false });
+  
+  if (error) {
+    console.error('Error fetching recent alerts:', error);
+    return [];
+  }
+  
+  return data || [];
+};
+
+/**
+ * Print statistics about saved data
+ */
+export const printDatabaseStats = async (): Promise<void> => {
+  console.log('\n📊 Database Statistics\n');
+  
+  const { data: alertCount } = await supabase
+    .from('alerts')
+    .select('count');
+  
+  const { data: trackCount } = await supabase
+    .from('tracks')
+    .select('count');
+  
+  console.log(`Tracks: ${trackCount?.[0]?.count || 0}`);
+  console.log(`Alerts: ${alertCount?.[0]?.count || 0}`);
+};
+

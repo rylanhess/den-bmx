@@ -9,10 +9,15 @@ import { scrapeMileHighBmxFacebook } from './fetchMileHighBmxFacebook';
 import { scrapeDaconoBmxFacebook } from './fetchDaconoBmxFacebook';
 import { scrapeCountyLineBmxFacebook } from './fetchCountyLineBmxFacebok';
 import { printResults, printMultiTrackSummary, type ScraperResult } from './fetchFacebook';
+import { upsertMultipleResults, type UpsertOptions } from './upsert';
+import { validateConfig } from './config';
 
 interface ScrapeOptions {
   parallel?: boolean;
   verbose?: boolean;
+  saveToDB?: boolean;      // Save to database
+  dryRun?: boolean;        // Preview what would be saved
+  alertsOnly?: boolean;    // Only save posts with alert keywords
 }
 
 /**
@@ -73,9 +78,21 @@ const scrapeParallel = async (verbose: boolean = false): Promise<ScraperResult[]
  * Main function to scrape all tracks
  */
 export const scrapeAllTracks = async (options: ScrapeOptions = {}): Promise<ScraperResult[]> => {
-  const { parallel = true, verbose = false } = options;
+  const { parallel = true, verbose = false, saveToDB = false, dryRun = false, alertsOnly = false } = options;
   
   const startTime = Date.now();
+  
+  // Validate configuration if saving to DB
+  if (saveToDB && !dryRun) {
+    console.log('🔍 Validating configuration...\n');
+    const isValid = await validateConfig();
+    if (!isValid) {
+      console.error('\n❌ Configuration validation failed. Please fix errors before saving to database.');
+      console.log('   Run: npx tsx scripts/config.ts\n');
+      throw new Error('Invalid configuration');
+    }
+    console.log('');
+  }
   
   let results: ScraperResult[];
   
@@ -90,7 +107,18 @@ export const scrapeAllTracks = async (options: ScrapeOptions = {}): Promise<Scra
   // Print summary
   printMultiTrackSummary(results);
   
-  console.log(`⏱️  Total time: ${duration}s\n`);
+  console.log(`⏱️  Total scraping time: ${duration}s\n`);
+  
+  // Save to database if requested
+  if (saveToDB) {
+    const upsertOptions: UpsertOptions = {
+      dryRun,
+      alertsOnly,
+      deduplicateFirst: true
+    };
+    
+    await upsertMultipleResults(results, upsertOptions);
+  }
   
   return results;
 };
@@ -100,6 +128,9 @@ if (require.main === module) {
   const args = process.argv.slice(2);
   const parallel = !args.includes('--sequential');
   const verbose = args.includes('--verbose') || args.includes('-v');
+  const saveToDB = args.includes('--save') || args.includes('--db');
+  const dryRun = args.includes('--dry-run') || args.includes('--preview');
+  const alertsOnly = args.includes('--alerts-only');
   
   console.log('╔═══════════════════════════════════════════════════════════════════════════╗');
   console.log('║                    DENVER BMX - FACEBOOK SCRAPER                          ║');
@@ -107,9 +138,12 @@ if (require.main === module) {
   console.log('╚═══════════════════════════════════════════════════════════════════════════╝\n');
   
   console.log(`Mode: ${parallel ? '🚀 Parallel' : '📝 Sequential'}`);
-  console.log(`Verbose: ${verbose ? 'Yes' : 'No'}\n`);
+  console.log(`Verbose: ${verbose ? 'Yes' : 'No'}`);
+  console.log(`Save to DB: ${saveToDB ? (dryRun ? 'Dry Run' : 'Yes') : 'No'}`);
+  if (alertsOnly) console.log(`Filter: Alerts only`);
+  console.log('');
   
-  scrapeAllTracks({ parallel, verbose })
+  scrapeAllTracks({ parallel, verbose, saveToDB, dryRun, alertsOnly })
     .then(results => {
       const successCount = results.filter(r => r.success).length;
       const exitCode = successCount === results.length ? 0 : 1;
