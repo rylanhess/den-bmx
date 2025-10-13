@@ -120,7 +120,8 @@ export const filterPosts = (
   
   // Filter by minimum text length
   if (options.minLength && options.minLength > 0) {
-    filtered = filtered.filter(p => p.text.length >= options.minLength);
+    const minLen = options.minLength;
+    filtered = filtered.filter(p => p.text.length >= minLen);
   }
   
   // Filter by post age

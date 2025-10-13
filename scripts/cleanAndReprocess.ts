@@ -63,7 +63,7 @@ async function main() {
     .order('start_at', { ascending: true })
     .limit(10);
   
-  events?.forEach(e => {
+  events?.forEach((e: any) => {
     const date = new Date(e.start_at);
     const dateStr = date.toLocaleString('en-US', { 
       timeZone: 'America/Denver',

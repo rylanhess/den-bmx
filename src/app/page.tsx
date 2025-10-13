@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import ThisWeeksEvents from '@/components/ThisWeeksEvents';
 import DataRefreshBanner from '@/components/DataRefreshBanner';
 
@@ -44,11 +45,11 @@ export default function Home() {
             <div className="text-sm text-slate-400 mt-1">Mile High • Dacono • County Line</div>
           </button>
 
-          <button className="bg-slate-700 hover:bg-slate-600 text-white font-bold py-6 px-6 rounded-lg transition-colors shadow-lg border border-slate-600">
+          <Link href="/new-rider" className="bg-slate-700 hover:bg-slate-600 text-white font-bold py-6 px-6 rounded-lg transition-colors shadow-lg border border-slate-600 block">
             <div className="text-2xl mb-2">🚴</div>
             <div>New Rider?</div>
             <div className="text-sm text-slate-400 mt-1">What to bring, fees, waivers</div>
-          </button>
+          </Link>
         </div>
 
         {/* Status Badge */}
