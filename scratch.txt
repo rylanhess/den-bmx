@@ -1,4 +1,4 @@
-create table tracks (
+icreate table tracks (
   id uuid primary key default gen_random_uuid(),
   name text not null,
   slug text unique not null,
@@ -55,3 +55,12 @@ insert into tracks (name, slug, city, fb_page_url, usabmx_url, lat, lon) values
 ('Mile High BMX', 'mile-high-bmx', 'Lakewood, CO', null, null, null, null),
 ('Dacono BMX', 'dacono-bmx', 'Dacono, CO', null, null, null, null),
 ('County Line BMX', 'county-line-bmx', 'Highlands Ranch, CO', null, null, null, null);
+
+alter table events enable row level security;
+alter table alerts enable row level security;
+
+-- Everyone can read
+create policy "public read events" on events for select using (true);
+create policy "public read alerts" on alerts for select using (true);
+
+-- Admin writes via service role (no public policy needed)
