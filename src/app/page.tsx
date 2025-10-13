@@ -39,11 +39,11 @@ export default function Home() {
             <div className="text-sm opacity-75 mt-1">Get all events in your app</div>
           </button>
 
-          <button className="bg-slate-700 hover:bg-slate-600 text-white font-bold py-6 px-6 rounded-lg transition-colors shadow-lg border border-slate-600">
+          <Link href="/tracks" className="bg-slate-700 hover:bg-slate-600 text-white font-bold py-6 px-6 rounded-lg transition-colors shadow-lg border border-slate-600 block">
             <div className="text-2xl mb-2">🏁</div>
             <div>Track Pages</div>
             <div className="text-sm text-slate-400 mt-1">Mile High • Dacono • County Line</div>
-          </button>
+          </Link>
 
           <Link href="/new-rider" className="bg-slate-700 hover:bg-slate-600 text-white font-bold py-6 px-6 rounded-lg transition-colors shadow-lg border border-slate-600 block">
             <div className="text-2xl mb-2">🚴</div>
