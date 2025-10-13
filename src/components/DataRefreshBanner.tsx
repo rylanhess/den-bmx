@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 
 interface RefreshStatus {
   lastRefresh: string | null;
+  lastScrape: string | null;
   isStale: boolean;
 }
 
@@ -67,6 +68,9 @@ const DataRefreshBanner = () => {
 
   const timeAgo = getTimeAgo(status.lastRefresh);
   const fullDate = getLastRefreshDate(status.lastRefresh);
+  
+  const lastScrapeTimeAgo = status.lastScrape ? getTimeAgo(status.lastScrape) : null;
+  const lastScrapeFullDate = status.lastScrape ? getLastRefreshDate(status.lastScrape) : null;
 
   return (
     <div
@@ -77,7 +81,7 @@ const DataRefreshBanner = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
-        <div className="flex items-center justify-center gap-2 text-sm">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-sm">
           <div className="flex items-center gap-2">
             {status.isStale ? (
               <svg className="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,12 +97,24 @@ const DataRefreshBanner = () => {
               <span className="font-semibold">{timeAgo}</span>
               <span className="hidden sm:inline text-slate-400"> ({fullDate})</span>
             </span>
-            {status.isStale && (
-              <span className="hidden md:inline text-orange-400 ml-2">
-                • Data may be outdated
-              </span>
-            )}
           </div>
+          {lastScrapeTimeAgo && (
+            <>
+              <span className="hidden sm:inline text-slate-500">•</span>
+              <div className="flex items-center gap-2">
+                <span className="text-slate-400">
+                  <span className="font-medium">Last site refresh:</span>{' '}
+                  <span className="font-semibold">{lastScrapeTimeAgo}</span>
+                  <span className="hidden sm:inline text-slate-500"> ({lastScrapeFullDate})</span>
+                </span>
+              </div>
+            </>
+          )}
+          {status.isStale && (
+            <span className="hidden md:inline text-orange-400">
+              • Data may be outdated
+            </span>
+          )}
         </div>
       </div>
     </div>

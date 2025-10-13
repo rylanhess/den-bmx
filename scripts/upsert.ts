@@ -155,6 +155,9 @@ export const upsertScraperResults = async (
   }
   console.log(`   ⏱️  Duration: ${duration}s`);
   
+  // Update last_checked_at for this track's Facebook source
+  await updateLastChecked(trackMapping.id);
+  
   return upsertResult;
 };
 
@@ -252,6 +255,65 @@ export const getRecentAlerts = async (
   }
   
   return data || [];
+};
+
+/**
+ * Update last_checked_at timestamp for a track's Facebook source
+ * Creates the source if it doesn't exist
+ */
+export const updateLastChecked = async (trackId: string): Promise<void> => {
+  try {
+    const now = new Date().toISOString();
+    
+    // First, try to update existing source
+    const { data: updated, error: updateError } = await supabase
+      .from('sources')
+      .update({ last_checked_at: now })
+      .eq('track_id', trackId)
+      .eq('type', 'facebook')
+      .select();
+    
+    // If update succeeded and affected rows, we're done
+    if (!updateError && updated && updated.length > 0) {
+      return;
+    }
+    
+    // If no rows were updated, the source doesn't exist - create it
+    if (!updateError && (!updated || updated.length === 0)) {
+      // Get track info to get the Facebook URL
+      const { data: track, error: trackError } = await supabase
+        .from('tracks')
+        .select('fb_page_url')
+        .eq('id', trackId)
+        .single();
+      
+      if (trackError || !track?.fb_page_url) {
+        console.error(`   ⚠️  Could not get Facebook URL for track:`, trackError?.message);
+        return;
+      }
+      
+      // Insert new source
+      const { error: insertError } = await supabase
+        .from('sources')
+        .insert({
+          track_id: trackId,
+          type: 'facebook',
+          url: track.fb_page_url,
+          last_checked_at: now
+        });
+      
+      if (insertError) {
+        // If insert fails due to duplicate (race condition), that's okay
+        if (insertError.code !== '23505') {
+          console.error(`   ⚠️  Failed to insert source:`, insertError.message);
+        }
+      }
+    } else if (updateError) {
+      console.error(`   ⚠️  Failed to update source:`, updateError.message);
+    }
+  } catch (error) {
+    console.error(`   ⚠️  Exception updating last_checked_at:`, error);
+  }
 };
 
 /**

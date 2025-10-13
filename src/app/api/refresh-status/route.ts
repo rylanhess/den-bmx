@@ -18,9 +18,19 @@ export async function GET() {
       .limit(1)
       .single();
     
+    // Get the most recent scrape time from sources
+    const { data: latestSource } = await supabase
+      .from('sources')
+      .select('last_checked_at')
+      .eq('type', 'facebook')
+      .order('last_checked_at', { ascending: false, nullsFirst: false })
+      .limit(1)
+      .single();
+    
     if (error || !latestAlert) {
       return NextResponse.json({
         lastRefresh: null,
+        lastScrape: latestSource?.last_checked_at || null,
         isStale: true
       });
     }
@@ -34,6 +44,7 @@ export async function GET() {
     
     return NextResponse.json({
       lastRefresh: latestAlert.posted_at,
+      lastScrape: latestSource?.last_checked_at || null,
       isStale
     });
     
