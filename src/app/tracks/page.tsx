@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "BMX Tracks | DEN BMX - Denver Metro BMX Racing",
@@ -207,12 +208,12 @@ export default function TracksPage() {
             basic safety gear including a helmet, long sleeves, pants, and
             closed-toe shoes.
           </p>
-          <a
+          <Link
             href="/"
             className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
           >
             View Race Calendar
-          </a>
+          </Link>
         </div>
       </div>
     </main>
