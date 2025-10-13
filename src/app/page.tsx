@@ -1,4 +1,5 @@
 import ThisWeeksEvents from '@/components/ThisWeeksEvents';
+import DataRefreshBanner from '@/components/DataRefreshBanner';
 
 export default function Home() {
   return (
@@ -7,6 +8,9 @@ export default function Home() {
       <div className="bg-yellow-500 text-slate-900 px-4 py-3 text-center font-semibold">
         ⚠️ Alert Bar: Weather updates and cancellations will appear here
       </div>
+
+      {/* Data Refresh Status Banner */}
+      <DataRefreshBanner />
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-12 md:py-20">
