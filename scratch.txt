@@ -1,0 +1,57 @@
+create table tracks (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  slug text unique not null,
+  city text,
+  tz text default 'America/Denver' not null,
+  fb_page_url text,
+  usabmx_url text,
+  lat double precision,
+  lon double precision,
+  created_at timestamptz default now()
+);
+
+create table sources (
+  id uuid primary key default gen_random_uuid(),
+  track_id uuid references tracks(id) on delete cascade,
+  type text check (type in ('facebook','usabmx')) not null,
+  url text not null,
+  last_checked_at timestamptz
+);
+
+create table events (
+  id uuid primary key default gen_random_uuid(),
+  track_id uuid references tracks(id) on delete cascade,
+  source_id uuid references sources(id) on delete set null,
+  title text not null,
+  description text,
+  start_at timestamptz not null,
+  end_at timestamptz,
+  status text default 'scheduled' check (status in ('scheduled','updated','cancelled')),
+  url text,
+  gate_fee text,
+  class text,
+  raw_html text,
+  hash text,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+create index on events (track_id, start_at);
+create index on events (start_at);
+create unique index if not exists events_dedupe_idx
+  on events (track_id, start_at, coalesce(title,''));
+
+create table alerts (
+  id uuid primary key default gen_random_uuid(),
+  track_id uuid references tracks(id) on delete cascade,
+  posted_at timestamptz not null,
+  text text not null,
+  url text
+);
+
+-- Seed tracks
+insert into tracks (name, slug, city, fb_page_url, usabmx_url, lat, lon) values
+('Mile High BMX', 'mile-high-bmx', 'Lakewood, CO', null, null, null, null),
+('Dacono BMX', 'dacono-bmx', 'Dacono, CO', null, null, null, null),
+('County Line BMX', 'county-line-bmx', 'Highlands Ranch, CO', null, null, null, null);
