@@ -1,0 +1,311 @@
+Awesome—here’s a crisp, copy-pasteable MVP checklist to get DENBMX live quickly. It’s sequenced so you can ship a usable site fast (read-only unified calendar), then add niceties (alerts, SMS, admin). Each task has an acceptance criterion so you know when it’s “done.”
+
+⸻
+
+Phase 0 — Repo + Cloud (½ day)
+	1.	Create repo + environments
+
+	•	Create GitHub repo denbmx
+	•	Add two branches: main (prod) and dev (preview)
+	•	Add .nvmrc, .editorconfig, Prettier/ESLint
+
+Done when: repo exists and you can push code.
+	2.	Spin up Supabase (Postgres)
+
+	•	Create Supabase project (region close to Denver)
+	•	Grab SUPABASE_URL and SUPABASE_ANON_KEY and SERVICE_ROLE_KEY
+	•	Enable Auth (Email + Magic Link)
+
+Done when: you can connect via Supabase Studio.
+	3.	Create Next.js app (frontend)
+
+	•	npx create-next-app@latest denbmx --ts --eslint
+	•	Install deps: @supabase/supabase-js date-fns ical-generator zod fullcalendar react-hook-form
+	•	Commit + push; wire to Vercel with environment variables:
+	•	NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+Done when: starter site deploys on Vercel.
+
+⸻
+
+Phase 1 — Database & Security (½ day)
+	4.	Create core tables (paste in Supabase SQL editor)
+
+create table tracks (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  slug text unique not null,
+  city text,
+  tz text default 'America/Denver' not null,
+  fb_page_url text,
+  usabmx_url text,
+  lat double precision,
+  lon double precision,
+  created_at timestamptz default now()
+);
+
+create table sources (
+  id uuid primary key default gen_random_uuid(),
+  track_id uuid references tracks(id) on delete cascade,
+  type text check (type in ('facebook','usabmx')) not null,
+  url text not null,
+  last_checked_at timestamptz
+);
+
+create table events (
+  id uuid primary key default gen_random_uuid(),
+  track_id uuid references tracks(id) on delete cascade,
+  source_id uuid references sources(id) on delete set null,
+  title text not null,
+  description text,
+  start_at timestamptz not null,
+  end_at timestamptz,
+  status text default 'scheduled' check (status in ('scheduled','updated','cancelled')),
+  url text,
+  gate_fee text,
+  class text,
+  raw_html text,
+  hash text,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+create index on events (track_id, start_at);
+create index on events (start_at);
+create unique index if not exists events_dedupe_idx
+  on events (track_id, start_at, coalesce(title,''));
+
+create table alerts (
+  id uuid primary key default gen_random_uuid(),
+  track_id uuid references tracks(id) on delete cascade,
+  posted_at timestamptz not null,
+  text text not null,
+  url text
+);
+
+-- Seed tracks
+insert into tracks (name, slug, city, fb_page_url, usabmx_url, lat, lon) values
+('Mile High BMX', 'mile-high-bmx', 'Lakewood, CO', null, null, null, null),
+('Dacono BMX', 'dacono-bmx', 'Dacono, CO', null, null, null, null),
+('County Line BMX', 'county-line-bmx', 'Highlands Ranch, CO', null, null, null, null);
+
+	5.	Row Level Security (RLS)
+
+	•	Turn on RLS for events, alerts
+	•	Public read, admin write
+
+alter table events enable row level security;
+alter table alerts enable row level security;
+
+-- Everyone can read
+create policy "public read events" on events for select using (true);
+create policy "public read alerts" on alerts for select using (true);
+
+-- Admin writes via service role (no public policy needed)
+
+Done when: anon key can select from events; only service key can insert/update.
+
+⸻
+
+Phase 2 — Ingest (scrapers) (1–1.5 days)
+	6.	Create a “fetch & parse” worker (server side)
+
+	•	Add a scripts/ folder (Node/TypeScript) with Playwright
+	•	Deps: playwright, cheerio, dateparser-ts (or your favorite), node-fetch
+	•	Make .env.local with SUPABASE_SERVICE_ROLE_KEY
+
+Structure
+
+scripts/
+  fetchUsaBmx.ts
+  fetchFacebook.ts
+  normalize.ts
+  upsert.ts
+  cron.ts
+
+	7.	USA BMX parser (MVP)
+
+	•	Hardcode each track’s USA BMX event page URL for now
+	•	Fetch HTML → extract Upcoming Events rows (title, date, time, link)
+	•	Convert to start_at (assume Mountain Time) with America/Denver
+	•	Upsert into events using (track_id, start_at, title) as key
+
+Done when: running ts-node scripts/fetchUsaBmx.ts inserts real events.
+	8.	Facebook posts → alerts (Phase 1.5 / optional)
+
+	•	Fast path MVP: skip API; scrape public page HTML for latest 10 posts (very polite interval), extract text + any timestamps, insert into alerts.
+	•	Better path: ask page admins for Graph API app access; switch scraper later.
+
+Done when: you can list last 3 alerts per track in DB.
+	9.	Cron / Scheduler
+
+	•	Use GitHub Actions or Supabase Edge Function + cron to run:
+	•	USA BMX: every 6h
+	•	Facebook: every 2–3h (or evenings on race days)
+	•	On success, call a rebuild hook (optional) to refresh ISR pages.
+
+Done when: events stay fresh without manual runs.
+
+⸻
+
+Phase 3 — API & Calendar (½–1 day)
+	10.	Public ICS endpoint
+
+	•	Create pages/api/calendar/[slug].ics.ts
+	•	Query events (future 90 days) filtered by track or all
+	•	Use ical-generator to emit ICS
+
+Done when:
+	•	denverbmx.com/api/calendar/all.ics downloads
+	•	Subscribing in Google/Apple Calendar shows events
+
+	11.	Public JSON endpoints (MVP)
+
+	•	GET /api/events?track=slug → array of normalized events
+	•	GET /api/alerts?track=slug → latest alerts
+
+Done when: frontend can render without DB SDK (handy for caching).
+
+⸻
+
+Phase 4 — Frontend Pages (1 day)
+	12.	Home page
+
+	•	“This Week” agenda (next 10 events across all tracks, merged & sorted)
+	•	Big buttons: Subscribe to Calendar, Track Pages, New Rider?
+	•	Alert bar (if alerts in last 12h contain “cancelled”/“weather”)
+
+	13.	Calendar page
+
+	•	Month + agenda views (FullCalendar)
+	•	Track filters (checkboxes: Mile High, Dacono, County Line)
+	•	“Subscribe” buttons (All / per-track)
+
+	14.	Track pages
+
+	•	/mile-high-bmx, /dacono-bmx, /county-line-bmx
+	•	About, map, last 3 alerts, upcoming events list, per-track ICS link
+
+	15.	New Rider page
+
+	•	What to bring, fees overview, waiver links, FAQ (helmet, long sleeves, etc.)
+	•	Email capture (“DENBMX Weekly Gate Drop”)
+
+Done when: you can navigate, filter, and subscribe to calendars.
+
+⸻
+
+Phase 5 — Admin Lite (½ day)
+	16.	Minimal admin (password-protected route)
+
+	•	/admin/login (Supabase Auth)
+	•	/admin/review table:
+	•	shows newly parsed events with confidence flags (you can ship MVP without ML—add a “flag if title or time changed from last version”)
+	•	button: “Mark as verified” or “Hide”
+	•	Toggle Site Alert (free text + expiry)
+
+Done when: you can override odd parses and post a banner.
+
+⸻
+
+Phase 6 — Notifications (optional, ½ day)
+	17.	Email (cheap MVP)
+
+	•	Add newsletter_subscribers (email, track_prefs json)
+	•	Vercel Cron every Thu 9am MT: send “This Weekend” email via Resend/Sendgrid
+
+	18.	SMS (stretch)
+
+	•	Twilio: per-track opt-in lists
+	•	Send SMS if an alert containing “cancelled”, “postponed”, or “gate” lands within 4h of start time
+
+Done when: you can sign up and receive a weekly email (and/or SMS alert).
+
+⸻
+
+Phase 7 — Branding & Merch (2–3 hours)
+	19.	Drop in brand
+
+	•	Add the DEN/BMX logo (black + white) to header/footer
+	•	Favicon + social card
+
+	20.	Merch page
+
+	•	Connect Printful/Printify: hat, tee, hoodie, stickers
+	•	$2/item to Scholarship fund (note in product descriptions)
+
+Done when: users can buy swag; you can tally monthly donations.
+
+⸻
+
+Phase 8 — Go-to-Market (½ day)
+	21.	Redirects & SEO
+
+	•	denverbmx.com/subscribe → explains calendar + one-click links
+	•	SEO pages: “BMX for Kids in Denver,” “Beginner BMX Checklist,” “Denver BMX Schedule (Live)”
+	•	OpenGraph images per track
+
+	22.	Partner outreach
+
+	•	Email each track: “We centralize schedules for free. Want editor access? Add your official Google Calendar URL here.”
+	•	Ask for permission to display logos + link back to their pages.
+
+Done when: tracks acknowledge and send their feed links (even if later).
+
+⸻
+
+Minimal Folder Structure
+
+denbmx/
+  apps/web/
+    pages/
+      index.tsx
+      calendar.tsx
+      new-rider.tsx
+      [track].tsx
+      api/
+        calendar/[slug].ics.ts
+        events.ts
+        alerts.ts
+    components/
+      EventList.tsx
+      TrackFilter.tsx
+      AlertBar.tsx
+    lib/
+      supabaseClient.ts
+      fetchEvents.ts
+      format.ts
+  scripts/
+    fetchUsaBmx.ts
+    fetchFacebook.ts
+    normalize.ts
+    upsert.ts
+    cron.ts
+
+
+⸻
+
+Acceptance Criteria for “MVP Complete”
+	•	Users can see the next 30–90 days of events across all 3 tracks in one list & calendar view
+	•	Users can subscribe (ICS) to All and per-track feeds
+	•	Events auto-refresh daily (cron working)
+	•	Track pages exist with map + upcoming events
+	•	New Rider page exists
+	•	Admin page can post a site-wide alert and hide/confirm events
+	•	Basic brand applied
+
+⸻
+
+Nice-to-Have (after MVP)
+	•	Toggle detection for “Cancelled/Postponed” via keyword & emoji patterns
+	•	Confidence scoring (title/time changed → requires admin click)
+	•	Graph API for FB (replace HTML scraping)
+	•	Sponsor module + placements on homepage and newsletter
+	•	Rider leaderboard (laps/practices this month)
+
+⸻
+
+If you want, I can generate:
+	•	a starter SQL migration file,
+	•	a Next.js ICS endpoint you can paste in, and
+	•	a USA BMX HTML parser skeleton you can run with Playwright.
