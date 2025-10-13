@@ -5,15 +5,39 @@ import Link from 'next/link';
 import QRCode from 'react-qr-code';
 
 const BITCOIN_ADDRESS = 'bc1qfqet3x22wgufxcdn8xusqktvgpyfk508wjdven';
+const LIGHTNING_ADDRESS = 'ryguy022@strike.me';
+const CASHAPP_TAG = '$rylanhesscash';
+const VENMO_HANDLE = '@Rylan-Hess';
 const SUGGESTED_AMOUNT = 15;
 
 export default function DonatePage() {
-  const [copied, setCopied] = useState(false);
+  const [copiedBitcoin, setCopiedBitcoin] = useState(false);
+  const [copiedLightning, setCopiedLightning] = useState(false);
+  const [copiedCashApp, setCopiedCashApp] = useState(false);
+  const [copiedVenmo, setCopiedVenmo] = useState(false);
 
-  const handleCopyAddress = () => {
+  const handleCopyBitcoin = () => {
     navigator.clipboard.writeText(BITCOIN_ADDRESS);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 3000);
+    setCopiedBitcoin(true);
+    setTimeout(() => setCopiedBitcoin(false), 3000);
+  };
+
+  const handleCopyLightning = () => {
+    navigator.clipboard.writeText(LIGHTNING_ADDRESS);
+    setCopiedLightning(true);
+    setTimeout(() => setCopiedLightning(false), 3000);
+  };
+
+  const handleCopyCashApp = () => {
+    navigator.clipboard.writeText(CASHAPP_TAG);
+    setCopiedCashApp(true);
+    setTimeout(() => setCopiedCashApp(false), 3000);
+  };
+
+  const handleCopyVenmo = () => {
+    navigator.clipboard.writeText(VENMO_HANDLE);
+    setCopiedVenmo(true);
+    setTimeout(() => setCopiedVenmo(false), 3000);
   };
 
   return (
@@ -29,7 +53,7 @@ export default function DonatePage() {
 
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="text-6xl mb-4">💛</div>
+          <div className="text-6xl mb-4">💛 ₿ $</div>
           <h1 className="text-4xl font-bold text-white mb-4">
             Support DEN BMX
           </h1>
@@ -38,10 +62,9 @@ export default function DonatePage() {
           </p>
         </div>
 
-        {/* Main Card */}
+        {/* Story Card */}
         <div className="bg-white rounded-lg shadow-xl p-8 mb-8">
-          {/* Story */}
-          <div className="mb-8">
+          <div className="mb-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
               Why Donate?
             </h2>
@@ -56,9 +79,9 @@ export default function DonatePage() {
             </p>
           </div>
 
-          {/* Donation Info */}
-          <div className="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-6 mb-6">
-            <div className="flex items-center justify-between mb-4">
+          {/* Suggested Amount */}
+          <div className="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-6">
+            <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-bold text-gray-900">
                   Suggested Amount
@@ -66,54 +89,135 @@ export default function DonatePage() {
                 <p className="text-3xl font-bold text-yellow-600">
                   ${SUGGESTED_AMOUNT}
                 </p>
-                <p className="text-sm text-gray-600 mt-1">
-                  ~0.00015 BTC (approximate)
-                </p>
               </div>
               <div className="text-5xl">🚴</div>
             </div>
           </div>
+        </div>
 
-          {/* QR Code */}
-          <div className="mb-6 flex justify-center">
-            <div className="bg-white p-4 rounded-lg border-4 border-gray-200 shadow-lg">
-              <QRCode
-                value={`bitcoin:${BITCOIN_ADDRESS}`}
-                size={200}
-                level="M"
-              />
+        {/* Bitcoin Preferred Badge */}
+        <div className="bg-orange-500 text-white text-center py-2 px-4 rounded-lg mb-6 font-bold shadow-lg text-sm">
+          ₿ Bitcoin Preferred
+        </div>
+
+        {/* Payment Options Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+          {/* Bitcoin On-Chain */}
+          <div className="bg-white rounded-lg shadow-lg p-4">
+            <div className="text-center mb-3">
+              <h2 className="text-lg font-bold text-gray-900 mb-1">
+                ₿ Bitcoin
+              </h2>
+              <p className="text-xs text-orange-600 font-semibold">Recommended</p>
             </div>
+
+            <div className="mb-3 flex justify-center">
+              <div className="bg-white p-2 rounded-lg border-2 border-orange-400">
+                <QRCode
+                  value={`bitcoin:${BITCOIN_ADDRESS}`}
+                  size={120}
+                  level="M"
+                />
+              </div>
+            </div>
+
+            <div className="mb-3">
+              <div className="bg-gray-50 border border-gray-300 rounded p-2">
+                <code className="text-xs text-gray-800 break-all font-mono">
+                  {BITCOIN_ADDRESS}
+                </code>
+              </div>
+            </div>
+
+            <button
+              onClick={handleCopyBitcoin}
+              className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-3 rounded-lg transition-colors text-sm"
+            >
+              {copiedBitcoin ? '✓ Copied!' : '📋 Copy'}
+            </button>
           </div>
 
-          {/* Bitcoin Address */}
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-3 text-center">
-              Bitcoin Address
-            </h3>
-            <div className="bg-gray-50 border-2 border-gray-300 rounded-lg p-4">
-              <code className="text-sm text-gray-800 break-all font-mono">
-                {BITCOIN_ADDRESS}
-              </code>
+          {/* Lightning Network */}
+          <div className="bg-white rounded-lg shadow-lg p-4">
+            <div className="text-center mb-3">
+              <h2 className="text-lg font-bold text-gray-900 mb-1">
+                ⚡ Lightning
+              </h2>
+              <p className="text-xs text-purple-600 font-semibold">Instant</p>
             </div>
+
+            <div className="mb-3 flex justify-center">
+              <div className="bg-white p-2 rounded-lg border-2 border-purple-400">
+                <QRCode
+                  value={`lightning:${LIGHTNING_ADDRESS}`}
+                  size={120}
+                  level="M"
+                />
+              </div>
+            </div>
+
+            <div className="mb-3">
+              <div className="bg-gray-50 border border-gray-300 rounded p-2">
+                <code className="text-xs text-gray-800 break-all font-mono">
+                  {LIGHTNING_ADDRESS}
+                </code>
+              </div>
+            </div>
+
+            <button
+              onClick={handleCopyLightning}
+              className="w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-3 rounded-lg transition-colors text-sm"
+            >
+              {copiedLightning ? '✓ Copied!' : '📋 Copy'}
+            </button>
           </div>
 
-          {/* Copy Button */}
-          <button
-            onClick={handleCopyAddress}
-            className="w-full bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-bold py-4 px-6 rounded-lg transition-colors shadow-lg mb-4"
-          >
-            {copied ? '✓ Address Copied!' : '📋 Copy Bitcoin Address'}
-          </button>
+          {/* Alternative Payment Methods */}
+          <div className="bg-white rounded-lg shadow-lg p-4">
+            <div className="text-center mb-3">
+              <h2 className="text-lg font-bold text-gray-900 mb-1">
+                $ Traditional
+              </h2>
+              <p className="text-xs text-gray-600 font-semibold">Alternative</p>
+            </div>
 
-          {/* Instructions */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <h4 className="font-semibold text-blue-900 mb-2">How to Donate:</h4>
-            <ol className="list-decimal list-inside space-y-1 text-blue-800 text-sm">
-              <li>Scan the QR code with your Bitcoin wallet app, OR</li>
-              <li>Copy the Bitcoin address above</li>
-              <li>Open your Bitcoin wallet and paste the address</li>
-              <li>Send any amount - every satoshi counts! 💛</li>
-            </ol>
+            {/* Cash App */}
+            <div className="mb-3">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-semibold text-gray-900">Cash App</h3>
+                <span className="text-lg">💵</span>
+              </div>
+              <div className="bg-green-50 border border-green-300 rounded p-2 mb-2">
+                <code className="text-xs text-gray-800 font-mono font-bold">
+                  {CASHAPP_TAG}
+                </code>
+              </div>
+              <button
+                onClick={handleCopyCashApp}
+                className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-3 rounded-lg transition-colors text-sm mb-3"
+              >
+                {copiedCashApp ? '✓ Copied!' : '📋 Copy'}
+              </button>
+            </div>
+
+            {/* Venmo */}
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-semibold text-gray-900">Venmo</h3>
+                <span className="text-lg">💳</span>
+              </div>
+              <div className="bg-blue-50 border border-blue-300 rounded p-2 mb-2">
+                <code className="text-xs text-gray-800 font-mono font-bold">
+                  {VENMO_HANDLE}
+                </code>
+              </div>
+              <button
+                onClick={handleCopyVenmo}
+                className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-3 rounded-lg transition-colors text-sm"
+              >
+                {copiedVenmo ? '✓ Copied!' : '📋 Copy'}
+              </button>
+            </div>
           </div>
         </div>
 

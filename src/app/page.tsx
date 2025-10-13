@@ -34,8 +34,8 @@ export default function Home() {
         {/* Action Buttons */}
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <Link href="/donate" className="bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-bold py-6 px-6 rounded-lg transition-colors shadow-lg block">
-            <div className="text-2xl mb-2">💛</div>
-            <div>Donate via Bitcoin</div>
+            <div className="text-2xl mb-2">💛 ₿ $</div>
+            <div>Donate</div>
             <div className="text-sm opacity-75 mt-1">Buy my son a bike tube • $15 suggested</div>
           </Link>
 
