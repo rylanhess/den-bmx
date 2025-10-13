@@ -1,12 +1,68 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
 # Dependencies
 node_modules/
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
 package-lock.json
 yarn.lock
 
-# Python
+# Testing
+/coverage
+.nyc_output/
+*.test.js.snap
+
+# Next.js
+/.next/
+/out/
+
+# Production
+/build
+dist/
+
+# Vercel
+.vercel
+
+# Environment variables
+.env*
+.env.local
+.env.*.local
+
+# Debug & Logs
+logs/
+*.log
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+*.pem
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Python (if needed)
 __pycache__/
 *.py[cod]
 *$py.class
@@ -16,49 +72,9 @@ venv/
 env/
 ENV/
 *.egg-info/
-dist/
-build/
-
-# IDEs and Editors
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-
-# Environment variables
-.env
-.env.local
-.env.*.local
-
-# Logs
-logs/
-*.log
-
-# Database
-*.db
-*.sqlite
-*.sqlite3
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Build outputs
-dist/
-build/
-out/
-.next/
-.cache/
-
-# Testing
-coverage/
-.nyc_output/
-*.test.js.snap
 
 # Misc
+.cache/
 .tmp/
 .temp/
 *.tmp
-
