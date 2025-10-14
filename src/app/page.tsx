@@ -2,6 +2,7 @@ import Link from 'next/link';
 import ThisWeeksEvents from '@/components/ThisWeeksEvents';
 import DataRefreshBanner from '@/components/DataRefreshBanner';
 import TracksShowcase from '@/components/TracksShowcase';
+import AlertsBanner from '@/components/AlertsBanner';
 
 export default function Home() {
   return (
@@ -14,10 +15,8 @@ export default function Home() {
         <div className="absolute bottom-40 right-40 w-40 h-40 bg-lime-400 animate-float"></div>
       </div>
 
-      {/* Alert Bar - BLINKING */}
-      <div className="bg-yellow-400 text-black px-4 py-3 text-center font-black border-b-8 border-black animate-blink relative z-10">
-        <span className="text-2xl">⚠️</span> WEATHER UPDATES AND CANCELLATIONS WILL APPEAR HERE <span className="text-2xl">⚠️</span>
-      </div>
+      {/* Alert Bar - Shows real cancellations and weather updates */}
+      <AlertsBanner />
 
       {/* Data Refresh Status Banner */}
       <DataRefreshBanner />
@@ -49,7 +48,7 @@ export default function Home() {
         <TracksShowcase />
 
         {/* Action Buttons - ATTENTION GRABBING */}
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <Link href="/donate" className="bg-gradient-to-br from-yellow-400 to-pink-500 hover:from-pink-500 hover:to-yellow-400 text-black font-black py-8 px-6 border-8 border-black shadow-2xl block transform hover:scale-110 transition-all animate-pulse-crazy">
             <div className="text-5xl mb-3 animate-float">💛 ₿ $</div>
             <div className="text-2xl">DONATE NOW</div>
@@ -66,6 +65,12 @@ export default function Home() {
             <div className="text-5xl mb-3 animate-shake">🚴</div>
             <div className="text-2xl">NEW RIDER?</div>
             <div className="text-sm font-bold mt-2 bg-black text-lime-400 px-3 py-1 inline-block">START HERE • GET INFO</div>
+          </Link>
+
+          <Link href="/contact" className="bg-gradient-to-br from-orange-400 to-red-600 hover:from-red-600 hover:to-orange-400 text-white font-black py-8 px-6 border-8 border-black shadow-2xl block transform hover:scale-110 hover:rotate-2 transition-all animate-bounce-slow">
+            <div className="text-5xl mb-3 animate-pulse">📧</div>
+            <div className="text-2xl">CONTACT ME</div>
+            <div className="text-sm font-bold mt-2 bg-black text-orange-400 px-3 py-1 inline-block">GET IN TOUCH • SAY HI</div>
           </Link>
         </div>
 

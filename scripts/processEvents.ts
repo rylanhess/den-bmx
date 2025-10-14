@@ -19,6 +19,7 @@ interface EventRecord {
   end_at: string | null;
   status: 'scheduled' | 'updated' | 'cancelled';
   url: string | null;
+  image: string | null;
   gate_fee?: string | null;
   class?: string | null;
 }
@@ -386,6 +387,7 @@ const eventToRecord = (
     end_at: endDate ? endDate.toISOString() : null,
     status: extractedEvent.status,
     url: alert.url,
+    image: alert.image,
     gate_fee: extractedEvent.gateFee,
     class: extractedEvent.eventClass
   };

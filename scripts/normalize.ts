@@ -14,6 +14,7 @@ export interface AlertRecord {
   posted_at: string;  // ISO timestamp
   text: string;
   url: string | null;
+  image: string | null;
 }
 
 /**
@@ -40,7 +41,8 @@ export const normalizeToAlert = (
     track_id: trackId,
     posted_at: post.timestamp ? post.timestamp.toISOString() : new Date().toISOString(),
     text: post.text.trim(),
-    url: post.url
+    url: post.url,
+    image: post.image
   };
 };
 

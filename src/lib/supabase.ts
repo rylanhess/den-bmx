@@ -48,6 +48,7 @@ export interface Event {
   end_at: string | null;
   status: 'scheduled' | 'updated' | 'cancelled';
   url: string | null;
+  image: string | null;
   gate_fee: string | null;
   class: string | null;
   created_at: string;
@@ -61,6 +62,7 @@ export interface Alert {
   posted_at: string;
   text: string;
   url: string | null;
+  image: string | null;
   track?: Track;
 }
 

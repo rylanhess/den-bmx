@@ -65,6 +65,11 @@ body {
   100% { border-color: #ff00ff; }
 }
 
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
 .animate-blink {
   animation: blink 2s infinite;
 }
@@ -91,4 +96,8 @@ body {
 
 .animate-border-spin {
   animation: border-spin 2s linear infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
 }

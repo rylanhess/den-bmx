@@ -168,11 +168,13 @@ const ThisWeeksEvents = () => {
           {events.map((event) => (
             <article
               key={event.id}
-              className="bg-slate-800 rounded-lg border border-slate-700 hover:border-slate-600 transition-colors"
+              className="bg-slate-800 rounded-lg border border-slate-700 hover:border-slate-600 transition-colors overflow-hidden"
             >
-              <div className="p-4">
-                <div className="flex justify-between items-start gap-4">
-                  <div className="flex-1">
+              <div className="flex flex-col sm:flex-row">
+                {/* Main content */}
+                <div className="flex-1 p-4">
+                  <div className="flex justify-between items-start gap-4">
+                    <div className="flex-1">
                     {/* Track Name */}
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-yellow-500 font-semibold text-sm">
@@ -239,13 +241,31 @@ const ThisWeeksEvents = () => {
                     )}
                   </div>
 
-                  {/* Class Badge */}
-                  {event.class && (
-                    <div className="bg-slate-700 text-slate-300 px-3 py-1 rounded text-xs font-medium whitespace-nowrap">
-                      {event.class}
-                    </div>
-                  )}
+                    {/* Class Badge */}
+                    {event.class && (
+                      <div className="bg-slate-700 text-slate-300 px-3 py-1 rounded text-xs font-medium whitespace-nowrap">
+                        {event.class}
+                      </div>
+                    )}
+                  </div>
                 </div>
+                
+                {/* Image on the right side */}
+                {event.image && (
+                  <a
+                    href={event.image}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="sm:w-64 sm:flex-shrink-0 bg-slate-900 flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity"
+                    title="Click to view full size image"
+                  >
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className="w-full h-48 sm:h-64 object-contain"
+                    />
+                  </a>
+                )}
               </div>
             </article>
           ))}

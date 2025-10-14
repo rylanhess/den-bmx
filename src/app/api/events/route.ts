@@ -17,6 +17,24 @@ const TRACK_PRIORITY: Record<string, number> = {
   'dacono-bmx': 3
 };
 
+// Keywords that indicate a cancellation
+const CANCELLATION_KEYWORDS = [
+  'no practice',
+  'no gate',
+  'cancel',
+  'cancelled',
+  'canceled',
+  'postpone',
+  'postponed',
+  'reschedule',
+  'rescheduled',
+];
+
+const isCancelled = (title: string, description: string | null): boolean => {
+  const combinedText = `${title} ${description || ''}`.toLowerCase();
+  return CANCELLATION_KEYWORDS.some(keyword => combinedText.includes(keyword));
+};
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -67,8 +85,13 @@ export async function GET(request: Request) {
       );
     }
     
+    // Filter out cancelled events based on keywords in title/description
+    const activeEvents = (events || []).filter(event => {
+      return !isCancelled(event.title, event.description);
+    });
+    
     // Sort events: first by date, then by track priority
-    const sortedEvents = (events || []).sort((a, b) => {
+    const sortedEvents = activeEvents.sort((a, b) => {
       const dateA = new Date(a.start_at).getTime();
       const dateB = new Date(b.start_at).getTime();
       

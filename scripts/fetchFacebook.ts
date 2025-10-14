@@ -12,6 +12,7 @@ export interface FacebookPost {
   readonly timestamp: Date | null;
   readonly timestampText?: string;
   readonly url: string | null;
+  readonly image: string | null;
   readonly isEvent: boolean;
   readonly hasAlertKeywords: boolean;
 }
@@ -91,7 +92,7 @@ export const isEventRelated = (text: string): boolean => {
 };
 
 /**
- * Parse relative timestamp (e.g., "2h", "3d", "1w") to Date
+ * Parse timestamp (relative like "2h ago" or absolute like "October 8 at 4:09 PM") to Date
  */
 export const parseRelativeTimestamp = (timestampText: string): Date | null => {
   const now = new Date();
@@ -101,15 +102,73 @@ export const parseRelativeTimestamp = (timestampText: string): Date | null => {
     return now;
   }
   
-  // Match patterns like "2h", "3d", "1w", "2 hrs", "3 days", etc.
-  const match = timestampText.match(/(\d+)\s*(m|min|mins|minute|minutes|h|hr|hrs|hour|hours|d|day|days|w|week|weeks)/i);
+  // Try to parse absolute dates first (e.g., "October 8 at 4:09 PM", "Sept 30 at 2:51 PM")
+  // Facebook shows these for posts older than ~7 days
+  const absoluteMatch = timestampText.match(/([A-Za-z]+)\s+(\d{1,2})(?:\s+at\s+(\d{1,2}):(\d{2})\s*(AM|PM)?)?/i);
+  if (absoluteMatch) {
+    const [, monthStr, dayStr, hourStr, minuteStr, ampm] = absoluteMatch;
+    
+    const months: Record<string, number> = {
+      'jan': 0, 'january': 0,
+      'feb': 1, 'february': 1,
+      'mar': 2, 'march': 2,
+      'apr': 3, 'april': 3,
+      'may': 4,
+      'jun': 5, 'june': 5,
+      'jul': 6, 'july': 6,
+      'aug': 7, 'august': 7,
+      'sep': 8, 'sept': 8, 'september': 8,
+      'oct': 9, 'october': 9,
+      'nov': 10, 'november': 10,
+      'dec': 11, 'december': 11
+    };
+    
+    const monthLower = monthStr.toLowerCase();
+    const month = months[monthLower];
+    const day = parseInt(dayStr, 10);
+    
+    if (month !== undefined && day > 0 && day <= 31) {
+      // Determine the year (if post is from this year or last year)
+      const currentYear = now.getFullYear();
+      const currentMonth = now.getMonth();
+      
+      // If the month is in the future, assume it's from last year
+      const year = month > currentMonth ? currentYear - 1 : currentYear;
+      
+      // Parse time if available
+      let hour = 0;
+      let minute = 0;
+      
+      if (hourStr && minuteStr) {
+        hour = parseInt(hourStr, 10);
+        minute = parseInt(minuteStr, 10);
+        
+        // Convert to 24-hour format if AM/PM specified
+        if (ampm) {
+          if (ampm.toUpperCase() === 'PM' && hour !== 12) {
+            hour += 12;
+          } else if (ampm.toUpperCase() === 'AM' && hour === 12) {
+            hour = 0;
+          }
+        }
+      }
+      
+      // Create date in Denver timezone (America/Denver = Mountain Time)
+      // Facebook timestamps are in the page's timezone
+      const date = new Date(year, month, day, hour, minute);
+      return date;
+    }
+  }
   
-  if (!match) {
+  // Match patterns like "2h", "3d", "1w", "2 hrs", "3 days", etc.
+  const relativeMatch = timestampText.match(/(\d+)\s*(m|min|mins|minute|minutes|h|hr|hrs|hour|hours|d|day|days|w|week|weeks)/i);
+  
+  if (!relativeMatch) {
     return null;
   }
   
-  const value = parseInt(match[1], 10);
-  const unit = match[2].toLowerCase();
+  const value = parseInt(relativeMatch[1], 10);
+  const unit = relativeMatch[2].toLowerCase();
   
   if (unit.startsWith('m')) {
     now.setMinutes(now.getMinutes() - value);
@@ -166,12 +225,19 @@ const extractPostsFromPage = async (page: Page, maxPosts: number): Promise<any[]
           continue;
         }
         
-        // Extract timestamp
+        // Extract timestamp - look for both relative (2h, 3d) and absolute (October 8 at 4:09 PM) formats
         let timestampText = '';
         const timeElements = article.querySelectorAll('a[href*="/posts/"], a[href*="story_fbid"]');
         for (const timeElem of timeElements) {
           const spanText = timeElem.textContent?.trim() || '';
-          if (spanText && (spanText.includes('h') || spanText.includes('d') || spanText.includes('w') || spanText.includes('min'))) {
+          // Check for relative times (2h, 3d, 1w, etc.) or absolute dates (month names)
+          if (spanText && (
+            spanText.includes('h') || 
+            spanText.includes('d') || 
+            spanText.includes('w') || 
+            spanText.includes('min') ||
+            /January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec/i.test(spanText)
+          )) {
             timestampText = spanText;
             break;
           }
@@ -187,11 +253,33 @@ const extractPostsFromPage = async (page: Page, maxPosts: number): Promise<any[]
           }
         }
         
+        // Extract post image (look for the main post image)
+        let imageUrl = null;
+        const images = article.querySelectorAll('img');
+        for (const img of images) {
+          const src = (img as HTMLImageElement).src;
+          // Filter out profile pics, icons, and very small images
+          const width = (img as HTMLImageElement).naturalWidth || (img as HTMLImageElement).width;
+          const height = (img as HTMLImageElement).naturalHeight || (img as HTMLImageElement).height;
+          
+          // Look for actual post images (not profile pics or icons)
+          if (src && 
+              !src.includes('profile') && 
+              !src.includes('emoji') &&
+              !src.includes('static') &&
+              width > 100 && 
+              height > 100) {
+            imageUrl = src;
+            break;
+          }
+        }
+        
         postElements.push({
           text,
           timestamp: null, // Will parse on server side
           timestampText,
           url: postUrl,
+          image: imageUrl,
           isEvent: false, // Will determine on server side
           hasAlertKeywords: false // Will determine on server side
         });
@@ -280,6 +368,7 @@ export const scrapeFacebookPage = async (config: TrackConfig): Promise<ScraperRe
         timestamp,
         timestampText: post.timestampText,
         url: post.url,
+        image: post.image,
         isEvent,
         hasAlertKeywords
       };
