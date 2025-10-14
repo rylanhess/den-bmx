@@ -8,12 +8,12 @@
 import { chromium, Browser, Page } from 'playwright';
 
 export interface FacebookPost {
-  text: string;
-  timestamp: Date | null;
-  timestampText?: string;
-  url: string | null;
-  isEvent: boolean;
-  hasAlertKeywords: boolean;
+  readonly text: string;
+  readonly timestamp: Date | null;
+  readonly timestampText?: string;
+  readonly url: string | null;
+  readonly isEvent: boolean;
+  readonly hasAlertKeywords: boolean;
 }
 
 export interface ScraperResult {
@@ -278,6 +278,7 @@ export const scrapeFacebookPage = async (config: TrackConfig): Promise<ScraperRe
       return {
         text: post.text,
         timestamp,
+        timestampText: post.timestampText,
         url: post.url,
         isEvent,
         hasAlertKeywords

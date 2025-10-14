@@ -261,6 +261,49 @@ Posts are marked as event-related if they mention:
 - registration
 - sign up
 
+## 🔄 Deduplication
+
+The scrapers now include **smart pre-check deduplication** to prevent duplicate alerts in your database.
+
+### How It Works
+
+1. **URL-Based Deduplication (Primary)**
+   - Checks if post URL already exists in database
+   - Most reliable method - URLs are unique identifiers
+
+2. **Text + Timestamp Deduplication (Fallback)**  
+   - For posts without URLs
+   - Compares first 100 characters of text
+   - Considers posts within 1 hour as duplicates
+
+3. **Batch Performance**
+   - Single database query for all URLs
+   - Fetches recent alerts once, compares in-memory
+   - 2-3 queries instead of N queries
+
+### Benefits
+
+✅ No duplicate records  
+✅ Faster performance (batched queries)  
+✅ Safe to run multiple times  
+✅ Clear reporting (inserted vs skipped)
+
+### Optional: Database Constraints
+
+For additional protection, add unique indexes:
+
+```bash
+psql -h your-db-host -U postgres -d your-db < scripts/add-unique-constraint.sql
+```
+
+### Learn More
+
+See **[DEDUPLICATION_GUIDE.md](./DEDUPLICATION_GUIDE.md)** for:
+- Detailed explanation of deduplication logic
+- Cleaning up existing duplicates
+- Troubleshooting tips
+- Custom deduplication rules
+
 ## Troubleshooting
 
 ### "Cannot find module 'playwright'"

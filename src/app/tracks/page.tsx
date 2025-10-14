@@ -1,11 +1,8 @@
-import type { Metadata } from "next";
-import Link from "next/link";
+'use client';
 
-export const metadata: Metadata = {
-  title: "BMX Tracks | DEN BMX - Denver Metro BMX Racing",
-  description:
-    "Discover Mile High, County Line, and Dacono BMX tracks in the Denver metro area. Find track information, schedules, and links to stay connected.",
-};
+import { useEffect, useState } from 'react';
+import Link from "next/link";
+import type { Track } from '@/lib/supabase';
 
 const TrackLink = ({
   href,
@@ -25,130 +22,187 @@ const TrackLink = ({
 );
 
 const TrackCard = ({
-  name,
-  location,
+  track,
+  color,
   description,
   uniqueFeatures,
-  links,
-  color,
 }: {
-  readonly name: string;
-  readonly location: string;
-  readonly description: string;
-  readonly uniqueFeatures: readonly string[];
-  readonly links: readonly { readonly label: string; readonly url: string }[];
+  readonly track: Track;
   readonly color: string;
+  readonly description?: string;
+  readonly uniqueFeatures?: readonly string[];
 }) => (
-  <div className={`bg-black border-8 border-${color} p-6 transform hover:scale-105 transition-transform`}>
-    <div className="mb-4">
-      <h2 className={`text-3xl font-black text-${color} mb-2 animate-pulse-crazy`}>{name}</h2>
-      <div className={`flex items-center gap-2 text-white font-bold bg-${color} px-3 py-1 inline-block border-2 border-black`}>
-        📍 <span>{location}</span>
+  <div className={`bg-black border-8 border-${color} overflow-hidden transform hover:scale-105 transition-transform`}>
+    {/* Wallpaper/Header Image */}
+    {track.wallpaper && (
+      <div className="relative h-48 w-full overflow-hidden">
+        <img 
+          src={track.wallpaper} 
+          alt={`${track.name} wallpaper`}
+          className="w-full h-full object-cover"
+        />
+        <div className={`absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent`}></div>
+        
+        {/* Logo overlay - Fixed circular container */}
+        {track.logo && (
+          <div className="absolute top-4 left-4 w-20 h-20 bg-white rounded-full shadow-xl border-4 border-yellow-400 overflow-hidden flex items-center justify-center p-2">
+            <img 
+              src={track.logo} 
+              alt={`${track.name} logo`}
+              className="w-full h-full object-contain"
+            />
+          </div>
+        )}
       </div>
-    </div>
+    )}
+    
+    {/* Logo only if no wallpaper - Fixed circular container */}
+    {!track.wallpaper && track.logo && (
+      <div className="flex justify-center py-6 bg-gradient-to-br from-cyan-900 to-purple-900">
+        <div className="w-28 h-28 bg-white rounded-full shadow-xl border-4 border-yellow-400 overflow-hidden flex items-center justify-center p-3">
+          <img 
+            src={track.logo} 
+            alt={`${track.name} logo`}
+            className="w-full h-full object-contain"
+          />
+        </div>
+      </div>
+    )}
+    
+    <div className="p-6">
+      <div className="mb-4">
+        <h2 className={`text-3xl font-black text-${color} mb-2 animate-pulse-crazy`}>{track.name}</h2>
+        <div className={`flex items-center gap-2 text-white font-bold bg-${color} px-3 py-1 inline-block border-2 border-black`}>
+          📍 <span>{track.city}</span>
+        </div>
+      </div>
 
-    <p className="text-cyan-400 mb-4 leading-relaxed font-bold">{description}</p>
+      {description && (
+        <p className="text-cyan-400 mb-4 leading-relaxed font-bold">{description}</p>
+      )}
 
-    <div className="mb-4">
-      <h3 className={`text-xl font-black text-${color} mb-2 animate-blink`}>
-        UNIQUE FEATURES:
-      </h3>
-      <ul className="space-y-2">
-        {uniqueFeatures.map((feature, index) => (
-          <li key={index} className="text-yellow-400 font-bold border-l-4 border-pink-500 pl-3">
-            ⚡ {feature}
-          </li>
-        ))}
-      </ul>
-    </div>
+      {uniqueFeatures && uniqueFeatures.length > 0 && (
+        <div className="mb-4">
+          <h3 className={`text-xl font-black text-${color} mb-2 animate-blink`}>
+            UNIQUE FEATURES:
+          </h3>
+          <ul className="space-y-2">
+            {uniqueFeatures.map((feature, index) => (
+              <li key={index} className="text-yellow-400 font-bold border-l-4 border-pink-500 pl-3">
+                ⚡ {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
-    <div className={`border-t-4 border-${color} pt-4`}>
-      <h3 className="text-lg font-black text-white mb-3">LINKS:</h3>
-      <div className="flex flex-col gap-2">
-        {links.map((link, index) => (
-          <TrackLink key={index} href={link.url}>
-            {link.label}
-          </TrackLink>
-        ))}
+      <div className={`border-t-4 border-${color} pt-4`}>
+        <h3 className="text-lg font-black text-white mb-3">LINKS:</h3>
+        <div className="flex flex-col gap-2">
+          {track.fb_page_url && (
+            <TrackLink href={track.fb_page_url}>
+              Facebook Page
+            </TrackLink>
+          )}
+          {track.usabmx_url && (
+            <TrackLink href={track.usabmx_url}>
+              USA BMX Track Info
+            </TrackLink>
+          )}
+        </div>
       </div>
     </div>
   </div>
 );
 
+const LoadingCard = () => (
+  <div className="bg-black border-8 border-yellow-400 overflow-hidden animate-pulse">
+    <div className="h-48 bg-gray-800"></div>
+    <div className="p-6 space-y-4">
+      <div className="h-8 bg-gray-800 rounded w-3/4"></div>
+      <div className="h-6 bg-gray-800 rounded w-1/2"></div>
+      <div className="h-24 bg-gray-800 rounded"></div>
+    </div>
+  </div>
+);
+
+const ErrorState = ({ error }: { readonly error: string }) => (
+  <div className="bg-red-900/20 border-8 border-red-500 p-8 text-center">
+    <p className="text-2xl font-black text-red-400 mb-2">⚠️ ERROR LOADING TRACKS</p>
+    <p className="text-red-300">{error}</p>
+  </div>
+);
+
+const NoTracksState = () => (
+  <div className="bg-yellow-400 border-8 border-black p-8 text-center">
+    <p className="text-2xl font-black text-black">NO TRACKS FOUND</p>
+    <p className="text-black font-bold mt-2">Check back soon!</p>
+  </div>
+);
+
+// Track descriptions and features mapped by slug
+const trackInfo: Record<string, { description: string; uniqueFeatures: string[]; color: string }> = {
+  'mile-high-bmx': {
+    color: 'orange-500',
+    description: 
+      "Mile High BMX is home to the longest BMX track in the nation, offering riders an extended racing experience with challenging features throughout. This track is known for its technical layout and competitive racing environment, attracting riders from across the region.",
+    uniqueFeatures: [
+      "Longest BMX track in the United States",
+      "Challenging technical layout with extended straights",
+      "High-elevation racing (5,280+ feet) requires excellent conditioning",
+      "Active racing community with riders of all skill levels",
+    ],
+  },
+  'county-line-bmx': {
+    color: 'purple-500',
+    description:
+      "Located in David A. Lorenz Regional Park, County Line BMX is one of the only tracks in south metro Denver. Completely redesigned in January 2020, this track features modern paving and design elements. Races take place on Sundays throughout the season with gate practice available on Thursdays.",
+    uniqueFeatures: [
+      "Modern track design with 3 paved turns",
+      "Paved start hill for consistent launches",
+      "Family-friendly atmosphere welcoming all ages (3 to 60+ years)",
+      "Gate practice every Thursday during season (April-October)",
+      "Convenient location in South Suburban Parks & Recreation system",
+    ],
+  },
+  'dacono-bmx': {
+    color: 'lime-400',
+    description:
+      "Dacono BMX offers a welcoming environment for BMX racing enthusiasts in the northern Denver metro area. This track provides competitive racing opportunities while maintaining a community-focused atmosphere that encourages new riders to join the sport.",
+    uniqueFeatures: [
+      "Northern metro location serving Dacono and surrounding communities",
+      "Beginner-friendly while still challenging for experienced riders",
+      "Strong community support and volunteer involvement",
+      "Regular race schedule throughout the season",
+    ],
+  },
+};
+
 export default function TracksPage() {
-  const tracks = [
-    {
-      name: "Mile High BMX",
-      location: "Wheat Ridge, CO",
-      color: "orange-500",
-      description:
-        "Mile High BMX is home to the longest BMX track in the nation, offering riders an extended racing experience with challenging features throughout. This track is known for its technical layout and competitive racing environment, attracting riders from across the region.",
-      uniqueFeatures: [
-        "Longest BMX track in the United States",
-        "Challenging technical layout with extended straights",
-        "High-elevation racing (5,280+ feet) requires excellent conditioning",
-        "Active racing community with riders of all skill levels",
-      ],
-      links: [
-        { label: "Facebook Page", url: "https://www.facebook.com/MileHighBmx/" },
-        {
-          label: "USA BMX Track Info",
-          url: "https://www.usabmx.com/tracks/co-mile-high%20bmx",
-        },
-      ],
-    },
-    {
-      name: "County Line BMX",
-      location: "Centennial, CO",
-      color: "purple-500",
-      description:
-        "Located in David A. Lorenz Regional Park, County Line BMX is one of the only tracks in south metro Denver. Completely redesigned in January 2020, this track features modern paving and design elements. Races take place on Sundays throughout the season with gate practice available on Thursdays.",
-      uniqueFeatures: [
-        "Modern track design with 3 paved turns",
-        "Paved start hill for consistent launches",
-        "Family-friendly atmosphere welcoming all ages (3 to 60+ years)",
-        "Gate practice every Thursday during season (April-October)",
-        "Convenient location in South Suburban Parks & Recreation system",
-      ],
-      links: [
-        {
-          label: "Facebook Page",
-          url: "https://www.facebook.com/CountyLineBMX",
-        },
-        {
-          label: "South Suburban Parks & Rec",
-          url: "https://www.ssprd.org/County-Line-BMX/fbclid/IwY2xjawNZ_CZleHRuA2FlbQIxMABicmlkETE3MGdZOEVudUZyNkVra0VKAR5n_WZdNGsOjG4Z8QTmDCNxqD2pIxUIBDfvvSbp102nMSBJUq7nh3rXq6KBFQ_aem_-M7ELp5G-2H9mIffXRtGBA",
-        },
-        {
-          label: "USA BMX Track Info",
-          url: "https://www.usabmx.com/tracks/co-county-line%20bmx",
-        },
-      ],
-    },
-    {
-      name: "Dacono BMX",
-      location: "Dacono, CO",
-      color: "lime-400",
-      description:
-        "Dacono BMX offers a welcoming environment for BMX racing enthusiasts in the northern Denver metro area. This track provides competitive racing opportunities while maintaining a community-focused atmosphere that encourages new riders to join the sport.",
-      uniqueFeatures: [
-        "Northern metro location serving Dacono and surrounding communities",
-        "Beginner-friendly while still challenging for experienced riders",
-        "Strong community support and volunteer involvement",
-        "Regular race schedule throughout the season",
-      ],
-      links: [
-        {
-          label: "Facebook Page",
-          url: "https://www.facebook.com/DaconoBMXTrack/",
-        },
-        {
-          label: "USA BMX Track Info",
-          url: "https://www.usabmx.com/tracks/co-dacono-bmx",
-        },
-      ],
-    },
-  ];
+  const [tracks, setTracks] = useState<Track[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchTracks = async () => {
+      try {
+        const response = await fetch('/api/tracks');
+        if (!response.ok) {
+          throw new Error('Failed to fetch tracks');
+        }
+        const data = await response.json();
+        setTracks(data.tracks || []);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Unknown error');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTracks();
+  }, []);
+
+  const noTracks = !isLoading && !error && tracks.length === 0;
 
   return (
     <main className="min-h-screen bg-cyan-500 relative overflow-hidden">
@@ -188,12 +242,38 @@ export default function TracksPage() {
           </div>
         </div>
 
+        {/* Loading State */}
+        {isLoading && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {[1, 2, 3].map((i) => (
+              <LoadingCard key={i} />
+            ))}
+          </div>
+        )}
+
+        {/* Error State */}
+        {error && <ErrorState error={error} />}
+
+        {/* No Tracks State */}
+        {noTracks && <NoTracksState />}
+
         {/* Track Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {tracks.map((track, index) => (
-            <TrackCard key={index} {...track} />
-          ))}
-        </div>
+        {!isLoading && !error && tracks.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {tracks.map((track) => {
+              const info = trackInfo[track.slug] || { color: 'yellow-400', description: '', uniqueFeatures: [] };
+              return (
+                <TrackCard 
+                  key={track.id} 
+                  track={track}
+                  color={info.color}
+                  description={info.description}
+                  uniqueFeatures={info.uniqueFeatures}
+                />
+              );
+            })}
+          </div>
+        )}
 
         {/* Footer Info - WILD */}
         <div className="text-center bg-black border-8 border-pink-500 p-8 animate-pulse-crazy">
@@ -214,4 +294,3 @@ export default function TracksPage() {
     </main>
   );
 }
-

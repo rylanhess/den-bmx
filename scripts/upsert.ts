@@ -117,30 +117,139 @@ export const upsertScraperResults = async (
     return upsertResult;
   }
   
-  // Insert alerts one by one (allows partial success)
-  for (const alert of validAlerts) {
+  // Check for existing alerts BEFORE attempting to insert (batched for performance)
+  const alertsToInsert: AlertRecord[] = [];
+  
+  // Step 1: Batch check by URLs (most reliable identifier)
+  const alertsWithUrls = validAlerts.filter(a => a.url);
+  const alertsWithoutUrls = validAlerts.filter(a => !a.url);
+  
+  let existingUrlSet = new Set<string>();
+  
+  if (alertsWithUrls.length > 0) {
+    const urls = alertsWithUrls.map(a => a.url!);
+    try {
+      const { data, error } = await supabase
+        .from('alerts')
+        .select('url')
+        .eq('track_id', trackMapping.id)
+        .in('url', urls);
+      
+      if (!error && data) {
+        existingUrlSet = new Set(data.map((row: any) => row.url));
+      }
+    } catch (error) {
+      console.warn(`   ⚠️  Error checking existing URLs:`, error);
+    }
+  }
+  
+  // Step 2: Filter out alerts with existing URLs
+  for (const alert of alertsWithUrls) {
+    if (existingUrlSet.has(alert.url!)) {
+      upsertResult.skipped++;
+    } else {
+      alertsToInsert.push(alert);
+    }
+  }
+  
+  // Step 3: For alerts without URLs, check by text + timestamp
+  // Get recent alerts for text-based comparison
+  let recentAlerts: any[] = [];
+  
+  if (alertsWithoutUrls.length > 0) {
+    try {
+      // Get all recent alerts from past 7 days for comparison
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+      
+      const { data, error } = await supabase
+        .from('alerts')
+        .select('posted_at, text')
+        .eq('track_id', trackMapping.id)
+        .gte('posted_at', sevenDaysAgo.toISOString())
+        .order('posted_at', { ascending: false })
+        .limit(500); // Reasonable limit for recent alerts
+      
+      if (!error && data) {
+        recentAlerts = data;
+      }
+    } catch (error) {
+      console.warn(`   ⚠️  Error fetching recent alerts:`, error);
+    }
+    
+    // Compare each alert without URL against recent alerts
+    for (const alert of alertsWithoutUrls) {
+      let isDuplicate = false;
+      const postedAt = new Date(alert.posted_at);
+      const textPrefix = alert.text.substring(0, 100).toLowerCase();
+      
+      for (const existing of recentAlerts) {
+        const existingPostedAt = new Date(existing.posted_at);
+        const timeDiff = Math.abs(postedAt.getTime() - existingPostedAt.getTime());
+        
+        // Consider duplicate if:
+        // - Within 1 hour of each other AND
+        // - Text starts with same 100 characters (case-insensitive)
+        if (timeDiff < 3600000) {
+          const existingPrefix = existing.text.substring(0, 100).toLowerCase();
+          if (textPrefix === existingPrefix) {
+            isDuplicate = true;
+            break;
+          }
+        }
+      }
+      
+      if (isDuplicate) {
+        upsertResult.skipped++;
+      } else {
+        alertsToInsert.push(alert);
+      }
+    }
+  }
+  
+  console.log(`   💡 Pre-check: ${alertsToInsert.length} new alerts, ${upsertResult.skipped} duplicates skipped`);
+  
+  // Batch insert all new alerts
+  if (alertsToInsert.length > 0) {
     try {
       const { error } = await supabase
         .from('alerts')
-        .insert(alert);
+        .insert(alertsToInsert);
       
       if (error) {
-        // Check if it's a duplicate (violates unique constraint)
-        if (error.code === '23505') {
-          upsertResult.skipped++;
-        } else {
-          upsertResult.errors++;
-          upsertResult.errorMessages.push(`${error.code}: ${error.message}`);
-          console.error(`   ❌ Error inserting alert:`, error.message);
+        // If batch insert fails, fall back to individual inserts
+        console.warn(`   ⚠️  Batch insert failed, trying individual inserts: ${error.message}`);
+        
+        for (const alert of alertsToInsert) {
+          try {
+            const { error: individualError } = await supabase
+              .from('alerts')
+              .insert(alert);
+            
+            if (individualError) {
+              if (individualError.code === '23505') {
+                upsertResult.skipped++;
+              } else {
+                upsertResult.errors++;
+                upsertResult.errorMessages.push(`${individualError.code}: ${individualError.message}`);
+              }
+            } else {
+              upsertResult.inserted++;
+            }
+          } catch (e) {
+            upsertResult.errors++;
+            const errorMsg = e instanceof Error ? e.message : 'Unknown error';
+            upsertResult.errorMessages.push(errorMsg);
+          }
         }
       } else {
-        upsertResult.inserted++;
+        upsertResult.inserted = alertsToInsert.length;
       }
     } catch (error) {
       upsertResult.errors++;
       const errorMsg = error instanceof Error ? error.message : 'Unknown error';
       upsertResult.errorMessages.push(errorMsg);
-      console.error(`   ❌ Exception:`, errorMsg);
+      console.error(`   ❌ Exception during insert:`, errorMsg);
     }
   }
   

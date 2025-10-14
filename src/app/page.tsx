@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import ThisWeeksEvents from '@/components/ThisWeeksEvents';
 import DataRefreshBanner from '@/components/DataRefreshBanner';
+import TracksShowcase from '@/components/TracksShowcase';
 
 export default function Home() {
   return (
@@ -43,6 +44,9 @@ export default function Home() {
         <div className="mb-12">
           <ThisWeeksEvents />
         </div>
+
+        {/* Tracks Showcase */}
+        <TracksShowcase />
 
         {/* Action Buttons - ATTENTION GRABBING */}
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">

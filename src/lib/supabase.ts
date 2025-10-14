@@ -34,6 +34,8 @@ export interface Track {
   usabmx_url: string | null;
   lat: number | null;
   lon: number | null;
+  logo: string | null;
+  wallpaper: string | null;
   created_at: string;
 }
 
