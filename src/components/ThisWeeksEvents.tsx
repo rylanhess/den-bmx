@@ -28,10 +28,17 @@ const ThisWeeksEvents = () => {
         const data: EventsData = await response.json();
         
         // Filter out any past events (extra safety check)
+        // Compare dates at day level in Denver timezone to avoid filtering out 
+        // today's events that have midnight timestamps (unknown times)
         const now = new Date();
+        const denverNow = new Date(now.toLocaleString('en-US', { timeZone: 'America/Denver' }));
+        denverNow.setHours(0, 0, 0, 0); // Start of today
+        
         const upcomingEvents = data.events.filter(event => {
           const eventDate = new Date(event.start_at);
-          return eventDate >= now;
+          const denverEventDate = new Date(eventDate.toLocaleString('en-US', { timeZone: 'America/Denver' }));
+          denverEventDate.setHours(0, 0, 0, 0); // Start of event day
+          return denverEventDate >= denverNow;
         });
         
         setEvents(upcomingEvents);
