@@ -3,6 +3,7 @@ import ThisWeeksEvents from '@/components/ThisWeeksEvents';
 import DataRefreshBanner from '@/components/DataRefreshBanner';
 import TracksShowcase from '@/components/TracksShowcase';
 import AlertsBanner from '@/components/AlertsBanner';
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -21,8 +22,19 @@ export default function Home() {
       {/* Data Refresh Status Banner */}
       <DataRefreshBanner />
 
+      {/* Image Section */}
+      <div className="flex justify-center m-6">
+            <Image
+              src="/logo.jpeg"
+              alt="DEN BMX Logo"
+              width={200}
+              height={200}
+              className="border-8 border-yellow-400 rounded-full shadow-2xl"
+            />
+      </div>
+
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-12 md:py-20 relative z-10">
+      <main className="container mx-auto px-4 py-6 md:py-6 relative z-10">
         {/* Hero Section - WILD */}
         <div className="text-center mb-16 animate-pulse-crazy">
           <div className="inline-block bg-black border-8 border-yellow-400 p-8 shadow-2xl mb-6 animate-border-spin">

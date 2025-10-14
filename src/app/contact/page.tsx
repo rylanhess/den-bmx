@@ -33,7 +33,7 @@ export default function ContactPage() {
 
       setStatus('success');
       setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
+    } catch {
       setStatus('error');
       setErrorMessage('Oops! Something went wrong. Please try again or email me directly at hess.rylan@gmail.com');
     }
