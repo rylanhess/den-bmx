@@ -189,6 +189,13 @@ const ThisWeeksEvents = () => {
                       {event.title}
                     </h3>
 
+                    {/* Description */}
+                    {event.description && (
+                      <p className="text-slate-300 text-sm mb-3 leading-relaxed">
+                        {event.description}
+                      </p>
+                    )}
+
                     {/* Date & Time */}
                     <div className="flex flex-wrap items-center gap-3 text-sm text-slate-400">
                       <div className="flex items-center gap-1">
