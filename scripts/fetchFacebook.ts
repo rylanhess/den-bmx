@@ -475,4 +475,3 @@ export const printMultiTrackSummary = (results: ScraperResult[]): void => {
   console.log(`   Total Posts: ${totalPosts} | Alerts: ${totalAlerts} | Events: ${totalEvents}`);
   console.log('━'.repeat(80) + '\n');
 };
-

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" width="560" height="360" role="img" aria-labelledby="title desc">
+  <title id="title">DEN BMX Badge</title>
+  <desc id="desc">Rounded rectangular badge with DEN BMX stacked text and teal accent, using the Denver BMX brand colors.</desc>
+  <defs>
+    <style>
+      .bg { fill:#111111; }
+      .gold { fill:#FFC62B; }
+      .pink { fill:#F65097; }
+      .teal { fill:#12C9D0; }
+      .stroke-gold { stroke:#FFC62B; stroke-width:18; }
+      .shadow-line { stroke:#12C9D0; stroke-width:8; stroke-linecap:round; opacity:.9; }
+      .text { font-family: Inter, Montserrat, Arial, Helvetica, sans-serif; font-weight: 900; letter-spacing:-1px; }
+    </style>
+  </defs>
+
+  <!-- Outer frame -->
+  <rect x="12" y="12" width="536" height="336" rx="24" class="bg stroke-gold" />
+
+  <!-- Right accent panel -->
+  <rect x="374" y="30" width="156" height="300" rx="8" class="teal" />
+
+  <!-- Text: DEN / BMX -->
+  <g id="text-den" class="text">
+    <text x="52" y="152" font-size="120" class="gold">DEN</text>
+    <!-- Teal shadow underline -->
+    <line x1="52" y1="164" x2="330" y2="164" class="shadow-line" />
+  </g>
+  <g id="text-bmx" class="text">
+    <text x="52" y="290" font-size="120" class="pink">BMX</text>
+    <!-- Teal shadow underline -->
+    <line x1="52" y1="302" x2="330" y2="302" class="shadow-line" />
+  </g>
+</svg>

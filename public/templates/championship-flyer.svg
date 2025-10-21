@@ -1,0 +1,65 @@
+<!-- Event Flyer Template - Championship Series -->
+<svg width="612" height="792" viewBox="0 0 612 792" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="612" height="792" fill="#7C3AED"/>
+  
+  <!-- Geometric Background Shapes -->
+  <rect x="0" y="0" width="200" height="200" fill="#FBBF24" opacity="0.3" transform="rotate(45 100 100)"/>
+  <rect x="412" y="592" width="200" height="200" fill="#EC4899" opacity="0.3" transform="rotate(45 512 692)"/>
+  
+  <!-- Main Content Box -->
+  <rect x="50" y="100" width="512" height="592" rx="30" fill="#000000" stroke="#FBBF24" stroke-width="8"/>
+  
+  <!-- DEN BMX Logo -->
+  <rect x="100" y="150" width="200" height="100" rx="15" fill="#000000" stroke="#FBBF24" stroke-width="6"/>
+  <text x="200" y="190" font-family="Arial Black, sans-serif" font-size="36" font-weight="900" fill="#FBBF24" text-anchor="middle" dominant-baseline="middle">DEN</text>
+  <text x="200" y="220" font-family="Arial Black, sans-serif" font-size="36" font-weight="900" fill="#EC4899" text-anchor="middle" dominant-baseline="middle">BMX</text>
+  
+  <!-- Championship Title -->
+  <text x="306" y="300" font-family="Arial Black, sans-serif" font-size="48" font-weight="900" fill="#06B6D4" text-anchor="middle" dominant-baseline="middle">CHAMPIONSHIP</text>
+  <text x="306" y="350" font-family="Arial Black, sans-serif" font-size="48" font-weight="900" fill="#06B6D4" text-anchor="middle" dominant-baseline="middle">SERIES</text>
+  
+  <!-- Event Details -->
+  <rect x="80" y="400" width="452" height="80" rx="15" fill="#EC4899" stroke="#000000" stroke-width="4"/>
+  <text x="306" y="430" font-family="Arial Black, sans-serif" font-size="24" font-weight="900" fill="#000000" text-anchor="middle" dominant-baseline="middle">MILE HIGH BMX TRACK</text>
+  <text x="306" y="460" font-family="Arial Black, sans-serif" font-size="20" font-weight="900" fill="#000000" text-anchor="middle" dominant-baseline="middle">SATURDAY, MARCH 15TH • 6:00 PM</text>
+  
+  <!-- Registration Info -->
+  <rect x="80" y="500" width="452" height="60" rx="15" fill="#FBBF24" stroke="#000000" stroke-width="4"/>
+  <text x="306" y="530" font-family="Arial Black, sans-serif" font-size="20" font-weight="900" fill="#000000" text-anchor="middle" dominant-baseline="middle">REGISTRATION: 4:00 PM • RACING: 6:00 PM</text>
+  
+  <!-- Call to Action -->
+  <rect x="80" y="580" width="452" height="60" rx="15" fill="#06B6D4" stroke="#000000" stroke-width="4"/>
+  <text x="306" y="610" font-family="Arial Black, sans-serif" font-size="20" font-weight="900" fill="#000000" text-anchor="middle" dominant-baseline="middle">COME RACE WITH US!</text>
+  
+  <!-- Website -->
+  <rect x="150" y="660" width="312" height="40" rx="8" fill="#000000"/>
+  <text x="306" y="680" font-family="Arial Black, sans-serif" font-size="18" font-weight="900" fill="#FBBF24" text-anchor="middle" dominant-baseline="middle">DENVERBMX.COM</text>
+  
+  <!-- BMX Rider Silhouette -->
+  <g transform="translate(400, 150)">
+    <!-- Starburst Background -->
+    <path d="M80,80 L90,20 L100,80 L160,70 L100,80 L90,140 L80,80 L20,70 Z" fill="#06B6D4" opacity="0.6"/>
+    
+    <!-- Rider Body -->
+    <ellipse cx="90" cy="70" rx="6" ry="10" fill="#000000"/>
+    
+    <!-- Head -->
+    <circle cx="90" cy="55" r="5" fill="#000000"/>
+    
+    <!-- Cap -->
+    <path d="M85,50 L95,50 L97,47 L83,47 Z" fill="#000000"/>
+    
+    <!-- Bike Frame -->
+    <line x1="90" y1="70" x2="105" y2="85" stroke="#000000" stroke-width="3"/>
+    <line x1="105" y1="85" x2="120" y2="80" stroke="#000000" stroke-width="3"/>
+    
+    <!-- Wheels -->
+    <circle cx="105" cy="85" r="6" fill="none" stroke="#000000" stroke-width="3"/>
+    <circle cx="120" cy="80" r="6" fill="none" stroke="#000000" stroke-width="3"/>
+    
+    <!-- Handlebars -->
+    <line x1="90" y1="70" x2="80" y2="67" stroke="#000000" stroke-width="3"/>
+    <line x1="90" y1="70" x2="100" y2="67" stroke="#000000" stroke-width="3"/>
+  </g>
+</svg>

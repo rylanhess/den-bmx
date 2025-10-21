@@ -1,0 +1,56 @@
+<!-- Facebook Cover Template -->
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#7C3AED"/>
+  
+  <!-- Geometric Background Shapes -->
+  <rect x="0" y="0" width="400" height="400" fill="#FBBF24" opacity="0.3" transform="rotate(45 200 200)"/>
+  <rect x="800" y="230" width="400" height="400" fill="#EC4899" opacity="0.3" transform="rotate(45 1000 430)"/>
+  
+  <!-- Main Content Box -->
+  <rect x="100" y="150" width="1000" height="330" rx="30" fill="#000000" stroke="#FBBF24" stroke-width="8"/>
+  
+  <!-- DEN BMX Logo -->
+  <rect x="200" y="200" width="250" height="120" rx="20" fill="#000000" stroke="#FBBF24" stroke-width="8"/>
+  <text x="325" y="250" font-family="Arial Black, sans-serif" font-size="48" font-weight="900" fill="#FBBF24" text-anchor="middle" dominant-baseline="middle">DEN</text>
+  <text x="325" y="290" font-family="Arial Black, sans-serif" font-size="48" font-weight="900" fill="#EC4899" text-anchor="middle" dominant-baseline="middle">BMX</text>
+  
+  <!-- Main Title -->
+  <text x="700" y="250" font-family="Arial Black, sans-serif" font-size="64" font-weight="900" fill="#06B6D4" text-anchor="middle" dominant-baseline="middle">DENVER METRO</text>
+  <text x="700" y="320" font-family="Arial Black, sans-serif" font-size="64" font-weight="900" fill="#06B6D4" text-anchor="middle" dominant-baseline="middle">BMX RACING</text>
+  
+  <!-- Track List -->
+  <rect x="200" y="360" width="800" height="60" rx="15" fill="#EC4899" stroke="#000000" stroke-width="4"/>
+  <text x="600" y="390" font-family="Arial Black, sans-serif" font-size="24" font-weight="900" fill="#000000" text-anchor="middle" dominant-baseline="middle">MILE HIGH • DACONO • COUNTY LINE BMX</text>
+  
+  <!-- Website -->
+  <rect x="300" y="450" width="600" height="50" rx="12" fill="#000000"/>
+  <text x="600" y="475" font-family="Arial Black, sans-serif" font-size="28" font-weight="900" fill="#FBBF24" text-anchor="middle" dominant-baseline="middle">DENVERBMX.COM</text>
+  
+  <!-- BMX Rider Silhouette -->
+  <g transform="translate(950, 200)">
+    <!-- Starburst Background -->
+    <path d="M60,60 L75,15 L90,60 L135,45 L90,60 L75,105 L60,60 L15,45 Z" fill="#06B6D4" opacity="0.6"/>
+    
+    <!-- Rider Body -->
+    <ellipse cx="75" cy="50" rx="6" ry="10" fill="#000000"/>
+    
+    <!-- Head -->
+    <circle cx="75" cy="35" r="5" fill="#000000"/>
+    
+    <!-- Cap -->
+    <path d="M70,30 L80,30 L82,27 L68,27 Z" fill="#000000"/>
+    
+    <!-- Bike Frame -->
+    <line x1="75" y1="50" x2="90" y2="65" stroke="#000000" stroke-width="3"/>
+    <line x1="90" y1="65" x2="105" y2="60" stroke="#000000" stroke-width="3"/>
+    
+    <!-- Wheels -->
+    <circle cx="90" cy="65" r="6" fill="none" stroke="#000000" stroke-width="3"/>
+    <circle cx="105" cy="60" r="6" fill="none" stroke="#000000" stroke-width="3"/>
+    
+    <!-- Handlebars -->
+    <line x1="75" y1="50" x2="65" y2="47" stroke="#000000" stroke-width="3"/>
+    <line x1="75" y1="50" x2="85" y2="47" stroke="#000000" stroke-width="3"/>
+  </g>
+</svg>

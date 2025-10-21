@@ -188,4 +188,3 @@ export const sanitizeText = (text: string): string => {
     .replace(/\n{3,}/g, '\n\n')  // Max 2 consecutive newlines
     .trim();
 };
-

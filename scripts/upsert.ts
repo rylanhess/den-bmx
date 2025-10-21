@@ -442,4 +442,3 @@ export const printDatabaseStats = async (): Promise<void> => {
   console.log(`Tracks: ${trackCount?.[0]?.count || 0}`);
   console.log(`Alerts: ${alertCount?.[0]?.count || 0}`);
 };
-

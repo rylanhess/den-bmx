@@ -1,0 +1,43 @@
+<!-- Instagram Story Template - Practice Night -->
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1080" height="1920" fill="#7C3AED"/>
+  
+  <!-- Geometric Background Shapes -->
+  <rect x="0" y="0" width="400" height="400" fill="#FBBF24" opacity="0.2" transform="rotate(45 200 200)"/>
+  <rect x="680" y="1520" width="400" height="400" fill="#EC4899" opacity="0.2" transform="rotate(45 880 1720)"/>
+  
+  <!-- Main Content Box -->
+  <rect x="90" y="400" width="900" height="1120" rx="40" fill="#000000" stroke="#FBBF24" stroke-width="10"/>
+  
+  <!-- DEN BMX Logo -->
+  <rect x="200" y="450" width="200" height="100" rx="15" fill="#000000" stroke="#FBBF24" stroke-width="6"/>
+  <text x="300" y="490" font-family="Arial Black, sans-serif" font-size="36" font-weight="900" fill="#FBBF24" text-anchor="middle" dominant-baseline="middle">DEN</text>
+  <text x="300" y="520" font-family="Arial Black, sans-serif" font-size="36" font-weight="900" fill="#EC4899" text-anchor="middle" dominant-baseline="middle">BMX</text>
+  
+  <!-- Practice Night Title -->
+  <text x="540" y="650" font-family="Arial Black, sans-serif" font-size="84" font-weight="900" fill="#06B6D4" text-anchor="middle" dominant-baseline="middle">PRACTICE</text>
+  <text x="540" y="750" font-family="Arial Black, sans-serif" font-size="84" font-weight="900" fill="#06B6D4" text-anchor="middle" dominant-baseline="middle">NIGHT</text>
+  
+  <!-- Track Info -->
+  <rect x="150" y="850" width="780" height="100" rx="20" fill="#EC4899" stroke="#000000" stroke-width="6"/>
+  <text x="540" y="900" font-family="Arial Black, sans-serif" font-size="36" font-weight="900" fill="#000000" text-anchor="middle" dominant-baseline="middle">DACONO BMX TRACK</text>
+  
+  <!-- Date & Time -->
+  <rect x="150" y="980" width="780" height="80" rx="20" fill="#FBBF24" stroke="#000000" stroke-width="6"/>
+  <text x="540" y="1020" font-family="Arial Black, sans-serif" font-size="32" font-weight="900" fill="#000000" text-anchor="middle" dominant-baseline="middle">WEDNESDAY • 6:00 PM</text>
+  
+  <!-- Call to Action -->
+  <rect x="150" y="1100" width="780" height="100" rx="20" fill="#06B6D4" stroke="#000000" stroke-width="6"/>
+  <text x="540" y="1150" font-family="Arial Black, sans-serif" font-size="32" font-weight="900" fill="#000000" text-anchor="middle" dominant-baseline="middle">GET YOUR WHEELS DIRTY!</text>
+  
+  <!-- Website -->
+  <rect x="200" y="1250" width="680" height="60" rx="12" fill="#000000"/>
+  <text x="540" y="1280" font-family="Arial Black, sans-serif" font-size="24" font-weight="900" fill="#FBBF24" text-anchor="middle" dominant-baseline="middle">DENVERBMX.COM</text>
+  
+  <!-- Emojis -->
+  <text x="150" y="400" font-size="80">🚴</text>
+  <text x="930" y="400" font-size="80">🚴</text>
+  <text x="150" y="1520" font-size="80">🏁</text>
+  <text x="930" y="1520" font-size="80">🏁</text>
+</svg>
