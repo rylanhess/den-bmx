@@ -15,7 +15,7 @@ const TrackLink = ({
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="inline-flex items-center gap-1 bg-black text-yellow-400 hover:text-pink-500 font-black px-3 py-2 border-4 border-yellow-400 hover:border-pink-500 transition-colors text-sm"
+    className="inline-flex items-center gap-1 bg-black text-[#00ff0c] hover:text-white font-black px-3 py-2 border-4 border-[#00ff0c] hover:border-white transition-colors text-sm"
   >
     🔗 {children}
   </a>
@@ -45,7 +45,7 @@ const TrackCard = ({
         
         {/* Logo overlay - Fixed circular container */}
         {track.logo && (
-          <div className="absolute top-4 left-4 w-20 h-20 bg-white rounded-full shadow-xl border-4 border-yellow-400 overflow-hidden flex items-center justify-center p-2">
+          <div className="absolute top-4 left-4 w-20 h-20 bg-white rounded-full shadow-xl border-4 border-[#00ff0c] overflow-hidden flex items-center justify-center p-2">
             <img 
               src={track.logo} 
               alt={`${track.name} logo`}
@@ -58,8 +58,8 @@ const TrackCard = ({
     
     {/* Logo only if no wallpaper - Fixed circular container */}
     {!track.wallpaper && track.logo && (
-      <div className="flex justify-center py-6 bg-gradient-to-br from-cyan-900 to-purple-900">
-        <div className="w-28 h-28 bg-white rounded-full shadow-xl border-4 border-yellow-400 overflow-hidden flex items-center justify-center p-3">
+      <div className="flex justify-center py-6 bg-black">
+        <div className="w-28 h-28 bg-white rounded-full shadow-xl border-4 border-[#00ff0c] overflow-hidden flex items-center justify-center p-3">
           <img 
             src={track.logo} 
             alt={`${track.name} logo`}
@@ -71,24 +71,24 @@ const TrackCard = ({
     
     <div className="p-6">
       <div className="mb-4">
-        <h2 className={`text-3xl font-black text-${color} mb-2 animate-pulse-crazy`}>{track.name}</h2>
-        <div className={`flex items-center gap-2 text-white font-bold bg-${color} px-3 py-1 inline-block border-2 border-black`}>
+        <h2 className="text-3xl font-black text-[#00ff0c] mb-2">{track.name}</h2>
+        <div className="flex items-center gap-2 text-white font-bold bg-[#00ff0c] px-3 py-1 inline-block border-2 border-black">
           📍 <span>{track.city}</span>
         </div>
       </div>
 
       {description && (
-        <p className="text-cyan-400 mb-4 leading-relaxed font-bold">{description}</p>
+        <p className="text-white mb-4 leading-relaxed font-bold">{description}</p>
       )}
 
       {uniqueFeatures && uniqueFeatures.length > 0 && (
         <div className="mb-4">
-          <h3 className={`text-xl font-black text-${color} mb-2 animate-blink`}>
+          <h3 className="text-xl font-black text-[#00ff0c] mb-2">
             UNIQUE FEATURES:
           </h3>
           <ul className="space-y-2">
             {uniqueFeatures.map((feature, index) => (
-              <li key={index} className="text-yellow-400 font-bold border-l-4 border-pink-500 pl-3">
+              <li key={index} className="text-[#00ff0c] font-bold border-l-4 border-[#00ff0c] pl-3">
                 ⚡ {feature}
               </li>
             ))}
@@ -96,7 +96,7 @@ const TrackCard = ({
         </div>
       )}
 
-      <div className={`border-t-4 border-${color} pt-4`}>
+      <div className="border-t-4 border-[#00ff0c] pt-4">
         <h3 className="text-lg font-black text-white mb-3">LINKS:</h3>
         <div className="flex flex-col gap-2">
           {track.fb_page_url && (
@@ -116,7 +116,7 @@ const TrackCard = ({
 );
 
 const LoadingCard = () => (
-  <div className="bg-black border-8 border-yellow-400 overflow-hidden animate-pulse">
+  <div className="bg-black border-4 border-[#00ff0c] overflow-hidden animate-pulse">
     <div className="h-48 bg-gray-800"></div>
     <div className="p-6 space-y-4">
       <div className="h-8 bg-gray-800 rounded w-3/4"></div>
@@ -127,14 +127,14 @@ const LoadingCard = () => (
 );
 
 const ErrorState = ({ error }: { readonly error: string }) => (
-  <div className="bg-red-900/20 border-8 border-red-500 p-8 text-center">
-    <p className="text-2xl font-black text-red-400 mb-2">⚠️ ERROR LOADING TRACKS</p>
-    <p className="text-red-300">{error}</p>
+  <div className="bg-black border-4 border-[#00ff0c] p-8 text-center">
+    <p className="text-2xl font-black text-[#00ff0c] mb-2">⚠️ ERROR LOADING TRACKS</p>
+    <p className="text-white">{error}</p>
   </div>
 );
 
 const NoTracksState = () => (
-  <div className="bg-yellow-400 border-8 border-black p-8 text-center">
+  <div className="bg-[#00ff0c] border-4 border-black p-8 text-center">
     <p className="text-2xl font-black text-black">NO TRACKS FOUND</p>
     <p className="text-black font-bold mt-2">Check back soon!</p>
   </div>
@@ -143,7 +143,7 @@ const NoTracksState = () => (
 // Track descriptions and features mapped by slug
 const trackInfo: Record<string, { description: string; uniqueFeatures: string[]; color: string }> = {
   'mile-high-bmx': {
-    color: 'orange-500',
+    color: '[#00ff0c]',
     description: 
       "Mile High BMX is home to the longest BMX track in the nation, offering riders an extended racing experience with challenging features throughout. This track is known for its technical layout and competitive racing environment, attracting riders from across the region.",
     uniqueFeatures: [
@@ -154,7 +154,7 @@ const trackInfo: Record<string, { description: string; uniqueFeatures: string[];
     ],
   },
   'county-line-bmx': {
-    color: 'purple-500',
+    color: '[#00ff0c]',
     description:
       "Located in David A. Lorenz Regional Park, County Line BMX is one of the only tracks in south metro Denver. Completely redesigned in January 2020, this track features modern paving and design elements. Races take place on Sundays throughout the season with gate practice available on Thursdays.",
     uniqueFeatures: [
@@ -166,7 +166,7 @@ const trackInfo: Record<string, { description: string; uniqueFeatures: string[];
     ],
   },
   'dacono-bmx': {
-    color: 'lime-400',
+    color: '[#00ff0c]',
     description:
       "Dacono BMX offers a welcoming environment for BMX racing enthusiasts in the northern Denver metro area. This track provides competitive racing opportunities while maintaining a community-focused atmosphere that encourages new riders to join the sport.",
     uniqueFeatures: [
@@ -205,32 +205,32 @@ export default function TracksPage() {
   const noTracks = !isLoading && !error && tracks.length === 0;
 
   return (
-    <main className="min-h-screen bg-cyan-500 relative overflow-hidden">
-      {/* Geometric Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-pink-400 opacity-60" style={{clipPath: 'polygon(0 0, 100% 0, 0 100%)'}}></div>
-        <div className="absolute bottom-0 right-0 w-80 h-80 bg-yellow-400 opacity-70" style={{clipPath: 'polygon(100% 100%, 0 100%, 100% 0)'}}></div>
-        <div className="absolute top-1/2 right-1/4 w-40 h-40 bg-lime-400 animate-rotate-wild"></div>
+    <main className="min-h-screen bg-black relative overflow-hidden">
+      {/* Geometric Background - Subtle punk accents */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+        <div className="absolute top-0 left-0 w-96 h-96" style={{clipPath: 'polygon(0 0, 100% 0, 0 100%)', backgroundColor: '#00ff0c'}}></div>
+        <div className="absolute bottom-0 right-0 w-80 h-80" style={{clipPath: 'polygon(100% 100%, 0 100%, 100% 0)', backgroundColor: '#00ff0c'}}></div>
+        <div className="absolute top-1/2 right-1/4 w-40 h-40 bg-[#00ff0c] animate-rotate-wild opacity-30"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 relative z-10">
-        {/* Header - WILD */}
+        {/* Header - Professional Punk */}
         <div className="text-center mb-12">
-          <div className="inline-block bg-black border-8 border-yellow-400 p-8 mb-6 animate-border-spin">
-            <h1 className="text-5xl md:text-6xl font-black text-yellow-400 mb-2" style={{textShadow: '4px 4px 0px #ff00ff'}}>
+          <div className="inline-block bg-black border-4 border-[#00ff0c] p-8 mb-6">
+            <h1 className="text-5xl md:text-6xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
               BMX TRACKS!
             </h1>
-            <div className="h-2 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 animate-color-shift"></div>
+            <div className="h-2 bg-[#00ff0c]"></div>
           </div>
-          <p className="text-2xl text-white font-black bg-black px-6 py-3 inline-block border-4 border-pink-500">
+          <p className="text-2xl text-white font-black bg-black px-6 py-3 inline-block border-4 border-[#00ff0c]">
             3 PREMIER TRACKS • DENVER METRO AREA
           </p>
         </div>
 
-        {/* High Elevation Notice - ATTENTION GRABBING */}
-        <div className="bg-yellow-400 border-8 border-black p-6 mb-8 animate-pulse-crazy">
+        {/* High Elevation Notice */}
+        <div className="bg-[#00ff0c] border-4 border-black p-6 mb-8">
           <div className="flex items-center gap-4">
-            <div className="text-6xl animate-shake">⚠️</div>
+            <div className="text-6xl">⚠️</div>
             <div>
               <h3 className="text-2xl font-black text-black mb-2">
                 HIGH ELEVATION RACING!
@@ -261,7 +261,7 @@ export default function TracksPage() {
         {!isLoading && !error && tracks.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {tracks.map((track) => {
-              const info = trackInfo[track.slug] || { color: 'yellow-400', description: '', uniqueFeatures: [] };
+              const info = trackInfo[track.slug] || { color: '[#00ff0c]', description: '', uniqueFeatures: [] };
               return (
                 <TrackCard 
                   key={track.id} 
@@ -275,17 +275,17 @@ export default function TracksPage() {
           </div>
         )}
 
-        {/* Footer Info - WILD */}
-        <div className="text-center bg-black border-8 border-pink-500 p-8 animate-pulse-crazy">
-          <h2 className="text-4xl font-black text-pink-500 mb-4 animate-blink">
+        {/* Footer Info */}
+        <div className="text-center bg-black border-4 border-[#00ff0c] p-8">
+          <h2 className="text-4xl font-black text-[#00ff0c] mb-4">
             NEW TO BMX RACING?
           </h2>
-          <p className="text-cyan-400 mb-6 font-bold text-xl">
+          <p className="text-white mb-6 font-bold text-xl">
             All tracks welcome ALL riders! USA BMX membership required ($80/year or $1/day trial). Wear a helmet, long sleeves, pants & closed shoes!
           </p>
           <Link
             href="/"
-            className="inline-block bg-gradient-to-r from-yellow-400 to-pink-500 text-black font-black px-8 py-4 border-4 border-black hover:from-pink-500 hover:to-yellow-400 transition-colors transform hover:scale-110 text-xl"
+            className="inline-block bg-[#00ff0c] hover:bg-white text-black font-black px-8 py-4 border-4 border-black transition-colors transform hover:scale-110 text-xl"
           >
             🏁 VIEW RACE CALENDAR 🏁
           </Link>

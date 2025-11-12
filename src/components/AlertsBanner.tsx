@@ -39,7 +39,7 @@ const AlertsBanner = () => {
   // Don't show banner while loading
   if (isLoading) {
     return (
-      <div className="bg-yellow-400 text-black px-4 py-3 text-center font-black border-b-8 border-black relative z-10">
+      <div className="bg-[#00ff0c] text-black px-4 py-3 text-center font-black border-b-4 border-black relative z-10">
         <span className="text-2xl">⚠️</span> WEATHER UPDATES AND CANCELLATIONS WILL APPEAR HERE <span className="text-2xl">⚠️</span>
       </div>
     );
@@ -48,7 +48,7 @@ const AlertsBanner = () => {
   // Show placeholder if no alerts
   if (!alertsData?.hasAlerts) {
     return (
-      <div className="bg-slate-700 text-slate-300 px-4 py-3 text-center font-bold border-b-4 border-slate-600 relative z-10">
+      <div className="bg-black text-white px-4 py-3 text-center font-bold border-b-4 border-[#00ff0c] relative z-10">
         <span className="text-lg">✓</span> No cancellations - Check schedule below for this week&apos;s events
       </div>
     );
@@ -56,7 +56,7 @@ const AlertsBanner = () => {
 
   // Show alerts without blinking (easier to read)
   return (
-    <div className="bg-yellow-400 text-black px-4 py-4 border-b-8 border-black relative z-10">
+    <div className="bg-[#00ff0c] text-black px-4 py-4 border-b-4 border-black relative z-10">
       <div className="max-w-6xl mx-auto">
         <div className="text-center font-black text-xl mb-3">
           <span className="text-2xl">⚠️</span> TRACK ALERTS <span className="text-2xl">⚠️</span>
@@ -65,7 +65,7 @@ const AlertsBanner = () => {
           {alertsData.alerts.map((alert) => (
             <div
               key={alert.id}
-              className="bg-black text-yellow-400 px-4 py-3 rounded border-4 border-yellow-400"
+              className="bg-black text-[#00ff0c] px-4 py-3 rounded border-4 border-[#00ff0c]"
             >
               <div className="flex flex-col sm:flex-row sm:items-start gap-2">
                 <div className="font-black text-sm sm:text-base flex-shrink-0">
@@ -79,13 +79,13 @@ const AlertsBanner = () => {
                     href={alert.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-pink-400 hover:text-pink-300 font-black text-xs sm:text-sm underline flex-shrink-0"
+                    className="text-[#00ff0c] hover:text-white font-black text-xs sm:text-sm underline flex-shrink-0"
                   >
                     View Post →
                   </a>
                 )}
               </div>
-              <div className="text-xs text-yellow-600 mt-2">
+              <div className="text-xs text-white/70 mt-2">
                 Posted {formatTimeAgo(alert.posted_at)}
               </div>
             </div>

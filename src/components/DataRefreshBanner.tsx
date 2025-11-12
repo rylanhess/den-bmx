@@ -76,42 +76,42 @@ const DataRefreshBanner = () => {
     <div
       className={`border-b ${
         status.isStale
-          ? 'bg-orange-900/20 border-orange-800/50'
-          : 'bg-slate-800/50 border-slate-700/50'
+          ? 'bg-black border-[#00ff0c]/50'
+          : 'bg-black border-[#00ff0c]/30'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-sm">
           <div className="flex items-center gap-2">
             {status.isStale ? (
-              <svg className="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-[#00ff0c]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
             ) : (
-              <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-[#00ff0c]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             )}
-            <span className={status.isStale ? 'text-orange-300' : 'text-slate-300'}>
+            <span className={status.isStale ? 'text-[#00ff0c]' : 'text-white/80'}>
               <span className="font-medium">Latest Facebook post:</span>{' '}
               <span className="font-semibold">{timeAgo}</span>
-              <span className="hidden sm:inline text-slate-400"> ({fullDate})</span>
+              <span className="hidden sm:inline text-white/50"> ({fullDate})</span>
             </span>
           </div>
           {lastScrapeTimeAgo && (
             <>
-              <span className="hidden sm:inline text-slate-500">•</span>
+              <span className="hidden sm:inline text-white/40">•</span>
               <div className="flex items-center gap-2">
-                <span className="text-slate-400">
+                <span className="text-white/70">
                   <span className="font-medium">Last site refresh:</span>{' '}
                   <span className="font-semibold">{lastScrapeTimeAgo}</span>
-                  <span className="hidden sm:inline text-slate-500"> ({lastScrapeFullDate})</span>
+                  <span className="hidden sm:inline text-white/50"> ({lastScrapeFullDate})</span>
                 </span>
               </div>
             </>
           )}
           {status.isStale && (
-            <span className="hidden md:inline text-orange-400">
+            <span className="hidden md:inline text-[#00ff0c]">
               • Data may be outdated
             </span>
           )}

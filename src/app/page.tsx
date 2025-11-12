@@ -7,13 +7,13 @@ import Image from 'next/image';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-purple-600 relative overflow-hidden">
-      {/* Geometric Background Shapes */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-0 w-64 h-64 bg-yellow-400 opacity-80" style={{clipPath: 'polygon(0 0, 100% 0, 0 100%)'}}></div>
-        <div className="absolute top-20 right-0 w-96 h-96 bg-pink-400 opacity-60" style={{clipPath: 'polygon(100% 0, 100% 100%, 0 100%)'}}></div>
-        <div className="absolute bottom-0 left-20 w-80 h-80 bg-cyan-400 opacity-70" style={{clipPath: 'polygon(50% 0, 100% 100%, 0 100%)'}}></div>
-        <div className="absolute bottom-40 right-40 w-40 h-40 bg-lime-400 animate-float"></div>
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Geometric Background Shapes - Subtle punk accents */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+        <div className="absolute top-0 left-0 w-64 h-64" style={{clipPath: 'polygon(0 0, 100% 0, 0 100%)', backgroundColor: '#00ff0c'}}></div>
+        <div className="absolute top-20 right-0 w-96 h-96" style={{clipPath: 'polygon(100% 0, 100% 100%, 0 100%)', backgroundColor: '#00ff0c'}}></div>
+        <div className="absolute bottom-0 left-20 w-80 h-80" style={{clipPath: 'polygon(50% 0, 100% 100%, 0 100%)', backgroundColor: '#00ff0c'}}></div>
+        <div className="absolute bottom-40 right-40 w-40 h-40 bg-[#00ff0c] animate-float opacity-30"></div>
       </div>
 
       {/* Alert Bar - Shows real cancellations and weather updates */}
@@ -22,31 +22,32 @@ export default function Home() {
       {/* Data Refresh Status Banner */}
       <DataRefreshBanner />
 
-      {/* Image Section */}
+      {/* Logo Section */}
       <div className="flex justify-center m-6">
             <Image
-              src="/logo.jpeg"
+              src="/DEN_BMX_FINAL_Green.png"
               alt="DEN BMX Logo"
-              width={200}
-              height={200}
-              className="border-8 border-yellow-400 rounded-full shadow-2xl"
+              width={300}
+              height={300}
+              className="shadow-2xl"
+              priority
             />
       </div>
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6 md:py-6 relative z-10">
-        {/* Hero Section - WILD */}
-        <div className="text-center mb-16 animate-pulse-crazy">
-          <div className="inline-block bg-black border-8 border-yellow-400 p-8 shadow-2xl mb-6 animate-border-spin">
-            <h1 className="text-6xl md:text-8xl font-black text-yellow-400 mb-2 tracking-wider" style={{textShadow: '4px 4px 0px #ff00ff, 8px 8px 0px #00ffff'}}>
-              DEN<span className="text-pink-500 animate-blink">BMX</span>
+        {/* Hero Section - Professional Punk */}
+        <div className="text-center mb-16">
+          <div className="inline-block bg-black border-4 border-[#00ff0c] p-8 shadow-2xl mb-6">
+            <h1 className="text-6xl md:text-8xl font-black text-[#00ff0c] mb-2 tracking-wider" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
+              DEN<span className="text-white">BMX</span>
             </h1>
-            <div className="h-2 bg-gradient-to-r from-pink-500 via-yellow-400 to-cyan-400 animate-color-shift"></div>
+            <div className="h-2 bg-[#00ff0c]"></div>
           </div>
-          <p className="text-3xl md:text-4xl text-white font-black mb-2 bg-black px-8 py-3 inline-block border-4 border-cyan-400">
+          <p className="text-3xl md:text-4xl text-white font-black mb-2 bg-black px-8 py-3 inline-block border-4 border-[#00ff0c]">
             DENVER METRO BMX RACING
           </p>
-          <p className="text-yellow-300 text-xl font-bold mt-4 animate-shake">
+          <p className="text-[#00ff0c] text-xl font-bold mt-4">
             🏁 MILE HIGH • DACONO • COUNTY LINE BMX 🏁
           </p>
         </div>
@@ -59,47 +60,47 @@ export default function Home() {
         {/* Tracks Showcase */}
         <TracksShowcase />
 
-        {/* Action Buttons - ATTENTION GRABBING */}
+        {/* Action Buttons - Professional Punk Style */}
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          <Link href="/donate" className="bg-gradient-to-br from-yellow-400 to-pink-500 hover:from-pink-500 hover:to-yellow-400 text-black font-black py-8 px-6 border-8 border-black shadow-2xl block transform hover:scale-110 transition-all animate-pulse-crazy">
-            <div className="text-5xl mb-3 animate-float">💛 ₿ $</div>
+          <Link href="/donate" className="bg-black hover:bg-[#00ff0c] text-white hover:text-black font-black py-8 px-6 border-4 border-[#00ff0c] shadow-2xl block transform hover:scale-105 transition-all">
+            <div className="text-5xl mb-3">💛 ₿ $</div>
             <div className="text-2xl">DONATE NOW</div>
-            <div className="text-sm font-bold mt-2 bg-black text-yellow-400 px-3 py-1 inline-block">BUY A BIKE TUBE • $15</div>
+            <div className="text-sm font-bold mt-2 bg-[#00ff0c] text-black px-3 py-1 inline-block">BUY A BIKE TUBE • $15</div>
           </Link>
 
-          <Link href="/tracks" className="bg-gradient-to-br from-cyan-400 to-blue-600 hover:from-blue-600 hover:to-cyan-400 text-white font-black py-8 px-6 border-8 border-black shadow-2xl block transform hover:scale-110 transition-all">
-            <div className="text-5xl mb-3 animate-rotate-wild">🏁</div>
+          <Link href="/tracks" className="bg-black hover:bg-[#00ff0c] text-white hover:text-black font-black py-8 px-6 border-4 border-[#00ff0c] shadow-2xl block transform hover:scale-105 transition-all">
+            <div className="text-5xl mb-3">🏁</div>
             <div className="text-2xl">TRACK INFO</div>
-            <div className="text-sm font-bold mt-2 bg-black text-cyan-400 px-3 py-1 inline-block">3 TRACKS • FULL DETAILS</div>
+            <div className="text-sm font-bold mt-2 bg-[#00ff0c] text-black px-3 py-1 inline-block">3 TRACKS • FULL DETAILS</div>
           </Link>
 
-          <Link href="/new-rider" className="bg-gradient-to-br from-lime-400 to-green-600 hover:from-green-600 hover:to-lime-400 text-black font-black py-8 px-6 border-8 border-black shadow-2xl block transform hover:scale-110 transition-all">
-            <div className="text-5xl mb-3 animate-shake">🚴</div>
+          <Link href="/new-rider" className="bg-black hover:bg-[#00ff0c] text-white hover:text-black font-black py-8 px-6 border-4 border-[#00ff0c] shadow-2xl block transform hover:scale-105 transition-all">
+            <div className="text-5xl mb-3">🚴</div>
             <div className="text-2xl">NEW RIDER?</div>
-            <div className="text-sm font-bold mt-2 bg-black text-lime-400 px-3 py-1 inline-block">START HERE • GET INFO</div>
+            <div className="text-sm font-bold mt-2 bg-[#00ff0c] text-black px-3 py-1 inline-block">START HERE • GET INFO</div>
           </Link>
 
-          <Link href="/contact" className="bg-gradient-to-br from-orange-400 to-red-600 hover:from-red-600 hover:to-orange-400 text-white font-black py-8 px-6 border-8 border-black shadow-2xl block transform hover:scale-110 hover:rotate-2 transition-all animate-bounce-slow">
-            <div className="text-5xl mb-3 animate-pulse">📧</div>
+          <Link href="/contact" className="bg-black hover:bg-[#00ff0c] text-white hover:text-black font-black py-8 px-6 border-4 border-[#00ff0c] shadow-2xl block transform hover:scale-105 transition-all">
+            <div className="text-5xl mb-3">📧</div>
             <div className="text-2xl">CONTACT ME</div>
-            <div className="text-sm font-bold mt-2 bg-black text-orange-400 px-3 py-1 inline-block">GET IN TOUCH • SAY HI</div>
+            <div className="text-sm font-bold mt-2 bg-[#00ff0c] text-black px-3 py-1 inline-block">GET IN TOUCH • SAY HI</div>
           </Link>
         </div>
 
-        {/* Status Badge - BLINKING */}
+        {/* Status Badge */}
         <div className="text-center">
-          <div className="inline-block bg-black border-8 border-pink-500 px-8 py-4 animate-blink">
-            <p className="text-yellow-400 text-lg font-black">
+          <div className="inline-block bg-black border-4 border-[#00ff0c] px-8 py-4">
+            <p className="text-[#00ff0c] text-lg font-black">
               🚧 SITE UNDER CONSTRUCTION 🚧
             </p>
           </div>
         </div>
       </main>
 
-      {/* Footer - LOUD */}
+      {/* Footer */}
       <footer className="container mx-auto px-4 py-8 text-center relative z-10">
-        <div className="bg-black border-4 border-yellow-400 px-6 py-4 inline-block">
-          <p className="text-yellow-400 font-black text-lg">
+        <div className="bg-black border-4 border-[#00ff0c] px-6 py-4 inline-block">
+          <p className="text-[#00ff0c] font-black text-lg">
             ⚡ DEN BMX ⚡ DENVER METRO BMX SCHEDULES ⚡
           </p>
         </div>
