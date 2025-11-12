@@ -60,7 +60,7 @@ export default function ContactPage() {
         {/* Back Button */}
         <Link 
           href="/"
-          className="inline-block mb-8 bg-black text-[#00ff0c] font-black px-6 py-3 border-4 border-[#00ff0c] hover:bg-[#00ff0c] hover:text-black transition-all transform hover:scale-105"
+          className="inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
         >
           ← BACK TO HOME
         </Link>
@@ -77,10 +77,10 @@ export default function ContactPage() {
               priority
             />
           </div>
-          <h1 className="text-5xl md:text-7xl font-black text-[#00ff0c] mb-4" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-[#00ff0c] mb-4" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
             CONTACT ME
           </h1>
-          <p className="text-2xl text-white font-bold bg-black px-6 py-3 inline-block border-4 border-[#00ff0c]">
+          <p className="text-lg sm:text-xl md:text-2xl text-white font-bold bg-black px-4 sm:px-6 py-2 sm:py-3 inline-block border-4 border-[#00ff0c]">
             📧 GET IN TOUCH • SAY HI 📧
           </p>
         </div>
@@ -182,7 +182,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={status === 'sending'}
-                  className="w-full bg-black hover:bg-[#00ff0c] text-white hover:text-black font-black py-4 px-8 border-4 border-[#00ff0c] shadow-2xl transform hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-4 px-6 sm:px-8 border-4 border-[#00ff0c] shadow-2xl transform active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
                 >
                   {status === 'sending' ? (
                     <span className="flex items-center justify-center gap-2">

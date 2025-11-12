@@ -56,19 +56,19 @@ const TracksShowcase = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto mb-12">
-      <div className="text-center mb-8">
-        <h2 className="text-4xl font-black text-[#00ff0c] bg-black px-6 py-3 inline-block border-4 border-[#00ff0c]">
+    <div className="max-w-6xl mx-auto mb-8 sm:mb-12">
+      <div className="text-center mb-6 sm:mb-8">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#00ff0c] bg-black px-4 sm:px-6 py-2 sm:py-3 inline-block border-4 border-[#00ff0c]">
           🏁 OUR TRACKS 🏁
         </h2>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
         {tracks.map((track) => (
           <Link
             key={track.id}
             href="/tracks"
-            className="bg-black border-4 border-[#00ff0c] hover:border-white p-6 transform hover:scale-105 transition-all group"
+            className="bg-black border-4 border-[#00ff0c] active:border-white p-4 sm:p-6 transform active:scale-95 transition-all group min-h-[180px] sm:min-h-[200px] flex flex-col justify-center items-center"
           >
             {/* Logo - Fixed circular container */}
             {track.logo && (

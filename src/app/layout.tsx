@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import ServiceWorkerRegistration from "./sw-register";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,6 +19,23 @@ export const metadata: Metadata = {
   description:
     "Your unified calendar for Mile High, Dacono, and County Line BMX tracks. Never miss a race day or practice session in Denver.",
   metadataBase: new URL('https://denverbmx.com'),
+  manifest: '/manifest.json',
+  themeColor: '#00ff0c',
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+    viewportFit: 'cover',
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'DEN BMX',
+  },
+  formatDetection: {
+    telephone: false,
+  },
   openGraph: {
     title: "DEN BMX - Denver Metro BMX Racing",
     description: "🏁 Your unified calendar for Mile High, Dacono, and County Line BMX tracks. Never miss a race! 🚴",
@@ -42,7 +60,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
+    apple: '/DEN_BMX_FINAL_Green.png',
   },
 };
 
@@ -57,6 +75,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <ServiceWorkerRegistration />
         <Analytics />
       </body>
     </html>

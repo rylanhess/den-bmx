@@ -148,11 +148,11 @@ const ThisWeeksEvents = () => {
   const noEvents = events.length === 0;
 
   return (
-    <div className="max-w-4xl mx-auto mb-12">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-3xl font-bold text-white">This Week&apos;s Events</h2>
+    <div className="max-w-4xl mx-auto mb-8 sm:mb-12">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6 gap-2">
+        <h2 className="text-2xl sm:text-3xl font-bold text-white">This Week&apos;s Events</h2>
         {!isLoading && !error && (
-          <span className="text-sm text-slate-400">
+          <span className="text-sm text-white/70">
             {events.length} {events.length === 1 ? 'event' : 'events'}
           </span>
         )}

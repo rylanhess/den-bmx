@@ -53,7 +53,7 @@ export default function DonatePage() {
         {/* Back Link */}
         <Link
           href="/"
-          className="inline-flex items-center bg-black text-[#00ff0c] hover:text-white px-6 py-3 border-4 border-[#00ff0c] font-black text-lg mb-6 transition-colors"
+          className="inline-flex items-center bg-black text-[#00ff0c] active:text-white px-4 sm:px-6 py-3 border-4 border-[#00ff0c] font-black text-base sm:text-lg mb-4 sm:mb-6 transition-colors min-h-[44px]"
         >
           ← BACK TO HOME
         </Link>
@@ -138,7 +138,7 @@ export default function DonatePage() {
 
             <button
               onClick={handleCopyBitcoin}
-              className="w-full bg-[#00ff0c] hover:bg-white text-black font-black py-3 px-3 border-4 border-black transition-colors text-lg transform hover:scale-105"
+              className="w-full bg-[#00ff0c] active:bg-white text-black font-black py-3 px-3 border-4 border-black transition-colors text-base sm:text-lg transform active:scale-95 min-h-[44px]"
             >
               {copiedBitcoin ? '✓ COPIED!' : '📋 COPY NOW'}
             </button>
@@ -173,7 +173,7 @@ export default function DonatePage() {
 
             <button
               onClick={handleCopyLightning}
-              className="w-full bg-[#00ff0c] hover:bg-white text-black font-black py-3 px-3 border-4 border-black transition-colors text-lg transform hover:scale-105"
+              className="w-full bg-[#00ff0c] active:bg-white text-black font-black py-3 px-3 border-4 border-black transition-colors text-base sm:text-lg transform active:scale-95 min-h-[44px]"
             >
               {copiedLightning ? '✓ COPIED!' : '📋 COPY NOW'}
             </button>
@@ -201,7 +201,7 @@ export default function DonatePage() {
               </div>
               <button
                 onClick={handleCopyCashApp}
-                className="w-full bg-black hover:bg-[#00ff0c] text-[#00ff0c] hover:text-black font-black py-2 px-3 border-4 border-[#00ff0c] transition-colors text-sm"
+                className="w-full bg-black active:bg-[#00ff0c] text-[#00ff0c] active:text-black font-black py-2 px-3 border-4 border-[#00ff0c] transition-colors text-sm min-h-[44px]"
               >
                 {copiedCashApp ? '✓ COPIED!' : '📋 COPY'}
               </button>
@@ -220,7 +220,7 @@ export default function DonatePage() {
               </div>
               <button
                 onClick={handleCopyVenmo}
-                className="w-full bg-black hover:bg-white text-white hover:text-black font-black py-2 px-3 border-4 border-white transition-colors text-sm"
+                className="w-full bg-black active:bg-white text-white active:text-black font-black py-2 px-3 border-4 border-white transition-colors text-sm min-h-[44px]"
               >
                 {copiedVenmo ? '✓ COPIED!' : '📋 COPY'}
               </button>
