@@ -60,11 +60,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      {
-        url: '/DEN_BMX_FINAL_Green.png',
-        type: 'image/png',
-      },
+      { url: '/DEN_BMX_FINAL_Green.png', type: 'image/png' },
+      { url: '/DEN_BMX_FINAL_Green.png', sizes: '32x32', type: 'image/png' },
+      { url: '/DEN_BMX_FINAL_Green.png', sizes: '16x16', type: 'image/png' },
     ],
+    shortcut: '/DEN_BMX_FINAL_Green.png',
     apple: '/DEN_BMX_FINAL_Green.png',
   },
 };
