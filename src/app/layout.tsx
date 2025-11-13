@@ -59,7 +59,12 @@ export const metadata: Metadata = {
     images: ['/DENBMX-og.png'],
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      {
+        url: '/DEN_BMX_FINAL_Green.png',
+        type: 'image/png',
+      },
+    ],
     apple: '/DEN_BMX_FINAL_Green.png',
   },
 };

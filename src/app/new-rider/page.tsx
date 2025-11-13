@@ -6,7 +6,7 @@ import {
   AcademicCapIcon,
   ShieldCheckIcon,
   SunIcon,
-  ChairIcon,
+  CubeIcon,
   UserIcon,
   TrophyIcon,
   MapPinIcon,
@@ -149,7 +149,7 @@ export default function NewRiderPage() {
                     <span><strong>SUNSCREEN:</strong> Colorado sun!</span>
                   </li>
                   <li className="flex items-start gap-2 border-l-4 border-black pl-3">
-                    <ChairIcon className="w-6 h-6 flex-shrink-0 mt-0.5" />
+                    <CubeIcon className="w-6 h-6 flex-shrink-0 mt-0.5" />
                     <span><strong>CHAIR/CANOPY:</strong> Race comfort!</span>
                   </li>
                 </ul>
