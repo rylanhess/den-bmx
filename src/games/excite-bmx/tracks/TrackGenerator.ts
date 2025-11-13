@@ -5,27 +5,29 @@ export class TrackGenerator {
     const obstacles: Obstacle[] = [];
     const laneWidth = trackLength / 4;
 
-    // First straight: Starting hill, step up jump, triple
+    // EVERY track starts with a starting hill (downward ramp for speed)
     obstacles.push({
       type: 'start-hill',
-      x: trackLength * 0.05,
-      width: trackLength * 0.08,
+      x: trackLength * 0.01, // Very start of track
+      width: trackLength * 0.06,
       height: 50, // Much larger for visible jumps (Excitebike style)
       lanes: [0, 1, 2, 3],
     });
 
+    // First straight: Step up jump, triple (spread out more)
+
     obstacles.push({
       type: 'step-up',
-      x: trackLength * 0.15,
-      width: trackLength * 0.08,
+      x: trackLength * 0.15, // More space after starting hill
+      width: trackLength * 0.06,
       height: 45, // Much larger for visible jumps
       lanes: [0, 1, 2, 3],
     });
 
     obstacles.push({
       type: 'triple',
-      x: trackLength * 0.25,
-      width: trackLength * 0.12,
+      x: trackLength * 0.30, // More space after step-up
+      width: trackLength * 0.10,
       height: 40, // Much larger for visible jumps
       lanes: [0, 1, 2, 3],
     });
@@ -33,27 +35,27 @@ export class TrackGenerator {
     // Turn 1
     // (no obstacles in turns, just visual)
 
-    // Second straight: Three doubles
+    // Second straight: Three doubles (spread out more)
     obstacles.push({
       type: 'double',
-      x: trackLength * 0.35,
-      width: trackLength * 0.08,
+      x: trackLength * 0.45, // More space after triple
+      width: trackLength * 0.06,
       height: 35, // Much larger for visible jumps
       lanes: [0, 1, 2, 3],
     });
 
     obstacles.push({
       type: 'double',
-      x: trackLength * 0.45,
-      width: trackLength * 0.08,
+      x: trackLength * 0.58, // More space between doubles
+      width: trackLength * 0.06,
       height: 35, // Much larger for visible jumps
       lanes: [0, 1, 2, 3],
     });
 
     obstacles.push({
       type: 'double',
-      x: trackLength * 0.55,
-      width: trackLength * 0.08,
+      x: trackLength * 0.71, // More space between doubles
+      width: trackLength * 0.06,
       height: 35, // Much larger for visible jumps
       lanes: [0, 1, 2, 3],
     });
@@ -61,11 +63,11 @@ export class TrackGenerator {
     // Turn 2
     // (no obstacles)
 
-    // Third straight: Rhythm section whoops
+    // Third straight: Rhythm section whoops (more space)
     obstacles.push({
       type: 'whoops',
-      x: trackLength * 0.65,
-      width: trackLength * 0.15,
+      x: trackLength * 0.82, // More space after doubles
+      width: trackLength * 0.12,
       height: 12, // Slightly increased for visibility
       lanes: [0, 1, 2, 3],
     });
@@ -73,18 +75,18 @@ export class TrackGenerator {
     // Turn 3
     // (no obstacles)
 
-    // Last straight: Water zone and finish line
+    // Last straight: Water zone and finish line (more space)
     obstacles.push({
       type: 'water',
-      x: trackLength * 0.85,
-      width: trackLength * 0.08,
+      x: trackLength * 0.92, // More space after whoops
+      width: trackLength * 0.06,
       height: 10,
       lanes: [0, 1, 2, 3],
     });
 
     obstacles.push({
       type: 'finish',
-      x: trackLength * 0.95,
+      x: trackLength * 0.98, // Finish line near the end
       width: 20, // Narrow finish line - just a single line
       height: 50,
       lanes: [0, 1, 2, 3],

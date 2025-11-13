@@ -1,4 +1,10 @@
 import type { Track, Obstacle } from '../types';
+import { DoubleJump } from './obstacles/DoubleJump';
+import { TripleJump } from './obstacles/TripleJump';
+import { RhythmSection } from './obstacles/RhythmSection';
+import { StartHill } from './obstacles/StartHill';
+import { StepUp } from './obstacles/StepUp';
+import { WaterHazard } from './obstacles/WaterHazard';
 
 export class TrackRenderer {
   static draw(
@@ -8,7 +14,7 @@ export class TrackRenderer {
     canvasWidth: number,
     canvasHeight: number,
     obstacles: Obstacle[],
-    trackLength: number = 2000
+    trackLength: number = 3500
   ) {
     ctx.save();
     ctx.imageSmoothingEnabled = false;
@@ -177,8 +183,13 @@ export class TrackRenderer {
           
           switch (obstacle.type) {
             case 'start-hill':
+              // Starting hill: DOWNWARD ramp (starts high, goes down to track level)
+              // This gives riders speed into the track
+              const downProgress = 1 - progress; // Invert: 1.0 at start, 0.0 at end
+              return downProgress * obstacle.height;
+              
             case 'step-up':
-              // Single ramp: up to 70%, then down
+              // Step-up: up to 70%, then down
               if (progress < 0.7) {
                 return (progress / 0.7) * obstacle.height;
               } else {
@@ -448,192 +459,27 @@ export class TrackRenderer {
     
     switch (obstacle.type) {
       case 'start-hill':
-      case 'step-up': {
-        // Triangular pyramid ramp - isometric 3D perspective
-        // Ramp spans all affected lanes with side walls as parallelograms
-        const rampBaseY = bottomLaneY;
-        const rampPeakY = rampBaseY - obstacle.height;
-        const rampUpEndX = x + obstacleScreenWidth * 0.7;
-        const rampDownEndX = x + obstacleScreenWidth;
-        
-        // Get elevation at ramp start and peak
-        const worldXStart = cameraX + x;
-        const worldXPeak = cameraX + rampUpEndX;
-        const elevationStart = TrackRenderer.getTrackElevation(worldXStart, [obstacle], bottomLaneY, trackHeight);
-        const elevationPeak = TrackRenderer.getTrackElevation(worldXPeak, [obstacle], bottomLaneY, trackHeight);
-        
-        // LEFT SIDE WALL of ramp as PARALLELOGRAM spanning all lanes
-        // This creates the triangular pyramid effect
-        ctx.beginPath();
-        // Top-left corner (at top lane, ramp start)
-        const leftTopY = topLaneY - elevationStart - (sideWallDepth * isometricAngle);
-        ctx.moveTo(x, leftTopY);
-        // Top-right corner (at top lane, ramp peak)
-        const leftPeakTopY = topLaneY - elevationPeak - (sideWallDepth * isometricAngle);
-        ctx.lineTo(rampUpEndX, leftPeakTopY);
-        // Bottom-right corner (at bottom lane, ramp peak, extended down)
-        const leftPeakBottomY = rampPeakY + sideWallDepth;
-        ctx.lineTo(rampUpEndX, leftPeakBottomY);
-        // Bottom-left corner (at bottom lane, ramp start, extended down)
-        const leftBottomY = rampBaseY + sideWallDepth;
-        ctx.lineTo(x, leftBottomY);
-        ctx.closePath();
-        
-        // Fill with gradient for depth
-        const rampWallGradient = ctx.createLinearGradient(x, topLaneY, x, bottomLaneY + sideWallDepth);
-        const darkerTurnColor = this.darkenColor(track.turnColor, 0.5);
-        rampWallGradient.addColorStop(0, track.turnColor);
-        rampWallGradient.addColorStop(1, darkerTurnColor);
-        ctx.fillStyle = rampWallGradient;
-        ctx.fill();
-        
-        // RIGHT SIDE WALL of ramp (downward slope side)
-        ctx.beginPath();
-        // Top-left corner (at top lane, ramp peak)
-        ctx.moveTo(rampUpEndX, leftPeakTopY);
-        // Top-right corner (at top lane, ramp end)
-        const rightEndTopY = topLaneY - elevationStart - (sideWallDepth * isometricAngle);
-        ctx.lineTo(rampDownEndX, rightEndTopY);
-        // Bottom-right corner (at bottom lane, ramp end, extended down)
-        const rightEndBottomY = rampBaseY + sideWallDepth;
-        ctx.lineTo(rampDownEndX, rightEndBottomY);
-        // Bottom-left corner (at bottom lane, ramp peak, extended down)
-        ctx.lineTo(rampUpEndX, leftPeakBottomY);
-        ctx.closePath();
-        ctx.fillStyle = rampWallGradient;
-        ctx.fill();
-        
-        // Add depth shadow on left wall
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
-        ctx.beginPath();
-        ctx.moveTo(x, leftTopY);
-        ctx.lineTo(x, leftBottomY);
-        ctx.lineTo(x + 6, leftBottomY - 3);
-        ctx.lineTo(x + 6, leftTopY - 3);
-        ctx.closePath();
-        ctx.fill();
-        
-        // Draw highlight on ramp top edge (left side)
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        ctx.moveTo(x, topLaneY - elevationStart);
-        ctx.lineTo(rampUpEndX, topLaneY - elevationPeak);
-        ctx.stroke();
-        
-        // Draw shadow on ramp top edge (right side)
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.6)';
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        ctx.moveTo(rampUpEndX, topLaneY - elevationPeak);
-        ctx.lineTo(rampDownEndX, topLaneY - elevationStart);
-        ctx.stroke();
+        StartHill.draw(ctx, obstacle, x, trackY, trackHeight, track, cameraX, sideWallDepth, isometricAngle);
         break;
-      }
+      
+      case 'step-up':
+        StepUp.draw(ctx, obstacle, x, trackY, trackHeight, track, cameraX, sideWallDepth, isometricAngle);
+        break;
+      
+      case 'double':
+        DoubleJump.draw(ctx, obstacle, x, trackY, trackHeight, track, cameraX, sideWallDepth, isometricAngle);
+        break;
       
       case 'triple':
-      case 'double': {
-        // Humps are part of track surface - add prominent 3D side walls
-        const numHumps = obstacle.type === 'triple' ? 3 : 2;
-        const humpWidth = obstacleScreenWidth / numHumps;
-        const humpBaseY = startLaneY + obstacleHeight;
-        const humpSideWallHeight = 12; // Prominent 3D side walls
-        
-        for (let i = 0; i < numHumps; i++) {
-          const humpX = x + (i * humpWidth);
-          const humpCenterX = humpX + (humpWidth / 2);
-          const peakY = humpBaseY - obstacle.height;
-          
-          // Draw SIDE WALLS of hump (prominent 3D effect - darker)
-          ctx.fillStyle = track.turnColor;
-          ctx.beginPath();
-          ctx.moveTo(humpX, humpBaseY);
-          ctx.lineTo(humpX, humpBaseY + humpSideWallHeight);
-          ctx.quadraticCurveTo(humpCenterX, peakY + humpSideWallHeight, humpX + humpWidth, humpBaseY + humpSideWallHeight);
-          ctx.quadraticCurveTo(humpCenterX, peakY, humpX + humpWidth, humpBaseY);
-          ctx.closePath();
-          ctx.fill();
-          
-          // Draw depth shadow on left side
-          ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-          ctx.beginPath();
-          ctx.moveTo(humpX, humpBaseY);
-          ctx.lineTo(humpX, humpBaseY + humpSideWallHeight);
-          ctx.quadraticCurveTo(humpX + 3, peakY + humpSideWallHeight - 2, humpX + humpWidth / 2, humpBaseY + humpSideWallHeight / 2);
-          ctx.quadraticCurveTo(humpX + 3, peakY - 2, humpX, humpBaseY);
-          ctx.closePath();
-          ctx.fill();
-          
-          // Draw highlight on left side of hump (shows elevation)
-          ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
-          ctx.lineWidth = 3;
-          ctx.beginPath();
-          ctx.moveTo(humpX, humpBaseY);
-          ctx.quadraticCurveTo(humpCenterX, peakY, humpX + humpWidth / 2, humpBaseY - obstacle.height / 2);
-          ctx.stroke();
-          
-          // Draw shadow on right side of hump
-          ctx.strokeStyle = 'rgba(0, 0, 0, 0.4)';
-          ctx.lineWidth = 3;
-          ctx.beginPath();
-          ctx.moveTo(humpX + humpWidth / 2, humpBaseY - obstacle.height / 2);
-          ctx.quadraticCurveTo(humpCenterX, peakY, humpX + humpWidth, humpBaseY);
-          ctx.stroke();
-        }
+        TripleJump.draw(ctx, obstacle, x, trackY, trackHeight, track, cameraX, sideWallDepth, isometricAngle);
         break;
-      }
       
-      case 'whoops': {
-        // Draw rhythm section as SMALL BUMPY TRACK - Excitebike style
-        // Whoops are small bumps that are part of the track (not big jumps)
-        const numBumps = 8;
-        const bumpWidth = obstacleScreenWidth / numBumps;
-        const whoopsBaseY = startLaneY + obstacleHeight;
-        const sideWallHeight = 3; // Small 3D effect for whoops
-        
-        // Erase flat track in this area
-        ctx.fillStyle = track.trackColor;
-        ctx.fillRect(x, startLaneY, obstacleScreenWidth, obstacleHeight);
-        
-        for (let i = 0; i < numBumps; i++) {
-          const bumpX = x + (i * bumpWidth);
-          const bumpCenterX = bumpX + (bumpWidth / 2);
-          const peakY = whoopsBaseY - obstacle.height;
-          
-          // Draw side walls for 3D effect (small)
-          ctx.fillStyle = track.turnColor;
-          ctx.beginPath();
-          ctx.moveTo(bumpX, whoopsBaseY);
-          ctx.lineTo(bumpX, whoopsBaseY + sideWallHeight);
-          ctx.quadraticCurveTo(bumpCenterX, peakY + sideWallHeight, bumpX + bumpWidth, whoopsBaseY + sideWallHeight);
-          ctx.quadraticCurveTo(bumpCenterX, peakY, bumpX + bumpWidth, whoopsBaseY);
-          ctx.closePath();
-          ctx.fill();
-          
-          // Draw top surface of bump
-          ctx.fillStyle = track.trackColor;
-          ctx.beginPath();
-          ctx.moveTo(bumpX, whoopsBaseY);
-          ctx.quadraticCurveTo(bumpCenterX, peakY, bumpX + bumpWidth, whoopsBaseY);
-          ctx.closePath();
-          ctx.fill();
-        }
+      case 'whoops':
+        RhythmSection.draw(ctx, obstacle, x, trackY, trackHeight, track, cameraX, sideWallDepth, isometricAngle);
         break;
-      }
       
       case 'water':
-        // Draw water zone (blue) - spans horizontally across affected lanes
-        ctx.fillStyle = '#0066FF';
-        ctx.fillRect(x, startLaneY, obstacleScreenWidth, obstacleHeight);
-        // Water effect (wavy lines)
-        ctx.strokeStyle = '#00AAFF';
-        ctx.lineWidth = 2;
-        for (let i = 0; i < 3; i++) {
-          ctx.beginPath();
-          ctx.moveTo(x, startLaneY + (i * (obstacleHeight / 3)));
-          ctx.lineTo(x + obstacleScreenWidth, startLaneY + (i * (obstacleHeight / 3)));
-          ctx.stroke();
-        }
+        WaterHazard.draw(ctx, obstacle, x, trackY, trackHeight, track, cameraX, sideWallDepth, isometricAngle);
         break;
       
       case 'finish':

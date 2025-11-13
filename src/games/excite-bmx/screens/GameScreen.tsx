@@ -23,15 +23,15 @@ export function GameScreen({ canvas, ctx, gameEngine, rider, track, onComplete, 
   const raceStateRef = useRef<RaceState | null>(null);
   const playerRacerRef = useRef<Racer | null>(null);
   const keysRef = useRef<Set<string>>(new Set());
-  const trackLengthRef = useRef<number>(2000);
-  const finishLineRef = useRef<number>(1900);
+  const trackLengthRef = useRef<number>(3500); // Increased track length
+  const finishLineRef = useRef<number>(3430); // Finish line near end
   const [raceTime, setRaceTime] = useState(0);
 
   useEffect(() => {
     // Initialize race
-    trackLengthRef.current = 2000;
+    trackLengthRef.current = 3500; // Increased track length for longer races
     const obstacles = TrackGenerator.generateObstacles(track, trackLengthRef.current);
-    finishLineRef.current = trackLengthRef.current * 0.95;
+    finishLineRef.current = trackLengthRef.current * 0.98; // Finish line at 98% of track
     
     // Create player racer
     const playerRacer: Racer = {
