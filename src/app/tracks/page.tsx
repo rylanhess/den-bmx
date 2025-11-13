@@ -206,13 +206,6 @@ export default function TracksPage() {
 
   return (
     <main className="min-h-screen bg-black relative overflow-hidden">
-      {/* Geometric Background - Subtle punk accents */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
-        <div className="absolute top-0 left-0 w-96 h-96" style={{clipPath: 'polygon(0 0, 100% 0, 0 100%)', backgroundColor: '#00ff0c'}}></div>
-        <div className="absolute bottom-0 right-0 w-80 h-80" style={{clipPath: 'polygon(100% 100%, 0 100%, 100% 0)', backgroundColor: '#00ff0c'}}></div>
-        <div className="absolute top-1/2 right-1/4 w-40 h-40 bg-[#00ff0c] animate-rotate-wild opacity-30"></div>
-      </div>
-
       <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 relative z-10">
         {/* Header - Professional Punk */}
         <div className="text-center mb-12">

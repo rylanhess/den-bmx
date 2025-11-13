@@ -8,14 +8,6 @@ import Image from 'next/image';
 export default function Home() {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Geometric Background Shapes - Subtle punk accents */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
-        <div className="absolute top-0 left-0 w-64 h-64" style={{clipPath: 'polygon(0 0, 100% 0, 0 100%)', backgroundColor: '#00ff0c'}}></div>
-        <div className="absolute top-20 right-0 w-96 h-96" style={{clipPath: 'polygon(100% 0, 100% 100%, 0 100%)', backgroundColor: '#00ff0c'}}></div>
-        <div className="absolute bottom-0 left-20 w-80 h-80" style={{clipPath: 'polygon(50% 0, 100% 100%, 0 100%)', backgroundColor: '#00ff0c'}}></div>
-        <div className="absolute bottom-40 right-40 w-40 h-40 bg-[#00ff0c] animate-float opacity-30"></div>
-      </div>
-
       {/* Alert Bar - Shows real cancellations and weather updates */}
       <AlertsBanner />
 

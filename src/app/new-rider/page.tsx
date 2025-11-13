@@ -9,14 +9,6 @@ export const metadata: Metadata = {
 export default function NewRiderPage() {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Geometric Background - Subtle punk accents */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
-        <div className="absolute top-0 right-0 w-96 h-96" style={{clipPath: 'polygon(100% 0, 0 0, 100% 100%)', backgroundColor: '#00ff0c'}}></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80" style={{clipPath: 'polygon(0 100%, 100% 100%, 0 0)', backgroundColor: '#00ff0c'}}></div>
-        <div className="absolute top-1/4 left-1/3 w-32 h-32 bg-[#00ff0c] animate-float opacity-30"></div>
-        <div className="absolute bottom-1/4 right-1/3 w-24 h-24 bg-[#00ff0c] animate-rotate-wild opacity-30"></div>
-      </div>
-
       {/* Header */}
       <header className="bg-black border-b-4 border-[#00ff0c] sticky top-0 z-20 relative">
         <div className="container mx-auto px-4 py-4">
