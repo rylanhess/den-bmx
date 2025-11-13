@@ -1,0 +1,180 @@
+import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'About | DEN BMX',
+  description: 'Meet the track operators behind Denver metro BMX tracks. Learn about the people who keep Mile High, Dacono, and County Line BMX running.',
+};
+
+export default function AboutPage() {
+  return (
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Header */}
+      <header className="bg-black border-b-4 border-[#00ff0c] sticky top-0 z-20 relative">
+        <div className="container mx-auto px-4 py-4">
+          <Link href="/" className="inline-flex items-center gap-2 bg-[#00ff0c] text-black hover:bg-white px-6 py-3 border-4 border-black font-black transition-colors transform hover:scale-105">
+            ← BACK TO HOME
+          </Link>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="container mx-auto px-4 py-12 md:py-16 max-w-6xl relative z-10">
+        {/* Hero - Professional Punk */}
+        <div className="text-center mb-12">
+          <div className="inline-block bg-black border-4 border-[#00ff0c] p-8 mb-6">
+            <h1 className="text-5xl md:text-7xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
+              ABOUT US
+            </h1>
+            <div className="h-2 bg-[#00ff0c]"></div>
+          </div>
+          <p className="text-3xl text-white font-black bg-black px-8 py-4 inline-block border-4 border-[#00ff0c]">
+            👋 MEET THE TRACK OPERATORS 👋
+          </p>
+        </div>
+
+        {/* Intro Card */}
+        <div className="bg-[#00ff0c] border-4 border-black p-6 md:p-8 mb-12">
+          <h2 className="text-4xl font-black text-black mb-4 flex items-center gap-3">
+            <span className="text-6xl">🏁</span>
+            THE PEOPLE BEHIND THE TRACKS
+          </h2>
+          <p className="text-black text-xl leading-relaxed font-bold">
+            Denver metro BMX tracks are run by <strong className="text-2xl">DEDICATED VOLUNTEERS</strong> and track operators who love BMX and want to share that passion with the community. These are the friendly faces you&apos;ll see at the tracks - they&apos;re here to help and make BMX accessible to everyone!
+          </p>
+        </div>
+
+        {/* Track Operators Section */}
+        <div className="space-y-12 mb-12">
+          {/* Mile High BMX Operator */}
+          <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
+            <div className="grid md:grid-cols-2 gap-8 items-start">
+              {/* Image Placeholder */}
+              <div className="bg-[#00ff0c] border-4 border-black p-8 flex items-center justify-center min-h-[300px]">
+                <div className="text-center">
+                  <div className="text-8xl mb-4">📸</div>
+                  <p className="text-black font-black text-xl">TRACK OPERATOR PHOTO</p>
+                  <p className="text-black font-bold text-sm mt-2">Coming Soon</p>
+                </div>
+              </div>
+              
+              {/* Content */}
+              <div>
+                <h2 className="text-4xl font-black text-[#00ff0c] mb-4">
+                  MILE HIGH BMX OPERATOR
+                </h2>
+                <div className="bg-[#00ff0c] border-4 border-black p-6 mb-4">
+                  <p className="text-black font-bold text-lg leading-relaxed">
+                    <strong className="text-2xl">PLACEHOLDER:</strong> This is where we&apos;ll feature a short write-up about the Mile High BMX track operator. We want to make the tracks feel inviting and approachable, so you&apos;ll learn about their background, why they love BMX, and how they got involved with track operations.
+                  </p>
+                </div>
+                <p className="text-white font-bold text-lg">
+                  Track: <span className="text-[#00ff0c]">Mile High BMX</span> • Lakewood, CO
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Dacono BMX Operator */}
+          <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
+            <div className="grid md:grid-cols-2 gap-8 items-start">
+              {/* Content */}
+              <div>
+                <h2 className="text-4xl font-black text-[#00ff0c] mb-4">
+                  DACONO BMX OPERATOR
+                </h2>
+                <div className="bg-[#00ff0c] border-4 border-black p-6 mb-4">
+                  <p className="text-black font-bold text-lg leading-relaxed">
+                    <strong className="text-2xl">PLACEHOLDER:</strong> This is where we&apos;ll feature a short write-up about the Dacono BMX track operator. We want to make the tracks feel inviting and approachable, so you&apos;ll learn about their background, why they love BMX, and how they got involved with track operations.
+                  </p>
+                </div>
+                <p className="text-white font-bold text-lg">
+                  Track: <span className="text-[#00ff0c]">Dacono BMX</span> • Dacono, CO
+                </p>
+              </div>
+              
+              {/* Image Placeholder */}
+              <div className="bg-[#00ff0c] border-4 border-black p-8 flex items-center justify-center min-h-[300px]">
+                <div className="text-center">
+                  <div className="text-8xl mb-4">📸</div>
+                  <p className="text-black font-black text-xl">TRACK OPERATOR PHOTO</p>
+                  <p className="text-black font-bold text-sm mt-2">Coming Soon</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* County Line BMX Operator */}
+          <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
+            <div className="grid md:grid-cols-2 gap-8 items-start">
+              {/* Image Placeholder */}
+              <div className="bg-[#00ff0c] border-4 border-black p-8 flex items-center justify-center min-h-[300px]">
+                <div className="text-center">
+                  <div className="text-8xl mb-4">📸</div>
+                  <p className="text-black font-black text-xl">TRACK OPERATOR PHOTO</p>
+                  <p className="text-black font-bold text-sm mt-2">Coming Soon</p>
+                </div>
+              </div>
+              
+              {/* Content */}
+              <div>
+                <h2 className="text-4xl font-black text-[#00ff0c] mb-4">
+                  COUNTY LINE BMX OPERATOR
+                </h2>
+                <div className="bg-[#00ff0c] border-4 border-black p-6 mb-4">
+                  <p className="text-black font-bold text-lg leading-relaxed">
+                    <strong className="text-2xl">PLACEHOLDER:</strong> This is where we&apos;ll feature a short write-up about the County Line BMX track operator. We want to make the tracks feel inviting and approachable, so you&apos;ll learn about their background, why they love BMX, and how they got involved with track operations.
+                  </p>
+                </div>
+                <p className="text-white font-bold text-lg">
+                  Track: <span className="text-[#00ff0c]">County Line BMX</span> • Highlands Ranch, CO
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        {/* Community Message */}
+        <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8 mb-12">
+          <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
+            <span className="text-6xl">💚</span>
+            OUR MISSION
+          </h2>
+          <div className="bg-[#00ff0c] border-4 border-black p-6">
+            <p className="text-black font-bold text-xl leading-relaxed mb-4">
+              We believe BMX should be <strong className="text-2xl">ACCESSIBLE</strong> and <strong className="text-2xl">WELCOMING</strong> to everyone. Our track operators are here to help, answer questions, and make sure everyone has a great time at the track.
+            </p>
+            <p className="text-black font-bold text-lg leading-relaxed">
+              Don&apos;t be shy - come say hi! We&apos;re friendly and always happy to help new riders get started or answer questions about BMX racing.
+            </p>
+          </div>
+        </section>
+
+        {/* Contact CTA */}
+        <div className="bg-gradient-to-r from-yellow-400 via-pink-500 to-cyan-400 border-8 border-black p-8 text-center">
+          <h2 className="text-5xl font-black text-black mb-4">
+            WANT TO KNOW MORE?
+          </h2>
+          <p className="text-black text-2xl font-black mb-6">
+            Have questions? Want to get involved? Reach out! 🎉
+          </p>
+          <Link
+            href="/contact"
+            className="inline-block bg-black hover:bg-white text-[#00ff0c] hover:text-black font-black py-4 px-12 border-4 border-yellow-400 transition-colors transform hover:scale-110 text-2xl"
+          >
+            📧 CONTACT US
+          </Link>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="container mx-auto px-4 py-8 text-center relative z-10">
+        <div className="bg-black border-4 border-[#00ff0c] px-6 py-4 inline-block">
+          <p className="text-[#00ff0c] font-black text-lg">⚡ DEN BMX ⚡</p>
+          <p className="text-white font-bold text-sm mt-1">Meet the people behind the tracks!</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
+

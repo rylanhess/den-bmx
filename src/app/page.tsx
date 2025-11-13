@@ -53,7 +53,7 @@ export default function Home() {
         <TracksShowcase />
 
         {/* Action Buttons - Professional Punk Style - Mobile Optimized */}
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-12">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-12">
           <Link href="/donate" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
             <div className="text-4xl sm:text-5xl mb-2 sm:mb-3">💛 ₿ $</div>
             <div className="text-xl sm:text-2xl mb-2">DONATE NOW</div>
@@ -76,6 +76,24 @@ export default function Home() {
             <div className="text-4xl sm:text-5xl mb-2 sm:mb-3">📧</div>
             <div className="text-xl sm:text-2xl mb-2">CONTACT ME</div>
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">GET IN TOUCH • SAY HI</div>
+          </Link>
+
+          <Link href="/volunteer" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+            <div className="text-4xl sm:text-5xl mb-2 sm:mb-3">🛠️</div>
+            <div className="text-xl sm:text-2xl mb-2">VOLUNTEER</div>
+            <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">HELP OUT • GET INVOLVED</div>
+          </Link>
+
+          <Link href="/merch" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+            <div className="text-4xl sm:text-5xl mb-2 sm:mb-3">🛍️</div>
+            <div className="text-xl sm:text-2xl mb-2">MERCH</div>
+            <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">STORE • COMING SOON</div>
+          </Link>
+
+          <Link href="/about" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+            <div className="text-4xl sm:text-5xl mb-2 sm:mb-3">👋</div>
+            <div className="text-xl sm:text-2xl mb-2">ABOUT</div>
+            <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">MEET THE OPERATORS</div>
           </Link>
         </div>
 
