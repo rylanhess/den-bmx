@@ -232,8 +232,9 @@ export function GameScreen({ canvas, ctx, gameEngine, rider, track, onComplete, 
       );
       
       // Draw racers - Excitebike style: 4 vertical lanes (stacked top to bottom)
-      const trackStartY = canvas.height * 0.25;
-      const trackHeight = canvas.height * 0.35;
+      // Track takes up 1/3 of height, background takes up 2/3 (Excitebike layout)
+      const trackStartY = canvas.height * (2/3); // Track starts at 2/3 down
+      const trackHeight = canvas.height * (1/3); // Track takes up exactly 1/3 of height
       const laneHeight = trackHeight / 4;
       
       state.racers.forEach(racer => {

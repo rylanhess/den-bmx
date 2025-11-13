@@ -68,9 +68,13 @@ export class PhysicsEngine {
       }
       
       // Calculate progress along ramp (0 to 1)
-      const rampStart = currentObstacle.x;
-      const rampEnd = currentObstacle.x + currentObstacle.width;
-      racer.rampProgress = (racer.position - rampStart) / (rampEnd - rampStart);
+      // Use racer's front edge position for accurate progress calculation
+      const racerSpriteWidth = 30; // Match the width used in detection
+      const racerFrontEdge = racer.position + racerSpriteWidth;
+      const buffer = 50; // Match the buffer used in detection
+      const rampStart = currentObstacle.x + buffer;
+      const rampEnd = currentObstacle.x + currentObstacle.width - 10; // Match end buffer
+      racer.rampProgress = (racerFrontEdge - rampStart) / (rampEnd - rampStart);
       racer.rampProgress = Math.max(0, Math.min(1, racer.rampProgress));
       
       // Follow ramp surface - Excitebike style: smooth elevation following track
@@ -142,7 +146,8 @@ export class PhysicsEngine {
         racer.rampApproachSpeed = undefined;
       }
       
-      // Always on track surface when not on ramp
+      // CRITICAL: Force yOffset to 0 when NOT on a ramp
+      // This prevents random hopping - racers should ONLY be elevated when on ramps
       racer.yOffset = 0;
       racer.isJumping = false;
       racer.jumpVelocity = 0;
@@ -156,6 +161,14 @@ export class PhysicsEngine {
           racer.bikeAngle = Math.min(0, racer.bikeAngle + returnSpeed);
         }
       }
+    }
+    
+    // DOUBLE-CHECK: Ensure yOffset is 0 if we're not on a ramp
+    // This is a safety check to prevent any random elevation
+    if (!racer.onRamp && racer.yOffset !== 0) {
+      racer.yOffset = 0;
+      racer.isJumping = false;
+      racer.jumpVelocity = 0;
     }
 
     // Handle other obstacles (whoops, water)
@@ -215,9 +228,31 @@ export class PhysicsEngine {
   }
 
   private static getCurrentObstacle(racer: Racer, obstacles: Obstacle[]): Obstacle | null {
-    for (const obstacle of obstacles) {
-      // Check if racer is within obstacle's horizontal bounds
-      const isInObstacleX = racer.position >= obstacle.x && racer.position <= obstacle.x + obstacle.width;
+    // Only check for ramp-type obstacles (not whoops, water, finish)
+    const rampObstacles = obstacles.filter(obs => 
+      obs.type === 'start-hill' || obs.type === 'step-up' || 
+      obs.type === 'triple' || obs.type === 'double'
+    );
+    
+    for (const obstacle of rampObstacles) {
+      // CRITICAL: Use racer's actual world position for detection
+      // The +50 visual offset is ONLY for sprite rendering, not physics
+      // racer.position is the world position, obstacle.x is also world position
+      
+      // Use racer's FRONT EDGE (position + sprite width) to detect when front wheel hits ramp
+      // This ensures racers only jump when their front wheel actually contacts the ramp
+      const racerSpriteWidth = 30; // Approximate sprite width in world units
+      const racerFrontEdge = racer.position + racerSpriteWidth;
+      
+      // STRICT detection: Only detect when racer's FRONT EDGE visually reaches the ramp
+      // Large buffer to ensure racer is actually visually at the ramp (not before)
+      const buffer = 50; // Increased buffer to prevent premature detection
+      const rampStart = obstacle.x + buffer;
+      const rampEnd = obstacle.x + obstacle.width - 10; // Small buffer at end too
+      
+      // Racer is on ramp when front edge reaches ramp start and hasn't passed ramp end
+      const isInObstacleX = racerFrontEdge >= rampStart && racerFrontEdge <= rampEnd;
+      
       // Check if racer is in a lane affected by this obstacle
       const isInObstacleLane = obstacle.lanes.includes(racer.lane);
       
