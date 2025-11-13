@@ -1,5 +1,23 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import {
+  FlagIcon,
+  SparklesIcon,
+  AcademicCapIcon,
+  ShieldCheckIcon,
+  SunIcon,
+  ChairIcon,
+  UserIcon,
+  TrophyIcon,
+  MapPinIcon,
+  CalendarIcon,
+  CurrencyDollarIcon,
+  LinkIcon,
+  QuestionMarkCircleIcon,
+  BoltIcon,
+  ExclamationTriangleIcon,
+  CheckCircleIcon
+} from '@heroicons/react/24/solid';
 
 export const metadata: Metadata = {
   title: 'New Rider Guide | DEN BMX',
@@ -28,15 +46,16 @@ export default function NewRiderPage() {
             </h1>
             <div className="h-2 bg-[#00ff0c]"></div>
           </div>
-          <p className="text-3xl text-white font-black bg-black px-8 py-4 inline-block border-4 border-[#00ff0c]">
-            🚴 START YOUR BMX JOURNEY! 🚴
+          <p className="text-3xl text-white font-black bg-black px-8 py-4 inline-block border-4 border-[#00ff0c] flex items-center gap-2">
+            <FlagIcon className="w-8 h-8" />
+            START YOUR BMX JOURNEY!
           </p>
         </div>
 
         {/* Quick Start Card */}
         <div className="bg-[#00ff0c] border-4 border-black p-6 md:p-8 mb-12">
           <h2 className="text-4xl font-black text-black mb-4 flex items-center gap-3">
-            <span className="text-6xl">🎉</span>
+            <SparklesIcon className="w-16 h-16" />
             YOUR FIRST DAY IS FREE!
           </h2>
           <p className="text-black text-xl leading-relaxed font-bold">
@@ -49,7 +68,7 @@ export default function NewRiderPage() {
           {/* USA BMX Membership */}
           <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
-              <span className="text-6xl animate-float">🏁</span>
+              <FlagIcon className="w-16 h-16" />
               USA BMX MEMBERSHIP
             </h2>
             <div className="space-y-4 leading-relaxed">
@@ -59,10 +78,10 @@ export default function NewRiderPage() {
               <div className="bg-[#00ff0c] border-4 border-black p-6 space-y-3">
                 <p className="font-black text-black text-2xl">MEMBERSHIP TYPES & PRICES:</p>
                 <ul className="space-y-3 ml-4 text-black font-bold text-lg">
-                  <li className="border-l-4 border-black pl-3">⚡ <strong>Race (Annual):</strong> ~$60 - Full racing privileges!</li>
-                  <li className="border-l-4 border-black pl-3">⚡ <strong>Race Plus:</strong> ~$90 - Includes insurance!</li>
-                  <li className="border-l-4 border-black pl-3">⚡ <strong>Strider (Ages 2-5):</strong> ~$30 - Balance bikes!</li>
-                  <li className="border-l-4 border-black pl-3">⚡ <strong>One-Day License:</strong> ~$10 - Try before you buy!</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> <strong>Race (Annual):</strong> ~$60 - Full racing privileges!</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> <strong>Race Plus:</strong> ~$90 - Includes insurance!</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> <strong>Strider (Ages 2-5):</strong> ~$30 - Balance bikes!</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> <strong>One-Day License:</strong> ~$10 - Try before you buy!</li>
                 </ul>
               </div>
               <p className="pt-2">
@@ -72,7 +91,7 @@ export default function NewRiderPage() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-[#00ff0c] text-black hover:bg-white px-6 py-3 border-4 border-black font-black text-lg transform hover:scale-105 transition-all"
                 >
-                  🔗 SIGN UP NOW!
+                  <LinkIcon className="w-5 h-5" /> SIGN UP NOW!
                 </a>
               </p>
             </div>
@@ -81,55 +100,56 @@ export default function NewRiderPage() {
           {/* What to Bring */}
           <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
-              <span className="text-6xl animate-shake">🎒</span>
+              <AcademicCapIcon className="w-16 h-16" />
               WHAT TO BRING!
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-[#00ff0c] border-4 border-black p-6">
-                <h3 className="text-2xl font-black text-black mb-4">✓ REQUIRED GEAR!</h3>
+                <h3 className="text-2xl font-black text-black mb-4 flex items-center gap-2"><CheckCircleIcon className="w-6 h-6" /> REQUIRED GEAR!</h3>
                 <ul className="space-y-3 text-black font-bold text-lg">
                   <li className="flex items-start gap-2 border-l-4 border-black pl-3">
-                    <span className="text-2xl">🪖</span>
+                    <ShieldCheckIcon className="w-6 h-6 flex-shrink-0 mt-0.5" />
                     <span><strong>HELMET:</strong> Full-face or 3/4 shell!</span>
                   </li>
                   <li className="flex items-start gap-2 border-l-4 border-black pl-3">
-                    <span className="text-2xl">👖</span>
+                    <UserIcon className="w-6 h-6 flex-shrink-0 mt-0.5" />
                     <span><strong>LONG PANTS:</strong> Denim or riding pants!</span>
                   </li>
                   <li className="flex items-start gap-2 border-l-4 border-black pl-3">
-                    <span className="text-2xl">👕</span>
+                    <UserIcon className="w-6 h-6 flex-shrink-0 mt-0.5" />
                     <span><strong>LONG SLEEVES:</strong> Shirt or jersey!</span>
                   </li>
                   <li className="flex items-start gap-2 border-l-4 border-black pl-3">
-                    <span className="text-2xl">👟</span>
+                    <UserIcon className="w-6 h-6 flex-shrink-0 mt-0.5" />
                     <span><strong>CLOSED SHOES:</strong> Athletic shoes OK!</span>
                   </li>
                 </ul>
-                <p className="text-sm text-black mt-4 font-bold bg-white border-2 border-black p-2">
-                  💡 Most tracks have loaner helmets!
+                <p className="text-sm text-black mt-4 font-bold bg-white border-2 border-black p-2 flex items-center gap-2">
+                  <SparklesIcon className="w-5 h-5" />
+                  Most tracks have loaner helmets!
                 </p>
               </div>
               <div className="bg-white border-4 border-black p-6">
                 <h3 className="text-2xl font-black text-black mb-4">+ RECOMMENDED!</h3>
                 <ul className="space-y-3 text-black font-bold text-lg">
                   <li className="flex items-start gap-2 border-l-4 border-black pl-3">
-                    <span className="text-2xl">🧤</span>
+                    <ShieldCheckIcon className="w-6 h-6 flex-shrink-0 mt-0.5" />
                     <span><strong>GLOVES:</strong> BMX or cycling!</span>
                   </li>
                   <li className="flex items-start gap-2 border-l-4 border-black pl-3">
-                    <span className="text-2xl">🛡️</span>
+                    <ShieldCheckIcon className="w-6 h-6 flex-shrink-0 mt-0.5" />
                     <span><strong>PADS:</strong> Elbow/Knee protection!</span>
                   </li>
                   <li className="flex items-start gap-2 border-l-4 border-black pl-3">
-                    <span className="text-2xl">💧</span>
+                    <BoltIcon className="w-6 h-6 flex-shrink-0 mt-0.5" />
                     <span><strong>WATER:</strong> Stay hydrated!</span>
                   </li>
                   <li className="flex items-start gap-2 border-l-4 border-black pl-3">
-                    <span className="text-2xl">☀️</span>
+                    <SunIcon className="w-6 h-6 flex-shrink-0 mt-0.5" />
                     <span><strong>SUNSCREEN:</strong> Colorado sun!</span>
                   </li>
                   <li className="flex items-start gap-2 border-l-4 border-black pl-3">
-                    <span className="text-2xl">🪑</span>
+                    <ChairIcon className="w-6 h-6 flex-shrink-0 mt-0.5" />
                     <span><strong>CHAIR/CANOPY:</strong> Race comfort!</span>
                   </li>
                 </ul>
@@ -139,8 +159,8 @@ export default function NewRiderPage() {
 
           {/* Strider Riders */}
           <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
-            <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3 animate-pulse-crazy">
-              <span className="text-6xl animate-float">👶</span>
+            <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
+              <UserIcon className="w-16 h-16" />
               STRIDER RIDERS (AGES 2-5)!
             </h2>
             <div className="space-y-4 leading-relaxed">
@@ -150,12 +170,12 @@ export default function NewRiderPage() {
               <div className="bg-[#00ff0c] border-4 border-black p-6 space-y-3">
                 <p className="font-black text-black text-2xl">WHAT TO KNOW:</p>
                 <ul className="space-y-2 ml-4 text-black font-bold text-lg">
-                  <li className="border-l-4 border-[#00ff0c] pl-3">🎉 Races are SHORT & NON-COMPETITIVE - ALL ABOUT FUN!</li>
-                  <li className="border-l-4 border-white pl-3">🏆 Kids get TROPHIES just for participating!</li>
-                  <li className="border-l-4 border-[#00ff0c] pl-3">🚀 No starting gate - kids push off themselves!</li>
-                  <li className="border-l-4 border-orange-500 pl-3">👨‍👩‍👧‍👦 Parents can WALK alongside younger riders!</li>
-                  <li className="border-l-4 border-purple-500 pl-3">💰 Special $30/year Strider membership!</li>
-                  <li className="border-l-4 border-[#00ff0c] pl-3">🚴 Kids transition to pedal bikes around age 4-5!</li>
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><SparklesIcon className="w-5 h-5" /> Races are SHORT & NON-COMPETITIVE - ALL ABOUT FUN!</li>
+                  <li className="border-l-4 border-white pl-3 flex items-center gap-2"><TrophyIcon className="w-5 h-5" /> Kids get TROPHIES just for participating!</li>
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><FlagIcon className="w-5 h-5" /> No starting gate - kids push off themselves!</li>
+                  <li className="border-l-4 border-orange-500 pl-3 flex items-center gap-2"><UserIcon className="w-5 h-5" /> Parents can WALK alongside younger riders!</li>
+                  <li className="border-l-4 border-purple-500 pl-3 flex items-center gap-2"><CurrencyDollarIcon className="w-5 h-5" /> Special $30/year Strider membership!</li>
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><FlagIcon className="w-5 h-5" /> Kids transition to pedal bikes around age 4-5!</li>
                 </ul>
               </div>
               <p className="pt-2">
@@ -165,7 +185,7 @@ export default function NewRiderPage() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-[#00ff0c] text-white hover:bg-white hover:text-black px-6 py-3 border-4 border-black font-black text-lg transform hover:scale-105 transition-all"
                 >
-                  🔗 LEARN MORE!
+                  <LinkIcon className="w-5 h-5" /> LEARN MORE!
                 </a>
               </p>
             </div>
@@ -173,13 +193,13 @@ export default function NewRiderPage() {
 
           {/* How Racing Works */}
           <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8 animate-pulse-crazy">
-            <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3 animate-blink">
-              <span className="text-6xl animate-shake">🏆</span>
+            <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
+              <TrophyIcon className="w-16 h-16" />
               HOW BMX RACING WORKS!
             </h2>
             <div className="space-y-6">
               <div className="bg-white border-4 border-black p-6">
-                <h3 className="text-2xl font-black text-black mb-3">⚡ RACE FORMAT!</h3>
+                <h3 className="text-2xl font-black text-black mb-3 flex items-center gap-2"><BoltIcon className="w-6 h-6" /> RACE FORMAT!</h3>
                 <p className="leading-relaxed mb-3 text-black font-bold text-lg">
                   BMX races are SHORT, INTENSE SPRINTS around a dirt track with JUMPS, BERMS, and STRAIGHTAWAYS! 
                   Races last 30-45 seconds with 8 riders at a time!
@@ -196,7 +216,7 @@ export default function NewRiderPage() {
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-[#00ff0c] border-4 border-black p-6">
-                  <p className="font-black text-black text-xl mb-3">🔢 AGE GROUPS!</p>
+                  <p className="font-black text-black text-xl mb-3 flex items-center gap-2"><UserIcon className="w-6 h-6" /> AGE GROUPS!</p>
                   <ul className="space-y-1 text-black font-bold">
                     <li>• Strider (2-5)</li>
                     <li>• 5 & Under, 6, 7, 8, 9, 10</li>
@@ -206,7 +226,7 @@ export default function NewRiderPage() {
                   </ul>
                 </div>
                 <div className="bg-[#00ff0c] border-4 border-black p-6">
-                  <p className="font-black text-black text-xl mb-3">⭐ SKILL LEVELS!</p>
+                  <p className="font-black text-black text-xl mb-3 flex items-center gap-2"><SparklesIcon className="w-6 h-6" /> SKILL LEVELS!</p>
                   <ul className="space-y-1 text-black font-bold">
                     <li>• <strong>NOVICE:</strong> 0-50 pts (beginners)</li>
                     <li>• <strong>INTERMEDIATE:</strong> 51-150 pts</li>
@@ -218,13 +238,13 @@ export default function NewRiderPage() {
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-purple-500 border-4 border-black p-6">
-                  <p className="font-black text-white text-xl mb-2">🌙 PRACTICE NIGHT!</p>
+                  <p className="font-black text-white text-xl mb-2 flex items-center gap-2"><CalendarIcon className="w-6 h-6" /> PRACTICE NIGHT!</p>
                   <p className="text-white font-bold">
                     Weekday evenings • Lap the track 1-2 hours • Learn & build skills • $5-10!
                   </p>
                 </div>
                 <div className="bg-white border-4 border-black p-6">
-                  <p className="font-black text-white text-xl mb-2">☀️ RACE DAY!</p>
+                  <p className="font-black text-white text-xl mb-2 flex items-center gap-2"><FlagIcon className="w-6 h-6" /> RACE DAY!</p>
                   <p className="text-white font-bold">
                     Usually Sundays • Motos & main events • Register 1-2hrs before • $15-25!
                   </p>
@@ -235,71 +255,72 @@ export default function NewRiderPage() {
 
           {/* Track-Specific Info */}
           <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
-            <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3 animate-blink">
-              <span className="text-6xl">📍</span>
+            <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
+              <MapPinIcon className="w-16 h-16" />
               DENVER METRO TRACKS!
             </h2>
             <div className="space-y-6">
               {/* Mile High BMX */}
               <div className="bg-white border-4 border-black p-6">
-                <h3 className="text-3xl font-black text-black mb-2">🏁 MILE HIGH BMX</h3>
+                <h3 className="text-3xl font-black text-black mb-2 flex items-center gap-2"><FlagIcon className="w-8 h-8" /> MILE HIGH BMX</h3>
                 <p className="text-white font-black text-xl mb-3">Lakewood, CO</p>
                 <div className="space-y-2 text-black font-bold">
-                  <p>📍 Crown Hill Park, 10th & Kipling</p>
-                  <p>📅 Practice THU 6-8PM • Races SUN</p>
-                  <p>💰 Practice $5 • Race $20</p>
+                  <p className="flex items-center gap-2"><MapPinIcon className="w-5 h-5" /> Crown Hill Park, 10th & Kipling</p>
+                  <p className="flex items-center gap-2"><CalendarIcon className="w-5 h-5" /> Practice THU 6-8PM • Races SUN</p>
+                  <p className="flex items-center gap-2"><CurrencyDollarIcon className="w-5 h-5" /> Practice $5 • Race $20</p>
                   <a 
                     href="https://www.facebook.com/MileHighBmx/" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="inline-block bg-black text-[#00ff0c] px-4 py-2 border-2 border-yellow-400 font-black hover:bg-[#00ff0c] hover:text-black transition-colors mt-2"
+                    className="inline-flex items-center gap-2 bg-black text-[#00ff0c] px-4 py-2 border-2 border-yellow-400 font-black hover:bg-[#00ff0c] hover:text-black transition-colors mt-2"
                   >
-                    🔗 FACEBOOK
+                    <LinkIcon className="w-5 h-5" /> FACEBOOK
                   </a>
                 </div>
               </div>
 
               {/* Dacono BMX */}
               <div className="bg-[#00ff0c] border-4 border-black p-6">
-                <h3 className="text-3xl font-black text-black mb-2">🏁 DACONO BMX</h3>
+                <h3 className="text-3xl font-black text-black mb-2 flex items-center gap-2"><FlagIcon className="w-8 h-8" /> DACONO BMX</h3>
                 <p className="text-black font-black text-xl mb-3">Dacono, CO</p>
                 <div className="space-y-2 text-black font-bold">
-                  <p>📍 Carbon Valley Park, 2776 WCR 26</p>
-                  <p>📅 Practice WED 6-8PM • Races SUN</p>
-                  <p>💰 Practice $5 • Race $15-20</p>
+                  <p className="flex items-center gap-2"><MapPinIcon className="w-5 h-5" /> Carbon Valley Park, 2776 WCR 26</p>
+                  <p className="flex items-center gap-2"><CalendarIcon className="w-5 h-5" /> Practice WED 6-8PM • Races SUN</p>
+                  <p className="flex items-center gap-2"><CurrencyDollarIcon className="w-5 h-5" /> Practice $5 • Race $15-20</p>
                   <a 
                     href="https://www.facebook.com/DaconoBMXTrack/" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="inline-block bg-black text-[#00ff0c] px-4 py-2 border-2 border-pink-500 font-black hover:bg-[#00ff0c] hover:text-black transition-colors mt-2"
+                    className="inline-flex items-center gap-2 bg-black text-[#00ff0c] px-4 py-2 border-2 border-pink-500 font-black hover:bg-[#00ff0c] hover:text-black transition-colors mt-2"
                   >
-                    🔗 FACEBOOK
+                    <LinkIcon className="w-5 h-5" /> FACEBOOK
                   </a>
                 </div>
               </div>
 
               {/* County Line BMX */}
               <div className="bg-purple-500 border-4 border-black p-6">
-                <h3 className="text-3xl font-black text-white mb-2">🏁 COUNTY LINE BMX</h3>
+                <h3 className="text-3xl font-black text-white mb-2 flex items-center gap-2"><FlagIcon className="w-8 h-8" /> COUNTY LINE BMX</h3>
                 <p className="text-white font-black text-xl mb-3">Highlands Ranch, CO</p>
                 <div className="space-y-2 text-white font-bold">
-                  <p>📍 Redstone Park, 9691 Redstone Dr</p>
-                  <p>📅 Practice WED 6-8PM • Races SUN</p>
-                  <p>💰 Practice $5 • Race $15-20</p>
+                  <p className="flex items-center gap-2"><MapPinIcon className="w-5 h-5" /> Redstone Park, 9691 Redstone Dr</p>
+                  <p className="flex items-center gap-2"><CalendarIcon className="w-5 h-5" /> Practice WED 6-8PM • Races SUN</p>
+                  <p className="flex items-center gap-2"><CurrencyDollarIcon className="w-5 h-5" /> Practice $5 • Race $15-20</p>
                   <a 
                     href="https://www.facebook.com/CountyLineBMX/" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="inline-block bg-white text-black px-4 py-2 border-2 border-white font-black hover:bg-white transition-colors mt-2"
+                    className="inline-flex items-center gap-2 bg-white text-black px-4 py-2 border-2 border-white font-black hover:bg-white transition-colors mt-2"
                   >
-                    🔗 FACEBOOK
+                    <LinkIcon className="w-5 h-5" /> FACEBOOK
                   </a>
                 </div>
               </div>
 
-              <div className="bg-[#00ff0c] border-4 border-black p-4 mt-4 animate-shake">
-                <p className="text-black font-black">
-                  ⚠️ IMPORTANT: Schedules & fees CAN change! ALWAYS check track Facebook before visiting! Weather affects schedules!
+              <div className="bg-[#00ff0c] border-4 border-black p-4 mt-4">
+                <p className="text-black font-black flex items-center gap-2">
+                  <ExclamationTriangleIcon className="w-6 h-6 flex-shrink-0" />
+                  IMPORTANT: Schedules & fees CAN change! ALWAYS check track Facebook before visiting! Weather affects schedules!
                 </p>
               </div>
             </div>
@@ -307,8 +328,8 @@ export default function NewRiderPage() {
 
           {/* FAQs - SIMPLIFIED */}
           <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
-            <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3 animate-blink">
-              <span className="text-6xl">❓</span>
+            <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
+              <QuestionMarkCircleIcon className="w-16 h-16" />
               FAQS!
             </h2>
             <div className="grid md:grid-cols-2 gap-4">
@@ -337,8 +358,8 @@ export default function NewRiderPage() {
 
           {/* Resources */}
           <section className="bg-black border-8 border-cyan-400 p-6 md:p-8">
-            <h2 className="text-4xl font-black text-white mb-6 flex items-center gap-3 animate-pulse-crazy">
-              <span className="text-6xl animate-rotate-wild">🔗</span>
+            <h2 className="text-4xl font-black text-white mb-6 flex items-center gap-3">
+              <LinkIcon className="w-16 h-16" />
               HELPFUL RESOURCES!
             </h2>
             <div className="space-y-4">
@@ -352,7 +373,7 @@ export default function NewRiderPage() {
                   <p className="font-black text-black text-xl">USA BMX OFFICIAL!</p>
                   <p className="text-black font-bold">Membership, rules, results & MORE!</p>
                 </div>
-                <span className="text-3xl">→</span>
+                <LinkIcon className="w-6 h-6" />
               </a>
               
               <a 
@@ -365,7 +386,7 @@ export default function NewRiderPage() {
                   <p className="font-black text-white text-xl">TRACK FINDER!</p>
                   <p className="text-white font-bold">Find BMX tracks EVERYWHERE!</p>
                 </div>
-                <span className="text-3xl">→</span>
+                <LinkIcon className="w-6 h-6" />
               </a>
 
               <a 
@@ -378,7 +399,7 @@ export default function NewRiderPage() {
                   <p className="font-black text-black text-xl">RULEBOOK!</p>
                   <p className="text-black font-bold">Official rules & regulations!</p>
                 </div>
-                <span className="text-3xl">→</span>
+                <LinkIcon className="w-6 h-6" />
               </a>
             </div>
           </section>
@@ -388,14 +409,16 @@ export default function NewRiderPage() {
             <h2 className="text-5xl font-black text-black mb-4 animate-blink">
               READY TO START?!
             </h2>
-            <p className="text-black text-2xl font-black mb-6">
-              Head to ANY Denver metro track - FIRST DAY IS FREE! 🎉
+            <p className="text-black text-2xl font-black mb-6 flex items-center justify-center gap-2">
+              Head to ANY Denver metro track - FIRST DAY IS FREE!
+              <SparklesIcon className="w-6 h-6" />
             </p>
             <Link 
               href="/"
-              className="inline-block bg-black hover:bg-white text-[#00ff0c] hover:text-black font-black py-4 px-12 border-4 border-yellow-400 transition-colors transform hover:scale-110 text-2xl"
+              className="inline-flex items-center gap-2 bg-black hover:bg-white text-[#00ff0c] hover:text-black font-black py-4 px-12 border-4 border-yellow-400 transition-colors transform hover:scale-110 text-2xl"
             >
-              🏁 SEE THIS WEEK&apos;S EVENTS!
+              <FlagIcon className="w-6 h-6" />
+              SEE THIS WEEK&apos;S EVENTS!
             </Link>
           </div>
         </div>
@@ -404,7 +427,10 @@ export default function NewRiderPage() {
       {/* Footer */}
       <footer className="container mx-auto px-4 py-8 text-center relative z-10">
         <div className="bg-black border-4 border-[#00ff0c] px-6 py-4 inline-block">
-          <p className="text-[#00ff0c] font-black text-lg">⚡ DEN BMX ⚡</p>
+          <p className="text-[#00ff0c] font-black text-lg flex items-center justify-center gap-2">
+            <BoltIcon className="w-5 h-5" />
+            DEN BMX
+          </p>
           <p className="text-white font-bold text-sm mt-1">Info from USA BMX & local tracks</p>
           <p className="text-[#00ff0c] font-bold text-sm">ALWAYS verify schedules before visiting!</p>
         </div>

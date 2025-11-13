@@ -1,5 +1,16 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import {
+  ShoppingBagIcon,
+  ExclamationTriangleIcon,
+  SparklesIcon,
+  BoltIcon,
+  PaintBrushIcon,
+  ArrowPathIcon,
+  InboxIcon,
+  EnvelopeIcon,
+  FlagIcon
+} from '@heroicons/react/24/solid';
 
 export const metadata: Metadata = {
   title: 'Merch Store | DEN BMX',
@@ -28,15 +39,16 @@ export default function MerchPage() {
             </h1>
             <div className="h-2 bg-[#00ff0c]"></div>
           </div>
-          <p className="text-3xl text-white font-black bg-black px-8 py-4 inline-block border-4 border-[#00ff0c]">
-            🛍️ REP DEN BMX • SUPPORT THE TRACKS 🛍️
+          <p className="text-3xl text-white font-black bg-black px-8 py-4 inline-block border-4 border-[#00ff0c] flex items-center gap-2">
+            <ShoppingBagIcon className="w-8 h-8" />
+            REP DEN BMX • SUPPORT THE TRACKS
           </p>
         </div>
 
         {/* Coming Soon Card */}
         <div className="bg-[#00ff0c] border-4 border-black p-6 md:p-8 mb-12">
           <h2 className="text-4xl font-black text-black mb-4 flex items-center gap-3">
-            <span className="text-6xl">🚧</span>
+            <ExclamationTriangleIcon className="w-16 h-16" />
             COMING SOON!
           </h2>
           <p className="text-black text-xl leading-relaxed font-bold mb-4">
@@ -52,7 +64,7 @@ export default function MerchPage() {
           {/* Apparel */}
           <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
-              <span className="text-6xl">👕</span>
+              <SparklesIcon className="w-16 h-16" />
               APPAREL
             </h2>
             <div className="space-y-4 leading-relaxed">
@@ -62,11 +74,11 @@ export default function MerchPage() {
               <div className="bg-[#00ff0c] border-4 border-black p-6 space-y-3">
                 <p className="font-black text-black text-2xl">COMING SOON:</p>
                 <ul className="space-y-3 ml-4 text-black font-bold text-lg">
-                  <li className="border-l-4 border-black pl-3">⚡ T-Shirts & Long Sleeves</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Hoodies & Sweatshirts</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Hats & Beanies</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Jerseys & Race Gear</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Custom Designs</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> T-Shirts & Long Sleeves</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Hoodies & Sweatshirts</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Hats & Beanies</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Jerseys & Race Gear</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Custom Designs</li>
                 </ul>
               </div>
             </div>
@@ -75,7 +87,7 @@ export default function MerchPage() {
           {/* Stickers & Accessories */}
           <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
-              <span className="text-6xl">🎨</span>
+              <PaintBrushIcon className="w-16 h-16" />
               STICKERS & ACCESSORIES
             </h2>
             <div className="space-y-4 leading-relaxed">
@@ -85,11 +97,11 @@ export default function MerchPage() {
               <div className="bg-[#00ff0c] border-4 border-black p-6 space-y-3">
                 <p className="font-black text-black text-2xl">COMING SOON:</p>
                 <ul className="space-y-3 ml-4 text-black font-bold text-lg">
-                  <li className="border-l-4 border-black pl-3">⚡ Vinyl Stickers (multiple sizes)</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Decals for bikes & helmets</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Patches & Pins</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Keychains & Lanyards</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Water Bottles & Drinkware</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Vinyl Stickers (multiple sizes)</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Decals for bikes & helmets</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Patches & Pins</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Keychains & Lanyards</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Water Bottles & Drinkware</li>
                 </ul>
               </div>
             </div>
@@ -98,7 +110,7 @@ export default function MerchPage() {
           {/* BMX Gear */}
           <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
-              <span className="text-6xl">🚴</span>
+              <BoltIcon className="w-16 h-16" />
               BMX GEAR
             </h2>
             <div className="space-y-4 leading-relaxed">
@@ -108,11 +120,11 @@ export default function MerchPage() {
               <div className="bg-[#00ff0c] border-4 border-black p-6 space-y-3">
                 <p className="font-black text-black text-2xl">COMING SOON:</p>
                 <ul className="space-y-3 ml-4 text-black font-bold text-lg">
-                  <li className="border-l-4 border-black pl-3">⚡ Helmets & Protective Gear</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Gloves & Pads</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Race Numbers & Plates</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Tools & Maintenance Supplies</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Training Equipment</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Helmets & Protective Gear</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Gloves & Pads</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Race Numbers & Plates</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Tools & Maintenance Supplies</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Training Equipment</li>
                 </ul>
               </div>
             </div>
@@ -121,7 +133,7 @@ export default function MerchPage() {
           {/* Denver Resale Hub */}
           <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
-              <span className="text-6xl">🔄</span>
+              <ArrowPathIcon className="w-16 h-16" />
               DENVER BMX RESALE HUB
             </h2>
             <div className="space-y-4 leading-relaxed">
@@ -131,11 +143,11 @@ export default function MerchPage() {
               <div className="bg-[#00ff0c] border-4 border-black p-6 space-y-3">
                 <p className="font-black text-black text-2xl">WHAT TO EXPECT:</p>
                 <ul className="space-y-3 ml-4 text-black font-bold text-lg">
-                  <li className="border-l-4 border-black pl-3">⚡ Used BMX Bikes & Parts</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Gear & Equipment</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Local Pickup Options</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Community Verified Sellers</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Support Local Riders</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Used BMX Bikes & Parts</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Gear & Equipment</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Local Pickup Options</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Community Verified Sellers</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Support Local Riders</li>
                 </ul>
               </div>
               <p className="text-[#00ff0c] font-bold text-lg pt-2">
@@ -148,7 +160,7 @@ export default function MerchPage() {
         {/* Stay Updated */}
         <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8 mb-12">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
-            <span className="text-6xl">📬</span>
+            <InboxIcon className="w-16 h-16" />
             STAY UPDATED
           </h2>
           <div className="bg-[#00ff0c] border-4 border-black p-6">
@@ -159,7 +171,8 @@ export default function MerchPage() {
               href="/contact"
               className="inline-block bg-black hover:bg-white text-[#00ff0c] hover:text-black font-black px-8 py-4 border-4 border-black transition-colors transform hover:scale-110 text-xl"
             >
-              📧 CONTACT US
+              <EnvelopeIcon className="w-5 h-5 inline mr-2" />
+              CONTACT US
             </Link>
           </div>
         </section>
@@ -170,13 +183,14 @@ export default function MerchPage() {
             MERCH COMING SOON!
           </h2>
           <p className="text-black text-2xl font-black mb-6">
-            Check back soon for awesome DEN BMX gear! 🎉
+            Check back soon for awesome DEN BMX gear!
           </p>
           <Link
             href="/"
             className="inline-block bg-black hover:bg-white text-[#00ff0c] hover:text-black font-black py-4 px-12 border-4 border-yellow-400 transition-colors transform hover:scale-110 text-2xl"
           >
-            🏁 BACK TO HOME
+            <FlagIcon className="w-6 h-6 inline mr-2" />
+            BACK TO HOME
           </Link>
         </div>
       </main>
@@ -184,7 +198,10 @@ export default function MerchPage() {
       {/* Footer */}
       <footer className="container mx-auto px-4 py-8 text-center relative z-10">
         <div className="bg-black border-4 border-[#00ff0c] px-6 py-4 inline-block">
-          <p className="text-[#00ff0c] font-black text-lg">⚡ DEN BMX ⚡</p>
+          <p className="text-[#00ff0c] font-black text-lg flex items-center justify-center gap-2">
+            <BoltIcon className="w-5 h-5" />
+            DEN BMX
+          </p>
           <p className="text-white font-bold text-sm mt-1">Merch store coming soon!</p>
         </div>
       </footer>

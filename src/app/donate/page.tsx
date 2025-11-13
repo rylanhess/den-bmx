@@ -3,6 +3,16 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import QRCode from 'react-qr-code';
+import {
+  HeartIcon,
+  CircleStackIcon,
+  CurrencyDollarIcon,
+  BoltIcon,
+  CheckIcon,
+  ClipboardDocumentIcon,
+  CreditCardIcon,
+  HandRaisedIcon
+} from '@heroicons/react/24/solid';
 
 const BITCOIN_ADDRESS = 'bc1qfqet3x22wgufxcdn8xusqktvgpyfk508wjdven';
 const LIGHTNING_ADDRESS = 'ryguy022@strike.me';
@@ -54,7 +64,11 @@ export default function DonatePage() {
         {/* Header - Professional Punk */}
         <div className="text-center mb-8">
           <div className="inline-block bg-black border-4 border-[#00ff0c] p-6 mb-6">
-            <div className="text-7xl mb-4">💛 ₿ $</div>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <HeartIcon className="w-16 h-16" />
+              <CircleStackIcon className="w-16 h-16" />
+              <CurrencyDollarIcon className="w-16 h-16" />
+            </div>
             <h1 className="text-5xl md:text-6xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 3px 3px 0px rgba(0,0,0,0.8)'}}>
               DONATE NOW!
             </h1>
@@ -75,7 +89,7 @@ export default function DonatePage() {
               DEN BMX helps BMX families in Denver stay connected with race schedules across Mile High, Dacono, and County Line tracks.
             </p>
             <p className="text-[#00ff0c] leading-relaxed font-bold text-lg">
-              Support keeps young riders rolling! 🚴
+              Support keeps young riders rolling!
             </p>
           </div>
 
@@ -90,7 +104,7 @@ export default function DonatePage() {
                   ${SUGGESTED_AMOUNT}
                 </p>
               </div>
-              <div className="text-7xl">🚴</div>
+              <BoltIcon className="w-16 h-16" />
             </div>
           </div>
         </div>
@@ -133,15 +147,26 @@ export default function DonatePage() {
               onClick={handleCopyBitcoin}
               className="w-full bg-[#00ff0c] active:bg-white text-black font-black py-3 px-3 border-4 border-black transition-colors text-base sm:text-lg transform active:scale-95 min-h-[44px]"
             >
-              {copiedBitcoin ? '✓ COPIED!' : '📋 COPY NOW'}
+              {copiedBitcoin ? (
+                <span className="flex items-center justify-center gap-2">
+                  <CheckIcon className="w-5 h-5" />
+                  COPIED!
+                </span>
+              ) : (
+                <span className="flex items-center justify-center gap-2">
+                  <ClipboardDocumentIcon className="w-5 h-5" />
+                  COPY NOW
+                </span>
+              )}
             </button>
           </div>
 
           {/* Lightning Network */}
           <div className="bg-black border-4 border-[#00ff0c] p-4">
             <div className="text-center mb-3">
-              <h2 className="text-2xl font-black text-[#00ff0c] mb-1">
-                ⚡ LIGHTNING
+              <h2 className="text-2xl font-black text-[#00ff0c] mb-1 flex items-center justify-center gap-2">
+                <BoltIcon className="w-6 h-6" />
+                LIGHTNING
               </h2>
               <p className="text-sm text-[#00ff0c] font-black bg-black px-2 py-1 border-2 border-[#00ff0c] inline-block">INSTANT!</p>
             </div>
@@ -168,7 +193,17 @@ export default function DonatePage() {
               onClick={handleCopyLightning}
               className="w-full bg-[#00ff0c] active:bg-white text-black font-black py-3 px-3 border-4 border-black transition-colors text-base sm:text-lg transform active:scale-95 min-h-[44px]"
             >
-              {copiedLightning ? '✓ COPIED!' : '📋 COPY NOW'}
+              {copiedLightning ? (
+                <span className="flex items-center justify-center gap-2">
+                  <CheckIcon className="w-5 h-5" />
+                  COPIED!
+                </span>
+              ) : (
+                <span className="flex items-center justify-center gap-2">
+                  <ClipboardDocumentIcon className="w-5 h-5" />
+                  COPY NOW
+                </span>
+              )}
             </button>
           </div>
 
@@ -185,7 +220,7 @@ export default function DonatePage() {
             <div className="mb-4 bg-[#00ff0c] border-4 border-black p-3">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-lg font-black text-black">CASH APP</h3>
-                <span className="text-3xl">💵</span>
+                <CurrencyDollarIcon className="w-8 h-8" />
               </div>
               <div className="bg-black border-2 border-[#00ff0c] p-2 mb-2">
                 <code className="text-sm text-[#00ff0c] font-mono font-black">
@@ -196,7 +231,17 @@ export default function DonatePage() {
                 onClick={handleCopyCashApp}
                 className="w-full bg-black active:bg-[#00ff0c] text-[#00ff0c] active:text-black font-black py-2 px-3 border-4 border-[#00ff0c] transition-colors text-sm min-h-[44px]"
               >
-                {copiedCashApp ? '✓ COPIED!' : '📋 COPY'}
+                {copiedCashApp ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <CheckIcon className="w-4 h-4" />
+                    COPIED!
+                  </span>
+                ) : (
+                  <span className="flex items-center justify-center gap-2">
+                    <ClipboardDocumentIcon className="w-4 h-4" />
+                    COPY
+                  </span>
+                )}
               </button>
             </div>
 
@@ -204,7 +249,7 @@ export default function DonatePage() {
             <div className="bg-white border-4 border-black p-3">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-lg font-black text-black">VENMO</h3>
-                <span className="text-3xl">💳</span>
+                <CreditCardIcon className="w-8 h-8" />
               </div>
               <div className="bg-black border-2 border-white p-2 mb-2">
                 <code className="text-sm text-white font-mono font-black">
@@ -215,7 +260,17 @@ export default function DonatePage() {
                 onClick={handleCopyVenmo}
                 className="w-full bg-black active:bg-white text-white active:text-black font-black py-2 px-3 border-4 border-white transition-colors text-sm min-h-[44px]"
               >
-                {copiedVenmo ? '✓ COPIED!' : '📋 COPY'}
+                {copiedVenmo ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <CheckIcon className="w-4 h-4" />
+                    COPIED!
+                  </span>
+                ) : (
+                  <span className="flex items-center justify-center gap-2">
+                    <ClipboardDocumentIcon className="w-4 h-4" />
+                    COPY
+                  </span>
+                )}
               </button>
             </div>
           </div>
@@ -227,9 +282,13 @@ export default function DonatePage() {
             THANK YOU!!!
           </h3>
           <p className="text-2xl text-white font-black">
-            EVERY DONATION KEEPS RIDERS ON THE TRACK! 🙏
+            EVERY DONATION KEEPS RIDERS ON THE TRACK!
           </p>
-          <div className="mt-4 text-6xl">🚴 💛 ⚡</div>
+          <div className="mt-4 flex items-center justify-center gap-4">
+            <BoltIcon className="w-12 h-12" />
+            <HeartIcon className="w-12 h-12" />
+            <BoltIcon className="w-12 h-12" />
+          </div>
         </div>
       </div>
     </main>

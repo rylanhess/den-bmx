@@ -3,6 +3,13 @@
 import { useEffect, useState } from 'react';
 import Link from "next/link";
 import type { Track } from '@/lib/supabase';
+import {
+  LinkIcon,
+  MapPinIcon,
+  BoltIcon,
+  ExclamationTriangleIcon,
+  FlagIcon
+} from '@heroicons/react/24/solid';
 
 const TrackLink = ({
   href,
@@ -17,7 +24,8 @@ const TrackLink = ({
     rel="noopener noreferrer"
     className="inline-flex items-center gap-1 bg-black text-[#00ff0c] hover:text-white font-black px-3 py-2 border-4 border-[#00ff0c] hover:border-white transition-colors text-sm"
   >
-    🔗 {children}
+    <LinkIcon className="w-4 h-4" />
+    {children}
   </a>
 );
 
@@ -73,7 +81,8 @@ const TrackCard = ({
       <div className="mb-4">
         <h2 className="text-3xl font-black text-[#00ff0c] mb-2">{track.name}</h2>
         <div className="flex items-center gap-2 text-white font-bold bg-[#00ff0c] px-3 py-1 inline-block border-2 border-black">
-          📍 <span>{track.city}</span>
+          <MapPinIcon className="w-4 h-4" />
+          <span>{track.city}</span>
         </div>
       </div>
 
@@ -88,8 +97,9 @@ const TrackCard = ({
           </h3>
           <ul className="space-y-2">
             {uniqueFeatures.map((feature, index) => (
-              <li key={index} className="text-[#00ff0c] font-bold border-l-4 border-[#00ff0c] pl-3">
-                ⚡ {feature}
+              <li key={index} className="text-[#00ff0c] font-bold border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2">
+                <BoltIcon className="w-4 h-4" />
+                {feature}
               </li>
             ))}
           </ul>
@@ -128,7 +138,10 @@ const LoadingCard = () => (
 
 const ErrorState = ({ error }: { readonly error: string }) => (
   <div className="bg-black border-4 border-[#00ff0c] p-8 text-center">
-    <p className="text-2xl font-black text-[#00ff0c] mb-2">⚠️ ERROR LOADING TRACKS</p>
+    <p className="text-2xl font-black text-[#00ff0c] mb-2 flex items-center justify-center gap-2">
+      <ExclamationTriangleIcon className="w-6 h-6" />
+      ERROR LOADING TRACKS
+    </p>
     <p className="text-white">{error}</p>
   </div>
 );
@@ -223,13 +236,13 @@ export default function TracksPage() {
         {/* High Elevation Notice */}
         <div className="bg-[#00ff0c] border-4 border-black p-6 mb-8">
           <div className="flex items-center gap-4">
-            <div className="text-6xl">⚠️</div>
+            <ExclamationTriangleIcon className="w-16 h-16" />
             <div>
               <h3 className="text-2xl font-black text-black mb-2">
                 HIGH ELEVATION RACING!
               </h3>
               <p className="text-black font-bold text-lg">
-                All Denver metro tracks are at 5,000+ feet elevation! Bring LOTS of water! 💧 Stay hydrated or DIE! ⛰️
+                All Denver metro tracks are at 5,000+ feet elevation! Bring LOTS of water! Stay hydrated or DIE!
               </p>
             </div>
           </div>
@@ -280,7 +293,8 @@ export default function TracksPage() {
             href="/"
             className="inline-block bg-[#00ff0c] hover:bg-white text-black font-black px-8 py-4 border-4 border-black transition-colors transform hover:scale-110 text-xl"
           >
-            🏁 VIEW RACE CALENDAR 🏁
+            <FlagIcon className="w-5 h-5 inline mr-2" />
+            VIEW RACE CALENDAR
           </Link>
         </div>
       </div>

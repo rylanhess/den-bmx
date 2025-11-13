@@ -9,6 +9,7 @@
 import { useEffect, useState } from 'react';
 import type { Track } from '@/lib/supabase';
 import Link from 'next/link';
+import { FlagIcon, MapPinIcon } from '@heroicons/react/24/solid';
 
 const TracksShowcase = () => {
   const [tracks, setTracks] = useState<Track[]>([]);
@@ -36,8 +37,9 @@ const TracksShowcase = () => {
   if (isLoading) {
     return (
       <div className="max-w-6xl mx-auto mb-12">
-        <h2 className="text-4xl font-black text-[#00ff0c] text-center mb-8 bg-black px-6 py-3 inline-block border-4 border-[#00ff0c]">
-          🏁 OUR TRACKS 🏁
+        <h2 className="text-4xl font-black text-[#00ff0c] text-center mb-8 bg-black px-6 py-3 inline-block border-4 border-[#00ff0c] flex items-center gap-2">
+          <FlagIcon className="w-8 h-8" />
+          OUR TRACKS
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[1, 2, 3].map((i) => (
@@ -58,8 +60,9 @@ const TracksShowcase = () => {
   return (
     <div className="max-w-6xl mx-auto mb-8 sm:mb-12">
       <div className="text-center mb-6 sm:mb-8">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#00ff0c] bg-black px-4 sm:px-6 py-2 sm:py-3 inline-block border-4 border-[#00ff0c]">
-          🏁 OUR TRACKS 🏁
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#00ff0c] bg-black px-4 sm:px-6 py-2 sm:py-3 inline-block border-4 border-[#00ff0c] flex items-center gap-2">
+          <FlagIcon className="w-6 h-6 sm:w-8 sm:h-8" />
+          OUR TRACKS
         </h2>
       </div>
       
@@ -87,8 +90,9 @@ const TracksShowcase = () => {
             </h3>
             
             {/* Location */}
-            <p className="text-white font-bold text-center mt-2">
-              📍 {track.city}
+            <p className="text-white font-bold text-center mt-2 flex items-center justify-center gap-1">
+              <MapPinIcon className="w-4 h-4" />
+              {track.city}
             </p>
           </Link>
         ))}

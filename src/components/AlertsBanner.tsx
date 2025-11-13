@@ -8,6 +8,7 @@
 
 import { useEffect, useState } from 'react';
 import type { Alert } from '@/lib/supabase';
+import { ExclamationTriangleIcon, CheckCircleIcon } from '@heroicons/react/24/solid';
 
 interface AlertsData {
   alerts: (Alert & { track: { name: string; slug: string } })[];
@@ -39,8 +40,9 @@ const AlertsBanner = () => {
   // Don't show banner while loading
   if (isLoading) {
     return (
-      <div className="bg-[#00ff0c] text-black px-4 py-3 text-center font-black border-b-4 border-black relative z-10">
-        <span className="text-2xl">⚠️</span> WEATHER UPDATES AND CANCELLATIONS WILL APPEAR HERE <span className="text-2xl">⚠️</span>
+      <div className="bg-[#00ff0c] text-black px-4 py-3 text-center font-black border-b-4 border-black relative z-10 flex items-center justify-center gap-2">
+        <ExclamationTriangleIcon className="w-6 h-6" />
+        WEATHER UPDATES AND CANCELLATIONS WILL APPEAR HERE
       </div>
     );
   }
@@ -48,8 +50,9 @@ const AlertsBanner = () => {
   // Show placeholder if no alerts
   if (!alertsData?.hasAlerts) {
     return (
-      <div className="bg-black text-white px-4 py-3 text-center font-bold border-b-4 border-[#00ff0c] relative z-10">
-        <span className="text-lg">✓</span> No cancellations - Check schedule below for this week&apos;s events
+      <div className="bg-black text-white px-4 py-3 text-center font-bold border-b-4 border-[#00ff0c] relative z-10 flex items-center justify-center gap-2">
+        <CheckCircleIcon className="w-5 h-5" />
+        No cancellations - Check schedule below for this week&apos;s events
       </div>
     );
   }
@@ -58,8 +61,9 @@ const AlertsBanner = () => {
   return (
     <div className="bg-[#00ff0c] text-black px-4 py-4 border-b-4 border-black relative z-10">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center font-black text-xl mb-3">
-          <span className="text-2xl">⚠️</span> TRACK ALERTS <span className="text-2xl">⚠️</span>
+        <div className="text-center font-black text-xl mb-3 flex items-center justify-center gap-2">
+          <ExclamationTriangleIcon className="w-6 h-6" />
+          TRACK ALERTS
         </div>
         <div className="space-y-2">
           {alertsData.alerts.map((alert) => (

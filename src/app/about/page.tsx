@@ -1,5 +1,14 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import {
+  HandRaisedIcon,
+  FlagIcon,
+  CameraIcon,
+  HeartIcon,
+  SparklesIcon,
+  EnvelopeIcon,
+  BoltIcon
+} from '@heroicons/react/24/solid';
 
 export const metadata: Metadata = {
   title: 'About | DEN BMX',
@@ -28,15 +37,16 @@ export default function AboutPage() {
             </h1>
             <div className="h-2 bg-[#00ff0c]"></div>
           </div>
-          <p className="text-3xl text-white font-black bg-black px-8 py-4 inline-block border-4 border-[#00ff0c]">
-            👋 MEET THE TRACK OPERATORS 👋
+          <p className="text-3xl text-white font-black bg-black px-8 py-4 inline-block border-4 border-[#00ff0c] flex items-center gap-2">
+            <HandRaisedIcon className="w-8 h-8" />
+            MEET THE TRACK OPERATORS
           </p>
         </div>
 
         {/* Intro Card */}
         <div className="bg-[#00ff0c] border-4 border-black p-6 md:p-8 mb-12">
           <h2 className="text-4xl font-black text-black mb-4 flex items-center gap-3">
-            <span className="text-6xl">🏁</span>
+            <FlagIcon className="w-16 h-16" />
             THE PEOPLE BEHIND THE TRACKS
           </h2>
           <p className="text-black text-xl leading-relaxed font-bold">
@@ -52,7 +62,7 @@ export default function AboutPage() {
               {/* Image Placeholder */}
               <div className="bg-[#00ff0c] border-4 border-black p-8 flex items-center justify-center min-h-[300px]">
                 <div className="text-center">
-                  <div className="text-8xl mb-4">📸</div>
+                  <CameraIcon className="w-24 h-24 mx-auto mb-4" />
                   <p className="text-black font-black text-xl">TRACK OPERATOR PHOTO</p>
                   <p className="text-black font-bold text-sm mt-2">Coming Soon</p>
                 </div>
@@ -96,7 +106,7 @@ export default function AboutPage() {
               {/* Image Placeholder */}
               <div className="bg-[#00ff0c] border-4 border-black p-8 flex items-center justify-center min-h-[300px]">
                 <div className="text-center">
-                  <div className="text-8xl mb-4">📸</div>
+                  <CameraIcon className="w-24 h-24 mx-auto mb-4" />
                   <p className="text-black font-black text-xl">TRACK OPERATOR PHOTO</p>
                   <p className="text-black font-bold text-sm mt-2">Coming Soon</p>
                 </div>
@@ -110,7 +120,7 @@ export default function AboutPage() {
               {/* Image Placeholder */}
               <div className="bg-[#00ff0c] border-4 border-black p-8 flex items-center justify-center min-h-[300px]">
                 <div className="text-center">
-                  <div className="text-8xl mb-4">📸</div>
+                  <CameraIcon className="w-24 h-24 mx-auto mb-4" />
                   <p className="text-black font-black text-xl">TRACK OPERATOR PHOTO</p>
                   <p className="text-black font-bold text-sm mt-2">Coming Soon</p>
                 </div>
@@ -137,7 +147,7 @@ export default function AboutPage() {
         {/* Community Message */}
         <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8 mb-12">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
-            <span className="text-6xl">💚</span>
+            <HeartIcon className="w-16 h-16" />
             OUR MISSION
           </h2>
           <div className="bg-[#00ff0c] border-4 border-black p-6">
@@ -156,13 +166,14 @@ export default function AboutPage() {
             WANT TO KNOW MORE?
           </h2>
           <p className="text-black text-2xl font-black mb-6">
-            Have questions? Want to get involved? Reach out! 🎉
+            Have questions? Want to get involved? Reach out!
           </p>
           <Link
             href="/contact"
             className="inline-block bg-black hover:bg-white text-[#00ff0c] hover:text-black font-black py-4 px-12 border-4 border-yellow-400 transition-colors transform hover:scale-110 text-2xl"
           >
-            📧 CONTACT US
+            <EnvelopeIcon className="w-6 h-6 inline mr-2" />
+            CONTACT US
           </Link>
         </div>
       </main>
@@ -170,7 +181,10 @@ export default function AboutPage() {
       {/* Footer */}
       <footer className="container mx-auto px-4 py-8 text-center relative z-10">
         <div className="bg-black border-4 border-[#00ff0c] px-6 py-4 inline-block">
-          <p className="text-[#00ff0c] font-black text-lg">⚡ DEN BMX ⚡</p>
+          <p className="text-[#00ff0c] font-black text-lg flex items-center justify-center gap-2">
+            <BoltIcon className="w-5 h-5" />
+            DEN BMX
+          </p>
           <p className="text-white font-bold text-sm mt-1">Meet the people behind the tracks!</p>
         </div>
       </footer>

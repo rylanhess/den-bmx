@@ -3,6 +3,13 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import {
+  EnvelopeIcon,
+  FlagIcon,
+  CheckIcon,
+  ExclamationTriangleIcon,
+  BoltIcon
+} from '@heroicons/react/24/solid';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -72,8 +79,9 @@ export default function ContactPage() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-[#00ff0c] mb-4" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
             CONTACT ME
           </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-white font-bold bg-black px-4 sm:px-6 py-2 sm:py-3 inline-block border-4 border-[#00ff0c]">
-            📧 GET IN TOUCH • SAY HI 📧
+          <p className="text-lg sm:text-xl md:text-2xl text-white font-bold bg-black px-4 sm:px-6 py-2 sm:py-3 inline-block border-4 border-[#00ff0c] flex items-center gap-2">
+            <EnvelopeIcon className="w-6 h-6" />
+            GET IN TOUCH • SAY HI
           </p>
         </div>
 
@@ -89,8 +97,9 @@ export default function ContactPage() {
               className="w-full h-auto"
             />
             <div className="mt-4 text-center">
-              <p className="text-[#00ff0c] font-black text-xl">
-                🏁 RIDE WITH US 🏁
+              <p className="text-[#00ff0c] font-black text-xl flex items-center justify-center gap-2">
+                <FlagIcon className="w-6 h-6" />
+                RIDE WITH US
               </p>
               <p className="text-white font-bold mt-2">
                 Join the Denver BMX community!
@@ -106,7 +115,10 @@ export default function ContactPage() {
 
             {status === 'success' ? (
               <div className="bg-[#00ff0c] border-4 border-black p-6 text-center">
-                <p className="text-2xl font-black text-black mb-2">✓ MESSAGE SENT!</p>
+                <p className="text-2xl font-black text-black mb-2 flex items-center justify-center gap-2">
+                  <CheckIcon className="w-6 h-6" />
+                  MESSAGE SENT!
+                </p>
                 <p className="text-black font-bold mb-4">Thanks for reaching out! I&apos;ll get back to you soon.</p>
                 <button
                   onClick={() => setStatus('idle')}
@@ -167,7 +179,10 @@ export default function ContactPage() {
 
                 {status === 'error' && (
                   <div className="bg-black border-4 border-[#00ff0c] p-4">
-                    <p className="text-[#00ff0c] font-bold">⚠️ {errorMessage}</p>
+                    <p className="text-[#00ff0c] font-bold flex items-center gap-2">
+                      <ExclamationTriangleIcon className="w-5 h-5" />
+                      {errorMessage}
+                    </p>
                   </div>
                 )}
 
@@ -178,11 +193,14 @@ export default function ContactPage() {
                 >
                   {status === 'sending' ? (
                     <span className="flex items-center justify-center gap-2">
-                      <span className="animate-spin">⚡</span>
+                      <BoltIcon className="w-5 h-5 animate-spin" />
                       SENDING...
                     </span>
                   ) : (
-                    '📧 SEND MESSAGE 📧'
+                    <span className="flex items-center justify-center gap-2">
+                      <EnvelopeIcon className="w-5 h-5" />
+                      SEND MESSAGE
+                    </span>
                   )}
                 </button>
               </form>
@@ -206,8 +224,9 @@ export default function ContactPage() {
       {/* Footer */}
       <footer className="container mx-auto px-4 py-8 text-center relative z-10 mt-12">
         <div className="bg-black border-4 border-[#00ff0c] px-6 py-4 inline-block">
-          <p className="text-[#00ff0c] font-black text-lg">
-            ⚡ DEN BMX ⚡ DENVER METRO BMX SCHEDULES ⚡
+          <p className="text-[#00ff0c] font-black text-lg flex items-center justify-center gap-2">
+            <BoltIcon className="w-5 h-5" />
+            DEN BMX • DENVER METRO BMX SCHEDULES
           </p>
         </div>
       </footer>

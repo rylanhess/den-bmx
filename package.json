@@ -23,6 +23,7 @@
     "refresh": "./scripts/refreshData.sh"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@react-email/components": "^0.5.6",
     "@react-email/render": "^1.3.2",
     "@supabase/supabase-js": "^2.47.10",

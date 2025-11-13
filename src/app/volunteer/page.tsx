@@ -1,5 +1,22 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import {
+  WrenchScrewdriverIcon,
+  UserGroupIcon,
+  SignalIcon,
+  BuildingOffice2Icon,
+  TrophyIcon,
+  PhoneIcon,
+  ClipboardDocumentIcon,
+  AcademicCapIcon,
+  StarIcon,
+  DocumentTextIcon,
+  ClockIcon,
+  GiftIcon,
+  FireIcon,
+  EnvelopeIcon,
+  BoltIcon
+} from '@heroicons/react/24/solid';
 
 export const metadata: Metadata = {
   title: 'Volunteer | DEN BMX',
@@ -28,15 +45,16 @@ export default function VolunteerPage() {
             </h1>
             <div className="h-2 bg-[#00ff0c]"></div>
           </div>
-          <p className="text-3xl text-white font-black bg-black px-8 py-4 inline-block border-4 border-[#00ff0c]">
-            🛠️ HELP KEEP THE TRACKS RUNNING! 🛠️
+          <p className="text-3xl text-white font-black bg-black px-8 py-4 inline-block border-4 border-[#00ff0c] flex items-center gap-2">
+            <WrenchScrewdriverIcon className="w-8 h-8" />
+            HELP KEEP THE TRACKS RUNNING!
           </p>
         </div>
 
         {/* Intro Card */}
         <div className="bg-[#00ff0c] border-4 border-black p-6 md:p-8 mb-12">
           <h2 className="text-4xl font-black text-black mb-4 flex items-center gap-3">
-            <span className="text-6xl">🤝</span>
+            <UserGroupIcon className="w-16 h-16" />
             WE NEED YOUR HELP!
           </h2>
           <p className="text-black text-xl leading-relaxed font-bold">
@@ -49,7 +67,7 @@ export default function VolunteerPage() {
           {/* Gate Operator */}
           <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
-              <span className="text-6xl">🚦</span>
+              <SignalIcon className="w-16 h-16" />
               GATE OPERATOR
             </h2>
             <div className="space-y-4 leading-relaxed">
@@ -59,10 +77,10 @@ export default function VolunteerPage() {
               <div className="bg-[#00ff0c] border-4 border-black p-6 space-y-3">
                 <p className="font-black text-black text-2xl">WHAT YOU&apos;LL DO:</p>
                 <ul className="space-y-3 ml-4 text-black font-bold text-lg">
-                  <li className="border-l-4 border-black pl-3">⚡ Operate the starting gate mechanism</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Ensure fair starts for all riders</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Work with race officials to keep events on schedule</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Help maintain gate equipment</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Operate the starting gate mechanism</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Ensure fair starts for all riders</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Work with race officials to keep events on schedule</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Help maintain gate equipment</li>
                 </ul>
               </div>
               <p className="text-[#00ff0c] font-bold text-lg pt-2">
@@ -74,7 +92,7 @@ export default function VolunteerPage() {
           {/* Track Maintenance */}
           <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
-              <span className="text-6xl">🏗️</span>
+              <BuildingOffice2Icon className="w-16 h-16" />
               TRACK MAINTENANCE & JUMP WORK
             </h2>
             <div className="space-y-4 leading-relaxed">
@@ -84,10 +102,10 @@ export default function VolunteerPage() {
               <div className="bg-[#00ff0c] border-4 border-black p-6 space-y-3">
                 <p className="font-black text-black text-2xl">WHAT YOU&apos;LL DO:</p>
                 <ul className="space-y-3 ml-4 text-black font-bold text-lg">
-                  <li className="border-l-4 border-black pl-3">⚡ Repair and shape jumps</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Maintain berms and corners</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Water and pack track surfaces</li>
-                  <li className="border-l-4 border-black pl-3">⚡ General track cleanup and improvements</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Repair and shape jumps</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Maintain berms and corners</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Water and pack track surfaces</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> General track cleanup and improvements</li>
                 </ul>
               </div>
               <p className="text-[#00ff0c] font-bold text-lg pt-2">
@@ -99,7 +117,7 @@ export default function VolunteerPage() {
           {/* Facility Help */}
           <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
-              <span className="text-6xl">🏢</span>
+              <BuildingOffice2Icon className="w-16 h-16" />
               FACILITY HELP
             </h2>
             <div className="space-y-4 leading-relaxed">
@@ -109,11 +127,11 @@ export default function VolunteerPage() {
               <div className="bg-[#00ff0c] border-4 border-black p-6 space-y-3">
                 <p className="font-black text-black text-2xl">WHAT YOU&apos;LL DO:</p>
                 <ul className="space-y-3 ml-4 text-black font-bold text-lg">
-                  <li className="border-l-4 border-black pl-3">⚡ Help with concessions and food service</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Set up and tear down race day equipment</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Maintain restrooms and facilities</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Organize registration areas</li>
-                  <li className="border-l-4 border-black pl-3">⚡ General facility maintenance</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Help with concessions and food service</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Set up and tear down race day equipment</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Maintain restrooms and facilities</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Organize registration areas</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> General facility maintenance</li>
                 </ul>
               </div>
               <p className="text-[#00ff0c] font-bold text-lg pt-2">
@@ -125,7 +143,7 @@ export default function VolunteerPage() {
           {/* Big Race Staffing */}
           <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
-              <span className="text-6xl">🏆</span>
+              <TrophyIcon className="w-16 h-16" />
               BIG RACE STAFFING
             </h2>
             <div className="space-y-4 leading-relaxed">
@@ -135,11 +153,11 @@ export default function VolunteerPage() {
               <div className="bg-[#00ff0c] border-4 border-black p-6 space-y-3">
                 <p className="font-black text-black text-2xl">WHAT YOU&apos;LL DO:</p>
                 <ul className="space-y-3 ml-4 text-black font-bold text-lg">
-                  <li className="border-l-4 border-black pl-3">⚡ Help with race registration and check-in</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Assist with awards ceremonies</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Support race officials and timing</li>
-                  <li className="border-l-4 border-black pl-3">⚡ Help coordinate vendor areas</li>
-                  <li className="border-l-4 border-black pl-3">⚡ General event support</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Help with race registration and check-in</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Assist with awards ceremonies</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Support race officials and timing</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Help coordinate vendor areas</li>
+                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> General event support</li>
                 </ul>
               </div>
               <p className="text-[#00ff0c] font-bold text-lg pt-2">
@@ -152,7 +170,7 @@ export default function VolunteerPage() {
         {/* How to Get Involved */}
         <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8 mb-12">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
-            <span className="text-6xl">📞</span>
+            <PhoneIcon className="w-16 h-16" />
             HOW TO GET INVOLVED
           </h2>
           <div className="space-y-6">
@@ -171,7 +189,8 @@ export default function VolunteerPage() {
                 href="/contact"
                 className="inline-block bg-[#00ff0c] hover:bg-white text-black hover:text-black font-black px-6 py-3 border-4 border-black transition-colors transform hover:scale-105"
               >
-                📧 CONTACT US NOW
+                <EnvelopeIcon className="w-5 h-5 inline mr-2" />
+                CONTACT US NOW
               </Link>
             </div>
             <div className="bg-[#00ff0c] border-4 border-black p-6">
@@ -186,7 +205,7 @@ export default function VolunteerPage() {
         {/* Service Hours */}
         <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8 mb-12">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
-            <span className="text-6xl">📋</span>
+            <ClipboardDocumentIcon className="w-16 h-16" />
             SERVICE HOURS AVAILABLE!
           </h2>
           <div className="bg-[#00ff0c] border-4 border-black p-6 md:p-8">
@@ -195,32 +214,32 @@ export default function VolunteerPage() {
             </p>
             <div className="grid md:grid-cols-2 gap-6 mb-6">
               <div className="bg-black border-4 border-white p-6">
-                <h3 className="text-2xl font-black text-[#00ff0c] mb-4">🎖️ BOY SCOUTS & GIRL SCOUTS</h3>
+                <h3 className="text-2xl font-black text-[#00ff0c] mb-4 flex items-center gap-2"><TrophyIcon className="w-6 h-6" /> BOY SCOUTS & GIRL SCOUTS</h3>
                 <p className="text-white font-bold text-lg leading-relaxed">
                   Perfect for earning merit badges, service project hours, and community service requirements. Track operators can sign off on your service hours!
                 </p>
               </div>
               <div className="bg-white border-4 border-black p-6">
-                <h3 className="text-2xl font-black text-black mb-4">🎓 HIGH SCHOOL STUDENTS</h3>
+                <h3 className="text-2xl font-black text-black mb-4 flex items-center gap-2"><AcademicCapIcon className="w-6 h-6" /> HIGH SCHOOL STUDENTS</h3>
                 <p className="text-black font-bold text-lg leading-relaxed">
                   Many high schools require community service hours for graduation. Volunteering at BMX tracks is a fun way to meet those requirements while helping the community!
                 </p>
               </div>
               <div className="bg-white border-4 border-black p-6">
-                <h3 className="text-2xl font-black text-black mb-4">⭐ OVERACHIEVERS</h3>
+                <h3 className="text-2xl font-black text-black mb-4 flex items-center gap-2"><StarIcon className="w-6 h-6" /> OVERACHIEVERS</h3>
                 <p className="text-black font-bold text-lg leading-relaxed">
                   Building your resume? Need service hours for scholarships or college applications? Volunteering here shows leadership, community involvement, and dedication!
                 </p>
               </div>
               <div className="bg-black border-4 border-[#00ff0c] p-6">
-                <h3 className="text-2xl font-black text-[#00ff0c] mb-4">📝 DOCUMENTATION</h3>
+                <h3 className="text-2xl font-black text-[#00ff0c] mb-4 flex items-center gap-2"><DocumentTextIcon className="w-6 h-6" /> DOCUMENTATION</h3>
                 <p className="text-white font-bold text-lg leading-relaxed">
                   We provide signed documentation of your volunteer hours. Track operators can verify your service time and sign any required forms for your organization or school.
                 </p>
               </div>
             </div>
             <div className="bg-black border-4 border-white p-6">
-              <h3 className="text-2xl font-black text-[#00ff0c] mb-4">⏰ FLEXIBLE SCHEDULING</h3>
+              <h3 className="text-2xl font-black text-[#00ff0c] mb-4 flex items-center gap-2"><ClockIcon className="w-6 h-6" /> FLEXIBLE SCHEDULING</h3>
               <p className="text-white font-bold text-lg leading-relaxed">
                 We understand you have busy schedules! Volunteer when it works for you - practice nights, race days, or special events. Every hour counts, and we&apos;ll track your time accurately.
               </p>
@@ -231,28 +250,28 @@ export default function VolunteerPage() {
         {/* Benefits */}
         <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8 mb-12">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
-            <span className="text-6xl">⭐</span>
+            <StarIcon className="w-16 h-16" />
             WHY VOLUNTEER?
           </h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-[#00ff0c] border-4 border-black p-6">
-              <h3 className="text-2xl font-black text-black mb-3">🎁 BENEFITS</h3>
+              <h3 className="text-2xl font-black text-black mb-3 flex items-center gap-2"><GiftIcon className="w-6 h-6" /> BENEFITS</h3>
               <ul className="space-y-2 text-black font-bold text-lg">
-                <li className="border-l-4 border-black pl-3">⚡ Free track time for you/family</li>
-                <li className="border-l-4 border-black pl-3">⚡ Learn track building skills</li>
-                <li className="border-l-4 border-black pl-3">⚡ Be part of the BMX community</li>
-                <li className="border-l-4 border-black pl-3">⚡ Make new friends</li>
-                <li className="border-l-4 border-black pl-3">⚡ Support young riders</li>
+                <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Free track time for you/family</li>
+                <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Learn track building skills</li>
+                <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Be part of the BMX community</li>
+                <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Make new friends</li>
+                <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Support young riders</li>
               </ul>
             </div>
             <div className="bg-white border-4 border-black p-6">
-              <h3 className="text-2xl font-black text-black mb-3">💪 SKILLS YOU&apos;LL GAIN</h3>
+              <h3 className="text-2xl font-black text-black mb-3 flex items-center gap-2"><FireIcon className="w-6 h-6" /> SKILLS YOU&apos;LL GAIN</h3>
               <ul className="space-y-2 text-black font-bold text-lg">
-                <li className="border-l-4 border-black pl-3">⚡ Event management</li>
-                <li className="border-l-4 border-black pl-3">⚡ Equipment operation</li>
-                <li className="border-l-4 border-black pl-3">⚡ Track maintenance</li>
-                <li className="border-l-4 border-black pl-3">⚡ Team coordination</li>
-                <li className="border-l-4 border-black pl-3">⚡ Problem solving</li>
+                <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Event management</li>
+                <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Equipment operation</li>
+                <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Track maintenance</li>
+                <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Team coordination</li>
+                <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Problem solving</li>
               </ul>
             </div>
           </div>
@@ -264,13 +283,14 @@ export default function VolunteerPage() {
             READY TO HELP?!
           </h2>
           <p className="text-black text-2xl font-black mb-6">
-            Every volunteer makes the tracks better! Get involved today! 🎉
+            Every volunteer makes the tracks better! Get involved today!
           </p>
           <Link
             href="/contact"
             className="inline-block bg-black hover:bg-white text-[#00ff0c] hover:text-black font-black py-4 px-12 border-4 border-yellow-400 transition-colors transform hover:scale-110 text-2xl"
           >
-            📧 CONTACT US TO VOLUNTEER
+            <EnvelopeIcon className="w-6 h-6 inline mr-2" />
+            CONTACT US TO VOLUNTEER
           </Link>
         </div>
       </main>
@@ -278,7 +298,10 @@ export default function VolunteerPage() {
       {/* Footer */}
       <footer className="container mx-auto px-4 py-8 text-center relative z-10">
         <div className="bg-black border-4 border-[#00ff0c] px-6 py-4 inline-block">
-          <p className="text-[#00ff0c] font-black text-lg">⚡ DEN BMX ⚡</p>
+          <p className="text-[#00ff0c] font-black text-lg flex items-center justify-center gap-2">
+            <BoltIcon className="w-5 h-5" />
+            DEN BMX
+          </p>
           <p className="text-white font-bold text-sm mt-1">Volunteers keep the tracks running!</p>
         </div>
       </footer>
