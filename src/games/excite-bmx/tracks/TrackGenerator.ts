@@ -12,6 +12,7 @@ export class TrackGenerator {
       width: trackLength * 0.06,
       height: 50, // Much larger for visible jumps (Excitebike style)
       lanes: [0, 1, 2, 3],
+      label: 'Start Hill',
     });
 
     // First straight: Step up jump, triple (spread out more)
@@ -22,6 +23,7 @@ export class TrackGenerator {
       width: trackLength * 0.06,
       height: 45, // Much larger for visible jumps
       lanes: [0, 1, 2, 3],
+      label: 'Step-Up',
     });
 
     obstacles.push({
@@ -30,10 +32,19 @@ export class TrackGenerator {
       width: trackLength * 0.10,
       height: 40, // Much larger for visible jumps
       lanes: [0, 1, 2, 3],
+      label: 'Triple',
     });
 
     // Turn 1
-    // (no obstacles in turns, just visual)
+    obstacles.push({
+      type: 'turn',
+      x: trackLength * 0.33,
+      width: trackLength * 0.10,
+      height: 0,
+      lanes: [0, 1, 2, 3],
+      turnNumber: 1,
+      label: 'Turn 1',
+    });
 
     // Second straight: Three doubles (spread out more)
     obstacles.push({
@@ -42,6 +53,7 @@ export class TrackGenerator {
       width: trackLength * 0.06,
       height: 35, // Much larger for visible jumps
       lanes: [0, 1, 2, 3],
+      label: 'Double 1',
     });
 
     obstacles.push({
@@ -50,6 +62,7 @@ export class TrackGenerator {
       width: trackLength * 0.06,
       height: 35, // Much larger for visible jumps
       lanes: [0, 1, 2, 3],
+      label: 'Double 2',
     });
 
     obstacles.push({
@@ -58,10 +71,19 @@ export class TrackGenerator {
       width: trackLength * 0.06,
       height: 35, // Much larger for visible jumps
       lanes: [0, 1, 2, 3],
+      label: 'Double 3',
     });
 
     // Turn 2
-    // (no obstacles)
+    obstacles.push({
+      type: 'turn',
+      x: trackLength * 0.75,
+      width: trackLength * 0.05,
+      height: 0,
+      lanes: [0, 1, 2, 3],
+      turnNumber: 2,
+      label: 'Turn 2',
+    });
 
     // Third straight: Rhythm section whoops (more space)
     obstacles.push({
@@ -70,10 +92,19 @@ export class TrackGenerator {
       width: trackLength * 0.12,
       height: 12, // Slightly increased for visibility
       lanes: [0, 1, 2, 3],
+      label: 'Whoops',
     });
 
     // Turn 3
-    // (no obstacles)
+    obstacles.push({
+      type: 'turn',
+      x: trackLength * 0.90,
+      width: trackLength * 0.05,
+      height: 0,
+      lanes: [0, 1, 2, 3],
+      turnNumber: 3,
+      label: 'Turn 3',
+    });
 
     // Last straight: Water zone and finish line (more space)
     obstacles.push({
@@ -82,6 +113,7 @@ export class TrackGenerator {
       width: trackLength * 0.06,
       height: 10,
       lanes: [0, 1, 2, 3],
+      label: 'Water',
     });
 
     obstacles.push({
@@ -90,6 +122,7 @@ export class TrackGenerator {
       width: 20, // Narrow finish line - just a single line
       height: 50,
       lanes: [0, 1, 2, 3],
+      label: 'Finish',
     });
 
     return obstacles;

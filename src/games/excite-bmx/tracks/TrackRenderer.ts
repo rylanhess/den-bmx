@@ -63,8 +63,8 @@ export class TrackRenderer {
       ctx.stroke();
     }
 
-    // Draw turns (visual indicators)
-    TrackRenderer.drawTurns(ctx, track, cameraX, trackStartY, trackHeight, trackLength, canvasWidth);
+    // Turns are now drawn as obstacles with labels, so we don't need the old drawTurns function
+    // TrackRenderer.drawTurns(ctx, track, cameraX, trackStartY, trackHeight, trackLength, canvasWidth);
 
     ctx.restore();
   }
@@ -197,10 +197,32 @@ export class TrackRenderer {
                 return obstacle.height * (1 - downProgress);
               }
               
-            case 'triple':
             case 'double':
+              // Double jump: up -> down into valley -> up -> down
+              // 4 segments: up (0-0.25), down to valley (0.25-0.5), up (0.5-0.75), down (0.75-1.0)
+              if (progress < 0.25) {
+                // First up ramp
+                const segProgress = progress / 0.25;
+                return segProgress * obstacle.height;
+              } else if (progress < 0.5) {
+                // Down into valley
+                const segProgress = (progress - 0.25) / 0.25;
+                const valleyDepth = obstacle.height * 0.4;
+                return obstacle.height - (segProgress * (obstacle.height - valleyDepth));
+              } else if (progress < 0.75) {
+                // Up from valley
+                const segProgress = (progress - 0.5) / 0.25;
+                const valleyDepth = obstacle.height * 0.4;
+                return valleyDepth + (segProgress * (obstacle.height - valleyDepth));
+              } else {
+                // Down to track
+                const segProgress = (progress - 0.75) / 0.25;
+                return obstacle.height * (1 - segProgress);
+              }
+              
+            case 'triple':
               // Multiple humps
-              const numJumps = obstacle.type === 'triple' ? 3 : 2;
+              const numJumps = 3;
               const segmentProgress = (progress * numJumps) % 1;
               return Math.sin(segmentProgress * Math.PI) * obstacle.height;
           }
@@ -460,26 +482,82 @@ export class TrackRenderer {
     switch (obstacle.type) {
       case 'start-hill':
         StartHill.draw(ctx, obstacle, x, trackY, trackHeight, track, cameraX, sideWallDepth, isometricAngle);
+        // Draw label
+        if (obstacle.label) {
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = 'bold 14px Arial';
+          ctx.textAlign = 'center';
+          ctx.fillText(obstacle.label, x + (obstacleScreenWidth / 2), trackY - 20);
+        }
         break;
       
       case 'step-up':
         StepUp.draw(ctx, obstacle, x, trackY, trackHeight, track, cameraX, sideWallDepth, isometricAngle);
+        // Draw label
+        if (obstacle.label) {
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = 'bold 14px Arial';
+          ctx.textAlign = 'center';
+          ctx.fillText(obstacle.label, x + (obstacleScreenWidth / 2), trackY - 20);
+        }
         break;
       
       case 'double':
         DoubleJump.draw(ctx, obstacle, x, trackY, trackHeight, track, cameraX, sideWallDepth, isometricAngle);
+        // Draw label
+        if (obstacle.label) {
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = 'bold 14px Arial';
+          ctx.textAlign = 'center';
+          ctx.fillText(obstacle.label, x + (obstacleScreenWidth / 2), trackY - 20);
+        }
         break;
       
       case 'triple':
         TripleJump.draw(ctx, obstacle, x, trackY, trackHeight, track, cameraX, sideWallDepth, isometricAngle);
+        // Draw label
+        if (obstacle.label) {
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = 'bold 14px Arial';
+          ctx.textAlign = 'center';
+          ctx.fillText(obstacle.label, x + (obstacleScreenWidth / 2), trackY - 20);
+        }
         break;
       
       case 'whoops':
         RhythmSection.draw(ctx, obstacle, x, trackY, trackHeight, track, cameraX, sideWallDepth, isometricAngle);
+        // Draw label
+        if (obstacle.label) {
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = 'bold 14px Arial';
+          ctx.textAlign = 'center';
+          ctx.fillText(obstacle.label, x + (obstacleScreenWidth / 2), trackY - 20);
+        }
         break;
       
       case 'water':
         WaterHazard.draw(ctx, obstacle, x, trackY, trackHeight, track, cameraX, sideWallDepth, isometricAngle);
+        // Draw label
+        if (obstacle.label) {
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = 'bold 14px Arial';
+          ctx.textAlign = 'center';
+          ctx.fillText(obstacle.label, x + (obstacleScreenWidth / 2), trackY - 20);
+        }
+        break;
+      
+      case 'turn':
+        // Draw turn indicator
+        ctx.fillStyle = 'rgba(255, 255, 0, 0.3)';
+        ctx.fillRect(x, trackY, obstacleScreenWidth, trackHeight);
+        
+        // Draw turn label
+        if (obstacle.label) {
+          ctx.fillStyle = '#FFFF00';
+          ctx.font = 'bold 16px Arial';
+          ctx.textAlign = 'center';
+          ctx.fillText(obstacle.label, x + (obstacleScreenWidth / 2), trackY + (trackHeight / 2));
+        }
         break;
       
       case 'finish':
@@ -506,6 +584,14 @@ export class TrackRenderer {
         ctx.font = 'bold 16px Arial';
         ctx.textAlign = 'right';
         ctx.fillText('FINISH', finishLineX - finishLineWidth - 5, trackY + (trackHeight / 2));
+        
+        // Draw label above finish line
+        if (obstacle.label) {
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = 'bold 14px Arial';
+          ctx.textAlign = 'center';
+          ctx.fillText(obstacle.label, finishLineX, trackY - 20);
+        }
         break;
     }
   }

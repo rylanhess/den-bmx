@@ -44,11 +44,13 @@ export type Racer = {
 };
 
 export type Obstacle = {
-  type: 'start-hill' | 'step-up' | 'triple' | 'double' | 'whoops' | 'water' | 'finish';
+  type: 'start-hill' | 'step-up' | 'triple' | 'double' | 'whoops' | 'water' | 'finish' | 'turn';
   x: number;
   width: number;
   height: number;
   lanes: number[]; // which lanes this obstacle affects
+  label?: string; // Optional label for debugging/identification
+  turnNumber?: number; // For turn obstacles
 };
 
 export type RaceState = {
