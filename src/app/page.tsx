@@ -3,6 +3,7 @@ import ThisWeeksEvents from '@/components/ThisWeeksEvents';
 import DataRefreshBanner from '@/components/DataRefreshBanner';
 import TracksShowcase from '@/components/TracksShowcase';
 import AlertsBanner from '@/components/AlertsBanner';
+import RaceTimeline from '@/components/RaceTimeline';
 import Image from 'next/image';
 import { 
   FlagIcon, 
@@ -56,6 +57,11 @@ export default function Home() {
         {/* This Week's Events */}
         <div className="mb-12">
           <ThisWeeksEvents />
+        </div>
+
+        {/* Race Timeline */}
+        <div className="mb-12">
+          <RaceTimeline />
         </div>
 
         {/* Tracks Showcase */}
