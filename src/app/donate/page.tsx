@@ -53,10 +53,10 @@ export default function DonatePage() {
   return (
     <main className="min-h-screen bg-black relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 py-8 sm:px-6 lg:px-8 relative z-10">
-        {/* Back Link */}
+        {/* Back Link - Mobile Only */}
         <Link
           href="/"
-          className="inline-flex items-center bg-black text-[#00ff0c] active:text-white px-4 sm:px-6 py-3 border-4 border-[#00ff0c] font-black text-base sm:text-lg mb-4 sm:mb-6 transition-colors min-h-[44px]"
+          className="md:hidden inline-flex items-center bg-black text-[#00ff0c] active:text-white px-4 sm:px-6 py-3 border-4 border-[#00ff0c] font-black text-base sm:text-lg mb-4 sm:mb-6 transition-colors min-h-[44px]"
         >
           ← BACK TO HOME
         </Link>

@@ -20,8 +20,8 @@ export const metadata: Metadata = {
 export default function MerchPage() {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Header */}
-      <header className="bg-black border-b-4 border-[#00ff0c] sticky top-0 z-20 relative">
+      {/* Header - Mobile Only */}
+      <header className="md:hidden bg-black border-b-4 border-[#00ff0c] sticky top-0 z-20 relative">
         <div className="container mx-auto px-4 py-4">
           <Link href="/" className="inline-flex items-center gap-2 bg-[#00ff0c] text-black hover:bg-white px-6 py-3 border-4 border-black font-black transition-colors transform hover:scale-105">
             ← BACK TO HOME
@@ -187,7 +187,7 @@ export default function MerchPage() {
           </p>
           <Link
             href="/"
-            className="inline-block bg-black hover:bg-white text-[#00ff0c] hover:text-black font-black py-4 px-12 border-4 border-yellow-400 transition-colors transform hover:scale-110 text-2xl"
+            className="md:hidden inline-block bg-black hover:bg-white text-[#00ff0c] hover:text-black font-black py-4 px-12 border-4 border-yellow-400 transition-colors transform hover:scale-110 text-2xl"
           >
             <FlagIcon className="w-6 h-6 inline mr-2" />
             BACK TO HOME
