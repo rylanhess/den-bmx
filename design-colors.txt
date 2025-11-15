@@ -1,0 +1,23 @@
+#FFFFFF // lettering and text
+#000000 // primary canvas
+#00FF0D // primary accent
+#0073FF // secondary accent
+#FF00F2 // alternate primary accent
+#FF8C00 // alternate secondary accent
+
+-- other codes
+-- RGB
+0, 255, 13
+0, 115, 255
+255, 0, 242
+255, 140, 0
+-- HSL
+123, 100, 50
+213, 100, 50
+303, 100, 50
+33, 100, 50
+-- OKLCH
+0.87, 0.29, 143
+0.59, 0.23, 259
+0.69, 0.31, 331
+0.75, 0.18, 58

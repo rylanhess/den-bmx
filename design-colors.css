@@ -1,0 +1,47 @@
+/**
+ * DEN BMX Design Colors - CSS Variables
+ * 
+ * Import this file or copy these variables into your CSS
+ * to use the design system colors consistently.
+ */
+
+:root {
+  /* Primary Colors */
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  
+  /* Accent Colors */
+  --color-primary-accent: #00FF0D;
+  --color-secondary-accent: #0073FF;
+  --color-alternate-primary: #FF00F2;
+  --color-alternate-secondary: #FF8C00;
+  
+  /* Semantic Colors */
+  --color-background: var(--color-black);
+  --color-text: var(--color-white);
+  --color-accent: var(--color-primary-accent);
+}
+
+/* RGB Values */
+:root {
+  --color-white-rgb: 255, 255, 255;
+  --color-black-rgb: 0, 0, 0;
+  --color-primary-accent-rgb: 0, 255, 13;
+  --color-secondary-accent-rgb: 0, 115, 255;
+  --color-alternate-primary-rgb: 255, 0, 242;
+  --color-alternate-secondary-rgb: 255, 140, 0;
+}
+
+/* Usage Examples */
+/*
+  .element {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border: 2px solid var(--color-accent);
+  }
+  
+  .element-with-opacity {
+    background-color: rgba(var(--color-primary-accent-rgb), 0.2);
+  }
+*/
+

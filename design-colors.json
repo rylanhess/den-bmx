@@ -1,0 +1,60 @@
+{
+  "colors": {
+    "white": {
+      "name": "White",
+      "description": "Lettering and text",
+      "hex": "#FFFFFF",
+      "rgb": [255, 255, 255],
+      "hsl": [0, 0, 100],
+      "oklch": "1 0 0"
+    },
+    "black": {
+      "name": "Black",
+      "description": "Primary canvas/background",
+      "hex": "#000000",
+      "rgb": [0, 0, 0],
+      "hsl": [0, 0, 0],
+      "oklch": "0 0 0"
+    },
+    "primary-accent": {
+      "name": "Primary Accent",
+      "description": "Main brand color - neon green",
+      "hex": "#00FF0D",
+      "rgb": [0, 255, 13],
+      "hsl": [123, 100, 50],
+      "oklch": "0.87 0.29 143"
+    },
+    "secondary-accent": {
+      "name": "Secondary Accent",
+      "description": "Blue accent color",
+      "hex": "#0073FF",
+      "rgb": [0, 115, 255],
+      "hsl": [213, 100, 50],
+      "oklch": "0.59 0.23 259"
+    },
+    "alternate-primary": {
+      "name": "Alternate Primary Accent",
+      "description": "Magenta/pink accent",
+      "hex": "#FF00F2",
+      "rgb": [255, 0, 242],
+      "hsl": [303, 100, 50],
+      "oklch": "0.69 0.31 331"
+    },
+    "alternate-secondary": {
+      "name": "Alternate Secondary Accent",
+      "description": "Orange accent",
+      "hex": "#FF8C00",
+      "rgb": [255, 140, 0],
+      "hsl": [33, 100, 50],
+      "oklch": "0.75 0.18 58"
+    }
+  },
+  "usage": {
+    "primary": {
+      "background": "black",
+      "text": "white",
+      "accent": "primary-accent"
+    }
+  }
+}
+
