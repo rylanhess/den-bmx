@@ -11,7 +11,8 @@ import { supabase } from '@/lib/supabase';
 const TRACK_PRIORITY: Record<string, number> = {
   'mile-high-bmx': 1,
   'county-line-bmx': 2,
-  'dacono-bmx': 3
+  'dacono-bmx': 3,
+  'twin-silo-bmx': 4
 };
 
 export async function GET() {

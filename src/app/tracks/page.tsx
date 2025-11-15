@@ -189,6 +189,18 @@ const trackInfo: Record<string, { description: string; uniqueFeatures: string[];
       "Regular race schedule throughout the season",
     ],
   },
+  'twin-silo-bmx': {
+    color: '[#00ff0c]',
+    description:
+      "Twin Silo BMX is located in the beautiful Twin Silo Park in Fort Collins, Colorado. This track offers riders a unique racing experience in a modern park setting with excellent facilities. The track is open to the public when not in use for racing or practices, making it accessible for riders of all levels.",
+    uniqueFeatures: [
+      "Located in Twin Silo Park, a 54-acre modern park facility",
+      "Part of the City of Fort Collins park system with excellent maintenance",
+      "Open to public when not in use for racing or practices",
+      "Northern Colorado location serving Fort Collins and surrounding areas",
+      "Modern track design with community-focused atmosphere",
+    ],
+  },
 };
 
 export default function TracksPage() {
@@ -229,7 +241,7 @@ export default function TracksPage() {
             <div className="h-2 bg-[#00ff0c]"></div>
           </div>
           <p className="text-2xl text-white font-black bg-black px-6 py-3 inline-block border-4 border-[#00ff0c]">
-            3 PREMIER TRACKS • DENVER METRO AREA
+            4 PREMIER TRACKS • DENVER METRO AREA
           </p>
         </div>
 
@@ -251,7 +263,7 @@ export default function TracksPage() {
         {/* Loading State */}
         {isLoading && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {[1, 2, 3].map((i) => (
+            {[1, 2, 3, 4].map((i) => (
               <LoadingCard key={i} />
             ))}
           </div>

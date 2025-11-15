@@ -2,12 +2,13 @@
  * Master Facebook Scraper - All Denver BMX Tracks
  * 
  * Runs all track Facebook scrapers in sequence or parallel
- * Tracks: Mile High BMX, Dacono BMX, County Line BMX
+ * Tracks: Mile High BMX, Dacono BMX, County Line BMX, Twin Silo BMX
  */
 
 import { scrapeMileHighBmxFacebook } from './fetchMileHighBmxFacebook';
 import { scrapeDaconoBmxFacebook } from './fetchDaconoBmxFacebook';
 import { scrapeCountyLineBmxFacebook } from './fetchCountyLineBmxFacebok';
+import { scrapeTwinSiloBmxFacebook } from './fetchTwinSiloBmxFacebook';
 import { printResults, printMultiTrackSummary, type ScraperResult } from './fetchFacebook';
 import { upsertMultipleResults, type UpsertOptions } from './upsert';
 import { validateConfig } from './config';
@@ -50,6 +51,14 @@ const scrapeSequential = async (verbose: boolean = false): Promise<ScraperResult
   results.push(countyLineResult);
   if (verbose) printResults(countyLineResult);
   
+  console.log('\n');
+  
+  // Twin Silo BMX
+  console.log('4️⃣  Twin Silo BMX');
+  const twinSiloResult = await scrapeTwinSiloBmxFacebook();
+  results.push(twinSiloResult);
+  if (verbose) printResults(twinSiloResult);
+  
   return results;
 };
 
@@ -59,13 +68,14 @@ const scrapeSequential = async (verbose: boolean = false): Promise<ScraperResult
 const scrapeParallel = async (verbose: boolean = false): Promise<ScraperResult[]> => {
   console.log('🏁 Scraping all tracks in parallel...\n');
   
-  const [mileHighResult, daconoResult, countyLineResult] = await Promise.all([
+  const [mileHighResult, daconoResult, countyLineResult, twinSiloResult] = await Promise.all([
     scrapeMileHighBmxFacebook(),
     scrapeDaconoBmxFacebook(),
-    scrapeCountyLineBmxFacebook()
+    scrapeCountyLineBmxFacebook(),
+    scrapeTwinSiloBmxFacebook()
   ]);
   
-  const results = [mileHighResult, daconoResult, countyLineResult];
+  const results = [mileHighResult, daconoResult, countyLineResult, twinSiloResult];
   
   if (verbose) {
     results.forEach(result => printResults(result));
