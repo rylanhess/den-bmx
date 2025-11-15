@@ -26,14 +26,14 @@ export default function Home() {
       {/* Data Refresh Status Banner */}
       <DataRefreshBanner />
 
-      {/* Logo Section */}
-      <div className="flex justify-center px-4 py-4 sm:py-6">
+      {/* Logo Section - Mobile Only (desktop shows logo in nav) */}
+      <div className="md:hidden flex justify-center px-4 py-4 sm:py-6">
             <Image
-              src="/DEN_BMX_FINAL_Green.png"
+              src="/logos/DEN_BMX_FINAL_Green.png"
               alt="DEN BMX Logo"
               width={300}
               height={300}
-              className="w-full max-w-[200px] sm:max-w-[250px] md:max-w-[300px] h-auto shadow-2xl"
+              className="w-full max-w-[200px] sm:max-w-[250px] h-auto shadow-2xl"
               priority
             />
       </div>
@@ -61,8 +61,8 @@ export default function Home() {
         {/* Tracks Showcase */}
         <TracksShowcase />
 
-        {/* Action Buttons - Professional Punk Style - Mobile Optimized */}
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-12">
+        {/* Action Buttons - Professional Punk Style - Mobile Only (hidden on desktop, nav bar shown instead) */}
+        <div className="md:hidden max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-12">
           <Link href="/donate" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
             <div className="flex items-center gap-2 mb-2 sm:mb-3">
               <HeartIcon className="w-10 h-10 sm:w-12 sm:h-12" />
@@ -76,7 +76,7 @@ export default function Home() {
           <Link href="/tracks" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
             <FlagIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">TRACK INFO</div>
-            <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">3 TRACKS • FULL DETAILS</div>
+            <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">4 TRACKS • FULL DETAILS</div>
           </Link>
 
           <Link href="/new-rider" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">

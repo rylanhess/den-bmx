@@ -1,0 +1,83 @@
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import Image from 'next/image';
+import {
+  FlagIcon,
+  HeartIcon,
+  EnvelopeIcon,
+  WrenchScrewdriverIcon,
+  ShoppingBagIcon,
+  HandRaisedIcon,
+  BoltIcon,
+  HomeIcon,
+} from '@heroicons/react/24/solid';
+
+const navItems = [
+  { href: '/', label: 'HOME', icon: HomeIcon },
+  { href: '/tracks', label: 'TRACKS', icon: FlagIcon },
+  { href: '/new-rider', label: 'NEW RIDER', icon: BoltIcon },
+  { href: '/donate', label: 'DONATE', icon: HeartIcon },
+  { href: '/volunteer', label: 'VOLUNTEER', icon: WrenchScrewdriverIcon },
+  { href: '/merch', label: 'MERCH', icon: ShoppingBagIcon },
+  { href: '/about', label: 'ABOUT', icon: HandRaisedIcon },
+  { href: '/contact', label: 'CONTACT', icon: EnvelopeIcon },
+];
+
+export default function Navigation() {
+  const pathname = usePathname();
+
+  return (
+    <>
+      {/* Desktop Navigation - Horizontal */}
+      <nav className="hidden md:block border-b-4 border-[#00ff0c] bg-black sticky top-0 z-50 shadow-2xl">
+        <div className="container mx-auto px-2 lg:px-4">
+          <div className="flex items-center gap-1 lg:gap-2 py-2 lg:py-3">
+            {/* Logo on the left */}
+            <Link href="/" className="flex-shrink-0 hover:opacity-80 transition-opacity">
+              <Image
+                src="/logos/DEN_BMX_FINAL_Green.png"
+                alt="DEN BMX Logo"
+                width={120}
+                height={120}
+                className="h-12 lg:h-16 w-auto shadow-2xl"
+                priority
+              />
+            </Link>
+            
+            {/* Navigation items - equal width, spread across */}
+            <div className="flex items-center flex-1 gap-1 lg:gap-2">
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`
+                      flex-1 flex flex-col items-center justify-center gap-0.5 lg:gap-1
+                      py-2 lg:py-3 px-1 lg:px-2 border-2 border-[#00ff0c]
+                      font-black
+                      transition-all duration-200
+                      hover:bg-[#00ff0c] hover:text-black
+                      active:scale-95
+                      ${isActive ? 'bg-[#00ff0c] text-black' : 'bg-black text-[#00ff0c]'}
+                    `}
+                  >
+                    <Icon className="w-4 h-4 lg:w-5 lg:h-5" />
+                    <span className="text-[10px] lg:text-xs xl:text-sm whitespace-nowrap leading-tight">{item.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Navigation - Vertical (shown in page.tsx as action buttons) */}
+      {/* This component only handles desktop nav */}
+    </>
+  );
+}
+
