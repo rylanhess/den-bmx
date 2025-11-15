@@ -67,7 +67,7 @@ export const TRACK_MAPPINGS: Record<string, TrackMapping> = {
     facebookUrl: 'https://www.facebook.com/CountyLineBMX/'
   },
   'twin-silo-bmx': {
-    id: '', // TODO: Update this UUID after adding Twin Silo BMX to the tracks table in Supabase
+    id: '8b9711bf-6ccf-4485-8b0e-36228c44659f',
     name: 'Twin Silo BMX',
     slug: 'twin-silo-bmx',
     facebookUrl: 'https://www.facebook.com/twinsilobmx/'
