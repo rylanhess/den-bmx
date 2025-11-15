@@ -48,12 +48,8 @@ export default function Home() {
             </h1>
             <div className="h-2 bg-[#00ff0c]"></div>
           </div>
-          <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white font-black mb-2 bg-black px-4 sm:px-6 md:px-8 py-2 sm:py-3 inline-block border-4 border-[#00ff0c]">
-            DENVER METRO BMX RACING
-          </p>
           <p className="text-[#00ff0c] text-base sm:text-lg md:text-xl font-bold mt-3 sm:mt-4 px-4 flex items-center justify-center gap-2">
-            <FlagIcon className="w-5 h-5" />
-            MILE HIGH • DACONO • COUNTY LINE BMX
+            MILE HIGH • DACONO • COUNTY LINE BMX • TWIN SILO
           </p>
         </div>
 
