@@ -119,75 +119,27 @@ const RaceTimeline = () => {
       return (
         <>
           {/* Background line - blue for variety */}
-          <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-[#0073FF] opacity-20"></div>
+          <div className="absolute left-3 top-0 bottom-0 w-0.5 bg-[#0073FF] opacity-20"></div>
           {/* Progress line - green for completed */}
           <div 
-            className="absolute left-4 top-0 w-0.5 bg-[#00FF0D] transition-all duration-500"
+            className="absolute left-3 top-0 w-0.5 bg-[#00FF0D] transition-all duration-500"
             style={{ height: `${progressPercent}%` }}
           ></div>
         </>
       );
     }
     
+    // Desktop: timeline centered at 60px from top
     return (
       <>
         {/* Background line - blue for variety */}
-        <div className="absolute top-28 left-0 right-0 h-0.5 bg-[#0073FF] opacity-20"></div>
+        <div className="absolute top-[60px] left-0 right-0 h-0.5 bg-[#0073FF] opacity-20"></div>
         {/* Progress line - green for completed */}
         <div 
-          className="absolute top-28 left-0 h-0.5 bg-[#00FF0D] transition-all duration-500"
+          className="absolute top-[60px] left-0 h-0.5 bg-[#00FF0D] transition-all duration-500"
           style={{ width: `${progressPercent}%` }}
         ></div>
       </>
-    );
-  };
-
-  // Timeline Dot Component
-  const TimelineDot = ({ 
-    isPast, 
-    position, 
-    isVertical = false 
-  }: { 
-    isPast: boolean; 
-    position: number; 
-    isVertical?: boolean;
-  }) => {
-    const dotClasses = `absolute w-3 h-3 rounded-full border-2 transition-opacity duration-300 ${
-      isPast 
-        ? `bg-[#00FF0D] border-[#00FF0D] opacity-50` 
-        : `bg-black border-[#00FF0D]`
-    }`;
-    
-    if (isVertical) {
-      // For vertical timeline: left-4 = 16px, dot is 3px wide, so center at 16px - 1.5px = 14.5px
-      // Position is the top offset for the event
-      return (
-        <div 
-          className={dotClasses}
-          style={{ 
-            left: '14.5px', // Center on the 16px timeline (left-4)
-            top: `${position}px`,
-            transform: 'translate(-50%, -50%)', // Center both horizontally and vertically
-          }}
-        />
-      );
-    }
-    
-    // For horizontal timeline: 
-    // Timeline line is at top-28 = 112px from main container
-    // Timeline line has h-0.5 = 2px height, so center is at 112px + 1px = 113px
-    // Events container has pt-8 = 32px padding
-    // So timeline center is at 113px - 32px = 81px from events container content area
-    // Use transform to perfectly center the dot on the line
-    return (
-      <div 
-        className={dotClasses}
-        style={{ 
-          left: `calc(${position}% - 6px)`, // Center horizontally (w-3 = 12px, so 12px/2 = 6px)
-          top: '81px', // Position at timeline center
-          transform: 'translateY(-50%)', // Center vertically using transform
-        }}
-      />
     );
   };
 
@@ -219,34 +171,43 @@ const RaceTimeline = () => {
     }, [spriteFrames.length]);
     
     if (isVertical) {
-      const estimatedHeight = sortedEvents.length * 120;
+      const estimatedHeight = sortedEvents.length * 80; // Reduced spacing
       const progressHeight = (progressPercent / 100) * estimatedHeight;
+      // Center sprite on timeline line (left-3 = 12px, so center at 12px - 12px/2 = 6px)
       return (
         <div
-          className="absolute left-0 transition-all duration-500 z-20"
-          style={{ top: `${Math.max(0, progressHeight - 16)}px` }}
+          className="absolute transition-all duration-500 z-20"
+          style={{ 
+            left: '6px', // Center on timeline (12px - 6px for 12px sprite)
+            top: `${Math.max(0, progressHeight - 12)}px`,
+            transform: 'translateX(-50%)', // Perfect center
+          }}
         >
           <Image
             src={spriteFrames[currentFrame]}
             alt="BMX Rider Progress"
-            width={32}
-            height={32}
+            width={24}
+            height={24}
             className="drop-shadow-lg"
           />
         </div>
       );
     }
     
+    // Center sprite on timeline line at 60px
     return (
       <div
-        className="absolute top-20 transition-all duration-500 z-20"
-        style={{ left: `calc(${progressPercent}% - 24px)` }}
+        className="absolute transition-all duration-500 z-20"
+        style={{ 
+          left: `calc(${progressPercent}% - 18px)`, // Center 36px sprite
+          top: '42px', // 60px - 18px (half of 36px) to center on line
+        }}
       >
         <Image
           src={spriteFrames[currentFrame]}
           alt="BMX Rider Progress"
-          width={48}
-          height={48}
+          width={36}
+          height={36}
           className="drop-shadow-lg"
         />
       </div>
@@ -293,9 +254,17 @@ const RaceTimeline = () => {
       );
     }
     
-    // Dot icon - use blue for variety
+    // Flag holder icon for regular races (non-Nationals/Grands)
     return (
-      <div className={`w-4 h-4 rounded-full border-2 border-[#0073FF] bg-[#0073FF] shadow-lg transition-opacity duration-300 ${opacityClass}`}></div>
+      <div className={`transition-opacity duration-300 ${opacityClass}`}>
+        <Image
+          src="/flag_holder.png"
+          alt="Flag Holder"
+          width={size}
+          height={size}
+          className="drop-shadow-lg"
+        />
+      </div>
     );
   };
 
@@ -312,13 +281,13 @@ const RaceTimeline = () => {
     return (
       <div className={`text-center transition-opacity duration-300 ${opacityClass}`}>
         {/* Date in blue for differentiation */}
-        <div className="text-[#0073FF] font-black text-sm mb-1">
+        <div className="text-[#0073FF] font-black text-xs mb-0.5">
           {formatDateRange(event.date, event.endDate)}
         </div>
-        <div className="text-white font-bold text-xs mb-1">
+        <div className="text-white font-bold text-[10px] mb-0.5 leading-tight">
           {event.name}
         </div>
-        <div className="text-gray-400 text-xs">
+        <div className="text-gray-400 text-[10px] leading-tight">
           {event.location}
         </div>
       </div>
@@ -328,25 +297,34 @@ const RaceTimeline = () => {
   // Desktop Event Component
   const DesktopEvent = ({ event, index }: { event: RaceEvent; index: number }) => {
     const isPast = isEventPast(event);
-    const eventPosition = sortedEvents.length === 1 
-      ? 50 
-      : (index / (sortedEvents.length - 1)) * 100;
+    const iconSize = 40; // Reduced from 64
+    // Flag holder has legs that extend lower, so position it higher
+    const iconTop = event.icon === 'dot' ? '-4px' : '16px'; // Flag holder (dot) needs more clearance
 
     return (
       <div
-        className="flex flex-col items-center relative"
-        style={{ width: `${100 / sortedEvents.length}%`, maxWidth: '200px' }}
+        className="relative flex flex-col items-center"
+        style={{ width: `${100 / sortedEvents.length}%`, maxWidth: '150px' }}
       >
-        {/* Event Icon */}
-        <div className="mb-3">
-          <EventIcon icon={event.icon} isPast={isPast} size={64} />
+        {/* Event Icon - positioned just above timeline line */}
+        <div 
+          className="absolute flex justify-center"
+          style={{ 
+            top: iconTop, // Flag holder positioned higher to avoid leg overlap
+            width: '100%',
+          }}
+        >
+          <EventIcon icon={event.icon} isPast={isPast} size={iconSize} />
         </div>
 
-        {/* Event Dot - positioned to touch timeline */}
-        <TimelineDot isPast={isPast} position={eventPosition} isVertical={false} />
-
-        {/* Event Info */}
-        <div className="mt-8">
+        {/* Event Info - positioned below timeline line */}
+        <div 
+          className="absolute flex justify-center"
+          style={{ 
+            top: '72px', // Just below timeline (60px + 12px spacing)
+            width: '100%',
+          }}
+        >
           <EventInfo event={event} isPast={isPast} />
         </div>
       </div>
@@ -356,29 +334,40 @@ const RaceTimeline = () => {
   // Mobile Event Component
   const MobileEvent = ({ event, index }: { event: RaceEvent; index: number }) => {
     const isPast = isEventPast(event);
-    // Calculate position for vertical timeline (each event ~120px apart)
-    const eventPosition = index * 120 + 24; // 24px offset for first event
+    const iconSize = 32; // Reduced from 48
+    // Position events with spacing - each event takes ~80px, timeline is at left-3 (12px)
+    const eventTop = index * 80 + 16; // 16px offset for first event
+    // Flag holder has legs that extend lower, so position it higher
+    const iconTopOffset = event.icon === 'dot' ? 56 : 36; // Flag holder needs more clearance
 
     return (
-      <div className="relative mb-12 last:mb-0">
-        {/* Event Dot - positioned to touch timeline */}
-        <TimelineDot isPast={isPast} position={eventPosition} isVertical={true} />
+      <div className="relative mb-6 last:mb-0" style={{ minHeight: '80px' }}>
+        {/* Event Icon - positioned just above timeline line */}
+        <div 
+          className={`absolute transition-opacity duration-300 ${isPast ? 'opacity-50' : 'opacity-100'}`}
+          style={{
+            left: '20px', // To the right of timeline (12px + 8px spacing)
+            top: `${eventTop - iconTopOffset}px`, // Flag holder positioned higher to avoid leg overlap
+          }}
+        >
+          <EventIcon icon={event.icon} isPast={isPast} size={iconSize} />
+        </div>
 
-        {/* Event Content */}
-        <div className={`ml-12 transition-opacity duration-300 ${isPast ? 'opacity-50' : 'opacity-100'}`}>
-          {/* Event Icon */}
-          <div className="mb-2">
-            <EventIcon icon={event.icon} isPast={isPast} size={48} />
-          </div>
-
-          {/* Event Info */}
-          <div className="text-[#0073FF] font-black text-sm mb-1">
+        {/* Event Info - positioned below timeline line */}
+        <div 
+          className={`absolute transition-opacity duration-300 ${isPast ? 'opacity-50' : 'opacity-100'}`}
+          style={{
+            left: '20px',
+            top: `${eventTop + 8}px`, // Below timeline line
+          }}
+        >
+          <div className="text-[#0073FF] font-black text-xs mb-0.5">
             {formatDateRange(event.date, event.endDate)}
           </div>
-          <div className="text-white font-bold text-base mb-1">
+          <div className="text-white font-bold text-xs mb-0.5 leading-tight">
             {event.name}
           </div>
-          <div className="text-gray-400 text-sm">
+          <div className="text-gray-400 text-[10px] leading-tight">
             {event.location}
           </div>
         </div>
@@ -388,14 +377,14 @@ const RaceTimeline = () => {
 
   return (
     <div className="w-full mb-12">
-      <div className="bg-black border-4 border-[#00FF0D] p-6 sm:p-8 shadow-2xl">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#00FF0D] mb-6 sm:mb-8 text-center">
+      <div className="bg-black border-2 border-[#00FF0D] p-4 sm:p-5 shadow-xl">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-black text-[#00FF0D] mb-4 sm:mb-5 text-center">
           2025 RACE TIMELINE
         </h2>
 
         {/* Desktop Horizontal Timeline */}
         <div className="hidden md:block relative">
-          <div className="relative h-64 pb-8">
+          <div className="relative h-32 pb-4">
             {/* Timeline Line */}
             <TimelineLine isVertical={false} progressPercent={progress} />
 
@@ -403,7 +392,7 @@ const RaceTimeline = () => {
             <TimelineSprite progressPercent={progress} isVertical={false} />
 
             {/* Events Container */}
-            <div className="relative flex justify-between items-start pt-8 px-4">
+            <div className="relative flex justify-between px-2">
               {sortedEvents.map((event, index) => (
                 <DesktopEvent key={event.id} event={event} index={index} />
               ))}
@@ -413,7 +402,7 @@ const RaceTimeline = () => {
 
         {/* Mobile Vertical Timeline */}
         <div className="md:hidden relative">
-          <div className="relative pl-8 pb-8">
+          <div className="relative pl-6 pb-4" style={{ minHeight: `${sortedEvents.length * 80 + 32}px` }}>
             {/* Timeline Line */}
             {(() => {
               const firstEvent = sortedEvents[0].date;
