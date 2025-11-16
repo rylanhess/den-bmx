@@ -31,20 +31,7 @@ export default function Home() {
       </div>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 sm:px-6 py-4 sm:py-6 pb-24 sm:pb-28 relative z-10">
-        {/* Hero Section - Professional Punk */}
-        <div className="text-center mb-8 sm:mb-12 md:mb-16">
-          <div className="inline-block bg-black border-4 border-[#00ff0c] p-4 sm:p-6 md:p-8 shadow-2xl mb-4 sm:mb-6">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black text-[#00ff0c] mb-2 tracking-wider" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
-              DEN<span className="text-white">BMX</span>
-            </h1>
-            <div className="h-2 bg-[#00ff0c]"></div>
-          </div>
-          <p className="text-[#00ff0c] text-base sm:text-lg md:text-xl font-bold mt-3 sm:mt-4 px-4 flex items-center justify-center gap-2">
-            MILE HIGH <span className="text-[#0073FF]">•</span> DACONO <span className="text-[#0073FF]">•</span> COUNTY LINE BMX <span className="text-[#0073FF]">•</span> TWIN SILO
-          </p>
-        </div>
-
+      <main className="container mx-auto py-4 px-4 sm:px-6 pb-24 sm:pb-28 relative z-10">
         {/* This Week's Events */}
         <div className="mb-12">
           <ThisWeeksEvents />
