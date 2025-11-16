@@ -18,17 +18,19 @@ import {
 export default function Home() {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Logo Section - Mobile Only (desktop shows logo in nav) */}
-      <div className="md:hidden flex justify-center px-4 py-4 sm:py-6">
-            <Image
-              src="/logos/DEN_BMX_FINAL_Green.png"
-              alt="DEN BMX Logo"
-              width={300}
-              height={300}
-              className="w-full max-w-[200px] sm:max-w-[250px] h-auto shadow-2xl"
-              priority
-            />
-      </div>
+      {/* Hero Section with Logo */}
+      <section className="flex justify-center items-center px-4 py-8 sm:py-12 md:py-16 border-b-4 border-[#00ff0c] bg-black">
+        <div className="text-center">
+          <Image
+            src="/logos/DEN_BMX_FINAL_Green.png"
+            alt="DEN BMX Logo"
+            width={400}
+            height={400}
+            className="w-full max-w-[250px] sm:max-w-[300px] md:max-w-[350px] lg:max-w-[400px] h-auto shadow-2xl mx-auto"
+            priority
+          />
+        </div>
+      </section>
 
       {/* Main Content */}
       <main className="container mx-auto py-4 px-4 sm:px-6 pb-24 sm:pb-28 relative z-10">

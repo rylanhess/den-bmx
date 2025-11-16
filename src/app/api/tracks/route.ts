@@ -10,9 +10,9 @@ import { supabase } from '@/lib/supabase';
 // Track priority order for consistent sorting
 const TRACK_PRIORITY: Record<string, number> = {
   'mile-high-bmx': 1,
-  'county-line-bmx': 2,
-  'dacono-bmx': 3,
-  'twin-silo-bmx': 4
+  'twin-silo-bmx': 2,
+  'county-line-bmx': 3,
+  'dacono-bmx': 4
 };
 
 export async function GET() {
