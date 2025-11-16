@@ -29,6 +29,14 @@ const TrackLink = ({
   </a>
 );
 
+// Track overhead images mapped by slug
+const trackOverheadImages: Record<string, string> = {
+  'mile-high-bmx': '/track_images/mile_high_google.png',
+  'county-line-bmx': '/track_images/county_line_google.png',
+  'dacono-bmx': '/track_images/dacono_google.png',
+  'twin-silo-bmx': '/track_images/twin_silo_google.png',
+};
+
 const TrackCard = ({
   track,
   color,
@@ -39,91 +47,107 @@ const TrackCard = ({
   readonly color: string;
   readonly description?: string;
   readonly uniqueFeatures?: readonly string[];
-}) => (
-  <div className={`bg-black border-8 border-${color} overflow-hidden transform hover:scale-105 transition-transform`}>
-    {/* Wallpaper/Header Image */}
-    {track.wallpaper && (
-      <div className="relative h-48 w-full overflow-hidden">
-        <img 
-          src={track.wallpaper} 
-          alt={`${track.name} wallpaper`}
-          className="w-full h-full object-cover"
-        />
-        <div className={`absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent`}></div>
-        
-        {/* Logo overlay - Fixed circular container */}
-        {track.logo && (
-          <div className="absolute top-4 left-4 w-20 h-20 bg-white rounded-full shadow-xl border-4 border-[#00ff0c] overflow-hidden flex items-center justify-center p-2">
+}) => {
+  const overheadImage = trackOverheadImages[track.slug];
+  
+  return (
+    <div className={`bg-black border-8 border-${color} overflow-hidden transform hover:scale-105 transition-transform`}>
+      {/* Wallpaper/Header Image */}
+      {track.wallpaper && (
+        <div className="relative h-48 w-full overflow-hidden">
+          <img 
+            src={track.wallpaper} 
+            alt={`${track.name} wallpaper`}
+            className="w-full h-full object-cover"
+            style={track.slug === 'dacono-bmx' ? { objectPosition: 'center 66%' } : undefined}
+          />
+          <div className={`absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent`}></div>
+          
+          {/* Logo overlay - Fixed circular container */}
+          {track.logo && (
+            <div className="absolute top-4 left-4 w-20 h-20 bg-white rounded-full shadow-xl border-4 border-[#00ff0c] overflow-hidden flex items-center justify-center p-2">
+              <img 
+                src={track.logo} 
+                alt={`${track.name} logo`}
+                className="w-full h-full object-contain"
+              />
+            </div>
+          )}
+        </div>
+      )}
+      
+      {/* Logo only if no wallpaper - Fixed circular container */}
+      {!track.wallpaper && track.logo && (
+        <div className="flex justify-center py-6 bg-black">
+          <div className="w-28 h-28 bg-white rounded-full shadow-xl border-4 border-[#00ff0c] overflow-hidden flex items-center justify-center p-3">
             <img 
               src={track.logo} 
               alt={`${track.name} logo`}
               className="w-full h-full object-contain"
             />
           </div>
-        )}
-      </div>
-    )}
-    
-    {/* Logo only if no wallpaper - Fixed circular container */}
-    {!track.wallpaper && track.logo && (
-      <div className="flex justify-center py-6 bg-black">
-        <div className="w-28 h-28 bg-white rounded-full shadow-xl border-4 border-[#00ff0c] overflow-hidden flex items-center justify-center p-3">
-          <img 
-            src={track.logo} 
-            alt={`${track.name} logo`}
-            className="w-full h-full object-contain"
-          />
         </div>
-      </div>
-    )}
-    
-    <div className="p-6">
-      <div className="mb-4">
-        <h2 className="text-3xl font-black text-[#00ff0c] mb-2">{track.name}</h2>
-        <div className="flex items-center gap-2 text-white font-bold bg-[#00ff0c] px-3 py-1 inline-block border-2 border-black">
-          <MapPinIcon className="w-4 h-4" />
-          <span>{track.city}</span>
-        </div>
-      </div>
-
-      {description && (
-        <p className="text-white mb-4 leading-relaxed font-bold">{description}</p>
       )}
-
-      {uniqueFeatures && uniqueFeatures.length > 0 && (
+      
+      <div className="p-6">
         <div className="mb-4">
-          <h3 className="text-xl font-black text-[#00ff0c] mb-2">
-            UNIQUE FEATURES:
-          </h3>
-          <ul className="space-y-2">
-            {uniqueFeatures.map((feature, index) => (
-              <li key={index} className="text-[#00ff0c] font-bold border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2">
-                <BoltIcon className="w-4 h-4" />
-                {feature}
-              </li>
-            ))}
-          </ul>
+          <h2 className="text-3xl font-black text-[#00ff0c] mb-2">{track.name}</h2>
+          <div className="flex items-center gap-2 text-white font-bold bg-[#00ff0c] px-3 py-1 inline-block border-2 border-black">
+            <MapPinIcon className="w-4 h-4" />
+            <span>{track.city}</span>
+          </div>
         </div>
-      )}
 
-      <div className="border-t-4 border-[#00ff0c] pt-4">
-        <h3 className="text-lg font-black text-white mb-3">LINKS:</h3>
-        <div className="flex flex-col gap-2">
-          {track.fb_page_url && (
-            <TrackLink href={track.fb_page_url}>
-              Facebook Page
-            </TrackLink>
-          )}
-          {track.usabmx_url && (
-            <TrackLink href={track.usabmx_url}>
-              USA BMX Track Info
-            </TrackLink>
-          )}
+        {/* Overhead Track Image */}
+        {overheadImage && (
+          <div className="mb-4 border-4 border-[#00ff0c] overflow-hidden">
+            <img 
+              src={overheadImage} 
+              alt={`${track.name} overhead view`}
+              className="w-full h-auto object-cover"
+            />
+          </div>
+        )}
+
+        {description && (
+          <p className="text-white mb-4 leading-relaxed font-bold">{description}</p>
+        )}
+
+        {uniqueFeatures && uniqueFeatures.length > 0 && (
+          <div className="mb-4">
+            <h3 className="text-xl font-black text-[#00ff0c] mb-2">
+              UNIQUE FEATURES:
+            </h3>
+            <ul className="space-y-2">
+              {uniqueFeatures.map((feature, index) => (
+                <li key={index} className="text-[#00ff0c] font-bold border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2">
+                  <BoltIcon className="w-4 h-4" />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div className="border-t-4 border-[#00ff0c] pt-4">
+          <h3 className="text-lg font-black text-white mb-3">LINKS:</h3>
+          <div className="flex flex-col gap-2">
+            {track.fb_page_url && (
+              <TrackLink href={track.fb_page_url}>
+                Facebook Page
+              </TrackLink>
+            )}
+            {track.usabmx_url && (
+              <TrackLink href={track.usabmx_url}>
+                USA BMX Track Info
+              </TrackLink>
+            )}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const LoadingCard = () => (
   <div className="bg-black border-4 border-[#00ff0c] overflow-hidden animate-pulse">

@@ -7,7 +7,7 @@
    inkscape:export-filename="den_bmx_logo_wtracks_white.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
-   inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -33,12 +33,12 @@
      showgrid="false"
      showguides="false"
      inkscape:zoom="0.99714286"
-     inkscape:cx="348.99713"
-     inkscape:cy="358.02292"
+     inkscape:cx="349.49857"
+     inkscape:cy="518.48137"
      inkscape:window-width="1512"
      inkscape:window-height="945"
      inkscape:window-x="0"
-     inkscape:window-y="37"
+     inkscape:window-y="39"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1" />
   <!-- Generator: Adobe Illustrator 30.0.0, SVG Export Plug-In . SVG Version: 2.1.1 Build 123)  -->
@@ -48,15 +48,27 @@
      inkscape:label="tracks">
     <text
        xml:space="preserve"
-       style="font-size:17.3611px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:none;fill:#000000;fill-opacity:1;stroke-width:1.44676"
-       x="417.87317"
-       y="678.49316"
+       style="font-size:17.3611px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke-width:1.44676"
+       x="310.56659"
+       y="774.76825"
        id="text13"
-       inkscape:label="mile_high"><tspan
+       inkscape:label="bmxdenver.com"><tspan
          sodipodi:role="line"
          id="tspan13"
-         x="417.87317"
-         y="678.49316"
+         x="310.56659"
+         y="774.76825"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.3611px;font-family:MODERNIZ;-inkscape-font-specification:'MODERNIZ, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:1.44676">bmxdenver.com</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:17.3611px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;display:inline;fill:#000000;fill-opacity:1;stroke-width:1.44676"
+       x="55.657486"
+       y="754.54523"
+       id="text13-0"
+       inkscape:label="mile_high"><tspan
+         sodipodi:role="line"
+         id="tspan13-5"
+         x="55.657486"
+         y="754.54523"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.3611px;font-family:MODERNIZ;-inkscape-font-specification:'MODERNIZ, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:1.44676">Mile High</tspan></text>
     <text
        xml:space="preserve"
@@ -167,6 +179,18 @@
          id="tspan17"
          x="66.269165"
          y="665.91266"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.3611px;font-family:MODERNIZ;-inkscape-font-specification:'MODERNIZ, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:1.44676">County line • dacono • mile high • twin silo</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:17.3611px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;stroke-width:1.44676"
+       x="35.029331"
+       y="819.23004"
+       id="text17-8"
+       inkscape:label="all_tracks"><tspan
+         sodipodi:role="line"
+         id="tspan17-2"
+         x="35.029331"
+         y="819.23004"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.3611px;font-family:MODERNIZ;-inkscape-font-specification:'MODERNIZ, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:1.44676">County line | dacono | mile high | twin silo</tspan></text>
   </g>
 </svg>
