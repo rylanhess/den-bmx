@@ -8,25 +8,16 @@ import Image from 'next/image';
 import { 
   FlagIcon, 
   HeartIcon, 
-  CurrencyDollarIcon,
   EnvelopeIcon,
-  WrenchScrewdriverIcon,
   ShoppingBagIcon,
   HandRaisedIcon,
   ExclamationTriangleIcon,
   BoltIcon,
-  CircleStackIcon
 } from '@heroicons/react/24/solid';
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Alert Bar - Shows real cancellations and weather updates */}
-      <AlertsBanner />
-
-      {/* Data Refresh Status Banner */}
-      <DataRefreshBanner />
-
       {/* Logo Section - Mobile Only (desktop shows logo in nav) */}
       <div className="md:hidden flex justify-center px-4 py-4 sm:py-6">
             <Image
@@ -40,7 +31,7 @@ export default function Home() {
       </div>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 sm:px-6 py-4 sm:py-6 relative z-10">
+      <main className="container mx-auto px-4 sm:px-6 py-4 sm:py-6 pb-24 sm:pb-28 relative z-10">
         {/* Hero Section - Professional Punk */}
         <div className="text-center mb-8 sm:mb-12 md:mb-16">
           <div className="inline-block bg-black border-4 border-[#00ff0c] p-4 sm:p-6 md:p-8 shadow-2xl mb-4 sm:mb-6">
@@ -69,16 +60,6 @@ export default function Home() {
 
         {/* Action Buttons - Professional Punk Style - Mobile Only (hidden on desktop, nav bar shown instead) */}
         <div className="md:hidden max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-12">
-          <Link href="/donate" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
-            <div className="flex items-center gap-2 mb-2 sm:mb-3">
-              <HeartIcon className="w-10 h-10 sm:w-12 sm:h-12" />
-              <CircleStackIcon className="w-10 h-10 sm:w-12 sm:h-12" />
-              <CurrencyDollarIcon className="w-10 h-10 sm:w-12 sm:h-12" />
-            </div>
-            <div className="text-xl sm:text-2xl mb-2">DONATE NOW</div>
-            <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">BUY A BIKE TUBE • $15</div>
-          </Link>
-
           <Link href="/tracks" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
             <FlagIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">TRACK INFO</div>
@@ -98,7 +79,7 @@ export default function Home() {
           </Link>
 
           <Link href="/volunteer" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
-            <WrenchScrewdriverIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
+            <HeartIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">VOLUNTEER</div>
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">HELP OUT • GET INVOLVED</div>
           </Link>
@@ -128,13 +109,21 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="container mx-auto px-4 py-6 sm:py-8 text-center relative z-10">
-        <div className="bg-black border-4 border-[#00ff0c] px-4 sm:px-6 py-3 sm:py-4 inline-block">
-          <p className="text-[#00ff0c] font-black text-sm sm:text-base md:text-lg flex items-center justify-center gap-2">
-            <BoltIcon className="w-5 h-5 text-[#0073FF]" />
-            DEN BMX <span className="text-[#0073FF]">•</span> DENVER METRO BMX SCHEDULES
-          </p>
+      {/* Footer - Floating */}
+      <footer className="border-t-4 border-[#00ff0c] bg-black sticky bottom-0 z-50 shadow-2xl">
+        <div className="container mx-auto px-4 py-3 sm:py-4 text-center">
+          {/* Alert Bar - Shows real cancellations and weather updates */}
+          <AlertsBanner />
+
+          {/* Data Refresh Status Banner */}
+          <DataRefreshBanner />
+
+          <div className="bg-black border-4 border-[#00ff0c] px-4 sm:px-6 py-3 sm:py-4 inline-block mt-4">
+            <p className="text-[#00ff0c] font-black text-sm sm:text-base md:text-lg flex items-center justify-center gap-2">
+              <BoltIcon className="w-5 h-5 text-[#0073FF]" />
+              DEN BMX <span className="text-[#0073FF]">•</span> DENVER METRO BMX SCHEDULES
+            </p>
+          </div>
         </div>
       </footer>
     </div>
