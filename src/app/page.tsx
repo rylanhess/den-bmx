@@ -50,7 +50,7 @@ export default function Home() {
             <div className="h-2 bg-[#00ff0c]"></div>
           </div>
           <p className="text-[#00ff0c] text-base sm:text-lg md:text-xl font-bold mt-3 sm:mt-4 px-4 flex items-center justify-center gap-2">
-            MILE HIGH • DACONO • COUNTY LINE BMX • TWIN SILO
+            MILE HIGH <span className="text-[#0073FF]">•</span> DACONO <span className="text-[#0073FF]">•</span> COUNTY LINE BMX <span className="text-[#0073FF]">•</span> TWIN SILO
           </p>
         </div>
 
@@ -121,7 +121,7 @@ export default function Home() {
         <div className="text-center mb-6 sm:mb-8">
           <div className="inline-block bg-black border-4 border-[#00ff0c] px-4 sm:px-6 md:px-8 py-3 sm:py-4">
             <p className="text-[#00ff0c] text-sm sm:text-base md:text-lg font-black flex items-center justify-center gap-2">
-              <ExclamationTriangleIcon className="w-5 h-5" />
+              <ExclamationTriangleIcon className="w-5 h-5 text-[#0073FF]" />
               SITE UNDER CONSTRUCTION
             </p>
           </div>
@@ -132,8 +132,8 @@ export default function Home() {
       <footer className="container mx-auto px-4 py-6 sm:py-8 text-center relative z-10">
         <div className="bg-black border-4 border-[#00ff0c] px-4 sm:px-6 py-3 sm:py-4 inline-block">
           <p className="text-[#00ff0c] font-black text-sm sm:text-base md:text-lg flex items-center justify-center gap-2">
-            <BoltIcon className="w-5 h-5" />
-            DEN BMX • DENVER METRO BMX SCHEDULES
+            <BoltIcon className="w-5 h-5 text-[#0073FF]" />
+            DEN BMX <span className="text-[#0073FF]">•</span> DENVER METRO BMX SCHEDULES
           </p>
         </div>
       </footer>
