@@ -6,8 +6,7 @@
 
 'use client';
 
-import { useMemo, useState, useEffect } from 'react';
-import Image from 'next/image';
+import { useMemo } from 'react';
 
 interface RaceEvent {
   id: string;
@@ -143,131 +142,6 @@ const RaceTimeline = () => {
     );
   };
 
-  // Timeline Sprite Component with pedaling animation
-  const TimelineSprite = ({ 
-    progressPercent, 
-    isVertical = false 
-  }: { 
-    progressPercent: number; 
-    isVertical?: boolean;
-  }) => {
-    // Pedaling animation frames in sequence
-    const spriteFrames = [
-      '/pedal_sprite/sprite_main_fwd_dwn_001.png',
-      '/pedal_sprite/sprite_bk_dwn_002.png',
-      '/pedal_sprite/sprite_bk_up_003.png',
-      '/pedal_sprite/sprite_fwd_up_004.png',
-    ];
-    
-    const [currentFrame, setCurrentFrame] = useState(0);
-    
-    // Cycle through frames every 300ms
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setCurrentFrame((prev) => (prev + 1) % spriteFrames.length);
-      }, 300);
-      
-      return () => clearInterval(interval);
-    }, [spriteFrames.length]);
-    
-    if (isVertical) {
-      const estimatedHeight = sortedEvents.length * 80; // Reduced spacing
-      const progressHeight = (progressPercent / 100) * estimatedHeight;
-      // Center sprite on timeline line (left-3 = 12px, so center at 12px - 12px/2 = 6px)
-      return (
-        <div
-          className="absolute transition-all duration-500 z-20"
-          style={{ 
-            left: '6px', // Center on timeline (12px - 6px for 12px sprite)
-            top: `${Math.max(0, progressHeight - 12)}px`,
-            transform: 'translateX(-50%)', // Perfect center
-          }}
-        >
-          <Image
-            src={spriteFrames[currentFrame]}
-            alt="BMX Rider Progress"
-            width={24}
-            height={24}
-            className="drop-shadow-lg"
-          />
-        </div>
-      );
-    }
-    
-    // Center sprite on timeline line at 60px
-    return (
-      <div
-        className="absolute transition-all duration-500 z-20"
-        style={{ 
-          left: `calc(${progressPercent}% - 18px)`, // Center 36px sprite
-          top: '42px', // 60px - 18px (half of 36px) to center on line
-        }}
-      >
-        <Image
-          src={spriteFrames[currentFrame]}
-          alt="BMX Rider Progress"
-          width={36}
-          height={36}
-          className="drop-shadow-lg"
-        />
-      </div>
-    );
-  };
-
-  // Event Icon Component
-  const EventIcon = ({ 
-    icon, 
-    isPast, 
-    size = 64 
-  }: { 
-    icon: 'trophy' | 'podium' | 'dot'; 
-    isPast: boolean;
-    size?: number;
-  }) => {
-    const opacityClass = isPast ? 'opacity-50' : 'opacity-100';
-    
-    if (icon === 'trophy') {
-      return (
-        <div className={`transition-opacity duration-300 ${opacityClass}`}>
-          <Image
-            src="/BMX_Trophy.png"
-            alt="Trophy"
-            width={size}
-            height={size}
-            className="drop-shadow-lg"
-          />
-        </div>
-      );
-    }
-    
-    if (icon === 'podium') {
-      return (
-        <div className={`transition-opacity duration-300 ${opacityClass}`}>
-          <Image
-            src="/BMX_Podium.png"
-            alt="Podium"
-            width={size}
-            height={size}
-            className="drop-shadow-lg"
-          />
-        </div>
-      );
-    }
-    
-    // Flag holder icon for regular races (non-Nationals/Grands)
-    return (
-      <div className={`transition-opacity duration-300 ${opacityClass}`}>
-        <Image
-          src="/flag_holder.png"
-          alt="Flag Holder"
-          width={size}
-          height={size}
-          className="drop-shadow-lg"
-        />
-      </div>
-    );
-  };
-
   // Event Info Component
   const EventInfo = ({ 
     event, 
@@ -297,26 +171,12 @@ const RaceTimeline = () => {
   // Desktop Event Component
   const DesktopEvent = ({ event, index }: { event: RaceEvent; index: number }) => {
     const isPast = isEventPast(event);
-    const iconSize = 40; // Reduced from 64
-    // Flag holder has legs that extend lower, so position it higher
-    const iconTop = event.icon === 'dot' ? '-4px' : '16px'; // Flag holder (dot) needs more clearance
 
     return (
       <div
         className="relative flex flex-col items-center"
         style={{ width: `${100 / sortedEvents.length}%`, maxWidth: '150px' }}
       >
-        {/* Event Icon - positioned just above timeline line */}
-        <div 
-          className="absolute flex justify-center"
-          style={{ 
-            top: iconTop, // Flag holder positioned higher to avoid leg overlap
-            width: '100%',
-          }}
-        >
-          <EventIcon icon={event.icon} isPast={isPast} size={iconSize} />
-        </div>
-
         {/* Event Info - positioned below timeline line */}
         <div 
           className="absolute flex justify-center"
@@ -334,25 +194,11 @@ const RaceTimeline = () => {
   // Mobile Event Component
   const MobileEvent = ({ event, index }: { event: RaceEvent; index: number }) => {
     const isPast = isEventPast(event);
-    const iconSize = 32; // Reduced from 48
     // Position events with spacing - each event takes ~80px, timeline is at left-3 (12px)
     const eventTop = index * 80 + 16; // 16px offset for first event
-    // Flag holder has legs that extend lower, so position it higher
-    const iconTopOffset = event.icon === 'dot' ? 56 : 36; // Flag holder needs more clearance
 
     return (
       <div className="relative mb-6 last:mb-0" style={{ minHeight: '80px' }}>
-        {/* Event Icon - positioned just above timeline line */}
-        <div 
-          className={`absolute transition-opacity duration-300 ${isPast ? 'opacity-50' : 'opacity-100'}`}
-          style={{
-            left: '20px', // To the right of timeline (12px + 8px spacing)
-            top: `${eventTop - iconTopOffset}px`, // Flag holder positioned higher to avoid leg overlap
-          }}
-        >
-          <EventIcon icon={event.icon} isPast={isPast} size={iconSize} />
-        </div>
-
         {/* Event Info - positioned below timeline line */}
         <div 
           className={`absolute transition-opacity duration-300 ${isPast ? 'opacity-50' : 'opacity-100'}`}
@@ -388,9 +234,6 @@ const RaceTimeline = () => {
             {/* Timeline Line */}
             <TimelineLine isVertical={false} progressPercent={progress} />
 
-            {/* Timeline Sprite */}
-            <TimelineSprite progressPercent={progress} isVertical={false} />
-
             {/* Events Container */}
             <div className="relative flex justify-between px-2">
               {sortedEvents.map((event, index) => (
@@ -413,9 +256,6 @@ const RaceTimeline = () => {
               
               return <TimelineLine isVertical={true} progressPercent={progressPercent} />;
             })()}
-
-            {/* Timeline Sprite */}
-            <TimelineSprite progressPercent={progress} isVertical={true} />
 
             {/* Events Container */}
             {sortedEvents.map((event, index) => (
