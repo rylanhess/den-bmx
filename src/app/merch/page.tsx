@@ -45,18 +45,24 @@ export default function MerchPage() {
           </p>
         </div>
 
-        {/* Coming Soon Card */}
+        {/* Store Link Card */}
         <div className="bg-[#00ff0c] border-4 border-black p-6 md:p-8 mb-12">
           <h2 className="text-4xl font-black text-black mb-4 flex items-center gap-3">
-            <ExclamationTriangleIcon className="w-16 h-16" />
-            COMING SOON!
+            <ShoppingBagIcon className="w-16 h-16" />
+            SHOP NOW!
           </h2>
-          <p className="text-black text-xl leading-relaxed font-bold mb-4">
-            Our merch store is <strong className="text-2xl">UNDER CONSTRUCTION</strong>! We&apos;re working hard to bring you awesome DEN BMX gear and a Denver BMX resale hub.
+          <p className="text-black text-xl leading-relaxed font-bold mb-6">
+            Check out our <strong className="text-2xl">OFFICIAL MERCH STORE</strong>! Get your DEN BMX gear including t-shirts, hats, beanies, and more!
           </p>
-          <p className="text-black text-lg leading-relaxed font-bold">
-            Check back soon for hats, shirts, stickers, BMX gear, and more!
-          </p>
+          <a
+            href="https://bmxdenver.printify.me/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-black hover:bg-white text-[#00ff0c] hover:text-black font-black px-8 py-4 border-4 border-black transition-colors transform hover:scale-110 text-2xl"
+          >
+            <ShoppingBagIcon className="w-6 h-6 inline mr-2" />
+            VISIT STORE →
+          </a>
         </div>
 
         {/* What's Coming */}
@@ -180,14 +186,23 @@ export default function MerchPage() {
         {/* CTA */}
         <div className="bg-gradient-to-r from-yellow-400 via-pink-500 to-cyan-400 border-8 border-black p-8 text-center">
           <h2 className="text-5xl font-black text-black mb-4">
-            MERCH COMING SOON!
+            SHOP DEN BMX MERCH!
           </h2>
           <p className="text-black text-2xl font-black mb-6">
-            Check back soon for awesome DEN BMX gear!
+            Get your gear and rep DEN BMX!
           </p>
+          <a
+            href="https://bmxdenver.printify.me/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-black hover:bg-white text-[#00ff0c] hover:text-black font-black py-4 px-12 border-4 border-yellow-400 transition-colors transform hover:scale-110 text-2xl mb-4"
+          >
+            <ShoppingBagIcon className="w-6 h-6 inline mr-2" />
+            VISIT STORE →
+          </a>
           <Link
             href="/"
-            className="md:hidden inline-block bg-black hover:bg-white text-[#00ff0c] hover:text-black font-black py-4 px-12 border-4 border-yellow-400 transition-colors transform hover:scale-110 text-2xl"
+            className="md:hidden block mt-4 inline-block bg-black hover:bg-white text-[#00ff0c] hover:text-black font-black py-4 px-12 border-4 border-yellow-400 transition-colors transform hover:scale-110 text-2xl"
           >
             <FlagIcon className="w-6 h-6 inline mr-2" />
             BACK TO HOME
@@ -202,7 +217,7 @@ export default function MerchPage() {
             <BoltIcon className="w-5 h-5" />
             DEN BMX
           </p>
-          <p className="text-white font-bold text-sm mt-1">Merch store coming soon!</p>
+          <p className="text-white font-bold text-sm mt-1">Shop now at bmxdenver.printify.me</p>
         </div>
       </footer>
     </div>

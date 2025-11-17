@@ -36,6 +36,32 @@ export default function Navigation() {
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
+                const isExternal = item.href.startsWith('http');
+                const href = item.href === '/merch' ? 'https://bmxdenver.printify.me/' : item.href;
+                
+                if (item.href === '/merch' || isExternal) {
+                  return (
+                    <a
+                      key={item.href}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`
+                        flex-1 flex flex-col items-center justify-center gap-0.5 lg:gap-1
+                        py-2 lg:py-3 px-1 lg:px-2 border-2 border-[#00ff0c]
+                        font-black
+                        transition-all duration-200
+                        hover:bg-[#00ff0c] hover:text-black
+                        active:scale-95
+                        bg-black text-[#00ff0c]
+                      `}
+                    >
+                      <Icon className="w-4 h-4 lg:w-5 lg:h-5" />
+                      <span className="text-[10px] lg:text-xs xl:text-sm whitespace-nowrap leading-tight">{item.label}</span>
+                    </a>
+                  );
+                }
+                
                 return (
                   <Link
                     key={item.href}
