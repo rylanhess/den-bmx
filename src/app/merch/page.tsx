@@ -55,7 +55,7 @@ export default function MerchPage() {
             Check out our <strong className="text-2xl">OFFICIAL MERCH STORE</strong>! Get your DEN BMX gear including t-shirts, hats, beanies, and more!
           </p>
           <a
-            href="https://bmxdenver.printify.me/"
+            href="https://store.bmxdenver.com"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-black hover:bg-white text-[#00ff0c] hover:text-black font-black px-8 py-4 border-4 border-black transition-colors transform hover:scale-110 text-2xl"
@@ -192,7 +192,7 @@ export default function MerchPage() {
             Get your gear and rep DEN BMX!
           </p>
           <a
-            href="https://bmxdenver.printify.me/"
+            href="https://store.bmxdenver.com"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-black hover:bg-white text-[#00ff0c] hover:text-black font-black py-4 px-12 border-4 border-yellow-400 transition-colors transform hover:scale-110 text-2xl mb-4"
@@ -217,7 +217,7 @@ export default function MerchPage() {
             <BoltIcon className="w-5 h-5" />
             DEN BMX
           </p>
-          <p className="text-white font-bold text-sm mt-1">Shop now at bmxdenver.printify.me</p>
+          <p className="text-white font-bold text-sm mt-1">Shop now at store.bmxdenver.com</p>
         </div>
       </footer>
     </div>

@@ -37,7 +37,7 @@ export default function Navigation() {
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
                 const isExternal = item.href.startsWith('http');
-                const href = item.href === '/merch' ? 'https://bmxdenver.printify.me/' : item.href;
+                const href = item.href === '/merch' ? 'https://store.bmxdenver.com' : item.href;
                 
                 if (item.href === '/merch' || isExternal) {
                   return (
