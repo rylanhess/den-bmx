@@ -17,7 +17,7 @@ const navItems = [
   { href: '/tracks', label: 'TRACKS', icon: FlagIcon },
   { href: '/new-rider', label: 'NEW RIDER', icon: BoltIcon },
   { href: '/volunteer', label: 'VOLUNTEER', icon: HeartIcon },
-  { href: '/merch', label: 'MERCH', icon: ShoppingBagIcon },
+  { href: '/shop', label: 'MERCH', icon: ShoppingBagIcon },
   { href: '/about', label: 'ABOUT', icon: HandRaisedIcon },
   { href: '/contact', label: 'CONTACT', icon: EnvelopeIcon },
 ];
@@ -37,13 +37,12 @@ export default function Navigation() {
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
                 const isExternal = item.href.startsWith('http');
-                const href = item.href === '/merch' ? 'https://store.bmxdenver.com' : item.href;
                 
-                if (item.href === '/merch' || isExternal) {
+                if (isExternal) {
                   return (
                     <a
                       key={item.href}
-                      href={href}
+                      href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`
