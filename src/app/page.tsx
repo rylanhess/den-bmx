@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
       {/* Hero Section with Logo */}
-      <section className="flex justify-center items-center px-4 py-8 sm:py-12 md:py-16 border-b-4 border-[#00ff0c] bg-black">
+      <section className="flex justify-center items-center px-4 py-8 sm:py-12 md:py-16 bg-black">
         <div className="text-center">
           <Image
             src="/logos/DEN_BMX_FINAL_Green.png"

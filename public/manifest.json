@@ -9,19 +9,19 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/DEN_BMX_FINAL_Green.png",
+      "src": "/logos/DEN_BMX_FINAL_Green.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/DEN_BMX_FINAL_Green.png",
+      "src": "/logos/DEN_BMX_FINAL_Green.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/DEN_BMX_FINAL_Green.png",
+      "src": "/logos/DEN_BMX_FINAL_Green.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
@@ -35,14 +35,14 @@
       "short_name": "Events",
       "description": "View this week's BMX events",
       "url": "/?events",
-      "icons": [{ "src": "/DEN_BMX_FINAL_Green.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/logos/DEN_BMX_FINAL_Green.png", "sizes": "96x96" }]
     },
     {
       "name": "Tracks",
       "short_name": "Tracks",
       "description": "View BMX track information",
       "url": "/tracks",
-      "icons": [{ "src": "/DEN_BMX_FINAL_Green.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/logos/DEN_BMX_FINAL_Green.png", "sizes": "96x96" }]
     }
   ]
 }
