@@ -32,8 +32,37 @@ export const metadata: Metadata = {
 export default function ShopPage() {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Background Images - Responsive: Single Rider (Mobile) / Two Riders (Desktop) */}
+      <div 
+        className="fixed inset-0 z-0 w-full h-full" 
+        style={{ 
+          opacity: 0.25,
+          pointerEvents: 'none',
+        }}
+      >
+        {/* Mobile: Single Rider (Vertical) */}
+        <div 
+          className="md:hidden absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/black-white-portrait-athlete-participating-olympic-championship-sports.jpg')`,
+            backgroundPosition: 'center center',
+            backgroundSize: 'cover',
+          }}
+        />
+        {/* Desktop: Two Riders (Landscape) */}
+        <div 
+          className="hidden md:block absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/black-white-portrait-athlete-participating-olympic-championship-sports%20(1).jpg')`,
+            backgroundPosition: 'center center',
+            backgroundSize: 'cover',
+          }}
+        />
+        {/* Dark overlay to ensure text readability */}
+        <div className="absolute inset-0 w-full h-full bg-black/50" />
+      </div>
       {/* Hero Section with Logo and Shop Now Button */}
-      <section className="flex flex-col justify-center items-center px-4 py-8 sm:py-12 md:py-16 bg-black">
+      <section className="relative z-10 flex flex-col justify-center items-center px-4 py-8 sm:py-12 md:py-16">
         <div className="text-center">
           <Image
             src="/logos/DEN_BMX_FINAL_Green.png"

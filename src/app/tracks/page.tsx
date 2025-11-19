@@ -255,6 +255,25 @@ export default function TracksPage() {
 
   return (
     <main className="min-h-screen bg-black relative overflow-hidden">
+      {/* Background Image - Color BMX Racing Photo */}
+      <div 
+        className="fixed inset-0 z-0 w-full h-full" 
+        style={{ 
+          opacity: 0.3,
+          pointerEvents: 'none',
+        }}
+      >
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/side-view-people-riding-bicycled-sunny-day.jpg')`,
+            backgroundPosition: 'center center',
+            backgroundSize: 'cover',
+          }}
+        />
+        {/* Dark overlay to ensure text readability */}
+        <div className="absolute inset-0 w-full h-full bg-black/50" />
+      </div>
       <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 relative z-10">
         {/* Header - Professional Punk */}
         <div className="text-center mb-12">

@@ -26,8 +26,27 @@ export const metadata: Metadata = {
 export default function VolunteerPage() {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Background Image - Color BMX Racing Photo */}
+      <div 
+        className="fixed inset-0 z-0 w-full h-full" 
+        style={{ 
+          opacity: 0.3,
+          pointerEvents: 'none',
+        }}
+      >
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/silhouette-bmx-rider-performing-stunt-against-clear-sky-sunset.jpg')`,
+            backgroundPosition: 'center center',
+            backgroundSize: 'cover',
+          }}
+        />
+        {/* Dark overlay to ensure text readability */}
+        <div className="absolute inset-0 w-full h-full bg-black/50" />
+      </div>
       {/* Header - Mobile Only */}
-      <header className="md:hidden bg-black border-b-4 border-[#00ff0c] sticky top-0 z-20 relative">
+      <header className="relative z-20 md:hidden bg-black/80 backdrop-blur-sm border-b-4 border-[#00ff0c] sticky top-0">
         <div className="container mx-auto px-4 py-4">
           <Link href="/" className="inline-flex items-center gap-2 bg-[#00ff0c] text-black hover:bg-white px-6 py-3 border-4 border-black font-black transition-colors transform hover:scale-105">
             ← BACK TO HOME

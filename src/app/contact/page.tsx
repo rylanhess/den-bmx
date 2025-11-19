@@ -55,6 +55,25 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Background Image - Color BMX Racing Photo */}
+      <div 
+        className="fixed inset-0 z-0 w-full h-full" 
+        style={{ 
+          opacity: 0.3,
+          pointerEvents: 'none',
+        }}
+      >
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/side-view-people-riding-bicycled-sunny-day.jpg')`,
+            backgroundPosition: 'center center',
+            backgroundSize: 'cover',
+          }}
+        />
+        {/* Dark overlay to ensure text readability */}
+        <div className="absolute inset-0 w-full h-full bg-black/50" />
+      </div>
       <main className="container mx-auto px-4 py-12 md:py-20 relative z-10">
         {/* Back Button - Mobile Only */}
         <Link 
