@@ -4,9 +4,8 @@ const urlsToCache = [
   '/',
   '/tracks',
   '/contact',
-  '/donate',
   '/new-rider',
-  '/DEN_BMX_FINAL_Green.png',
+  '/logos/DEN_BMX_FINAL_Green.png',
   '/manifest.json',
 ];
 

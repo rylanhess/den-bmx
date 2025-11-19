@@ -68,7 +68,7 @@ export default function ContactPage() {
         <div className="text-center mb-12">
           <div className="inline-block mb-6">
             <Image
-              src="/DEN_BMX_FINAL_Green.png"
+              src="/logos/DEN_BMX_FINAL_Green.png"
               alt="DEN BMX Logo"
               width={250}
               height={250}
