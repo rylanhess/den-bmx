@@ -88,33 +88,17 @@ export default function ShopPage() {
       <main className="container mx-auto px-4 py-12 md:py-16 max-w-6xl relative z-10">
 
         {/* Store Info Card */}
-        <div className="bg-[#00ff0c] border-4 border-black p-8 md:p-12 text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-black text-black mb-4">
+        <div className="bg-black border-4 border-[#00ff0c] p-8 md:p-12 text-center mb-12">
+          <h1 className="text-4xl md:text-6xl font-black text-[#00ff0c] mb-4">
             OFFICIAL MERCH!
           </h1>
-          <p className="text-black text-xl md:text-2xl font-bold mb-6">
+          <p className="text-white text-xl md:text-2xl font-bold mb-6">
             Get your DEN BMX gear at{' '}
-            <span className="text-2xl md:text-3xl">store.bmxdenver.com</span>
+            <span className="text-2xl md:text-3xl text-[#00ff0c]">store.bmxdenver.com</span>
           </p>
-          <p className="text-black text-lg md:text-xl font-bold">
+          <p className="text-white text-lg md:text-xl font-bold">
             T-shirts, hats, stickers, and more!
           </p>
-        </div>
-
-        {/* Additional CTA */}
-        <div className="bg-black border-4 border-[#00ff0c] p-8 text-center">
-          <p className="text-[#00ff0c] text-xl md:text-2xl font-black mb-6">
-            REP DEN BMX • SUPPORT THE TRACKS
-          </p>
-          <a
-            href="https://store.bmxdenver.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-[#00ff0c] hover:bg-white text-black font-black px-10 py-5 border-4 border-black transition-colors transform hover:scale-110 text-xl md:text-2xl"
-          >
-            <ShoppingBagIcon className="w-6 h-6 inline mr-2" />
-            VISIT STORE →
-          </a>
         </div>
       </main>
 

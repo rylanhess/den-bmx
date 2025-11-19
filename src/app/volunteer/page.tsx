@@ -297,16 +297,16 @@ export default function VolunteerPage() {
         </section>
 
         {/* CTA */}
-        <div className="bg-gradient-to-r from-yellow-400 via-pink-500 to-cyan-400 border-8 border-black p-8 text-center">
-          <h2 className="text-5xl font-black text-black mb-4">
+        <div className="bg-[#00ff0c] border-4 border-black p-8 md:p-12 text-center">
+          <h2 className="text-5xl md:text-6xl font-black text-black mb-4">
             READY TO HELP?!
           </h2>
-          <p className="text-black text-2xl font-black mb-6">
+          <p className="text-black text-2xl md:text-3xl font-black mb-6">
             Every volunteer makes the tracks better! Get involved today!
           </p>
           <Link
             href="/contact"
-            className="inline-block bg-black hover:bg-white text-[#00ff0c] hover:text-black font-black py-4 px-12 border-4 border-yellow-400 transition-colors transform hover:scale-110 text-2xl"
+            className="inline-block bg-black hover:bg-white text-[#00ff0c] hover:text-black font-black py-4 px-12 border-4 border-black transition-colors transform hover:scale-110 text-2xl"
           >
             <EnvelopeIcon className="w-6 h-6 inline mr-2" />
             CONTACT US TO VOLUNTEER
