@@ -57,9 +57,26 @@ export default function Home() {
             alt="DEN BMX Logo"
             width={400}
             height={400}
-            className="w-full max-w-[250px] sm:max-w-[300px] md:max-w-[350px] lg:max-w-[400px] h-auto shadow-2xl mx-auto"
+            className="w-full max-w-[250px] sm:max-w-[300px] md:max-w-[350px] lg:max-w-[400px] h-auto shadow-2xl mx-auto mb-6"
             priority
           />
+          <div className="mt-4 sm:mt-6">
+            <h2 
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-[#00ff0c] tracking-wider uppercase"
+              style={{
+                textShadow: '4px 4px 0px rgba(0,0,0,0.9), 2px 2px 0px rgba(0,0,0,0.7), 0 0 25px #00ff0c, 0 0 40px rgba(0,255,12,0.5)',
+                letterSpacing: '0.2em',
+                fontFamily: 'Arial Black, "Arial Black", Arial, sans-serif',
+                transform: 'rotate(-1.5deg)',
+                display: 'inline-block',
+                fontWeight: 900,
+                textStroke: '1px rgba(0,0,0,0.3)',
+                WebkitTextStroke: '1px rgba(0,0,0,0.3)'
+              }}
+            >
+              FILL THE GATES!
+            </h2>
+          </div>
         </div>
       </section>
 

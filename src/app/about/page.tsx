@@ -64,6 +64,35 @@ export default function AboutPage() {
           </p>
         </div>
 
+        {/* Mission Statement */}
+        <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8 mb-12">
+          <h2 className="text-4xl font-black text-[#00ff0c] mb-6">
+            OUR MISSION: FILL THE GATES!
+          </h2>
+          
+          {/* Image Placeholder - Ready for group rider image */}
+          <div className="bg-[#00ff0c] border-4 border-black p-8 flex items-center justify-center min-h-[400px] mb-6">
+            <div className="text-center">
+              <CameraIcon className="w-24 h-24 mx-auto mb-4" />
+              <p className="text-black font-black text-xl">GROUP RIDER IMAGE</p>
+              <p className="text-black font-bold text-sm mt-2">Coming Soon</p>
+            </div>
+          </div>
+
+          {/* Mission Text */}
+          <div className="bg-[#00ff0c] border-4 border-black p-6 md:p-8 space-y-4">
+            <p className="text-black font-bold text-xl leading-relaxed">
+              Our mission is to <strong className="text-2xl">PROMOTE BMX RACING</strong> throughout the Denver community by showcasing how exciting, accessible, and family-friendly this incredible sport truly is.
+            </p>
+            <p className="text-black font-bold text-xl leading-relaxed">
+              We&apos;re committed to making BMX more <strong className="text-2xl">ACCESSIBLE</strong> to everyone, especially youth riders and the youngest competitors starting on balance bikes. Through the trials, excitement, and intensity of BMX racing, we aim to build self-confidence and character in every rider who comes through our gates.
+            </p>
+            <p className="text-black font-bold text-xl leading-relaxed">
+              While we celebrate the <strong className="text-2xl">FAMILY-FRIENDLY</strong> nature of BMX, we maintain that authentic retro, grunge, and punk aesthetic that resonates with riders of all levels - from balance bike beginners to professional competitors. Our goal is simple: <strong className="text-2xl">FILL THE GATES!</strong> Get more riders to the tracks, build confidence, and grow the BMX community in Denver.
+            </p>
+          </div>
+        </section>
+
         {/* Track Operators Section */}
         <div className="space-y-12 mb-12">
           {/* Mile High BMX Operator */}
@@ -157,7 +186,7 @@ export default function AboutPage() {
         {/* Community Message */}
         <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8 mb-12">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-6">
-            OUR MISSION
+            WELCOME TO THE TRACKS
           </h2>
           <div className="bg-[#00ff0c] border-4 border-black p-6">
             <p className="text-black font-bold text-xl leading-relaxed mb-4">
