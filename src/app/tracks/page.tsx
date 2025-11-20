@@ -10,6 +10,7 @@ import {
   ExclamationTriangleIcon,
   FlagIcon
 } from '@heroicons/react/24/solid';
+import Footer from '@/components/Footer';
 
 const TrackLink = ({
   href,
@@ -283,9 +284,6 @@ export default function TracksPage() {
             </h1>
             <div className="h-2 bg-[#00ff0c]"></div>
           </div>
-          <p className="text-2xl text-white font-black bg-black px-6 py-3 inline-block border-4 border-[#00ff0c]">
-            4 PREMIER TRACKS • DENVER METRO AREA
-          </p>
         </div>
 
         {/* High Elevation Notice */}
@@ -353,6 +351,8 @@ export default function TracksPage() {
           </Link>
         </div>
       </div>
+
+      <Footer />
     </main>
   );
 }

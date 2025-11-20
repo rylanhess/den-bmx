@@ -10,6 +10,7 @@ import {
   ExclamationTriangleIcon,
   BoltIcon
 } from '@heroicons/react/24/solid';
+import Footer from '@/components/Footer';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -98,10 +99,6 @@ export default function ContactPage() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-[#00ff0c] mb-4" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
             CONTACT ME
           </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-white font-bold bg-black px-4 sm:px-6 py-2 sm:py-3 inline-block border-4 border-[#00ff0c] flex items-center gap-2">
-            <EnvelopeIcon className="w-6 h-6" />
-            GET IN TOUCH • SAY HI
-          </p>
         </div>
 
         {/* Main Content Grid */}
@@ -240,15 +237,7 @@ export default function ContactPage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="container mx-auto px-4 py-8 text-center relative z-10 mt-12">
-        <div className="bg-black border-4 border-[#00ff0c] px-6 py-4 inline-block">
-          <p className="text-[#00ff0c] font-black text-lg flex items-center justify-center gap-2">
-            <BoltIcon className="w-5 h-5" />
-            DEN BMX • DENVER METRO BMX SCHEDULES
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

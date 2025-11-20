@@ -4,6 +4,7 @@ import DataRefreshBanner from '@/components/DataRefreshBanner';
 import TracksShowcase from '@/components/TracksShowcase';
 import AlertsBanner from '@/components/AlertsBanner';
 import RaceTimeline from '@/components/RaceTimeline';
+import Footer from '@/components/Footer';
 import Image from 'next/image';
 import { 
   FlagIcon, 
@@ -128,23 +129,15 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Footer - Floating */}
-      <footer className="relative z-10 border-t-4 border-[#00ff0c] bg-black/90 backdrop-blur-sm sticky bottom-0 shadow-2xl">
+      {/* Alert Bar - Shows real cancellations and weather updates */}
+      <div className="relative z-10 border-t-4 border-[#00ff0c] bg-black/90 backdrop-blur-sm sticky bottom-0 shadow-2xl">
         <div className="container mx-auto px-4 py-3 sm:py-4 text-center">
-          {/* Alert Bar - Shows real cancellations and weather updates */}
           <AlertsBanner />
-
-          {/* Data Refresh Status Banner */}
           <DataRefreshBanner />
-
-          <div className="bg-black border-4 border-[#00ff0c] px-4 sm:px-6 py-3 sm:py-4 inline-block mt-4">
-            <p className="text-[#00ff0c] font-black text-sm sm:text-base md:text-lg flex items-center justify-center gap-2">
-              <BoltIcon className="w-5 h-5 text-[#0073FF]" />
-              DEN BMX <span className="text-[#0073FF]">•</span> DENVER METRO BMX SCHEDULES
-            </p>
-          </div>
         </div>
-      </footer>
+      </div>
+
+      <Footer />
     </div>
   );
 }

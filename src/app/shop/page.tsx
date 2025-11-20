@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { ShoppingBagIcon } from '@heroicons/react/24/solid';
+import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: 'Official Merch! | DEN BMX Store',
@@ -102,16 +103,7 @@ export default function ShopPage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="container mx-auto px-4 py-8 text-center relative z-10">
-        <div className="bg-black border-4 border-[#00ff0c] px-6 py-4 inline-block">
-          <p className="text-[#00ff0c] font-black text-lg flex items-center justify-center gap-2">
-            <ShoppingBagIcon className="w-5 h-5" />
-            DEN BMX OFFICIAL MERCH
-          </p>
-          <p className="text-white font-bold text-sm mt-1">store.bmxdenver.com</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

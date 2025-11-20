@@ -1,14 +1,10 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import {
-  HandRaisedIcon,
-  FlagIcon,
   CameraIcon,
-  HeartIcon,
-  SparklesIcon,
-  EnvelopeIcon,
-  BoltIcon
+  EnvelopeIcon
 } from '@heroicons/react/24/solid';
+import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: 'About | DEN BMX',
@@ -56,20 +52,15 @@ export default function AboutPage() {
             </h1>
             <div className="h-2 bg-[#00ff0c]"></div>
           </div>
-          <p className="text-3xl text-white font-black bg-black px-8 py-4 inline-block border-4 border-[#00ff0c] flex items-center gap-2">
-            <HandRaisedIcon className="w-8 h-8" />
-            MEET THE TRACK OPERATORS
-          </p>
         </div>
 
         {/* Intro Card */}
         <div className="bg-[#00ff0c] border-4 border-black p-6 md:p-8 mb-12">
-          <h2 className="text-4xl font-black text-black mb-4 flex items-center gap-3">
-            <FlagIcon className="w-16 h-16" />
+          <h2 className="text-4xl font-black text-black mb-4">
             THE PEOPLE BEHIND THE TRACKS
           </h2>
           <p className="text-black text-xl leading-relaxed font-bold">
-            Denver metro BMX tracks are run by <strong className="text-2xl">DEDICATED VOLUNTEERS</strong> and track operators who love BMX and want to share that passion with the community. These are the friendly faces you&apos;ll see at the tracks - they&apos;re here to help and make BMX accessible to everyone!
+            Denver metro BMX tracks are run by <strong className="text-2xl">DEDICATED VOLUNTEERS</strong> and track operators who love BMX and want to share that passion with the community. These are the friendly faces you&apos;ll see at the tracks - they&apos;re here to help and make BMX accessible to everyone.
           </p>
         </div>
 
@@ -165,8 +156,7 @@ export default function AboutPage() {
 
         {/* Community Message */}
         <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8 mb-12">
-          <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
-            <HeartIcon className="w-16 h-16" />
+          <h2 className="text-4xl font-black text-[#00ff0c] mb-6">
             OUR MISSION
           </h2>
           <div className="bg-[#00ff0c] border-4 border-black p-6">
@@ -174,22 +164,22 @@ export default function AboutPage() {
               We believe BMX should be <strong className="text-2xl">ACCESSIBLE</strong> and <strong className="text-2xl">WELCOMING</strong> to everyone. Our track operators are here to help, answer questions, and make sure everyone has a great time at the track.
             </p>
             <p className="text-black font-bold text-lg leading-relaxed">
-              Don&apos;t be shy - come say hi! We&apos;re friendly and always happy to help new riders get started or answer questions about BMX racing.
+              Don&apos;t be shy - come say hi. We&apos;re friendly and always happy to help new riders get started or answer questions about BMX racing.
             </p>
           </div>
         </section>
 
         {/* Contact CTA */}
-        <div className="bg-gradient-to-r from-yellow-400 via-pink-500 to-cyan-400 border-8 border-black p-8 text-center">
+        <div className="bg-[#00ff0c] border-4 border-black p-8 text-center">
           <h2 className="text-5xl font-black text-black mb-4">
-            WANT TO KNOW MORE?
+            WANT TO KNOW MORE
           </h2>
           <p className="text-black text-2xl font-black mb-6">
-            Have questions? Want to get involved? Reach out!
+            Have questions? Want to get involved? Reach out.
           </p>
           <Link
             href="/contact"
-            className="inline-block bg-black hover:bg-white text-[#00ff0c] hover:text-black font-black py-4 px-12 border-4 border-yellow-400 transition-colors transform hover:scale-110 text-2xl"
+            className="inline-block bg-black hover:bg-white text-[#00ff0c] hover:text-black font-black py-4 px-12 border-4 border-black transition-colors transform hover:scale-110 text-2xl"
           >
             <EnvelopeIcon className="w-6 h-6 inline mr-2" />
             CONTACT US
@@ -197,16 +187,7 @@ export default function AboutPage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="container mx-auto px-4 py-8 text-center relative z-10">
-        <div className="bg-black border-4 border-[#00ff0c] px-6 py-4 inline-block">
-          <p className="text-[#00ff0c] font-black text-lg flex items-center justify-center gap-2">
-            <BoltIcon className="w-5 h-5" />
-            DEN BMX
-          </p>
-          <p className="text-white font-bold text-sm mt-1">Meet the people behind the tracks!</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
