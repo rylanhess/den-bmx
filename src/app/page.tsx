@@ -1,9 +1,6 @@
 import Link from 'next/link';
 import ThisWeeksEvents from '@/components/ThisWeeksEvents';
-import DataRefreshBanner from '@/components/DataRefreshBanner';
 import TracksShowcase from '@/components/TracksShowcase';
-import AlertsBanner from '@/components/AlertsBanner';
-import RaceTimeline from '@/components/RaceTimeline';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
 import { 
@@ -87,11 +84,6 @@ export default function Home() {
           <ThisWeeksEvents />
         </div>
 
-        {/* Race Timeline */}
-        <div className="mb-12">
-          <RaceTimeline />
-        </div>
-
         {/* Tracks Showcase */}
         <TracksShowcase />
 
@@ -134,25 +126,7 @@ export default function Home() {
           </Link>
 
         </div>
-
-        {/* Status Badge */}
-        <div className="text-center mb-6 sm:mb-8">
-          <div className="inline-block bg-black border-4 border-[#00ff0c] px-4 sm:px-6 md:px-8 py-3 sm:py-4">
-            <p className="text-[#00ff0c] text-sm sm:text-base md:text-lg font-black flex items-center justify-center gap-2">
-              <ExclamationTriangleIcon className="w-5 h-5 text-[#0073FF]" />
-              SITE UNDER CONSTRUCTION
-            </p>
-          </div>
-        </div>
       </main>
-
-      {/* Alert Bar - Shows real cancellations and weather updates */}
-      <div className="relative z-10 border-t-4 border-[#00ff0c] bg-black/90 backdrop-blur-sm sticky bottom-0 shadow-2xl">
-        <div className="container mx-auto px-4 py-3 sm:py-4 text-center">
-          <AlertsBanner />
-          <DataRefreshBanner />
-        </div>
-      </div>
 
       <Footer />
     </div>

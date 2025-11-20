@@ -280,7 +280,7 @@ export default function TracksPage() {
         <div className="text-center mb-12">
           <div className="inline-block bg-black border-4 border-[#00ff0c] p-8 mb-6">
             <h1 className="text-5xl md:text-6xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
-              BMX TRACKS!
+              TRACKS
             </h1>
             <div className="h-2 bg-[#00ff0c]"></div>
           </div>
