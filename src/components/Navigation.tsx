@@ -95,11 +95,6 @@ export default function Navigation() {
             </div>
           </div>
         </div>
-        <div className="text-center pb-2">
-          <p className="text-[#00ff0c] text-base sm:text-lg md:text-xl font-bold py-1 px-4 flex items-center justify-center gap-2">
-            MILE HIGH • DACONO • COUNTY LINE • TWIN SILO
-          </p>
-        </div>
       </nav>
 
       {/* Mobile Navigation - Vertical (shown in page.tsx as action buttons) */}
