@@ -55,12 +55,12 @@ export default function AboutPage() {
         </div>
 
         {/* Intro Card */}
-        <div className="bg-[#00ff0c] border-4 border-black p-6 md:p-8 mb-12">
-          <h2 className="text-4xl font-black text-black mb-4">
+        <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 md:p-8 mb-12 backdrop-blur-sm">
+          <h2 className="text-4xl font-black text-[#00ff0c] mb-4">
             THE PEOPLE BEHIND THE TRACKS
           </h2>
-          <p className="text-black text-xl leading-relaxed font-bold">
-            Denver metro BMX tracks are run by <strong className="text-2xl">DEDICATED VOLUNTEERS</strong> and track operators who love BMX and want to share that passion with the community. These are the friendly faces you&apos;ll see at the tracks - they&apos;re here to help and make BMX accessible to everyone.
+          <p className="text-white text-xl leading-relaxed font-bold">
+            Denver metro BMX tracks are run by <strong className="text-2xl text-[#00ff0c]">DEDICATED VOLUNTEERS</strong> and track operators who love BMX and want to share that passion with the community. These are the friendly faces you&apos;ll see at the tracks - they&apos;re here to help and make BMX accessible to everyone.
           </p>
         </div>
 
@@ -71,24 +71,24 @@ export default function AboutPage() {
           </h2>
           
           {/* Image Placeholder - Ready for group rider image */}
-          <div className="bg-[#00ff0c] border-4 border-black p-8 flex items-center justify-center min-h-[400px] mb-6">
+          <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-8 flex items-center justify-center min-h-[400px] mb-6 backdrop-blur-sm">
             <div className="text-center">
-              <CameraIcon className="w-24 h-24 mx-auto mb-4" />
-              <p className="text-black font-black text-xl">GROUP RIDER IMAGE</p>
-              <p className="text-black font-bold text-sm mt-2">Coming Soon</p>
+              <CameraIcon className="w-24 h-24 mx-auto mb-4 text-[#00ff0c]" />
+              <p className="text-white font-black text-xl">GROUP RIDER IMAGE</p>
+              <p className="text-white font-bold text-sm mt-2">Coming Soon</p>
             </div>
           </div>
 
           {/* Mission Text */}
-          <div className="bg-[#00ff0c] border-4 border-black p-6 md:p-8 space-y-4">
-            <p className="text-black font-bold text-xl leading-relaxed">
-              Our mission is to <strong className="text-2xl">PROMOTE BMX RACING</strong> throughout the Denver community by showcasing how exciting, accessible, and family-friendly this incredible sport truly is.
+          <div className="bg-gray-800/90 border-4 border-[#00ff0c] p-6 md:p-8 space-y-4 backdrop-blur-sm">
+            <p className="text-white font-bold text-xl leading-relaxed">
+              Our mission is to <strong className="text-2xl text-[#00ff0c]">PROMOTE BMX RACING</strong> throughout the Denver community by showcasing how exciting, accessible, and family-friendly this incredible sport truly is.
             </p>
-            <p className="text-black font-bold text-xl leading-relaxed">
-              We&apos;re committed to making BMX more <strong className="text-2xl">ACCESSIBLE</strong> to everyone, especially youth riders and the youngest competitors starting on balance bikes. Through the trials, excitement, and intensity of BMX racing, we aim to build self-confidence and character in every rider who comes through our gates.
+            <p className="text-white font-bold text-xl leading-relaxed">
+              We&apos;re committed to making BMX more <strong className="text-2xl text-[#00ff0c]">ACCESSIBLE</strong> to everyone, especially youth riders and the youngest competitors starting on balance bikes. Through the trials, excitement, and intensity of BMX racing, we aim to build self-confidence and character in every rider who comes through our gates.
             </p>
-            <p className="text-black font-bold text-xl leading-relaxed">
-              While we celebrate the <strong className="text-2xl">FAMILY-FRIENDLY</strong> nature of BMX, we maintain that authentic retro, grunge, and punk aesthetic that resonates with riders of all levels - from balance bike beginners to professional competitors. Our goal is simple: <strong className="text-2xl">FILL THE GATES!</strong> Get more riders to the tracks, build confidence, and grow the BMX community in Denver.
+            <p className="text-white font-bold text-xl leading-relaxed">
+              While we celebrate the <strong className="text-2xl text-[#00ff0c]">FAMILY-FRIENDLY</strong> nature of BMX, we maintain that authentic retro, grunge, and punk aesthetic that resonates with riders of all levels - from balance bike beginners to professional competitors. Our goal is simple: <strong className="text-2xl text-[#00ff0c]">FILL THE GATES!</strong> Get more riders to the tracks, build confidence, and grow the BMX community in Denver.
             </p>
           </div>
         </section>
@@ -99,11 +99,11 @@ export default function AboutPage() {
           <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
             <div className="grid md:grid-cols-2 gap-8 items-start">
               {/* Image Placeholder */}
-              <div className="bg-[#00ff0c] border-4 border-black p-8 flex items-center justify-center min-h-[300px]">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-8 flex items-center justify-center min-h-[300px] backdrop-blur-sm">
                 <div className="text-center">
-                  <CameraIcon className="w-24 h-24 mx-auto mb-4" />
-                  <p className="text-black font-black text-xl">TRACK OPERATOR PHOTO</p>
-                  <p className="text-black font-bold text-sm mt-2">Coming Soon</p>
+                  <CameraIcon className="w-24 h-24 mx-auto mb-4 text-[#00ff0c]" />
+                  <p className="text-white font-black text-xl">TRACK OPERATOR PHOTO</p>
+                  <p className="text-white font-bold text-sm mt-2">Coming Soon</p>
                 </div>
               </div>
               
@@ -112,9 +112,9 @@ export default function AboutPage() {
                 <h2 className="text-4xl font-black text-[#00ff0c] mb-4">
                   MILE HIGH BMX OPERATOR
                 </h2>
-                <div className="bg-[#00ff0c] border-4 border-black p-6 mb-4">
-                  <p className="text-black font-bold text-lg leading-relaxed">
-                    <strong className="text-2xl">PLACEHOLDER:</strong> This is where we&apos;ll feature a short write-up about the Mile High BMX track operator. We want to make the tracks feel inviting and approachable, so you&apos;ll learn about their background, why they love BMX, and how they got involved with track operations.
+                <div className="bg-gray-800/90 border-4 border-[#00ff0c] p-6 mb-4 backdrop-blur-sm">
+                  <p className="text-white font-bold text-lg leading-relaxed">
+                    <strong className="text-2xl text-[#00ff0c]">PLACEHOLDER:</strong> This is where we&apos;ll feature a short write-up about the Mile High BMX track operator. We want to make the tracks feel inviting and approachable, so you&apos;ll learn about their background, why they love BMX, and how they got involved with track operations.
                   </p>
                 </div>
                 <p className="text-white font-bold text-lg">
@@ -132,9 +132,9 @@ export default function AboutPage() {
                 <h2 className="text-4xl font-black text-[#00ff0c] mb-4">
                   DACONO BMX OPERATOR
                 </h2>
-                <div className="bg-[#00ff0c] border-4 border-black p-6 mb-4">
-                  <p className="text-black font-bold text-lg leading-relaxed">
-                    <strong className="text-2xl">PLACEHOLDER:</strong> This is where we&apos;ll feature a short write-up about the Dacono BMX track operator. We want to make the tracks feel inviting and approachable, so you&apos;ll learn about their background, why they love BMX, and how they got involved with track operations.
+                <div className="bg-gray-800/90 border-4 border-[#00ff0c] p-6 mb-4 backdrop-blur-sm">
+                  <p className="text-white font-bold text-lg leading-relaxed">
+                    <strong className="text-2xl text-[#00ff0c]">PLACEHOLDER:</strong> This is where we&apos;ll feature a short write-up about the Dacono BMX track operator. We want to make the tracks feel inviting and approachable, so you&apos;ll learn about their background, why they love BMX, and how they got involved with track operations.
                   </p>
                 </div>
                 <p className="text-white font-bold text-lg">
@@ -143,11 +143,11 @@ export default function AboutPage() {
               </div>
               
               {/* Image Placeholder */}
-              <div className="bg-[#00ff0c] border-4 border-black p-8 flex items-center justify-center min-h-[300px]">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-8 flex items-center justify-center min-h-[300px] backdrop-blur-sm">
                 <div className="text-center">
-                  <CameraIcon className="w-24 h-24 mx-auto mb-4" />
-                  <p className="text-black font-black text-xl">TRACK OPERATOR PHOTO</p>
-                  <p className="text-black font-bold text-sm mt-2">Coming Soon</p>
+                  <CameraIcon className="w-24 h-24 mx-auto mb-4 text-[#00ff0c]" />
+                  <p className="text-white font-black text-xl">TRACK OPERATOR PHOTO</p>
+                  <p className="text-white font-bold text-sm mt-2">Coming Soon</p>
                 </div>
               </div>
             </div>
@@ -157,11 +157,11 @@ export default function AboutPage() {
           <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
             <div className="grid md:grid-cols-2 gap-8 items-start">
               {/* Image Placeholder */}
-              <div className="bg-[#00ff0c] border-4 border-black p-8 flex items-center justify-center min-h-[300px]">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-8 flex items-center justify-center min-h-[300px] backdrop-blur-sm">
                 <div className="text-center">
-                  <CameraIcon className="w-24 h-24 mx-auto mb-4" />
-                  <p className="text-black font-black text-xl">TRACK OPERATOR PHOTO</p>
-                  <p className="text-black font-bold text-sm mt-2">Coming Soon</p>
+                  <CameraIcon className="w-24 h-24 mx-auto mb-4 text-[#00ff0c]" />
+                  <p className="text-white font-black text-xl">TRACK OPERATOR PHOTO</p>
+                  <p className="text-white font-bold text-sm mt-2">Coming Soon</p>
                 </div>
               </div>
               
@@ -170,9 +170,9 @@ export default function AboutPage() {
                 <h2 className="text-4xl font-black text-[#00ff0c] mb-4">
                   COUNTY LINE BMX OPERATOR
                 </h2>
-                <div className="bg-[#00ff0c] border-4 border-black p-6 mb-4">
-                  <p className="text-black font-bold text-lg leading-relaxed">
-                    <strong className="text-2xl">PLACEHOLDER:</strong> This is where we&apos;ll feature a short write-up about the County Line BMX track operator. We want to make the tracks feel inviting and approachable, so you&apos;ll learn about their background, why they love BMX, and how they got involved with track operations.
+                <div className="bg-gray-800/90 border-4 border-[#00ff0c] p-6 mb-4 backdrop-blur-sm">
+                  <p className="text-white font-bold text-lg leading-relaxed">
+                    <strong className="text-2xl text-[#00ff0c]">PLACEHOLDER:</strong> This is where we&apos;ll feature a short write-up about the County Line BMX track operator. We want to make the tracks feel inviting and approachable, so you&apos;ll learn about their background, why they love BMX, and how they got involved with track operations.
                   </p>
                 </div>
                 <p className="text-white font-bold text-lg">
@@ -188,22 +188,22 @@ export default function AboutPage() {
           <h2 className="text-4xl font-black text-[#00ff0c] mb-6">
             WELCOME TO THE TRACKS
           </h2>
-          <div className="bg-[#00ff0c] border-4 border-black p-6">
-            <p className="text-black font-bold text-xl leading-relaxed mb-4">
-              We believe BMX should be <strong className="text-2xl">ACCESSIBLE</strong> and <strong className="text-2xl">WELCOMING</strong> to everyone. Our track operators are here to help, answer questions, and make sure everyone has a great time at the track.
+          <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+            <p className="text-white font-bold text-xl leading-relaxed mb-4">
+              We believe BMX should be <strong className="text-2xl text-[#00ff0c]">ACCESSIBLE</strong> and <strong className="text-2xl text-[#00ff0c]">WELCOMING</strong> to everyone. Our track operators are here to help, answer questions, and make sure everyone has a great time at the track.
             </p>
-            <p className="text-black font-bold text-lg leading-relaxed">
+            <p className="text-white font-bold text-lg leading-relaxed">
               Don&apos;t be shy - come say hi. We&apos;re friendly and always happy to help new riders get started or answer questions about BMX racing.
             </p>
           </div>
         </section>
 
         {/* Contact CTA */}
-        <div className="bg-[#00ff0c] border-4 border-black p-8 text-center">
-          <h2 className="text-5xl font-black text-black mb-4">
+        <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-8 text-center backdrop-blur-sm">
+          <h2 className="text-5xl font-black text-[#00ff0c] mb-4">
             WANT TO KNOW MORE
           </h2>
-          <p className="text-black text-2xl font-black mb-6">
+          <p className="text-white text-2xl font-black mb-6">
             Have questions? Want to get involved? Reach out.
           </p>
           <Link

@@ -172,9 +172,9 @@ const ErrorState = ({ error }: { readonly error: string }) => (
 );
 
 const NoTracksState = () => (
-  <div className="bg-[#00ff0c] border-4 border-black p-8 text-center">
-    <p className="text-2xl font-black text-black">NO TRACKS FOUND</p>
-    <p className="text-black font-bold mt-2">Check back soon!</p>
+  <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-8 text-center backdrop-blur-sm">
+    <p className="text-2xl font-black text-[#00ff0c]">NO TRACKS FOUND</p>
+    <p className="text-white font-bold mt-2">Check back soon!</p>
   </div>
 );
 
@@ -287,14 +287,14 @@ export default function TracksPage() {
         </div>
 
         {/* High Elevation Notice */}
-        <div className="bg-[#00ff0c] border-4 border-black p-6 mb-8">
+        <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 mb-8 backdrop-blur-sm">
           <div className="flex items-center gap-4">
-            <ExclamationTriangleIcon className="w-16 h-16" />
+            <ExclamationTriangleIcon className="w-16 h-16 text-[#00ff0c]" />
             <div>
-              <h3 className="text-2xl font-black text-black mb-2">
+              <h3 className="text-2xl font-black text-[#00ff0c] mb-2">
                 HIGH ELEVATION RACING!
               </h3>
-              <p className="text-black font-bold text-lg">
+              <p className="text-white font-bold text-lg">
                 All Denver metro tracks are at 5,000+ feet elevation! Bring LOTS of water! Stay hydrated or DIE!
               </p>
             </div>

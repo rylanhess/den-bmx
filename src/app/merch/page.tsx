@@ -47,13 +47,13 @@ export default function MerchPage() {
         </div>
 
         {/* Store Link Card */}
-        <div className="bg-[#00ff0c] border-4 border-black p-6 md:p-8 mb-12">
-          <h2 className="text-4xl font-black text-black mb-4 flex items-center gap-3">
+        <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 md:p-8 mb-12 backdrop-blur-sm">
+          <h2 className="text-4xl font-black text-[#00ff0c] mb-4 flex items-center gap-3">
             <ShoppingBagIcon className="w-16 h-16" />
             SHOP NOW!
           </h2>
-          <p className="text-black text-xl leading-relaxed font-bold mb-6">
-            Check out our <strong className="text-2xl">OFFICIAL MERCH STORE</strong>! Get your DEN BMX gear including t-shirts, hats, beanies, and more!
+          <p className="text-white text-xl leading-relaxed font-bold mb-6">
+            Check out our <strong className="text-2xl text-[#00ff0c]">OFFICIAL MERCH STORE</strong>! Get your DEN BMX gear including t-shirts, hats, beanies, and more!
           </p>
           <a
             href="https://store.bmxdenver.com"
@@ -78,14 +78,14 @@ export default function MerchPage() {
               <p className="text-white text-xl font-bold">
                 Show your <span className="text-[#00ff0c] text-2xl">DEN BMX PRIDE</span> with our custom apparel line!
               </p>
-              <div className="bg-[#00ff0c] border-4 border-black p-6 space-y-3">
-                <p className="font-black text-black text-2xl">COMING SOON:</p>
-                <ul className="space-y-3 ml-4 text-black font-bold text-lg">
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> T-Shirts & Long Sleeves</li>
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Hoodies & Sweatshirts</li>
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Hats & Beanies</li>
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Jerseys & Race Gear</li>
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Custom Designs</li>
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 space-y-3 backdrop-blur-sm">
+                <p className="font-black text-[#00ff0c] text-2xl">COMING SOON:</p>
+                <ul className="space-y-3 ml-4 text-white font-bold text-lg">
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> T-Shirts & Long Sleeves</li>
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Hoodies & Sweatshirts</li>
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Hats & Beanies</li>
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Jerseys & Race Gear</li>
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Custom Designs</li>
                 </ul>
               </div>
             </div>
@@ -101,14 +101,14 @@ export default function MerchPage() {
               <p className="text-white text-xl font-bold">
                 Deck out your gear with <span className="text-[#00ff0c] text-2xl">DEN BMX STICKERS</span> and accessories!
               </p>
-              <div className="bg-[#00ff0c] border-4 border-black p-6 space-y-3">
-                <p className="font-black text-black text-2xl">COMING SOON:</p>
-                <ul className="space-y-3 ml-4 text-black font-bold text-lg">
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Vinyl Stickers (multiple sizes)</li>
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Decals for bikes & helmets</li>
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Patches & Pins</li>
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Keychains & Lanyards</li>
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Water Bottles & Drinkware</li>
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 space-y-3 backdrop-blur-sm">
+                <p className="font-black text-[#00ff0c] text-2xl">COMING SOON:</p>
+                <ul className="space-y-3 ml-4 text-white font-bold text-lg">
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Vinyl Stickers (multiple sizes)</li>
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Decals for bikes & helmets</li>
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Patches & Pins</li>
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Keychains & Lanyards</li>
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Water Bottles & Drinkware</li>
                 </ul>
               </div>
             </div>
@@ -124,14 +124,14 @@ export default function MerchPage() {
               <p className="text-white text-xl font-bold">
                 Essential <span className="text-[#00ff0c] text-2xl">BMX EQUIPMENT</span> and gear for riders!
               </p>
-              <div className="bg-[#00ff0c] border-4 border-black p-6 space-y-3">
-                <p className="font-black text-black text-2xl">COMING SOON:</p>
-                <ul className="space-y-3 ml-4 text-black font-bold text-lg">
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Helmets & Protective Gear</li>
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Gloves & Pads</li>
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Race Numbers & Plates</li>
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Tools & Maintenance Supplies</li>
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Training Equipment</li>
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 space-y-3 backdrop-blur-sm">
+                <p className="font-black text-[#00ff0c] text-2xl">COMING SOON:</p>
+                <ul className="space-y-3 ml-4 text-white font-bold text-lg">
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Helmets & Protective Gear</li>
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Gloves & Pads</li>
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Race Numbers & Plates</li>
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Tools & Maintenance Supplies</li>
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Training Equipment</li>
                 </ul>
               </div>
             </div>
@@ -147,14 +147,14 @@ export default function MerchPage() {
               <p className="text-white text-xl font-bold">
                 A <span className="text-[#00ff0c] text-2xl">COMMUNITY MARKETPLACE</span> for buying and selling BMX gear in the Denver area!
               </p>
-              <div className="bg-[#00ff0c] border-4 border-black p-6 space-y-3">
-                <p className="font-black text-black text-2xl">WHAT TO EXPECT:</p>
-                <ul className="space-y-3 ml-4 text-black font-bold text-lg">
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Used BMX Bikes & Parts</li>
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Gear & Equipment</li>
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Local Pickup Options</li>
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Community Verified Sellers</li>
-                  <li className="border-l-4 border-black pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Support Local Riders</li>
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 space-y-3 backdrop-blur-sm">
+                <p className="font-black text-[#00ff0c] text-2xl">WHAT TO EXPECT:</p>
+                <ul className="space-y-3 ml-4 text-white font-bold text-lg">
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Used BMX Bikes & Parts</li>
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Gear & Equipment</li>
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Local Pickup Options</li>
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Community Verified Sellers</li>
+                  <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Support Local Riders</li>
                 </ul>
               </div>
               <p className="text-[#00ff0c] font-bold text-lg pt-2">
@@ -170,8 +170,8 @@ export default function MerchPage() {
             <InboxIcon className="w-16 h-16" />
             STAY UPDATED
           </h2>
-          <div className="bg-[#00ff0c] border-4 border-black p-6">
-            <p className="text-black font-bold text-xl leading-relaxed mb-4">
+          <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+            <p className="text-white font-bold text-xl leading-relaxed mb-4">
               Want to know when the store opens? Have ideas for merch? Want to sell gear in our resale hub?
             </p>
             <Link

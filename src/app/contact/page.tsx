@@ -130,12 +130,12 @@ export default function ContactPage() {
             </h2>
 
             {status === 'success' ? (
-              <div className="bg-[#00ff0c] border-4 border-black p-6 text-center">
-                <p className="text-2xl font-black text-black mb-2 flex items-center justify-center gap-2">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 text-center backdrop-blur-sm">
+                <p className="text-2xl font-black text-[#00ff0c] mb-2 flex items-center justify-center gap-2">
                   <CheckIcon className="w-6 h-6" />
                   MESSAGE SENT!
                 </p>
-                <p className="text-black font-bold mb-4">Thanks for reaching out! I&apos;ll get back to you soon.</p>
+                <p className="text-white font-bold mb-4">Thanks for reaching out! I&apos;ll get back to you soon.</p>
                 <button
                   onClick={() => setStatus('idle')}
                   className="bg-black text-[#00ff0c] font-black px-6 py-3 border-4 border-[#00ff0c] hover:bg-[#00ff0c] hover:text-black transition-all"
