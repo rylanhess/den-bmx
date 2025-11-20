@@ -9,7 +9,6 @@ import {
   EnvelopeIcon,
   ShoppingBagIcon,
   HandRaisedIcon,
-  ExclamationTriangleIcon,
   BoltIcon,
 } from '@heroicons/react/24/solid';
 
@@ -67,7 +66,6 @@ export default function Home() {
                 transform: 'rotate(-1.5deg)',
                 display: 'inline-block',
                 fontWeight: 900,
-                textStroke: '1px rgba(0,0,0,0.3)',
                 WebkitTextStroke: '1px rgba(0,0,0,0.3)'
               }}
             >
