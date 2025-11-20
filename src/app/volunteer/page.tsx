@@ -32,17 +32,15 @@ export default function VolunteerPage() {
         {/* Dark overlay to ensure text readability */}
         <div className="absolute inset-0 w-full h-full bg-black/50" />
       </div>
-      {/* Header - Mobile Only */}
-      <header className="relative z-20 md:hidden bg-black/80 backdrop-blur-sm border-b-4 border-[#00ff0c] sticky top-0">
-        <div className="container mx-auto px-4 py-4">
-          <Link href="/" className="inline-flex items-center gap-2 bg-[#00ff0c] text-black hover:bg-white px-6 py-3 border-4 border-black font-black transition-colors transform hover:scale-105">
-            ← BACK TO HOME
-          </Link>
-        </div>
-      </header>
-
       {/* Main Content */}
       <main className="container mx-auto px-4 py-12 md:py-16 max-w-6xl relative z-10">
+        {/* Back Button - Mobile Only */}
+        <Link 
+          href="/"
+          className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
+        >
+          ← BACK TO HOME
+        </Link>
         {/* Hero - Professional Punk */}
         <div className="text-center mb-12">
           <div className="inline-block bg-black border-4 border-[#00ff0c] p-8 mb-6">

@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {
   EnvelopeIcon,
-  FlagIcon,
   CheckIcon,
   ExclamationTriangleIcon,
   BoltIcon
@@ -86,16 +85,6 @@ export default function ContactPage() {
 
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="inline-block mb-6">
-            <Image
-              src="/logos/DEN_BMX_FINAL_Green.png"
-              alt="DEN BMX Logo"
-              width={250}
-              height={250}
-              className="shadow-2xl"
-              priority
-            />
-          </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-[#00ff0c] mb-4" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
             CONTACT ME
           </h1>
@@ -113,8 +102,7 @@ export default function ContactPage() {
               className="w-full h-auto"
             />
             <div className="mt-4 text-center">
-              <p className="text-[#00ff0c] font-black text-xl flex items-center justify-center gap-2">
-                <FlagIcon className="w-6 h-6" />
+              <p className="text-[#00ff0c] font-black text-xl">
                 RIDE WITH US
               </p>
               <p className="text-white font-bold mt-2">
