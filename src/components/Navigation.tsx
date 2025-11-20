@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   FlagIcon,
@@ -31,6 +32,17 @@ export default function Navigation() {
       <nav className="hidden md:block border-b-4 border-[#00ff0c] bg-black sticky top-0 z-50 shadow-2xl">
         <div className="container mx-auto px-2 lg:px-4">
           <div className="flex items-center gap-1 lg:gap-2 py-2 lg:py-3">
+            {/* Logo */}
+            <Link href="/" className="flex-shrink-0 mr-2 lg:mr-4 hover:opacity-80 transition-opacity">
+              <Image
+                src="/logos/DEN_BMX_FINAL_Green.png"
+                alt="DEN BMX Logo"
+                width={60}
+                height={60}
+                className="h-12 w-auto object-contain"
+                priority
+              />
+            </Link>
             {/* Navigation items - equal width, spread across */}
             <div className="flex items-center flex-1 gap-1 lg:gap-2">
               {navItems.map((item) => {
