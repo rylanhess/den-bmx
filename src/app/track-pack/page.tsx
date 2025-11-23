@@ -4,11 +4,9 @@ import Image from 'next/image';
 import {
   ArrowDownTrayIcon,
   PhotoIcon,
-  DocumentIcon,
   EnvelopeIcon,
 } from '@heroicons/react/24/solid';
 import Footer from '@/components/Footer';
-import DownloadAllButton from '@/components/DownloadAllButton';
 
 export const metadata: Metadata = {
   title: 'Track Pack | DEN BMX',
@@ -21,29 +19,23 @@ const imageTemplates = [
     description: 'Square format weekly schedule template for Facebook posts',
     file: '/track-pack/track_pack_weekly_scedule_fb_square_20251123.png',
     example: '/track-pack/EXAMPLE_Track_Pack_weekly_schedule_fb_square.png',
-    format: 'PNG',
+    pptxFile: '/track-pack/Track_Pack_weekly_schedule_fb_square_20251123.pptx',
   },
   {
     name: 'Facebook Vertical/Mobile Template',
     description: 'Vertical format weekly schedule template optimized for mobile Facebook posts',
     file: '/track-pack/track_pack_weekly_scedule_fb_vert_mobile_20251123.png',
-    format: 'PNG',
+    example: '/track-pack/EXAMPLE_Track_Pack_weekly_schedule_fb_vert_Mobile_20251123.png',
+    pptxFile: '/track-pack/Track_Pack_weekly_schedule_fb_vert_Mobile_20251123.pptx',
   },
   {
     name: 'Instagram Story Template',
     description: 'Instagram Story format weekly schedule template',
     file: '/track-pack/track_pack_weekly_scedule_insta_story_20251123.png',
-    format: 'PNG',
+    pptxFile: undefined, // No PPTX available for Instagram Story yet
   },
 ];
 
-const powerpointTemplates = [
-  {
-    name: 'Track Pack Template Collection',
-    file: '/track-pack/TRACK_PACK_templates_den_bmx_20251123.pptx',
-  },
-  // Add more PowerPoint templates here as needed
-];
 
 export default function TrackPackPage() {
   return (
@@ -164,7 +156,26 @@ export default function TrackPackPage() {
                     {item.description}
                   </p>
                   <p className="text-white font-bold text-sm mb-6">
-                    Format: <span className="text-[#00ff0c]">{item.format}</span>
+                    Formats:{' '}
+                    <a
+                      href={item.file}
+                      download
+                      className="text-[#00ff0c] hover:text-white transition-colors"
+                    >
+                      PNG
+                    </a>
+                    {item.pptxFile && (
+                      <>
+                        {', '}
+                        <a
+                          href={item.pptxFile}
+                          download
+                          className="text-[#00ff0c] hover:text-white transition-colors"
+                        >
+                          PPTX
+                        </a>
+                      </>
+                    )}
                   </p>
                   <a
                     href={item.file}
@@ -179,50 +190,6 @@ export default function TrackPackPage() {
             </div>
           ))}
         </div>
-
-        {/* PowerPoint Templates Section */}
-        <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8 mb-12">
-          <div className="flex items-center gap-3 mb-6">
-            <DocumentIcon className="w-8 h-8 text-[#00ff0c]" />
-            <h2 className="text-4xl font-black text-[#00ff0c]">
-              POWERPOINT TEMPLATES
-            </h2>
-          </div>
-          <p className="text-white font-bold text-lg mb-6 leading-relaxed">
-            Download editable PowerPoint templates. Each file can be downloaded individually, or download all at once.
-          </p>
-          
-          {/* File List */}
-          <div className="space-y-3 mb-6">
-            {powerpointTemplates.map((template, index) => (
-              <div
-                key={index}
-                className="bg-gray-900/90 border-2 border-[#00ff0c] p-4 flex items-center justify-between backdrop-blur-sm"
-              >
-                <div className="flex items-center gap-3 flex-1 min-w-0">
-                  <DocumentIcon className="w-6 h-6 text-[#00ff0c] flex-shrink-0" />
-                  <a
-                    href={template.file}
-                    download
-                    className="text-white hover:text-[#00ff0c] font-bold text-lg transition-colors truncate"
-                  >
-                    {template.name}
-                  </a>
-                </div>
-                <a
-                  href={template.file}
-                  download
-                  className="ml-4 flex-shrink-0 bg-[#00ff0c] hover:bg-white text-black font-black py-2 px-4 border-2 border-black transition-all transform hover:scale-105 text-sm"
-                >
-                  <ArrowDownTrayIcon className="w-5 h-5" />
-                </a>
-              </div>
-            ))}
-          </div>
-
-          {/* Download All Button */}
-          <DownloadAllButton files={powerpointTemplates} />
-        </section>
 
         {/* Usage Instructions */}
         <section className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 md:p-8 mb-12 backdrop-blur-sm">
