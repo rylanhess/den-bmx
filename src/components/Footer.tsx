@@ -52,6 +52,11 @@ export default function Footer() {
             <h3 className="text-[#00ff0c] font-black text-lg mb-4">RESOURCES</h3>
             <ul className="space-y-2">
               <li>
+                <Link href="/track-pack" className="text-white hover:text-[#00ff0c] font-bold text-sm transition-colors">
+                  Track Pack (Free Templates)
+                </Link>
+              </li>
+              <li>
                 <a 
                   href="https://www.usabmx.com" 
                   target="_blank" 

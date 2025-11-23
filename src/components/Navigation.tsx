@@ -11,6 +11,7 @@ import {
   HandRaisedIcon,
   BoltIcon,
   HomeIcon,
+  ArrowDownTrayIcon,
 } from '@heroicons/react/24/solid';
 
 const navItems = [
@@ -18,6 +19,7 @@ const navItems = [
   { href: '/tracks', label: 'TRACKS', icon: FlagIcon },
   { href: '/new-rider', label: 'NEW RIDER', icon: BoltIcon },
   { href: '/volunteer', label: 'VOLUNTEER', icon: HeartIcon },
+  { href: '/track-pack', label: 'TRACK PACK', icon: ArrowDownTrayIcon },
   { href: '/shop', label: 'MERCH', icon: ShoppingBagIcon },
   { href: '/about', label: 'ABOUT', icon: HandRaisedIcon },
   { href: '/contact', label: 'CONTACT', icon: EnvelopeIcon },

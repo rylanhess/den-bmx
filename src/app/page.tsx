@@ -10,6 +10,7 @@ import {
   ShoppingBagIcon,
   HandRaisedIcon,
   BoltIcon,
+  ArrowDownTrayIcon,
 } from '@heroicons/react/24/solid';
 
 export default function Home() {
@@ -121,6 +122,12 @@ export default function Home() {
             <HandRaisedIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">ABOUT</div>
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">MEET THE OPERATORS</div>
+          </Link>
+
+          <Link href="/track-pack" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+            <ArrowDownTrayIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
+            <div className="text-xl sm:text-2xl mb-2">TRACK PACK</div>
+            <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">FREE TEMPLATES</div>
           </Link>
 
         </div>
