@@ -7,6 +7,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import type { Event } from '@/lib/supabase';
 
 interface EventsData {
@@ -117,7 +118,15 @@ const ThisWeeksEvents = () => {
   if (isLoading) {
     return (
       <div className="max-w-4xl mx-auto mb-12">
-        <h2 className="text-3xl font-bold text-white mb-6">This Week&apos;s Events</h2>
+        <div className="flex items-baseline gap-3 mb-6">
+          <h2 className="text-3xl font-bold text-white">This Week&apos;s Events</h2>
+          <Link 
+            href="/calendar"
+            className="text-[#00ff0c] hover:text-white text-sm sm:text-base font-medium transition-colors"
+          >
+            see full Calendar
+          </Link>
+        </div>
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
             <div key={i} className="bg-black rounded-lg p-4 border border-[#00ff0c] animate-pulse">
@@ -135,7 +144,15 @@ const ThisWeeksEvents = () => {
   if (error) {
     return (
       <div className="max-w-4xl mx-auto mb-12">
-        <h2 className="text-3xl font-bold text-white mb-6">This Week&apos;s Events</h2>
+        <div className="flex items-baseline gap-3 mb-6">
+          <h2 className="text-3xl font-bold text-white">This Week&apos;s Events</h2>
+          <Link 
+            href="/calendar"
+            className="text-[#00ff0c] hover:text-white text-sm sm:text-base font-medium transition-colors"
+          >
+            see full Calendar
+          </Link>
+        </div>
         <div className="bg-black border border-[#00ff0c] rounded-lg p-6">
           <p className="font-semibold text-[#00ff0c]">Error loading events</p>
           <p className="text-sm text-white/70 mt-1">{error}</p>
@@ -150,7 +167,15 @@ const ThisWeeksEvents = () => {
   return (
     <div className="max-w-4xl mx-auto mb-8 sm:mb-12">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6 gap-2">
-        <h2 className="text-2xl sm:text-3xl font-bold text-white">This Week&apos;s Events</h2>
+        <div className="flex items-baseline gap-3">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white">This Week&apos;s Events</h2>
+          <Link 
+            href="/calendar"
+            className="text-[#00ff0c] hover:text-white text-sm sm:text-base font-medium transition-colors"
+          >
+            see full Calendar
+          </Link>
+        </div>
         {!isLoading && !error && (
           <span className="text-sm text-white/70">
             {events.length} {events.length === 1 ? 'event' : 'events'}
