@@ -20,6 +20,13 @@
   --color-background: var(--color-black);
   --color-text: var(--color-white);
   --color-accent: var(--color-primary-accent);
+  
+  /* Track Colors */
+  --color-track-mile-high: var(--color-primary-accent);
+  --color-track-twin-silo: var(--color-secondary-accent);
+  --color-track-county-line: var(--color-alternate-primary);
+  --color-track-dacono: var(--color-alternate-secondary);
+  --color-track-none: var(--color-white);
 }
 
 /* RGB Values */
@@ -30,6 +37,11 @@
   --color-secondary-accent-rgb: 0, 115, 255;
   --color-alternate-primary-rgb: 255, 0, 242;
   --color-alternate-secondary-rgb: 255, 140, 0;
+  --color-track-mile-high-rgb: 0, 255, 13;
+  --color-track-twin-silo-rgb: 0, 115, 255;
+  --color-track-county-line-rgb: 255, 0, 242;
+  --color-track-dacono-rgb: 255, 140, 0;
+  --color-track-none-rgb: 255, 255, 255;
 }
 
 /* Usage Examples */

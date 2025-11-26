@@ -10,6 +10,8 @@ import {
   CalendarIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
+  BoltIcon,
+  UserGroupIcon,
 } from '@heroicons/react/24/solid';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -94,34 +96,117 @@ export default function CalendarPage() {
     []
   );
 
-  const handleNavigate = (newDate: Date) => {
-    setCurrentDate(newDate);
+  const handleNavigate = (newDate: Date | string) => {
+    // Handle both Date objects and navigation strings from react-big-calendar
+    if (typeof newDate === 'string') {
+      // Handle navigation strings like 'PREV', 'NEXT', 'TODAY'
+      const today = new Date();
+      const newDateObj = new Date(currentDate);
+      
+      if (newDate === 'TODAY') {
+        setCurrentDate(today);
+      } else if (newDate === 'PREV') {
+        if (view === 'month') {
+          newDateObj.setMonth(newDateObj.getMonth() - 1);
+        } else if (view === 'week') {
+          newDateObj.setDate(newDateObj.getDate() - 7);
+        } else {
+          newDateObj.setDate(newDateObj.getDate() - 1);
+        }
+        setCurrentDate(newDateObj);
+      } else if (newDate === 'NEXT') {
+        if (view === 'month') {
+          newDateObj.setMonth(newDateObj.getMonth() + 1);
+        } else if (view === 'week') {
+          newDateObj.setDate(newDateObj.getDate() + 7);
+        } else {
+          newDateObj.setDate(newDateObj.getDate() + 1);
+        }
+        setCurrentDate(newDateObj);
+      }
+    } else {
+      // Handle Date object
+      if (isNaN(newDate.getTime())) {
+        console.error('Invalid date received:', newDate);
+        setCurrentDate(new Date());
+        return;
+      }
+      setCurrentDate(newDate);
+    }
   };
 
   const handleViewChange = (newView: View) => {
     setView(newView);
   };
 
-  const eventStyleGetter = (event: CalendarEvent) => {
-    const trackSlug = event.resource.event.track?.slug || '';
-    const colors: Record<string, { backgroundColor: string; borderColor: string }> = {
-      'mile-high-bmx': { backgroundColor: '#00ff0c33', borderColor: '#00ff0c' },
-      'twin-silo-bmx': { backgroundColor: '#00ff0c33', borderColor: '#00ff0c' },
-      'county-line-bmx': { backgroundColor: '#00ff0c33', borderColor: '#00ff0c' },
-      'dacono-bmx': { backgroundColor: '#00ff0c33', borderColor: '#00ff0c' },
-    };
+  // Track color and icon configuration
+  const trackConfig: Record<string, { 
+    color: string; 
+    backgroundColor: string; 
+    borderColor: string;
+    icon: React.ComponentType<{ className?: string }>;
+    name: string;
+  }> = {
+    'mile-high-bmx': {
+      color: '#00FF0D',
+      backgroundColor: '#00FF0D33',
+      borderColor: '#00FF0D',
+      icon: BoltIcon,
+      name: 'Mile High BMX',
+    },
+    'twin-silo-bmx': {
+      color: '#0073FF',
+      backgroundColor: '#0073FF33',
+      borderColor: '#0073FF',
+      icon: BoltIcon,
+      name: 'Twin Silo BMX',
+    },
+    'county-line-bmx': {
+      color: '#FF00F2',
+      backgroundColor: '#FF00F233',
+      borderColor: '#FF00F2',
+      icon: BoltIcon,
+      name: 'County Line BMX',
+    },
+    'dacono-bmx': {
+      color: '#FF8C00',
+      backgroundColor: '#FF8C0033',
+      borderColor: '#FF8C00',
+      icon: BoltIcon,
+      name: 'Dacono BMX',
+    },
+  };
 
-    const color = colors[trackSlug] || { backgroundColor: '#00ff0c33', borderColor: '#00ff0c' };
+  const getTrackConfig = (trackSlug: string | null | undefined) => {
+    if (!trackSlug || !trackConfig[trackSlug]) {
+      return {
+        color: '#FFFFFF',
+        backgroundColor: '#FFFFFF33',
+        borderColor: '#FFFFFF',
+        icon: UserGroupIcon,
+        name: 'Meetup/Other',
+      };
+    }
+    return trackConfig[trackSlug];
+  };
+
+  const eventStyleGetter = (event: CalendarEvent) => {
+    const trackSlug = event.resource.event.track?.slug;
+    const config = getTrackConfig(trackSlug);
 
     return {
       style: {
-        backgroundColor: color.backgroundColor,
-        borderColor: color.borderColor,
-        borderWidth: '2px',
-        borderRadius: '4px',
+        backgroundColor: config.backgroundColor,
+        borderColor: config.borderColor,
+        borderWidth: '1px',
+        borderRadius: '2px',
         color: '#ffffff',
-        fontSize: '14px',
-        fontWeight: 'bold',
+        fontSize: '10px',
+        fontWeight: 'normal',
+        padding: '1px 2px',
+        marginBottom: '1px',
+        minHeight: '16px',
+        lineHeight: '1.2',
       },
     };
   };
@@ -129,31 +214,61 @@ export default function CalendarPage() {
   const CustomToolbar = ({ label, onNavigate, onView }: any) => {
     // Generate label for Day/Week views
     let displayLabel = label;
-    if (view === 'day') {
-      displayLabel = formatDate(currentDate);
-    } else if (view === 'week') {
-      const weekStart = startOfWeek(currentDate, { weekStartsOn: 0 });
-      const weekEnd = new Date(weekStart.getTime() + 6 * 24 * 60 * 60 * 1000);
-      displayLabel = `${format(weekStart, 'MMM d')} - ${format(weekEnd, 'MMM d, yyyy')}`;
+    try {
+      if (view === 'day') {
+        displayLabel = formatDate(currentDate);
+      } else if (view === 'week') {
+        const weekStart = startOfWeek(currentDate, { weekStartsOn: 0 });
+        const weekEnd = new Date(weekStart.getTime() + 6 * 24 * 60 * 60 * 1000);
+        displayLabel = `${format(weekStart, 'MMM d')} - ${format(weekEnd, 'MMM d, yyyy')}`;
+      } else if (view === 'month') {
+        // Use the calendar's label for month view, or format currentDate as fallback
+        displayLabel = label || format(currentDate, 'MMMM yyyy');
+      }
+    } catch (error) {
+      console.error('Error formatting date label:', error);
+      displayLabel = format(new Date(), 'MMMM yyyy');
     }
 
-    const handleNavigate = (direction: 'PREV' | 'NEXT' | 'TODAY') => {
+    const handleToolbarNavigate = (direction: 'PREV' | 'NEXT' | 'TODAY') => {
       if (direction === 'TODAY') {
-        setCurrentDate(new Date());
+        const today = new Date();
+        setCurrentDate(today);
+        onNavigate(today);
         return;
       }
 
       const newDate = new Date(currentDate);
+      
+      // Validate currentDate before using it
+      if (isNaN(newDate.getTime())) {
+        console.error('Invalid currentDate, resetting to today');
+        const today = new Date();
+        setCurrentDate(today);
+        onNavigate(today);
+        return;
+      }
+      
       if (view === 'day') {
         newDate.setDate(newDate.getDate() + (direction === 'PREV' ? -1 : 1));
       } else if (view === 'week') {
         newDate.setDate(newDate.getDate() + (direction === 'PREV' ? -7 : 7));
       } else {
-        // For month view, use the calendar's navigation
-        onNavigate(direction);
+        // For month view, navigate by month
+        newDate.setMonth(newDate.getMonth() + (direction === 'PREV' ? -1 : 1));
+      }
+      
+      // Validate the new date before setting
+      if (isNaN(newDate.getTime())) {
+        console.error('Invalid date created:', newDate);
+        const today = new Date();
+        setCurrentDate(today);
+        onNavigate(today);
         return;
       }
+      
       setCurrentDate(newDate);
+      onNavigate(newDate);
     };
 
     return (
@@ -167,20 +282,20 @@ export default function CalendarPage() {
           {/* Navigation Buttons */}
           <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
             <button
-              onClick={() => handleNavigate('PREV')}
+              onClick={() => handleToolbarNavigate('PREV')}
               className="bg-black text-[#00ff0c] hover:bg-[#00ff0c33] border-2 border-[#00ff0c] p-1.5 sm:p-2 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
               aria-label="Previous"
             >
               <ChevronLeftIcon className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
             <button
-              onClick={() => handleNavigate('TODAY')}
+              onClick={() => handleToolbarNavigate('TODAY')}
               className="bg-black text-[#00ff0c] hover:bg-[#00ff0c] hover:text-black border-2 border-[#00ff0c] px-3 sm:px-4 py-1.5 sm:py-2 font-black text-xs sm:text-sm transition-colors min-h-[44px]"
             >
               TODAY
             </button>
             <button
-              onClick={() => handleNavigate('NEXT')}
+              onClick={() => handleToolbarNavigate('NEXT')}
               className="bg-black text-[#00ff0c] hover:bg-[#00ff0c33] border-2 border-[#00ff0c] p-1.5 sm:p-2 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
               aria-label="Next"
             >
@@ -227,13 +342,24 @@ export default function CalendarPage() {
   };
 
   const CustomEvent = ({ event }: { event: CalendarEvent }) => {
-    const trackName = event.resource.event.track?.name || 'Track';
+    const trackSlug = event.resource.event.track?.slug;
+    const config = getTrackConfig(trackSlug);
+    const Icon = config.icon;
+    const trackName = event.resource.event.track?.name || 'Meetup/Other';
     const eventTitle = event.resource.event.title;
     
+    // Extract just the event type from title (remove [TEST] prefix and track name)
+    const titleParts = eventTitle.replace('[TEST]', '').trim();
+    const shortTitle = titleParts.length > 20 ? titleParts.substring(0, 18) + '...' : titleParts;
+    
     return (
-      <div className="p-1">
-        <div className="text-xs font-bold truncate">{trackName}</div>
-        <div className="text-xs truncate">{eventTitle}</div>
+      <div className="px-0.5 py-0 flex items-center gap-0.5 min-h-0">
+        <Icon className="w-2.5 h-2.5 flex-shrink-0" style={{ color: config.color }} />
+        <div className="flex-1 min-w-0 overflow-hidden">
+          <div className="text-[10px] leading-tight truncate font-semibold" style={{ color: config.color }}>
+            {shortTitle}
+          </div>
+        </div>
       </div>
     );
   };
@@ -278,12 +404,16 @@ export default function CalendarPage() {
   // Event card component for Day/Week views
   const EventCard = ({ event }: { event: CalendarEvent }) => {
     const eventData = event.resource.event;
-    const trackName = eventData.track?.name || 'Track';
+    const trackSlug = eventData.track?.slug;
+    const config = getTrackConfig(trackSlug);
+    const Icon = config.icon;
+    const trackName = eventData.track?.name || 'Meetup/Other';
     const trackCity = eventData.track?.city || '';
     
     return (
       <div
-        className="bg-black border-2 border-[#00ff0c] rounded p-3 mb-3 hover:bg-[#00ff0c11] transition-colors cursor-pointer"
+        className="bg-black border-2 rounded p-3 mb-3 hover:opacity-80 transition-opacity cursor-pointer"
+        style={{ borderColor: config.borderColor }}
         onClick={() => {
           if (eventData.url) {
             window.open(eventData.url, '_blank', 'noopener,noreferrer');
@@ -293,7 +423,8 @@ export default function CalendarPage() {
         <div className="flex items-start justify-between gap-2">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-[#00ff0c] font-bold text-sm">
+              <Icon className="w-4 h-4 flex-shrink-0" style={{ color: config.color }} />
+              <span className="font-bold text-sm" style={{ color: config.color }}>
                 {trackName}
               </span>
               {trackCity && (
@@ -378,6 +509,49 @@ export default function CalendarPage() {
     );
   };
 
+  // Track Legend Component
+  const TrackLegend = () => {
+    const tracks = Object.entries(trackConfig).map(([slug, config]) => ({
+      slug,
+      ...config,
+    }));
+    
+    // Add "No Track" option
+    tracks.push({
+      slug: 'none',
+      color: '#FFFFFF',
+      backgroundColor: '#FFFFFF33',
+      borderColor: '#FFFFFF',
+      icon: UserGroupIcon,
+      name: 'Meetup/Other',
+    });
+
+    return (
+      <div className="mb-3 p-2 bg-black border-2 border-[#00ff0c] rounded">
+        <h3 className="text-white font-black text-xs mb-2">TRACK LEGEND</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-1.5 sm:gap-2">
+          {tracks.map((track) => {
+            const Icon = track.icon;
+            return (
+              <div
+                key={track.slug}
+                className="flex items-center gap-1.5 text-xs"
+              >
+                <div
+                  className="w-3 h-3 flex items-center justify-center flex-shrink-0"
+                  style={{ color: track.color }}
+                >
+                  <Icon className="w-full h-full" />
+                </div>
+                <span className="text-white font-bold truncate">{track.name}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
   // Week View Component
   const WeekView = () => {
     const weekData = getEventsForWeek(currentDate);
@@ -412,24 +586,35 @@ export default function CalendarPage() {
                   {events.length === 0 ? (
                     <p className="text-white/40 text-xs">No events</p>
                   ) : (
-                    events.map(event => (
-                      <div
-                        key={event.id}
-                        className="bg-black border border-[#00ff0c] rounded p-2 hover:bg-[#00ff0c11] transition-colors cursor-pointer text-xs"
-                        onClick={() => {
-                          if (event.resource.event.url) {
-                            window.open(event.resource.event.url, '_blank', 'noopener,noreferrer');
-                          }
-                        }}
-                      >
-                        <div className="text-[#00ff0c] font-bold truncate">
-                          {event.resource.event.track?.name || 'Track'}
+                    events.map(event => {
+                      const trackSlug = event.resource.event.track?.slug;
+                      const config = getTrackConfig(trackSlug);
+                      const Icon = config.icon;
+                      const trackName = event.resource.event.track?.name || 'Meetup/Other';
+                      
+                      return (
+                        <div
+                          key={event.id}
+                          className="bg-black border rounded p-2 hover:opacity-80 transition-opacity cursor-pointer text-xs"
+                          style={{ borderColor: config.borderColor }}
+                          onClick={() => {
+                            if (event.resource.event.url) {
+                              window.open(event.resource.event.url, '_blank', 'noopener,noreferrer');
+                            }
+                          }}
+                        >
+                          <div className="flex items-center gap-1">
+                            <Icon className="w-3 h-3 flex-shrink-0" style={{ color: config.color }} />
+                            <div className="font-bold truncate" style={{ color: config.color }}>
+                              {trackName}
+                            </div>
+                          </div>
+                          <div className="text-white truncate mt-0.5">
+                            {event.resource.event.title}
+                          </div>
                         </div>
-                        <div className="text-white truncate mt-0.5">
-                          {event.resource.event.title}
-                        </div>
-                      </div>
-                    ))
+                      );
+                    })
                   )}
                 </div>
               </div>
@@ -491,10 +676,13 @@ export default function CalendarPage() {
           <div className="bg-black border-4 border-[#00ff0c] p-4 sm:p-6">
             {/* Custom Toolbar for all views */}
             <CustomToolbar
-              label={view === 'month' ? format(currentDate, 'MMMM yyyy') : ''}
+              label={view === 'month' ? (isNaN(currentDate.getTime()) ? format(new Date(), 'MMMM yyyy') : format(currentDate, 'MMMM yyyy')) : ''}
               onNavigate={handleNavigate}
               onView={handleViewChange}
             />
+            
+            {/* Track Legend */}
+            <TrackLegend />
             
             {/* Render appropriate view */}
             {view === 'day' ? (

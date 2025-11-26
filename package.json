@@ -20,6 +20,7 @@
     "events:process:dry-run": "tsx scripts/processEvents.ts --dry-run",
     "events:stats": "tsx scripts/processEvents.ts --stats",
     "events:clean-reprocess": "tsx scripts/cleanAndReprocess.ts",
+    "events:create-test": "tsx scripts/createTestEvents.ts",
     "refresh": "./scripts/refreshData.sh"
   },
   "dependencies": {

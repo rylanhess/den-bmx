@@ -53,8 +53,9 @@
 
 /* Day cells */
 .rbc-date-cell {
-  padding: 8px;
+  padding: 4px 6px;
   text-align: right;
+  font-size: 12px;
 }
 
 .rbc-date-cell > a {
@@ -75,14 +76,19 @@
 /* Events */
 .rbc-event {
   background-color: #00ff0c33;
-  border: 2px solid #00ff0c;
-  border-radius: 4px;
-  padding: 2px 4px;
+  border: 1px solid #00ff0c;
+  border-radius: 2px;
+  padding: 1px 2px;
   color: #ffffff;
-  font-weight: bold;
-  font-size: 12px;
+  font-weight: normal;
+  font-size: 10px;
   cursor: pointer;
   transition: all 0.2s;
+  margin-bottom: 1px;
+  min-height: 16px;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
 }
 
 .rbc-event:hover {
@@ -94,11 +100,57 @@
 .rbc-event-content {
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
 }
 
 .rbc-event-label {
-  font-size: 11px;
-  margin-bottom: 2px;
+  font-size: 10px;
+  margin-bottom: 0;
+  line-height: 1.2;
+}
+
+/* Month view specific - allow more events to show */
+.rbc-month-row {
+  min-height: 100px;
+}
+
+.rbc-day-slot {
+  min-height: 80px;
+}
+
+.rbc-day-bg + .rbc-events-container {
+  margin-top: 2px;
+}
+
+.rbc-events-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+/* "+ more" indicator - make background transparent */
+.rbc-show-more {
+  background-color: transparent !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 2px 4px;
+  color: #00ff0c;
+  font-size: 9px;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 1px;
+}
+
+.rbc-show-more:hover {
+  background-color: transparent !important;
+  color: #ffffff;
+}
+
+.rbc-overlay-event {
+  background-color: transparent !important;
 }
 
 /* Week and Day views */
@@ -234,21 +286,23 @@
   }
 
   .rbc-date-cell {
-    padding: 4px;
+    padding: 2px 4px;
+    font-size: 11px;
   }
 
   .rbc-date-cell > a {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .rbc-event {
-    font-size: 10px;
+    font-size: 9px;
     padding: 1px 2px;
-    line-height: 1.2;
+    line-height: 1.1;
+    min-height: 14px;
   }
 
   .rbc-event-content {
-    font-size: 10px;
+    font-size: 9px;
   }
 
   .rbc-label {
@@ -268,14 +322,18 @@
     min-height: 400px !important;
   }
 
-  /* Improve touch targets */
-  .rbc-event {
-    min-height: 24px;
-  }
-
   /* Better spacing for week/day views on mobile */
   .rbc-time-slot {
     min-height: 40px;
+  }
+
+  /* Month view - allow more events on mobile */
+  .rbc-month-row {
+    min-height: 80px;
+  }
+
+  .rbc-day-slot {
+    min-height: 60px;
   }
 }
 

@@ -49,6 +49,43 @@
       "oklch": "0.75 0.18 58"
     }
   },
+  "tracks": {
+    "mile-high-bmx": {
+      "name": "Mile High BMX",
+      "color": "primary-accent",
+      "hex": "#00FF0D",
+      "icon": "BoltIcon",
+      "description": "Green - Main brand color, racing icon"
+    },
+    "twin-silo-bmx": {
+      "name": "Twin Silo BMX",
+      "color": "secondary-accent",
+      "hex": "#0073FF",
+      "icon": "BoltIcon",
+      "description": "Blue accent color, racing icon"
+    },
+    "county-line-bmx": {
+      "name": "County Line BMX",
+      "color": "alternate-primary",
+      "hex": "#FF00F2",
+      "icon": "BoltIcon",
+      "description": "Magenta/pink accent, racing icon"
+    },
+    "dacono-bmx": {
+      "name": "Dacono BMX",
+      "color": "alternate-secondary",
+      "hex": "#FF8C00",
+      "icon": "BoltIcon",
+      "description": "Orange accent, racing icon"
+    },
+    "none": {
+      "name": "Meetup/Other",
+      "color": "white",
+      "hex": "#FFFFFF",
+      "icon": "UserGroupIcon",
+      "description": "White - For events without a specific track"
+    }
+  },
   "usage": {
     "primary": {
       "background": "black",
