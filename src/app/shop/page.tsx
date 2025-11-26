@@ -96,16 +96,26 @@ export default function ShopPage() {
           ← BACK TO HOME
         </Link>
 
+        {/* Hero - Professional Punk */}
+        <div className="text-center mb-12">
+          <div className="inline-block bg-black border-4 border-[#00ff0c] p-8 mb-6">
+            <h1 className="text-5xl md:text-7xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
+              SHOP
+            </h1>
+            <div className="h-2 bg-[#00ff0c]"></div>
+          </div>
+        </div>
+
         {/* Store Info Card */}
-        <div className="bg-black border-4 border-[#00ff0c] p-8 md:p-12 text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-black text-[#00ff0c] mb-4">
+        <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 md:p-8 mb-12 backdrop-blur-sm">
+          <h2 className="text-4xl font-black text-[#00ff0c] mb-4">
             OFFICIAL MERCH!
-          </h1>
-          <p className="text-white text-xl md:text-2xl font-bold mb-6">
+          </h2>
+          <p className="text-white text-xl leading-relaxed font-bold mb-4">
             Get your DEN BMX gear at{' '}
-            <span className="text-2xl md:text-3xl text-[#00ff0c]">store.bmxdenver.com</span>
+            <strong className="text-2xl text-[#00ff0c]">store.bmxdenver.com</strong>
           </p>
-          <p className="text-white text-lg md:text-xl font-bold">
+          <p className="text-white text-lg leading-relaxed font-bold">
             T-shirts, hats, stickers, and more!
           </p>
         </div>

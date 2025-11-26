@@ -83,11 +83,14 @@ export default function ContactPage() {
           ← BACK TO HOME
         </Link>
 
-        {/* Header */}
+        {/* Hero - Professional Punk */}
         <div className="text-center mb-12">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-[#00ff0c] mb-4" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
-            CONTACT ME
-          </h1>
+          <div className="inline-block bg-black border-4 border-[#00ff0c] p-8 mb-6">
+            <h1 className="text-5xl md:text-7xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
+              CONTACT ME
+            </h1>
+            <div className="h-2 bg-[#00ff0c]"></div>
+          </div>
         </div>
 
         {/* Main Content Grid */}
