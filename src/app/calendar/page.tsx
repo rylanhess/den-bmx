@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useMemo } from 'react';
-import { Calendar, dateFnsLocalizer, View, SlotInfo } from 'react-big-calendar';
+import { Calendar, dateFnsLocalizer, View } from 'react-big-calendar';
 import { format, parse, startOfWeek, getDay, isSameDay, eachDayOfInterval } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import type { Event as EventType } from '@/lib/supabase';
