@@ -14,7 +14,7 @@ import {
 import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: 'Merch Store | DEN BMX',
+  title: 'Merch',
   description: 'DEN BMX merchandise store. Hats, shirts, stickers, BMX gear, and Denver BMX resale items.',
 };
 

@@ -9,7 +9,7 @@ import {
 import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: 'Track Pack | DEN BMX',
+  title: 'Track Pack',
   description: 'Free downloadable templates for track operators. Social media graphics and presentation templates branded with BMXDENVER.com to help unify our tracks.',
 };
 

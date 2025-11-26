@@ -5,10 +5,10 @@ import { ShoppingBagIcon } from '@heroicons/react/24/solid';
 import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: 'Official Merch! | DEN BMX Store',
+  title: 'Shop',
   description: 'Official DEN BMX merchandise store. Shop t-shirts, hats, gear, and more at store.bmxdenver.com',
   openGraph: {
-    title: 'Official Merch! | DEN BMX Store',
+    title: 'Shop - BMX Denver',
     description: 'Shop official DEN BMX merchandise at store.bmxdenver.com',
     url: 'https://bmxdenver.com/shop',
     siteName: 'DEN BMX',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Official Merch! | DEN BMX Store',
+    title: 'Shop - BMX Denver',
     description: 'Shop official DEN BMX merchandise at store.bmxdenver.com',
     images: ['/paint-splash-tshirt-neon-green-drip-art-tee.jpg'],
   },

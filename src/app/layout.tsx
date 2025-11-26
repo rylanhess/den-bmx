@@ -17,7 +17,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DEN BMX - Denver Metro BMX Racing Calendar",
+  title: {
+    default: "Home - BMX Denver",
+    template: "%s - BMX Denver",
+  },
   description:
     "Your unified calendar for Mile High, Dacono, and County Line BMX tracks. Never miss a race day or practice session in Denver.",
   metadataBase: new URL('https://denverbmx.com'),
@@ -62,12 +65,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/logos/DEN_BMX_FINAL_Green.png', type: 'image/png' },
-      { url: '/logos/DEN_BMX_FINAL_Green.png', sizes: '32x32', type: 'image/png' },
-      { url: '/logos/DEN_BMX_FINAL_Green.png', sizes: '16x16', type: 'image/png' },
+      { url: '/logos/MARK_ONLY_icon_tab.png', type: 'image/png' },
+      { url: '/logos/MARK_ONLY_icon_tab.png', sizes: '32x32', type: 'image/png' },
+      { url: '/logos/MARK_ONLY_icon_tab.png', sizes: '16x16', type: 'image/png' },
     ],
-    shortcut: '/logos/DEN_BMX_FINAL_Green.png',
-    apple: '/logos/DEN_BMX_FINAL_Green.png',
+    shortcut: '/logos/MARK_ONLY_icon_tab.png',
+    apple: '/logos/MARK_ONLY_icon_tab.png',
   },
 };
 
@@ -78,6 +81,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Favicon - green mark works on both light and dark themes */}
+        <link rel="icon" href="/logos/MARK_ONLY_icon_tab.png?v=5" type="image/png" />
+        <link rel="icon" href="/logos/MARK_ONLY_icon_tab.png?v=5" sizes="32x32" type="image/png" />
+        <link rel="shortcut icon" href="/logos/MARK_ONLY_icon_tab.png?v=5" type="image/png" />
+        <link rel="apple-touch-icon" href="/logos/MARK_ONLY_icon_tab.png?v=5" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

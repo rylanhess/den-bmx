@@ -7,7 +7,7 @@ import {
 import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: 'New Rider Guide | DEN BMX',
+  title: 'New Rider',
   description: 'Everything you need to know to get started with BMX racing in Denver. Learn about USA BMX membership, what to bring, and track information for Mile High, Dacono, and County Line BMX.',
 };
 

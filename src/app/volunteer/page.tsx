@@ -6,7 +6,7 @@ import {
 import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: 'Volunteer | DEN BMX',
+  title: 'Volunteer',
   description: 'Volunteer to help out at Denver metro BMX tracks. Run gates, work on jumps, facility help, and big race staffing opportunities.',
 };
 

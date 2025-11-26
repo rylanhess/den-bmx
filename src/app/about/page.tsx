@@ -7,7 +7,7 @@ import {
 import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: 'About | DEN BMX',
+  title: 'About',
   description: 'Meet the track operators behind Denver metro BMX tracks. Learn about the people who keep Mile High, Dacono, and County Line BMX running.',
 };
 
