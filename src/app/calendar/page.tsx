@@ -13,6 +13,7 @@ import {
   BoltIcon,
   UserGroupIcon,
 } from '@heroicons/react/24/solid';
+import Link from 'next/link';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './calendar.css';
@@ -639,6 +640,14 @@ export default function CalendarPage() {
       <div className="min-h-screen bg-black">
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-7xl mx-auto">
+            {/* Back Button - Mobile Only */}
+            <Link 
+              href="/"
+              className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
+            >
+              ← BACK TO HOME
+            </Link>
+
             <h1 className="text-3xl sm:text-4xl font-black text-white mb-8 flex items-center gap-3">
               <CalendarIcon className="w-8 h-8 sm:w-10 sm:h-10 text-[#00ff0c]" />
               EVENT CALENDAR
@@ -658,6 +667,14 @@ export default function CalendarPage() {
       <div className="min-h-screen bg-black">
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-7xl mx-auto">
+            {/* Back Button - Mobile Only */}
+            <Link 
+              href="/"
+              className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
+            >
+              ← BACK TO HOME
+            </Link>
+
             <h1 className="text-3xl sm:text-4xl font-black text-white mb-8 flex items-center gap-3">
               <CalendarIcon className="w-8 h-8 sm:w-10 sm:h-10 text-[#00ff0c]" />
               EVENT CALENDAR
@@ -677,6 +694,14 @@ export default function CalendarPage() {
     <div className="min-h-screen bg-black">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-7xl mx-auto">
+          {/* Back Button - Mobile Only */}
+          <Link 
+            href="/"
+            className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
+          >
+            ← BACK TO HOME
+          </Link>
+
           <h1 className="text-3xl sm:text-4xl font-black text-white mb-8 flex items-center gap-3">
             <CalendarIcon className="w-8 h-8 sm:w-10 sm:h-10 text-[#00ff0c]" />
             EVENT CALENDAR
