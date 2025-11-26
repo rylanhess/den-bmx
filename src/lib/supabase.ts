@@ -66,3 +66,11 @@ export interface Alert {
   track?: Track;
 }
 
+export interface NewsletterUser {
+  id: string;
+  email: string;
+  subscribed_at: string;
+  created_at: string;
+  updated_at: string;
+}
+
