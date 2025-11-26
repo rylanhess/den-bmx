@@ -78,3 +78,6 @@ ENV/
 .tmp/
 .temp/
 *.tmp
+
+# Generated version file for cache busting
+public/version.json
