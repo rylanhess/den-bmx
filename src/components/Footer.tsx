@@ -1,7 +1,12 @@
+'use client';
+
 import Link from 'next/link';
+import { useState } from 'react';
+import NewsletterModal from './NewsletterModal';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const [showNewsletterModal, setShowNewsletterModal] = useState(false);
 
   return (
     <footer className="bg-black border-t-4 border-[#00ff0c] relative z-10">
@@ -111,6 +116,18 @@ export default function Footer() {
                   Email
                 </a>
               </li>
+              <li>
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setShowNewsletterModal(true);
+                  }}
+                  className="text-white hover:text-[#00ff0c] font-bold text-sm transition-colors"
+                >
+                  Newsletter Signup
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -142,6 +159,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
+      <NewsletterModal isOpen={showNewsletterModal} onClose={() => setShowNewsletterModal(false)} />
     </footer>
   );
 }
