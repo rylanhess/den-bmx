@@ -11,6 +11,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { Event } from '@/lib/supabase';
 
+// Mobile limit for events display
+const MOBILE_EVENT_LIMIT = 3;
+
 interface EventsData {
   events: (Event & { track: { name: string; city: string; slug: string } })[];
 }
@@ -190,7 +193,129 @@ const ThisWeeksEvents = () => {
           <p className="text-white/60 text-sm mt-2">Check back soon for updates from the tracks!</p>
         </div>
       ) : (
-        <div className="space-y-3">
+        <>
+        {/* Mobile: Show limited events */}
+        <div className="md:hidden space-y-3">
+          {events.slice(0, MOBILE_EVENT_LIMIT).map((event) => (
+            <article
+              key={event.id}
+              className="bg-black rounded-lg border border-[#00ff0c] hover:border-white transition-colors overflow-hidden"
+            >
+              <div className="flex flex-col sm:flex-row">
+                {/* Main content */}
+                <div className="flex-1 p-4">
+                  <div className="flex justify-between items-start gap-4">
+                    <div className="flex-1">
+                    {/* Track Name */}
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-[#00ff0c] font-semibold text-sm">
+                        {event.track?.name || 'Unknown Track'}
+                      </span>
+                      <span className="text-white/40">•</span>
+                      <span className="text-white/70 text-xs">
+                        {event.track?.city || ''}
+                      </span>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="font-semibold text-white mb-2">
+                      {event.title}
+                    </h3>
+
+                    {/* Description */}
+                    {event.description && (
+                      <p className="text-white/80 text-sm mb-3 leading-relaxed">
+                        {event.description}
+                      </p>
+                    )}
+
+                    {/* Date & Time */}
+                    <div className="flex flex-wrap items-center gap-3 text-sm text-white/70">
+                      <div className="flex items-center gap-1">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span>{formatDate(event.start_at)}</span>
+                      </div>
+
+                      <div className="flex items-center gap-1">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>{getTimeRange(event.start_at, event.end_at)}</span>
+                      </div>
+
+                      {/* Gate Fee */}
+                      {event.gate_fee && (
+                        <div className="flex items-center gap-1 text-[#00ff0c]">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <span>{event.gate_fee}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Facebook Link */}
+                    {event.url && (
+                      <a
+                        href={event.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-[#00ff0c] hover:text-white text-sm font-medium mt-3"
+                      >
+                        View on Facebook
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                    )}
+                  </div>
+
+                    {/* Class Badge */}
+                    {event.class && (
+                      <div className="bg-[#00ff0c] text-black px-3 py-1 rounded text-xs font-medium whitespace-nowrap">
+                        {event.class}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                
+                {/* Image on the right side */}
+                {event.image && (
+                  <a
+                    href={event.image}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="sm:w-64 sm:flex-shrink-0 bg-black flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity border-l border-[#00ff0c] relative h-48 sm:h-64"
+                    title="Click to view full size image"
+                  >
+                    <Image
+                      src={event.image}
+                      alt={event.title}
+                      fill
+                      className="object-contain"
+                      unoptimized
+                    />
+                  </a>
+                )}
+              </div>
+            </article>
+          ))}
+          
+          {/* See More button - only show if there are more events */}
+          {events.length > MOBILE_EVENT_LIMIT && (
+            <Link 
+              href="/calendar"
+              className="block w-full bg-[#00ff0c] text-black font-black py-4 px-6 text-center text-lg active:scale-95 transition-transform border-4 border-[#00ff0c] hover:bg-black hover:text-[#00ff0c]"
+            >
+              SEE {events.length - MOBILE_EVENT_LIMIT} MORE EVENT{events.length - MOBILE_EVENT_LIMIT > 1 ? 'S' : ''} →
+            </Link>
+          )}
+        </div>
+
+        {/* Desktop: Show all events */}
+        <div className="hidden md:block space-y-3">
           {events.map((event) => (
             <article
               key={event.id}
@@ -298,6 +423,7 @@ const ThisWeeksEvents = () => {
             </article>
           ))}
         </div>
+        </>
       )}
     </div>
   );
