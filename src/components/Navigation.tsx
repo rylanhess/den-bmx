@@ -12,11 +12,13 @@ import {
   BoltIcon,
   HomeIcon,
   ArrowDownTrayIcon,
+  CalendarIcon,
 } from '@heroicons/react/24/solid';
 
 const navItems = [
   { href: '/', label: 'HOME', icon: HomeIcon },
   { href: '/tracks', label: 'TRACKS', icon: FlagIcon },
+  { href: '/calendar', label: 'CALENDAR', icon: CalendarIcon },
   { href: '/new-rider', label: 'NEW RIDER', icon: BoltIcon },
   { href: '/volunteer', label: 'VOLUNTEER', icon: HeartIcon },
   { href: '/track-pack', label: 'TRACK PACK', icon: ArrowDownTrayIcon },

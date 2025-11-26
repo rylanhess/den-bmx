@@ -35,6 +35,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/calendar" className="text-white hover:text-[#00ff0c] font-bold text-sm transition-colors">
+                  Calendar
+                </Link>
+              </li>
+              <li>
                 <Link href="/new-rider" className="text-white hover:text-[#00ff0c] font-bold text-sm transition-colors">
                   New Rider Guide
                 </Link>
