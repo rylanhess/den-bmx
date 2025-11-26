@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from 'react';
 import { Calendar, dateFnsLocalizer, View, SlotInfo } from 'react-big-calendar';
-import { format, parse, startOfWeek, getDay, isSameDay, eachDayOfInterval, startOfDay, endOfDay } from 'date-fns';
+import { format, parse, startOfWeek, getDay, isSameDay, eachDayOfInterval } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import type { Event as EventType } from '@/lib/supabase';
 import Footer from '@/components/Footer';
@@ -219,7 +219,7 @@ export default function CalendarPage() {
     };
   };
 
-  const CustomToolbar = ({ label, onNavigate, onView }: any) => {
+  const CustomToolbar = ({ label, onNavigate, onView }: { label: string; onNavigate: (date: Date | string) => void; onView: (view: View) => void }) => {
     // Generate label for Day/Week views
     let displayLabel = label;
     try {
@@ -355,7 +355,6 @@ export default function CalendarPage() {
     const trackSlug = event.resource.event.track?.slug;
     const config = getTrackConfig(trackSlug);
     const Icon = config.icon;
-    const trackName = event.resource.event.track?.name || 'Meetup/Other';
     const eventTitle = event.resource.event.title;
     
     // Extract just the event type from title (remove [TEST] prefix and track name)
@@ -637,8 +636,37 @@ export default function CalendarPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-black">
-        <div className="container mx-auto px-4 py-8">
+      <div className="min-h-screen bg-black relative overflow-hidden">
+        {/* Background Images - Responsive: Single Rider (Mobile) / Two Riders (Desktop) */}
+        <div 
+          className="fixed inset-0 z-0 w-full h-full" 
+          style={{ 
+            opacity: 0.25,
+            pointerEvents: 'none',
+          }}
+        >
+          {/* Mobile: Single Rider (Vertical) */}
+          <div 
+            className="md:hidden absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url('/black-white-portrait-athlete-participating-olympic-championship-sports.jpg')`,
+              backgroundPosition: 'center center',
+              backgroundSize: 'cover',
+            }}
+          />
+          {/* Desktop: Two Riders (Landscape) */}
+          <div 
+            className="hidden md:block absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url('/black-white-portrait-athlete-participating-olympic-championship-sports%20(1).jpg')`,
+              backgroundPosition: 'center center',
+              backgroundSize: 'cover',
+            }}
+          />
+          {/* Dark overlay to ensure text readability */}
+          <div className="absolute inset-0 w-full h-full bg-black/50" />
+        </div>
+        <div className="container mx-auto px-4 py-8 relative z-10">
           <div className="max-w-7xl mx-auto">
             {/* Back Button - Mobile Only */}
             <Link 
@@ -669,8 +697,37 @@ export default function CalendarPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-black">
-        <div className="container mx-auto px-4 py-8">
+      <div className="min-h-screen bg-black relative overflow-hidden">
+        {/* Background Images - Responsive: Single Rider (Mobile) / Two Riders (Desktop) */}
+        <div 
+          className="fixed inset-0 z-0 w-full h-full" 
+          style={{ 
+            opacity: 0.25,
+            pointerEvents: 'none',
+          }}
+        >
+          {/* Mobile: Single Rider (Vertical) */}
+          <div 
+            className="md:hidden absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url('/black-white-portrait-athlete-participating-olympic-championship-sports.jpg')`,
+              backgroundPosition: 'center center',
+              backgroundSize: 'cover',
+            }}
+          />
+          {/* Desktop: Two Riders (Landscape) */}
+          <div 
+            className="hidden md:block absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url('/black-white-portrait-athlete-participating-olympic-championship-sports%20(1).jpg')`,
+              backgroundPosition: 'center center',
+              backgroundSize: 'cover',
+            }}
+          />
+          {/* Dark overlay to ensure text readability */}
+          <div className="absolute inset-0 w-full h-full bg-black/50" />
+        </div>
+        <div className="container mx-auto px-4 py-8 relative z-10">
           <div className="max-w-7xl mx-auto">
             {/* Back Button - Mobile Only */}
             <Link 
@@ -696,8 +753,37 @@ export default function CalendarPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Background Images - Responsive: Single Rider (Mobile) / Two Riders (Desktop) */}
+      <div 
+        className="fixed inset-0 z-0 w-full h-full" 
+        style={{ 
+          opacity: 0.25,
+          pointerEvents: 'none',
+        }}
+      >
+        {/* Mobile: Single Rider (Vertical) */}
+        <div 
+          className="md:hidden absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/black-white-portrait-athlete-participating-olympic-championship-sports.jpg')`,
+            backgroundPosition: 'center center',
+            backgroundSize: 'cover',
+          }}
+        />
+        {/* Desktop: Two Riders (Landscape) */}
+        <div 
+          className="hidden md:block absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/black-white-portrait-athlete-participating-olympic-championship-sports%20(1).jpg')`,
+            backgroundPosition: 'center center',
+            backgroundSize: 'cover',
+          }}
+        />
+        {/* Dark overlay to ensure text readability */}
+        <div className="absolute inset-0 w-full h-full bg-black/50" />
+      </div>
+      <div className="container mx-auto px-4 py-8 relative z-10">
         <div className="max-w-7xl mx-auto">
           {/* Back Button - Mobile Only */}
           <Link 
@@ -756,12 +842,12 @@ export default function CalendarPage() {
                 formats={{
                   dayFormat: 'EEE M/d',
                   dayHeaderFormat: 'EEEE MMMM d',
-                  dayRangeHeaderFormat: ({ start, end }: any) =>
+                  dayRangeHeaderFormat: ({ start, end }: { start: Date; end: Date }) =>
                     `${format(start, 'MMM d')} - ${format(end, 'MMM d, yyyy')}`,
                   monthHeaderFormat: 'MMMM yyyy',
                   weekdayFormat: 'EEE',
                   timeGutterFormat: 'h:mm a',
-                  eventTimeRangeFormat: ({ start, end }: any) =>
+                  eventTimeRangeFormat: ({ start, end }: { start: Date; end: Date }) =>
                     `${format(start, 'h:mm a')} - ${format(end, 'h:mm a')}`,
                 }}
                 popup
@@ -772,7 +858,7 @@ export default function CalendarPage() {
                     window.open(event.resource.event.url, '_blank', 'noopener,noreferrer');
                   }
                 }}
-                onSelectSlot={(slotInfo: SlotInfo) => {
+                onSelectSlot={() => {
                   // Optional: handle slot selection
                 }}
                 selectable

@@ -100,10 +100,10 @@ export default function NewsletterModal({ isOpen, onClose }: NewsletterModalProp
             <div className="text-center">
               <div className="mb-4 text-[#00ff0c] text-4xl">✓</div>
               <h2 className="text-2xl sm:text-3xl font-black text-white mb-4">
-                YOU'RE IN!
+                YOU&apos;RE IN!
               </h2>
               <p className="text-white text-lg">
-                Thanks for signing up! We'll keep you posted on all the BMX action in Denver.
+                Thanks for signing up! We&apos;ll keep you posted on all the BMX action in Denver.
               </p>
             </div>
           ) : (

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from "next/link";
+import Image from "next/image";
 import type { Track } from '@/lib/supabase';
 import {
   LinkIcon,
@@ -56,21 +57,26 @@ const TrackCard = ({
       {/* Wallpaper/Header Image */}
       {track.wallpaper && (
         <div className="relative h-48 w-full overflow-hidden">
-          <img 
+          <Image 
             src={track.wallpaper} 
             alt={`${track.name} wallpaper`}
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
             style={track.slug === 'dacono-bmx' ? { objectPosition: 'center 66%' } : undefined}
+            unoptimized
           />
           <div className={`absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent`}></div>
           
           {/* Logo overlay - Fixed circular container */}
           {track.logo && (
             <div className="absolute top-4 left-4 w-20 h-20 bg-white rounded-full shadow-xl border-4 border-[#00ff0c] overflow-hidden flex items-center justify-center p-2">
-              <img 
+              <Image 
                 src={track.logo} 
                 alt={`${track.name} logo`}
-                className="w-full h-full object-contain"
+                width={80}
+                height={80}
+                className="object-contain"
+                unoptimized
               />
             </div>
           )}
@@ -81,10 +87,13 @@ const TrackCard = ({
       {!track.wallpaper && track.logo && (
         <div className="flex justify-center py-6 bg-black">
           <div className="w-28 h-28 bg-white rounded-full shadow-xl border-4 border-[#00ff0c] overflow-hidden flex items-center justify-center p-3">
-            <img 
+            <Image 
               src={track.logo} 
               alt={`${track.name} logo`}
-              className="w-full h-full object-contain"
+              width={112}
+              height={112}
+              className="object-contain"
+              unoptimized
             />
           </div>
         </div>
@@ -101,11 +110,12 @@ const TrackCard = ({
 
         {/* Overhead Track Image */}
         {overheadImage && (
-          <div className="mb-4 border-4 border-[#00ff0c] overflow-hidden">
-            <img 
+          <div className="mb-4 border-4 border-[#00ff0c] overflow-hidden relative w-full aspect-video">
+            <Image 
               src={overheadImage} 
               alt={`${track.name} overhead view`}
-              className="w-full h-auto object-cover"
+              fill
+              className="object-cover"
             />
           </div>
         )}

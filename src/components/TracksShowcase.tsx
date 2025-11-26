@@ -9,6 +9,7 @@
 import { useEffect, useState } from 'react';
 import type { Track } from '@/lib/supabase';
 import Link from 'next/link';
+import Image from 'next/image';
 import { MapPinIcon } from '@heroicons/react/24/solid';
 
 const TracksShowcase = () => {
@@ -74,10 +75,13 @@ const TracksShowcase = () => {
             {/* Logo - Fixed circular container */}
             {track.logo && (
               <div className="w-24 h-24 bg-white rounded-full mx-auto mb-4 flex items-center justify-center border-4 border-[#00ff0c] group-hover:border-white transition-colors overflow-hidden p-3">
-                <img 
+                <Image 
                   src={track.logo} 
                   alt={`${track.name} logo`}
-                  className="w-full h-full object-contain"
+                  width={96}
+                  height={96}
+                  className="object-contain"
+                  unoptimized
                 />
               </div>
             )}

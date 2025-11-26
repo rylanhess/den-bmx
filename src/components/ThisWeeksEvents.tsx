@@ -8,6 +8,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import type { Event } from '@/lib/supabase';
 
 interface EventsData {
@@ -281,13 +282,15 @@ const ThisWeeksEvents = () => {
                     href={event.image}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="sm:w-64 sm:flex-shrink-0 bg-black flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity border-l border-[#00ff0c]"
+                    className="sm:w-64 sm:flex-shrink-0 bg-black flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity border-l border-[#00ff0c] relative h-48 sm:h-64"
                     title="Click to view full size image"
                   >
-                    <img
+                    <Image
                       src={event.image}
                       alt={event.title}
-                      className="w-full h-48 sm:h-64 object-contain"
+                      fill
+                      className="object-contain"
+                      unoptimized
                     />
                   </a>
                 )}
