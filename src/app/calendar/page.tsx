@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useMemo } from 'react';
-import { Calendar, dateFnsLocalizer, View } from 'react-big-calendar';
+import { Calendar, dateFnsLocalizer, View, type Event as RBCEvent } from 'react-big-calendar';
 import { format, parse, startOfWeek, getDay, isSameDay, eachDayOfInterval } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import type { Event as EventType } from '@/lib/supabase';
@@ -198,8 +198,9 @@ export default function CalendarPage() {
     return trackConfig[trackSlug];
   };
 
-  const eventStyleGetter = (event: CalendarEvent) => {
-    const trackSlug = event.resource.event.track?.slug;
+  const eventStyleGetter = (event: RBCEvent) => {
+    const calendarEvent = event as CalendarEvent;
+    const trackSlug = calendarEvent.resource.event.track?.slug;
     const config = getTrackConfig(trackSlug);
 
     return {
@@ -351,11 +352,12 @@ export default function CalendarPage() {
     );
   };
 
-  const CustomEvent = ({ event }: { event: CalendarEvent }) => {
-    const trackSlug = event.resource.event.track?.slug;
+  const CustomEvent = ({ event }: { event: RBCEvent }) => {
+    const calendarEvent = event as CalendarEvent;
+    const trackSlug = calendarEvent.resource.event.track?.slug;
     const config = getTrackConfig(trackSlug);
     const Icon = config.icon;
-    const eventTitle = event.resource.event.title;
+    const eventTitle = calendarEvent.resource.event.title;
     
     // Extract just the event type from title (remove [TEST] prefix and track name)
     const titleParts = eventTitle.replace('[TEST]', '').trim();
@@ -852,10 +854,11 @@ export default function CalendarPage() {
                 }}
                 popup
                 popupOffset={{ x: 10, y: 10 }}
-                onSelectEvent={(event: CalendarEvent) => {
+                onSelectEvent={(event: RBCEvent) => {
                   // Open event details or link
-                  if (event.resource.event.url) {
-                    window.open(event.resource.event.url, '_blank', 'noopener,noreferrer');
+                  const calendarEvent = event as CalendarEvent;
+                  if (calendarEvent.resource.event.url) {
+                    window.open(calendarEvent.resource.event.url, '_blank', 'noopener,noreferrer');
                   }
                 }}
                 onSelectSlot={() => {

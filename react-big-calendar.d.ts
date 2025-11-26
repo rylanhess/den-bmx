@@ -12,11 +12,13 @@ declare module 'react-big-calendar' {
   }
 
   export interface Event {
+    id?: string;
     title?: string;
     start?: Date;
     end?: Date;
     resource?: any;
     allDay?: boolean;
+    [key: string]: any; // Allow additional properties
   }
 
   export interface CalendarProps {
