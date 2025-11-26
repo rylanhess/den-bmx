@@ -50,6 +50,13 @@ export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [view, setView] = useState<View>('month');
 
+  // Set default view to week on mobile after mount
+  useEffect(() => {
+    if (window.innerWidth < 640) {
+      setView('week');
+    }
+  }, []); // Only run on mount
+
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -272,15 +279,17 @@ export default function CalendarPage() {
     };
 
     return (
-      <div className="flex flex-col gap-4 mb-4 p-3 sm:p-4 bg-black border-4 border-[#00ff0c]">
-        <div className="flex items-center justify-between gap-2">
+      <div className="flex flex-col gap-3 sm:gap-4 mb-4 p-3 sm:p-4 bg-black border-4 border-[#00ff0c]">
+        {/* Date and Navigation - Stack on mobile */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-2">
+          {/* Date Label */}
           <div className="flex items-center gap-2">
             <CalendarIcon className="w-5 h-5 sm:w-6 sm:h-6 text-[#00ff0c] flex-shrink-0" />
             <span className="text-white font-black text-lg sm:text-xl truncate">{displayLabel}</span>
           </div>
           
-          {/* Navigation Buttons */}
-          <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+          {/* Navigation Buttons - Below date on mobile, inline on desktop */}
+          <div className="flex items-center justify-center sm:justify-end gap-1 sm:gap-2 flex-shrink-0">
             <button
               onClick={() => handleToolbarNavigate('PREV')}
               className="bg-black text-[#00ff0c] hover:bg-[#00ff0c33] border-2 border-[#00ff0c] p-1.5 sm:p-2 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
