@@ -12,6 +12,7 @@ import {
   BoltIcon,
   ArrowDownTrayIcon,
   CalendarIcon,
+  SparklesIcon,
 } from '@heroicons/react/24/solid';
 
 export default function Home() {
@@ -99,6 +100,12 @@ export default function Home() {
             <CalendarIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">CALENDAR</div>
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">ALL EVENTS • SCHEDULE</div>
+          </Link>
+
+          <Link href="/freestyle" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+            <SparklesIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
+            <div className="text-xl sm:text-2xl mb-2">FREESTYLE</div>
+            <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">PARKS • PRACTICE</div>
           </Link>
 
           <Link href="/new-rider" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">

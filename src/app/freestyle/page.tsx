@@ -14,7 +14,7 @@ import ParkFinderMap from '@/components/ParkFinderMap';
 export interface Park {
   name: string;
   location: string;
-  type: 'Bike Park' | 'Skate Park' | 'Pump Track';
+  type: 'Bike Park' | 'Skate Park' | 'Pump Track' | 'BMX Track';
   googleMapsUrl: string;
   size: 'Small' | 'Medium' | 'Large' | 'Extra Large';
   sizeRating: number; // 1-5
@@ -142,6 +142,110 @@ const parks: Park[] = [
     skillLevels: ['Beginner', 'Intermediate'],
     description: 'Paved pump track providing a smooth surface for practicing pumping technique. Ideal for riders looking to improve their skills.',
     coordinates: [-105.1681, 39.9506], // [lng, lat]
+  },
+  {
+    name: 'Apple Meadows Bike Park',
+    location: 'Golden, CO',
+    type: 'Bike Park',
+    googleMapsUrl: 'https://maps.app.goo.gl/SbwtWAvDtGp2GFY5A',
+    size: 'Medium',
+    sizeRating: 3,
+    quality: 'Good',
+    qualityRating: 4,
+    skillLevels: ['Beginner', 'Intermediate', 'Advanced'],
+    description: 'Community bike park in Golden featuring trails and bike features. Great for practicing skills and enjoying outdoor riding.',
+    coordinates: [-105.2144612, 39.806185], // [lng, lat]
+  },
+  {
+    name: 'Mile High BMX',
+    location: 'Denver, CO',
+    type: 'BMX Track',
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Mile+High+BMX+Denver+Colorado',
+    size: 'Large',
+    sizeRating: 5,
+    quality: 'Excellent',
+    qualityRating: 5,
+    skillLevels: ['Beginner', 'Intermediate', 'Advanced', 'Expert'],
+    description: 'Home to the longest BMX track in the nation, offering riders an extended racing experience with challenging features. High-elevation racing (5,280+ feet) with technical layout and competitive racing environment.',
+    coordinates: [-105.0, 39.75], // [lng, lat] - approximate Denver area
+  },
+  {
+    name: 'Dacono BMX',
+    location: 'Dacono, CO',
+    type: 'BMX Track',
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Dacono+BMX+Colorado',
+    size: 'Medium',
+    sizeRating: 3,
+    quality: 'Good',
+    qualityRating: 4,
+    skillLevels: ['Beginner', 'Intermediate', 'Advanced'],
+    description: 'Welcoming environment for BMX racing enthusiasts in the northern Denver metro area. Community-focused atmosphere that encourages new riders to join the sport with regular race schedule throughout the season.',
+    coordinates: [-104.9333, 40.0833], // [lng, lat] - approximate Dacono area
+  },
+  {
+    name: 'County Line BMX',
+    location: 'Englewood, CO',
+    type: 'BMX Track',
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=County+Line+BMX+Englewood+Colorado',
+    size: 'Medium',
+    sizeRating: 4,
+    quality: 'Excellent',
+    qualityRating: 5,
+    skillLevels: ['Beginner', 'Intermediate', 'Advanced', 'Expert'],
+    description: 'Located in David A. Lorenz Regional Park, one of the only tracks in south metro Denver. Modern track design with 3 paved turns and paved start hill. Gate practice available on Thursdays during season.',
+    coordinates: [-104.9878, 39.6472], // [lng, lat] - approximate Englewood area
+  },
+  {
+    name: 'Twin Silo BMX',
+    location: 'Fort Collins, CO',
+    type: 'BMX Track',
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Twin+Silo+BMX+Fort+Collins+Colorado',
+    size: 'Large',
+    sizeRating: 4,
+    quality: 'Excellent',
+    qualityRating: 5,
+    skillLevels: ['Beginner', 'Intermediate', 'Advanced', 'Expert'],
+    description: 'Located in Twin Silo Park, a 54-acre modern park facility in Fort Collins. Part of the City of Fort Collins park system with excellent maintenance. Track is open to the public when not in use for racing or practices.',
+    coordinates: [-105.0847, 40.5853], // [lng, lat] - approximate Fort Collins area
+  },
+  {
+    name: 'Golden Heights Skate Park',
+    location: 'Golden, CO',
+    type: 'Skate Park',
+    googleMapsUrl: 'https://maps.app.goo.gl/DG52AkL7cv63MmC88',
+    size: 'Medium',
+    sizeRating: 3,
+    quality: 'Good',
+    qualityRating: 3,
+    skillLevels: ['Beginner', 'Intermediate', 'Advanced'],
+    description: 'Skate park in Golden with various features for BMX riders and skaters. Good for practicing tricks and improving skills.',
+    coordinates: [-105.1845198, 39.7211103], // [lng, lat]
+  },
+  {
+    name: 'Lakewood Skate Park',
+    location: 'Lakewood, CO',
+    type: 'Skate Park',
+    googleMapsUrl: 'https://maps.app.goo.gl/oSheCiAhjeaPD1Hi9',
+    size: 'Small',
+    sizeRating: 1,
+    quality: 'Basic',
+    qualityRating: 2,
+    skillLevels: ['Beginner'],
+    description: 'Small neighborhood skate park. Perfect for beginners learning the basics of park riding.',
+    coordinates: [-105.0853, 39.7047], // [lng, lat] - approximate Lakewood area
+  },
+  {
+    name: 'Lakewood Link Skate Park',
+    location: 'Lakewood, CO',
+    type: 'Skate Park',
+    googleMapsUrl: 'https://maps.app.goo.gl/E94xRYEehwRcmTJ66',
+    size: 'Small',
+    sizeRating: 2,
+    quality: 'Good',
+    qualityRating: 3,
+    skillLevels: ['Beginner', 'Intermediate'],
+    description: 'Small to medium-sized skate park with good features for skill development. Suitable for beginners and intermediate riders.',
+    coordinates: [-105.0853, 39.7047], // [lng, lat] - approximate Lakewood area
   },
 ];
 
@@ -277,7 +381,8 @@ export default function FreestylePage() {
               PARK FINDER MAP
             </h2>
             <p className="text-white font-bold text-center">
-              Hover over the pins to see park details. Click for more information!
+              <span className="hidden md:inline">Hover over the pins to see park details. Click for more information!</span>
+              <span className="md:hidden">Tap the pins to see park details and get directions!</span>
             </p>
           </div>
           <ParkFinderMap parks={parks} />
