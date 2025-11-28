@@ -10,7 +10,7 @@ export function middleware(request: NextRequest) {
       pathname.startsWith('/contact') || pathname.startsWith('/new-rider') || 
       pathname.startsWith('/merch') || pathname.startsWith('/shop') || 
       pathname.startsWith('/volunteer') || pathname.startsWith('/about') ||
-      pathname.startsWith('/track-pack')) {
+      pathname.startsWith('/track-pack') || pathname.startsWith('/freestyle')) {
     response.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
     response.headers.set('Pragma', 'no-cache');
     response.headers.set('Expires', '0');
