@@ -77,6 +77,13 @@ export default function ParkFinderMap({ parks }: ParkFinderMapProps) {
               shadowColor: '#ff0000',
               shape: 'triangle' as const,
             };
+          case 'Indoor Park':
+            return {
+              backgroundColor: '#ff00ff', // Magenta for indoor
+              borderColor: '#000',
+              shadowColor: '#ff00ff',
+              shape: 'square' as const,
+            };
           default:
             return {
               backgroundColor: '#00ff0c',
@@ -163,6 +170,7 @@ export default function ParkFinderMap({ parks }: ParkFinderMapProps) {
             <p style="margin: 0 0 4px 0; font-size: 12px;"><strong>Size:</strong> ${park.size}</p>
             <p style="margin: 0 0 4px 0; font-size: 12px;"><strong>Quality:</strong> ${park.quality}</p>
             <p style="margin: 0 0 8px 0; font-size: 12px;"><strong>Skill Levels:</strong> ${park.skillLevels.join(', ')}</p>
+            ${park.toddlerApproved ? '<p style="margin: 0 0 8px 0; font-size: 12px; font-weight: bold; color: #00aa00;">★ Toddler Approved</p>' : ''}
             <a href="${park.googleMapsUrl}" target="_blank" rel="noopener noreferrer" style="color: #00ff0c; text-decoration: none; font-weight: bold; font-size: 12px; display: inline-block; padding: 4px 8px; background: #000; border: 2px solid #00ff0c;">View on Google Maps →</a>
           </div>
         `);
@@ -179,9 +187,8 @@ export default function ParkFinderMap({ parks }: ParkFinderMapProps) {
       container.addEventListener('mouseenter', () => {
         setHoveredPark(park);
         if (markerStyle.shape === 'triangle') {
-          // For triangle, use filter for glow effect
+          // For triangle, only add glow via filter – do NOT scale container or element
           el.style.filter = `drop-shadow(0 0 10px ${markerStyle.shadowColor}) drop-shadow(0 0 20px ${markerStyle.shadowColor})`;
-          container.style.transform = 'scale(1.2)';
         } else if (markerStyle.shape === 'diamond') {
           el.style.transform = 'rotate(45deg) scale(1.3)';
           el.style.boxShadow = `0 0 20px ${markerStyle.shadowColor}, 0 0 30px ${markerStyle.shadowColor}`;
@@ -195,7 +202,6 @@ export default function ParkFinderMap({ parks }: ParkFinderMapProps) {
         setHoveredPark(null);
         if (markerStyle.shape === 'triangle') {
           el.style.filter = 'none';
-          container.style.transform = 'scale(1)';
         } else if (markerStyle.shape === 'diamond') {
           el.style.transform = 'rotate(45deg) scale(1)';
           el.style.boxShadow = `0 0 10px ${markerStyle.shadowColor}`;
@@ -270,7 +276,7 @@ export default function ParkFinderMap({ parks }: ParkFinderMapProps) {
         }}
       />
       {/* Legend */}
-      <div className="absolute bottom-4 left-4 bg-black border-4 border-[#00ff0c] p-3 z-10 max-w-[180px]">
+      <div className="absolute bottom-4 left-4 bg-black border-4 border-[#00ff0c] p-3 z-10 max-w-[220px]">
         <div className="text-[#00ff0c] font-black text-sm mb-2">LEGEND</div>
         <div className="space-y-2">
           <div className="flex items-center gap-2">
@@ -288,6 +294,10 @@ export default function ParkFinderMap({ parks }: ParkFinderMapProps) {
           <div className="flex items-center gap-2">
             <div className="w-0 h-0 border-l-[6px] border-r-[6px] border-b-[10px] border-l-transparent border-r-transparent border-b-[#ff0000] flex-shrink-0"></div>
             <span className="text-white text-xs font-bold">BMX Track</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-[#ff00ff] border-2 border-black rounded-sm flex-shrink-0"></div>
+            <span className="text-white text-xs font-bold">Indoor Park</span>
           </div>
         </div>
       </div>
