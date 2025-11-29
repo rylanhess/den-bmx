@@ -531,9 +531,22 @@ const RatingStars = ({ rating }: { rating: number }) => {
   );
 };
 
+const typeBorderColors: Record<Park['type'], string> = {
+  'Bike Park': '#00ff0c',      // neon green
+  'Skate Park': '#0066ff',     // blue
+  'Pump Track': '#ffaa00',     // orange
+  'BMX Track': '#ff0000',      // red
+  'Indoor Park': '#ff00ff',    // magenta
+};
+
 const ParkCard = ({ park }: { park: Park }) => {
+  const borderColor = typeBorderColors[park.type] ?? '#00ff0c';
+
   return (
-    <div className="bg-black border-8 border-[#00ff0c] overflow-hidden transform hover:scale-105 transition-transform">
+    <div
+      className="bg-black border-8 overflow-hidden transform hover:scale-105 transition-transform"
+      style={{ borderColor }}
+    >
       <div className="p-6">
         <div className="mb-4">
           <h2 className="text-3xl font-black text-[#00ff0c] mb-2">{park.name}</h2>
