@@ -38,7 +38,7 @@ const parks: Park[] = [
     qualityRating: 5,
     skillLevels: ['Beginner', 'Intermediate', 'Advanced', 'Expert'],
     description: 'World-class 42-acre facility with over 30 jumps, cyclocross courses, and diverse terrain features. One of the premier bike parks in the region with professional-grade features.',
-    coordinates: [40.0331, -105.2206], // [lat, lng]
+    coordinates: [40.03160823798708, -105.23424042526366], // [lat, lng]
   },
   {
     name: 'Ruby Hill Bike Park',
@@ -52,7 +52,7 @@ const parks: Park[] = [
     skillLevels: ['Beginner', 'Intermediate', 'Advanced', 'Expert'],
     description: '7.5-acre park featuring slopestyle courses, dirt jumps, pump tracks, and skills courses. Includes expert lines for professional riders and beginner-friendly areas.',
     toddlerApproved: true,
-    coordinates: [39.6806, -105.0031], // [lat, lng]
+    coordinates: [39.683854540367726, -105.00535349867998], // [lat, lng]
   },
   {
     name: 'Barnum Bike Park',
@@ -65,7 +65,7 @@ const parks: Park[] = [
     qualityRating: 4,
     skillLevels: ['Beginner', 'Intermediate', 'Advanced'],
     description: 'Urban bike park with multiple slope lines for different skill levels and a pump track. Well-maintained with diverse features in a convenient city location.',
-    coordinates: [39.7206, -105.0306], // [lat, lng]
+    coordinates: [39.726146473685674, -105.02946638153433], // [lat, lng]
   },
   {
     name: 'Golden Bike Park',
@@ -78,7 +78,7 @@ const parks: Park[] = [
     qualityRating: 4,
     skillLevels: ['Beginner', 'Intermediate', 'Advanced'],
     description: 'Features a downhill flow trail with widened jumps and rollable options. Trails split into separate beginner, intermediate, and advanced sections with creative design.',
-    coordinates: [39.7556, -105.2211], // [lat, lng]
+    coordinates: [39.78076926473103, -105.18797966659338], // [lat, lng]
   },
   {
     name: 'McKay Lake Bike Park',
@@ -92,7 +92,7 @@ const parks: Park[] = [
     skillLevels: ['Beginner', 'Intermediate'],
     description: 'Well-designed paved pump track perfect for skill development. Great for practicing pumping technique and building confidence.',
     toddlerApproved: true,
-    coordinates: [39.9206, -105.0861], // [lat, lng]
+    coordinates: [39.951894491114956, -105.01612951808588], // [lat, lng]
   },
   {
     name: 'Ulysses Skate Park',
@@ -105,7 +105,7 @@ const parks: Park[] = [
     qualityRating: 3,
     skillLevels: ['Beginner', 'Intermediate', 'Advanced'],
     description: 'Well-maintained skate park with a variety of features catering to different skill levels. Suitable for BMX riders looking to practice tricks and jumps.',
-    coordinates: [39.7556, -105.2211], // [lat, lng]
+    coordinates: [39.73681324947393, -105.19595282242263], // [lat, lng] Ulysses Park, Golden
   },
   {
     name: 'Wheat Ridge Skate Park',
@@ -118,7 +118,7 @@ const parks: Park[] = [
     qualityRating: 2,
     skillLevels: ['Beginner'],
     description: 'Neighborhood skate park with basic features. Good for beginners learning the fundamentals of park riding.',
-    coordinates: [39.7661, -105.0806], // [lat, lng]
+    coordinates: [39.76798838350004, -105.10916988153407], // [lat, lng]
   },
   {
     name: 'Anthem Pump Track',
@@ -131,7 +131,7 @@ const parks: Park[] = [
     qualityRating: 3,
     skillLevels: ['Beginner', 'Intermediate'],
     description: 'Paved pump track designed for skill development. Great for practicing pumping technique and building bike handling skills.',
-    coordinates: [39.9206, -105.0861], // [lat, lng]
+    coordinates: [39.982258508505566, -105.02395022092766], // [lat, lng] Anthem neighborhood, Broomfield
   },
   {
     name: 'Revolution Pump Track',
@@ -144,7 +144,7 @@ const parks: Park[] = [
     qualityRating: 3,
     skillLevels: ['Beginner', 'Intermediate'],
     description: 'Paved pump track providing a smooth surface for practicing pumping technique. Ideal for riders looking to improve their skills.',
-    coordinates: [39.9506, -105.1681], // [lat, lng]
+    coordinates: [40.0409153760191, -105.05081357733108], // [lat, lng]
   },
   {
     name: 'Apple Meadows Bike Park',
@@ -171,7 +171,7 @@ const parks: Park[] = [
     qualityRating: 5,
     skillLevels: ['Beginner', 'Intermediate', 'Advanced', 'Expert'],
     description: 'Home to the longest BMX track in the nation, offering riders an extended racing experience with challenging features. High-elevation racing (5,280+ feet) with technical layout and competitive racing environment.',
-    coordinates: [39.6523, -105.1009], // [lat, lng] - approximate Denver area
+    coordinates: [39.65242677248604, -105.1008732491447], // [lat, lng] - approximate Denver area
   },
   {
     name: 'Dacono BMX',
@@ -184,7 +184,7 @@ const parks: Park[] = [
     qualityRating: 4,
     skillLevels: ['Beginner', 'Intermediate', 'Advanced'],
     description: 'Welcoming environment for BMX racing enthusiasts in the northern Denver metro area. Community-focused atmosphere that encourages new riders to join the sport with regular race schedule throughout the season.',
-    coordinates: [40.0833, -104.9333], // [lat, lng] - approximate Dacono area
+    coordinates: [40.080700313397536, -104.93410276336377], // [lat, lng] - approximate Dacono area
   },
   {
     name: 'County Line BMX',
@@ -197,7 +197,7 @@ const parks: Park[] = [
     qualityRating: 5,
     skillLevels: ['Beginner', 'Intermediate', 'Advanced', 'Expert'],
     description: 'Located in David A. Lorenz Regional Park, one of the only tracks in south metro Denver. Modern track design with 3 paved turns and paved start hill. Gate practice available on Thursdays during season.',
-    coordinates: [39.5643, -104.9377], // [lat, lng]
+    coordinates: [39.56430805076575, -104.93776458185582], // [lat, lng]
   },
   {
     name: 'Twin Silo BMX',
@@ -210,7 +210,7 @@ const parks: Park[] = [
     qualityRating: 5,
     skillLevels: ['Beginner', 'Intermediate', 'Advanced', 'Expert'],
     description: 'Located in Twin Silo Park, a 54-acre modern park facility in Fort Collins. Part of the City of Fort Collins park system with excellent maintenance. Track is open to the public when not in use for racing or practices.',
-    coordinates: [40.5112, -105.0127], // [lat, lng] - approximate Fort Collins area
+    coordinates: [40.511200198946774, -105.01271478454838], // [lat, lng] - approximate Fort Collins area
   },
   {
     name: 'Golden Heights Skate Park',
@@ -223,7 +223,7 @@ const parks: Park[] = [
     qualityRating: 3,
     skillLevels: ['Beginner', 'Intermediate', 'Advanced'],
     description: 'Skate park in Golden with various features for BMX riders and skaters. Good for practicing tricks and improving skills.',
-    coordinates: [39.7211103, -105.1845198], // [lat, lng]
+    coordinates: [39.72130829578785, -105.18446614850718], // [lat, lng]
   },
   {
     name: 'Lakewood Skate Park',
@@ -237,7 +237,7 @@ const parks: Park[] = [
     skillLevels: ['Beginner'],
     description: 'Small neighborhood skate park. Perfect for beginners learning the basics of park riding.',
     toddlerApproved: true,
-    coordinates: [39.7047, -105.0853], // [lat, lng] - approximate Lakewood area
+    coordinates: [39.70623063034705, -105.13956498955588], // [lat, lng] - approximate Lakewood area
   },
   {
     name: 'Lakewood Link Skate Park',
@@ -250,10 +250,10 @@ const parks: Park[] = [
     qualityRating: 3,
     skillLevels: ['Beginner', 'Intermediate'],
     description: 'Small to medium-sized skate park with good features for skill development. Suitable for beginners and intermediate riders.',
-    coordinates: [39.7047, -105.0853], // [lat, lng] - approximate Lakewood area
+    coordinates: [39.694782940303476, -105.07540636598253], // [lat, lng] Lakewood Link area
   },
   {
-    name: 'Logan-Bates Park',
+    name: 'Bates-Logan Park',
     location: 'Denver, CO',
     type: 'Bike Park',
     googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Logan+Bates+Park+Denver+Colorado',
@@ -264,7 +264,7 @@ const parks: Park[] = [
     skillLevels: ['Beginner'],
     description: 'Neighborhood park near Logan St & Bates Ave with smooth paths and gentle grades that are perfect for balance bikes and first pedal strokes.',
     toddlerApproved: true,
-    coordinates: [39.6687, -104.9817], // [lat, lng] approximate
+    coordinates: [39.66391634233429, -104.98140786482803], // [lat, lng] approximate
   },
   {
     name: "Sloan's Lake Pump Track",
@@ -278,7 +278,7 @@ const parks: Park[] = [
     skillLevels: ['Beginner', 'Intermediate'],
     description: "Compact pump track near Sloans Lake with mellow rollers and low berms, ideal for toddler balance bikes and early riders.",
     toddlerApproved: true,
-    coordinates: [39.7477, -105.0478], // [lat, lng] approximate Sloan's Lake area
+    coordinates: [39.74484832646096, -105.04445994619498], // [lat, lng] approximate Sloan's Lake area
   },
   {
     name: 'Denver Skatepark',
@@ -291,7 +291,7 @@ const parks: Park[] = [
     qualityRating: 5,
     skillLevels: ['Intermediate', 'Advanced', 'Expert'],
     description: 'Iconic 2.5-acre downtown skatepark just north of Elitch Gardens, with massive bowls, street plazas, and flow lines. Best for confident riders and advanced park skills.',
-    coordinates: [39.7575, -105.0094], // [lat, lng] approximate
+    coordinates: [39.759771950253565, -105.0028542545725], // [lat, lng] approximate
   },
   {
     name: 'La Alma Lincoln Park Skate Area',
@@ -304,7 +304,7 @@ const parks: Park[] = [
     qualityRating: 3,
     skillLevels: ['Beginner', 'Intermediate'],
     description: 'Neighborhood skate area in La Alma Lincoln Park with smaller features and open flat space. Good warm-up spot close to downtown.',
-    coordinates: [39.7311, -105.005], // [lat, lng] approximate
+    coordinates: [39.734695558116854, -105.00432800920038], // [lat, lng] approximate
   },
   {
     name: 'Elyria Skatepark',
@@ -317,20 +317,20 @@ const parks: Park[] = [
     qualityRating: 3,
     skillLevels: ['Beginner', 'Intermediate'],
     description: 'Compact 3,500 sq ft metal-ramp park in Elyria with mellow transitions and slower features. Friendly spot to get comfortable riding park.',
-    coordinates: [39.7837, -104.9698], // [lat, lng] approximate
+    coordinates: [39.816313280859376, -104.95460165012099], // [lat, lng] approximate
   },
   {
-    name: 'Aurora Skatepark',
+    name: 'Wheel Park',
     location: 'Aurora, CO',
     type: 'Skate Park',
-    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Aurora+Skatepark+Aurora+Colorado',
+    googleMapsUrl: 'https://maps.app.goo.gl/w9jT8gKDCDkmySc4A',
     size: 'Large',
     sizeRating: 4,
     quality: 'Excellent',
     qualityRating: 4,
     skillLevels: ['Beginner', 'Intermediate', 'Advanced'],
     description: 'Nearly 20,000 sq ft well-lit concrete park at Wheel Park in Aurora with street course and 10-foot bowl. Good coverage for east-metro riders.',
-    coordinates: [39.7065, -104.8125], // [lat, lng] approximate
+    coordinates: [39.67210999050533, -104.80825333931942], // [lat, lng] approximate
   },
   {
     name: 'Green Valley Ranch Skatepark',
@@ -343,7 +343,7 @@ const parks: Park[] = [
     qualityRating: 3,
     skillLevels: ['Beginner', 'Intermediate'],
     description: '2,000 sq ft neighborhood concrete park in Green Valley Ranch with mini-ramp, small bowl, and simple street features.',
-    coordinates: [39.7898, -104.7005], // [lat, lng] approximate
+    coordinates: [39.788739028365654, -104.76645225171562], // [lat, lng] approximate
   },
   {
     name: 'Central Park Skatepark',
@@ -356,20 +356,20 @@ const parks: Park[] = [
     qualityRating: 3,
     skillLevels: ['Beginner', 'Intermediate'],
     description: 'Small beginner-friendly bowl and a few street-style obstacles in Central Park (Stapleton) serving north-east Denver.',
-    coordinates: [39.7605, -104.8845], // [lat, lng] approximate
+    coordinates: [39.75450423758318, -104.88666908659067], // [lat, lng] approximate
   },
   {
-    name: 'Parkfield Park Skate Area',
+    name: 'Montbello Skatepark',
     location: 'Denver, CO',
     type: 'Skate Park',
-    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Parkfield+Park+Skatepark+Denver+Colorado',
+    googleMapsUrl: 'https://maps.app.goo.gl/b6wbrqvtvwbFewhy8',
     size: 'Small',
     sizeRating: 2,
     quality: 'Good',
     qualityRating: 3,
     skillLevels: ['Beginner', 'Intermediate'],
     description: 'Skate area in Parkfield Lake Park providing additional east Denver coverage with basic ramps and rails.',
-    coordinates: [39.7892, -104.7975], // [lat, lng] approximate
+    coordinates: [39.79650095332542, -104.8058623565479], // [lat, lng] approximate
   },
   {
     name: 'Cornerstone Skate Park',
@@ -382,7 +382,7 @@ const parks: Park[] = [
     qualityRating: 4,
     skillLevels: ['Beginner', 'Intermediate', 'Advanced'],
     description: 'Full concrete skatepark and inline hockey rink at Cornerstone Park in Littleton, with bowls and street features serving south-metro riders.',
-    coordinates: [39.6206, -105.0106], // [lat, lng] approximate Belleview & Windermere
+    coordinates: [39.621804271186505, -105.00091983094093], // [lat, lng] approximate Belleview & Windermere
   },
   {
     name: 'Redstone Skate Park',
@@ -395,7 +395,7 @@ const parks: Park[] = [
     qualityRating: 4,
     skillLevels: ['Beginner', 'Intermediate', 'Advanced'],
     description: 'Outdoor concrete park in Redstone Park with bowl and street elements, primary skatepark serving Highlands Ranch and surrounding suburbs.',
-    coordinates: [39.5464, -105.0263], // [lat, lng] approximate Redstone Park Cir
+    coordinates: [39.54763797704579, -105.02818950000326], // [lat, lng] approximate Redstone Park Cir
   },
   {
     name: 'SNÖBAHN Action Sports Center',
@@ -408,7 +408,7 @@ const parks: Park[] = [
     qualityRating: 5,
     skillLevels: ['Beginner', 'Intermediate', 'Advanced'],
     description: 'Indoor action sports center with year-round skiing, snowboarding, bike and skate features, and trampolines. Great bad-weather option for progression sessions.',
-    coordinates: [39.953, -104.986], // [lat, lng] approximate for 14200 Lincoln St, Thornton
+    coordinates: [39.95378885637944, -104.98423755886438], // [lat, lng] approximate for 14200 Lincoln St, Thornton
   },
   {
     name: 'High Plains Pump Track',
@@ -421,7 +421,7 @@ const parks: Park[] = [
     qualityRating: 3,
     skillLevels: ['Beginner', 'Intermediate'],
     description: 'Neighborhood pump track at High Plains Park with mellow rollers and low berms, giving southeast Aurora riders a local place to lap.',
-    coordinates: [39.613, -104.694], // [lat, lng] approximate
+    coordinates: [39.8008005182916, -104.87252688250375], // [lat, lng] approximate
   },
   {
     name: 'Montbello Central Pump Track',
@@ -434,7 +434,7 @@ const parks: Park[] = [
     qualityRating: 3,
     skillLevels: ['Beginner', 'Intermediate'],
     description: 'Compact pump track at Montbello Central Park, adding a freestyle option on Denver’s far northeast side.',
-    coordinates: [39.780, -104.842], // [lat, lng] approximate
+    coordinates: [39.7859465565771, -104.82921009795255], // [lat, lng] approximate
   },
   {
     name: 'Via Varra Pump Track',
@@ -447,7 +447,7 @@ const parks: Park[] = [
     qualityRating: 3,
     skillLevels: ['Beginner', 'Intermediate'],
     description: 'Paved neighborhood pump track off Via Varra in Broomfield, serving riders along US‑36 between Denver and Boulder.',
-    coordinates: [39.920, -105.087], // [lat, lng] approximate
+    coordinates: [39.94701598990804, -105.12420417114396], // [lat, lng] approximate
   },
   {
     name: 'Superior Bike Park',
@@ -460,7 +460,7 @@ const parks: Park[] = [
     qualityRating: 4,
     skillLevels: ['Beginner', 'Intermediate', 'Advanced'],
     description: 'Dirt jump and skills park in Superior with progressive lines and small pump features, filling a freestyle gap between Denver and Boulder.',
-    coordinates: [39.936, -105.167], // [lat, lng] approximate
+    coordinates: [39.935917410569544, -105.14403175572266], // [lat, lng] approximate
   },
   {
     name: 'Mountain Shadows Bike Park & Pump Track',
@@ -473,7 +473,7 @@ const parks: Park[] = [
     qualityRating: 4,
     skillLevels: ['Beginner', 'Intermediate', 'Advanced'],
     description: 'Neighborhood bike park and pump track in the Mountain Shadows area of Colorado Springs, with views of the Front Range and a mix of rollers and jumps.',
-    coordinates: [38.930, -104.876], // [lat, lng] approximate
+    coordinates: [40.16459178036965, -104.94948138658627], // [lat, lng] approximate
   },
   {
     name: 'Sugar Beet Bike Park',
@@ -486,7 +486,7 @@ const parks: Park[] = [
     qualityRating: 5,
     skillLevels: ['Beginner', 'Intermediate', 'Advanced'],
     description: 'Modern neighborhood bike park in Sugar Beet Park, with jump lines and a small pump track that complement the larger Fort Collins bike parks.',
-    coordinates: [39.9715, -104.7640], // [lat, lng] approximate
+    coordinates: [39.97078718100292, -104.76466581551468], // [lat, lng] approximate
   },
   {
     name: 'Don Anema Memorial Skatepark',
@@ -499,7 +499,7 @@ const parks: Park[] = [
     qualityRating: 4,
     skillLevels: ['Beginner', 'Intermediate', 'Advanced'],
     description: 'Outdoor concrete skatepark honoring Don Anema, with bowls and street features serving riders in the Brighton area.',
-    coordinates: [39.987, -104.815], // [lat, lng] approximate
+    coordinates: [39.90822973230898, -104.9837432442758], // [lat, lng] approximate
   },
   {
     name: 'Thomas J. Slocum Memorial Skatepark',
@@ -512,7 +512,7 @@ const parks: Park[] = [
     qualityRating: 5,
     skillLevels: ['Beginner', 'Intermediate', 'Advanced'],
     description: '22,000 sq ft Team Pain–built park in Thornton with peanut bowl, street course, and modern features, completely rebuilt in a recent renovation.',
-    coordinates: [39.887, -104.956], // [lat, lng] approximate 2211 Eppinger Blvd
+    coordinates: [39.867728798765356, -104.95813305769727], // [lat, lng] approximate 2211 Eppinger Blvd
   },
   {
     name: 'Blue Skies Neighborhood Park',
@@ -525,7 +525,7 @@ const parks: Park[] = [
     qualityRating: 3,
     skillLevels: ['Intermediate', 'Advanced'],
     description: '11-acre park featuring a skate area themed around the history of flight. Suitable for intermediate to advanced riders with various features.',
-    coordinates: [40.170, -105.098], // [lat, lng] approximate 1520 Mountain Drive
+    coordinates: [40.14237202342511, -105.1724236980156], // [lat, lng] 1520 Mountain Drive
   },
   {
     name: 'Quail Campus Community Park',
@@ -538,7 +538,7 @@ const parks: Park[] = [
     qualityRating: 3,
     skillLevels: ['Beginner', 'Intermediate'],
     description: 'Skate park at Quail Campus Community Park designed for beginner to intermediate riders. Note: Currently closed for scheduled maintenance.',
-    coordinates: [40.165, -105.105], // [lat, lng] approximate 310 Quail Road
+    coordinates: [40.14586372689992, -105.10001027730533], // [lat, lng] 310 Quail Road
   },
   {
     name: 'Rough and Ready Neighborhood Park',
@@ -551,46 +551,46 @@ const parks: Park[] = [
     qualityRating: 2,
     skillLevels: ['Beginner'],
     description: 'Small skate park with basic rail features designed for beginners. Perfect for learning the fundamentals of park riding.',
-    coordinates: [40.163, -105.100], // [lat, lng] approximate 301 E 21st Ave
+    coordinates: [40.19506931223507, -105.088547855697], // [lat, lng] 301 E 21st Ave
   },
   {
     name: 'Sandstone Ranch Community Park',
     location: 'Longmont, CO',
     type: 'Skate Park',
-    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Sandstone+Ranch+Community+Park+Longmont+Colorado',
+    googleMapsUrl: 'https://maps.app.goo.gl/vYNYVSRsBYnWXidi7',
     size: 'Large',
     sizeRating: 4,
     quality: 'Excellent',
     qualityRating: 5,
     skillLevels: ['Intermediate', 'Advanced'],
     description: '17,700 sq ft lighted skate park with both street course and vert skating. One of the premier skate parks in the Longmont area with modern features.',
-    coordinates: [40.175, -105.095], // [lat, lng] approximate 3001 Colorado Highway 119
+    coordinates: [40.15982031197992, -105.04154824233038], // [lat, lng] 3001 Colorado Highway 119
   },
   {
-    name: 'Stephen Day Neighborhood Park',
+    name: 'Longmont BMX Park',
     location: 'Longmont, CO',
-    type: 'Skate Park',
-    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Stephen+Day+Neighborhood+Park+Longmont+Colorado',
+    type: 'BMX Track',
+    googleMapsUrl: 'https://maps.app.goo.gl/vYNYVSRsBYnWXidi7',
     size: 'Small',
     sizeRating: 2,
     quality: 'Good',
     qualityRating: 3,
     skillLevels: ['Beginner'],
     description: 'Neighborhood skate park suitable for beginners. Good for learning the basics of park riding in a friendly environment.',
-    coordinates: [40.168, -105.103], // [lat, lng] approximate 1340 Deerwood Drive
+    coordinates: [40.18322469573814, -105.06322557444402], // [lat, lng] 1340 Deerwood Drive
   },
   {
     name: 'Loveland Sports Park',
     location: 'Loveland, CO',
     type: 'Skate Park',
-    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Loveland+Sports+Park+skate+park+Loveland+Colorado',
+    googleMapsUrl: 'https://maps.app.goo.gl/RVnjurqoHs5PZTZ47',
     size: 'Medium',
     sizeRating: 3,
     quality: 'Good',
     qualityRating: 4,
     skillLevels: ['Beginner', 'Intermediate', 'Advanced'],
     description: 'Concrete skate park with various ramps and bowls suitable for different skill levels. Part of the larger Loveland Sports Park complex.',
-    coordinates: [40.400, -105.073], // [lat, lng] approximate 950 N. Boyd Lake Ave
+    coordinates: [40.402559488526485, -105.01758136227281], // [lat, lng] 950 N. Boyd Lake Ave
   },
   {
     name: 'Fairgrounds Park',
@@ -603,7 +603,7 @@ const parks: Park[] = [
     qualityRating: 3,
     skillLevels: ['Beginner', 'Intermediate'],
     description: 'Skate park at Fairgrounds Park with features suitable for beginners and intermediate riders. Part of a larger park with dog park, playgrounds, and spray park.',
-    coordinates: [40.395, -105.077], // [lat, lng] approximate 700 S. Railroad Avenue
+    coordinates: [40.38732278877799, -105.07714178158825], // [lat, lng] 700 S. Railroad Avenue
   },
   {
     name: 'Mehaffey Park',
@@ -616,7 +616,7 @@ const parks: Park[] = [
     qualityRating: 3,
     skillLevels: ['Beginner', 'Intermediate'],
     description: 'Skate park in the 64-acre Mehaffey Park complex. Features suitable for beginners and intermediate riders, along with dog park and adventure playground.',
-    coordinates: [40.402, -105.080], // [lat, lng] approximate 3350 W. 29th St
+    coordinates: [40.419199236428504, -105.12378824466703], // [lat, lng] 3350 W. 29th St
   },
 ];
 
