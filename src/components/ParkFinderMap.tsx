@@ -179,7 +179,7 @@ export default function ParkFinderMap({ parks }: ParkFinderMapProps) {
         element: container,
         anchor: 'center',
       })
-        .setLngLat(park.coordinates as [number, number])
+        .setLngLat([park.coordinates[1], park.coordinates[0]] as [number, number]) // Convert [lat, lng] to [lng, lat]
         .setPopup(popup)
         .addTo(map.current!);
 
