@@ -63,6 +63,15 @@ export default function ShopPage() {
         {/* Dark overlay to ensure text readability */}
         <div className="absolute inset-0 w-full h-full bg-black/50" />
       </div>
+      {/* Back Button - Mobile Only - Above Hero */}
+      <div className="relative z-10 container mx-auto px-4 pt-4 md:hidden">
+        <Link 
+          href="/"
+          className="inline-block bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
+        >
+          ← BACK TO HOME
+        </Link>
+      </div>
       {/* Hero Section with Logo and Shop Now Button */}
       <section className="relative z-10 flex flex-col justify-center items-center px-4 py-8 sm:py-12 md:py-16">
         <div className="text-center">
@@ -87,25 +96,90 @@ export default function ShopPage() {
       </section>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-12 md:py-16 max-w-6xl relative z-10">
-        {/* Back Button - Mobile Only */}
-        <Link 
-          href="/"
-          className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
-        >
-          ← BACK TO HOME
-        </Link>
-
+      <main className="container mx-auto px-4 py-0 md:py-0 max-w-6xl relative z-10">
         {/* Hero - Professional Punk */}
         <div className="text-center mb-12">
-          <div className="inline-block bg-black border-4 border-[#00ff0c] p-8 mb-6">
-            <h1 className="text-5xl md:text-7xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
-              SHOP
-            </h1>
-            <div className="h-2 bg-[#00ff0c]"></div>
-          </div>
         </div>
 
+        {/* Featured Products */}
+        <div className="mb-12">
+          <h2 className="text-4xl font-black text-[#00ff0c] mb-6 text-center">
+            FEATURED ITEMS
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* BMX Sweatshirt */}
+            <a
+              href="https://store.bmxdenver.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group bg-black border-4 border-[#00ff0c] hover:border-white transition-all overflow-hidden transform hover:scale-105 cursor-pointer"
+            >
+              <div className="relative w-full aspect-square overflow-hidden">
+                <Image
+                  src="/BMX_sweatshirt.jpg"
+                  alt="BMX Crewneck Sweatshirt - Retro 3D BMX Rider Graphic"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-300"
+                  unoptimized
+                />
+              </div>
+            </a>
+
+            {/* BMX Denver Hoodie */}
+            <a
+              href="https://store.bmxdenver.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group bg-black border-4 border-[#00ff0c] hover:border-white transition-all overflow-hidden transform hover:scale-105 cursor-pointer"
+            >
+              <div className="relative w-full aspect-square overflow-hidden">
+                <Image
+                  src="/bmx-denver-hoodie-mountain-gear-logo-fleece-pullover.jpg"
+                  alt="BMX Denver Hoodie - Mountain Gear Logo Fleece Pullover"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-300"
+                  unoptimized
+                />
+              </div>
+            </a>
+
+            {/* DEN BMX T-Shirt */}
+            <a
+              href="https://store.bmxdenver.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group bg-black border-4 border-[#00ff0c] hover:border-white transition-all overflow-hidden transform hover:scale-105 cursor-pointer"
+            >
+              <div className="relative w-full aspect-square overflow-hidden">
+                <Image
+                  src="/DEN_BMX_tshirt.jpg"
+                  alt="DEN BMX T-Shirt - Color Splash Graphic Tee"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-300"
+                  unoptimized
+                />
+              </div>
+            </a>
+
+            {/* Send It Kid Tee */}
+            <a
+              href="https://store.bmxdenver.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group bg-black border-4 border-[#00ff0c] hover:border-white transition-all overflow-hidden transform hover:scale-105 cursor-pointer"
+            >
+              <div className="relative w-full aspect-square overflow-hidden">
+                <Image
+                  src="/sendit_kid.jpg"
+                  alt="Toddler Tee - Neon SEND IT Skate Skull Shirt"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-300"
+                  unoptimized
+                />
+              </div>
+            </a>
+          </div>
+        </div>
         {/* Store Info Card */}
         <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 md:p-8 mb-12 backdrop-blur-sm">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-4">
@@ -119,6 +193,7 @@ export default function ShopPage() {
             T-shirts, hats, stickers, and more!
           </p>
         </div>
+
       </main>
 
       <Footer />
