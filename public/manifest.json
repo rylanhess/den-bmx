@@ -1,7 +1,7 @@
 {
-  "name": "DEN BMX - Denver Metro BMX Racing",
+  "name": "Denver BMX",
   "short_name": "DEN BMX",
-  "description": "Your unified calendar for Mile High, Dacono, and County Line BMX tracks. Never miss a race day or practice session in Denver.",
+  "description": "Your hub for all things BMX in Denver. Find racing tracks, freestyle parks, events, and everything you need for BMX racing and freestyle riding in the Denver metro area.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",

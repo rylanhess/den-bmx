@@ -22,8 +22,8 @@ export const metadata: Metadata = {
     template: "%s - BMX Denver",
   },
   description:
-    "Your unified calendar for Mile High, Dacono, and County Line BMX tracks. Never miss a race day or practice session in Denver.",
-  metadataBase: new URL('https://denverbmx.com'),
+    "Your hub for all things BMX in Denver. Find racing tracks, freestyle parks, events, and everything you need for BMX racing and freestyle riding in the Denver metro area.",
+  metadataBase: new URL('https://bmxdenver.com'),
   manifest: '/manifest.json',
   themeColor: '#00ff0c',
   viewport: {
@@ -42,16 +42,16 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: "DEN BMX - Denver Metro BMX Racing",
-    description: "🏁 Your unified calendar for Mile High, Dacono, and County Line BMX tracks. Never miss a race! 🚴",
-    url: 'https://denverbmx.com',
-    siteName: 'DEN BMX',
+    title: "Denver BMX",
+    description: "Your hub for all things BMX in Denver. Find racing tracks, freestyle parks, events, and everything you need for BMX racing and freestyle riding. 🚴",
+    url: 'https://bmxdenver.com',
+    siteName: 'Denver BMX',
     images: [
       {
         url: '/DENBMX-og.png',
-        width: 1200,
-        height: 630,
-        alt: 'DEN BMX - Denver Metro BMX Racing Calendar',
+        width: 784,
+        height: 472,
+        alt: 'Official Denver BMX',
       },
     ],
     locale: 'en_US',
@@ -59,8 +59,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "DEN BMX - Denver Metro BMX Racing",
-    description: "🏁 Your unified calendar for Mile High, Dacono, and County Line BMX tracks. Never miss a race! 🚴",
+    title: "DEN BMX - Denver Metro BMX",
+    description: "Your hub for all things BMX in Denver. Find racing tracks, freestyle parks, events, and everything you need for BMX racing and freestyle riding. 🚴",
     images: ['/DENBMX-og.png'],
   },
   icons: {
