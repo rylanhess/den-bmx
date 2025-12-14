@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     siteName: 'Denver BMX',
     images: [
       {
-        url: '/DENBMX-og.png',
+        url: '/DENBMX-og.png?v=2',
         width: 784,
         height: 472,
         alt: 'Official Denver BMX',
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "DEN BMX - Denver Metro BMX",
     description: "Your hub for all things BMX in Denver. Find racing tracks, freestyle parks, events, and everything you need for BMX racing and freestyle riding. 🚴",
-    images: ['/DENBMX-og.png'],
+    images: ['/DENBMX-og.png?v=2'],
   },
   icons: {
     icon: [
