@@ -70,32 +70,70 @@ const TracksShowcase = () => {
           <Link
             key={track.id}
             href="/tracks"
-            className="bg-black border-4 border-[#00ff0c] active:border-white p-4 sm:p-6 transform active:scale-95 transition-all group min-h-[180px] sm:min-h-[200px] flex flex-col justify-center items-center"
+            className="bg-black border-4 border-[#00ff0c] active:border-white overflow-hidden transform active:scale-95 transition-all group relative h-[280px] sm:h-[320px] md:h-[360px]"
           >
-            {/* Logo - Fixed circular container */}
-            {track.logo && (
-              <div className="w-24 h-24 bg-white rounded-full mx-auto mb-4 flex items-center justify-center border-4 border-[#00ff0c] group-hover:border-white transition-colors overflow-hidden p-3">
+            {/* Wallpaper/Header Image */}
+            {track.wallpaper ? (
+              <div className="relative h-full w-full overflow-hidden">
                 <Image 
-                  src={track.logo} 
-                  alt={`${track.name} logo`}
-                  width={96}
-                  height={96}
-                  className="object-contain"
+                  src={track.wallpaper} 
+                  alt={`${track.name} wallpaper`}
+                  fill
+                  className="object-cover"
+                  style={track.slug === 'dacono-bmx' ? { objectPosition: 'center 66%' } : undefined}
                   unoptimized
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                
+                {/* Logo overlay - Fixed circular container */}
+                {track.logo && (
+                  <div className="absolute top-4 left-4 w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full shadow-xl border-4 border-[#00ff0c] group-hover:border-white transition-colors overflow-hidden flex items-center justify-center p-2">
+                    <Image 
+                      src={track.logo} 
+                      alt={`${track.name} logo`}
+                      width={80}
+                      height={80}
+                      className="object-contain"
+                      unoptimized
+                    />
+                  </div>
+                )}
+                
+                {/* Track Name and Location - Bottom overlay */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
+                  <h3 className="text-xl sm:text-2xl font-black text-[#00ff0c] group-hover:text-white text-center transition-colors mb-2">
+                    {track.name}
+                  </h3>
+                  <p className="text-white font-bold text-center flex items-center justify-center gap-1 text-sm sm:text-base">
+                    <MapPinIcon className="w-4 h-4" />
+                    {track.city}
+                  </p>
+                </div>
+              </div>
+            ) : (
+              /* Fallback when no wallpaper - show logo centered */
+              <div className="p-4 sm:p-6 flex flex-col justify-center items-center min-h-[200px] sm:min-h-[240px]">
+                {track.logo && (
+                  <div className="w-24 h-24 bg-white rounded-full mx-auto mb-4 flex items-center justify-center border-4 border-[#00ff0c] group-hover:border-white transition-colors overflow-hidden p-3">
+                    <Image 
+                      src={track.logo} 
+                      alt={`${track.name} logo`}
+                      width={96}
+                      height={96}
+                      className="object-contain"
+                      unoptimized
+                    />
+                  </div>
+                )}
+                <h3 className="text-xl font-black text-[#00ff0c] group-hover:text-white text-center transition-colors">
+                  {track.name}
+                </h3>
+                <p className="text-white font-bold text-center mt-2 flex items-center justify-center gap-1">
+                  <MapPinIcon className="w-4 h-4" />
+                  {track.city}
+                </p>
               </div>
             )}
-            
-            {/* Track Name */}
-            <h3 className="text-xl font-black text-[#00ff0c] group-hover:text-white text-center transition-colors">
-              {track.name}
-            </h3>
-            
-            {/* Location */}
-            <p className="text-white font-bold text-center mt-2 flex items-center justify-center gap-1">
-              <MapPinIcon className="w-4 h-4" />
-              {track.city}
-            </p>
           </Link>
         ))}
       </div>
