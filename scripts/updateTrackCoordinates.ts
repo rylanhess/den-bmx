@@ -69,11 +69,17 @@ async function updateCoordinates() {
 
     for (const track of trackCoordinates) {
       // Check if track exists
-      const { data: existingTrack } = await supabase
+      const { data: existingTrack, error: fetchError } = await supabase
         .from('tracks')
         .select('id, name, lat, lon')
         .eq('slug', track.slug)
-        .single();
+        .maybeSingle();
+
+      if (fetchError) {
+        console.error(`Error checking for track ${track.name}:`, fetchError.message);
+        errors++;
+        continue;
+      }
 
       if (!existingTrack) {
         console.log(`⚠️  Track not found: ${track.name} (${track.slug})`);

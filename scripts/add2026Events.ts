@@ -82,15 +82,48 @@ function extractCity(trackName: string): string {
 
 /**
  * Create ISO timestamp for a date in Denver timezone
+ * Properly handles daylight saving time (DST)
+ * Colorado observes DST: UTC-7 (MST) in winter, UTC-6 (MDT) in summer
+ * DST typically runs from second Sunday in March to first Sunday in November
  */
 function createDenverTimestamp(year: number, month: number, day: number, hour: number = 0, minute: number = 0): string {
-  // Create date string in ISO format
+  // Create a date string in ISO format (this will be interpreted as local time by Date constructor)
   const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}T${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:00`;
   
-  // Create date object assuming Denver timezone
-  const date = new Date(`${dateStr}-07:00`); // Mountain Time UTC-7 (or UTC-6 for DST, but we'll use -7 as base)
+  // Create a test date to determine the timezone offset for Denver at this specific date
+  // We'll create it as UTC first, then see what Denver time it represents
+  const testUtc = new Date(Date.UTC(year, month - 1, day, 12, 0, 0)); // Use noon to avoid DST transition edge cases
   
-  return date.toISOString();
+  // Get what this UTC time represents in Denver
+  const denverTimeStr = testUtc.toLocaleString('en-US', {
+    timeZone: 'America/Denver',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  });
+  
+  // Parse Denver time string: "MM/DD/YYYY, HH:mm:ss"
+  const [datePart, timePart] = denverTimeStr.split(', ');
+  const [m, d, y] = datePart.split('/').map(Number);
+  const [h, min] = timePart.split(':').map(Number);
+  
+  // Create a date representing what Denver thinks the UTC time is
+  const denverAsUtc = new Date(Date.UTC(y, m - 1, d, h, min, 0));
+  
+  // Calculate offset: difference between actual UTC and Denver's interpretation
+  const offsetMs = testUtc.getTime() - denverAsUtc.getTime();
+  
+  // Now create the target date/time as UTC
+  const targetUtc = new Date(Date.UTC(year, month - 1, day, hour, minute, 0));
+  
+  // Apply the offset to get the correct UTC time that represents our desired Denver local time
+  const correctUtc = new Date(targetUtc.getTime() - offsetMs);
+  
+  return correctUtc.toISOString();
 }
 
 /**
@@ -320,4 +353,3 @@ if (require.main === module) {
 }
 
 export { addEvents, get2026Events };
-

@@ -384,11 +384,17 @@ async function addParks() {
       const city = extractCity(park.location);
 
       // Check if track already exists
-      const { data: existingTrack } = await supabase
+      const { data: existingTrack, error: fetchError } = await supabase
         .from('tracks')
         .select('id, name')
         .eq('slug', slug)
-        .single();
+        .maybeSingle();
+
+      if (fetchError) {
+        console.error(`Error checking for track ${park.name}:`, fetchError.message);
+        errors++;
+        continue;
+      }
 
       if (existingTrack) {
         console.log(`⏭️  Skipped (already exists): ${park.name}`);
