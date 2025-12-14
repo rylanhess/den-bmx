@@ -112,7 +112,7 @@ const TracksShowcase = () => {
               </div>
             ) : (
               /* Fallback when no wallpaper - show logo centered */
-              <div className="p-4 sm:p-6 flex flex-col justify-center items-center min-h-[200px] sm:min-h-[240px]">
+              <div className="h-full w-full p-4 sm:p-6 flex flex-col justify-center items-center">
                 {track.logo && (
                   <div className="w-24 h-24 bg-white rounded-full mx-auto mb-4 flex items-center justify-center border-4 border-[#00ff0c] group-hover:border-white transition-colors overflow-hidden p-3">
                     <Image 
