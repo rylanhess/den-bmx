@@ -133,8 +133,8 @@ export default function ServiceWorkerRegistration() {
             };
             
             // Listen for service worker updates
-            registration.addEventListener('updatefound', () => {
-              const newWorker = registration.installing;
+            reg.addEventListener('updatefound', () => {
+              const newWorker = reg.installing;
               if (newWorker) {
                 newWorker.addEventListener('statechange', () => {
                   if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
@@ -163,8 +163,8 @@ export default function ServiceWorkerRegistration() {
             // This reduces unnecessary checks and potential reloads
             updateCheckInterval = setInterval(() => {
               // Only check for updates if user is not actively interacting
-              if (!isUserActive() && registration) {
-                registration.update();
+              if (!isUserActive()) {
+                reg.update();
               }
             }, 30 * 60 * 1000); // 30 minutes
 
@@ -176,8 +176,8 @@ export default function ServiceWorkerRegistration() {
                 if (now - lastVisibilityCheck > 5 * 60 * 1000) {
                   lastVisibilityCheck = now;
                   // Only check if user is not actively interacting
-                  if (!isUserActive() && registration) {
-                    registration.update();
+                  if (!isUserActive()) {
+                    reg.update();
                   }
                 }
               }
