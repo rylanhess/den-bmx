@@ -1,11 +1,24 @@
 /**
  * Tracks API Endpoint
  * 
- * GET /api/tracks - Fetch all tracks with their logos and wallpapers
+ * GET /api/tracks - Fetch Denver-area BMX race tracks only
+ * Only returns the 4 main Denver metro BMX race tracks:
+ * - Mile High BMX
+ * - Dacono BMX
+ * - County Line BMX
+ * - Twin Silo BMX
  */
 
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
+
+// Denver-area BMX race tracks (only these should appear on the Tracks page)
+const DENVER_AREA_BMX_TRACKS = [
+  'mile-high-bmx',
+  'dacono-bmx',
+  'county-line-bmx',
+  'twin-silo-bmx',
+];
 
 // Track priority order for consistent sorting
 const TRACK_PRIORITY: Record<string, number> = {
@@ -20,6 +33,7 @@ export async function GET() {
     const { data: tracks, error } = await supabase
       .from('tracks')
       .select('*')
+      .in('slug', DENVER_AREA_BMX_TRACKS)
       .order('name', { ascending: true });
     
     if (error) {

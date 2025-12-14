@@ -1,7 +1,7 @@
 /**
- * This Week's Events Component
+ * Upcoming Events Component
  * 
- * Displays upcoming events from all tracks
+ * Displays the next 5 upcoming events from all tracks
  */
 
 'use client';
@@ -11,8 +11,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { Event } from '@/lib/supabase';
 
-// Mobile limit for events display
-const MOBILE_EVENT_LIMIT = 3;
+// Maximum number of events to display
+const MAX_EVENTS = 5;
 
 interface EventsData {
   events: (Event & { track: { name: string; city: string; slug: string } })[];
@@ -26,7 +26,8 @@ const ThisWeeksEvents = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch('/api/events?days=7');
+        // Fetch events for the next 180 days to ensure we get at least 5 events
+        const response = await fetch('/api/events?days=180');
         if (!response.ok) {
           throw new Error('Failed to fetch events');
         }
@@ -46,7 +47,8 @@ const ThisWeeksEvents = () => {
           return denverEventDate >= denverNow;
         });
         
-        setEvents(upcomingEvents);
+        // Limit to the next 5 events
+        setEvents(upcomingEvents.slice(0, MAX_EVENTS));
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Unknown error');
       } finally {
@@ -149,7 +151,7 @@ const ThisWeeksEvents = () => {
     return (
       <div className="max-w-4xl mx-auto mb-12">
         <div className="flex items-baseline gap-3 mb-6">
-          <h2 className="text-3xl font-bold text-white">This Week&apos;s Events</h2>
+          <h2 className="text-3xl font-bold text-white">Upcoming Events</h2>
           <Link 
             href="/calendar"
             className="text-[#00ff0c] hover:text-white text-sm sm:text-base font-medium transition-colors"
@@ -172,7 +174,7 @@ const ThisWeeksEvents = () => {
     <div className="max-w-4xl mx-auto mb-8 sm:mb-12">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6 gap-2">
         <div className="flex items-baseline gap-3">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white">This Week&apos;s Events</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white">Upcoming Events</h2>
           <Link 
             href="/calendar"
             className="text-[#00ff0c] hover:text-white text-sm sm:text-base font-medium transition-colors"
@@ -189,14 +191,14 @@ const ThisWeeksEvents = () => {
 
       {noEvents ? (
         <div className="bg-black rounded-lg p-12 text-center border border-[#00ff0c]">
-          <p className="text-white text-lg">No upcoming events this week</p>
+          <p className="text-white text-lg">No upcoming events</p>
           <p className="text-white/60 text-sm mt-2">Check back soon for updates from the tracks!</p>
         </div>
       ) : (
         <>
-        {/* Mobile: Show limited events */}
+        {/* Mobile: Show all events (up to MAX_EVENTS) */}
         <div className="md:hidden space-y-3">
-          {events.slice(0, MOBILE_EVENT_LIMIT).map((event) => (
+          {events.map((event) => (
             <article
               key={event.id}
               className="bg-black rounded-lg border border-[#00ff0c] hover:border-white transition-colors overflow-hidden"
@@ -302,19 +304,9 @@ const ThisWeeksEvents = () => {
               </div>
             </article>
           ))}
-          
-          {/* See More button - only show if there are more events */}
-          {events.length > MOBILE_EVENT_LIMIT && (
-            <Link 
-              href="/calendar"
-              className="block w-full bg-[#00ff0c] text-black font-black py-4 px-6 text-center text-lg active:scale-95 transition-transform border-4 border-[#00ff0c] hover:bg-black hover:text-[#00ff0c]"
-            >
-              SEE {events.length - MOBILE_EVENT_LIMIT} MORE EVENT{events.length - MOBILE_EVENT_LIMIT > 1 ? 'S' : ''} →
-            </Link>
-          )}
         </div>
 
-        {/* Desktop: Show all events */}
+        {/* Desktop: Show all events (up to MAX_EVENTS) */}
         <div className="hidden md:block space-y-3">
           {events.map((event) => (
             <article

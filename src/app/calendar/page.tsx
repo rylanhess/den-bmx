@@ -61,8 +61,21 @@ export default function CalendarPage() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        // Fetch events for a wider range (90 days) to populate the calendar
-        const response = await fetch('/api/events?days=90');
+        // Calculate how many days to fetch based on the current view date
+        // Fetch enough events to cover the visible month plus buffer
+        const now = new Date();
+        const viewDate = currentDate;
+        
+        // Calculate days from today to the end of the viewed month
+        const year = viewDate.getFullYear();
+        const month = viewDate.getMonth();
+        const lastDayOfMonth = new Date(year, month + 1, 0);
+        const daysFromToday = Math.ceil((lastDayOfMonth.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+        
+        // Fetch at least 365 days to cover all of 2026, or enough to cover the viewed month
+        const daysToFetch = Math.max(365, daysFromToday + 30); // Add 30 day buffer
+        
+        const response = await fetch(`/api/events?days=${daysToFetch}`);
         if (!response.ok) {
           throw new Error('Failed to fetch events');
         }
@@ -94,7 +107,7 @@ export default function CalendarPage() {
     };
 
     fetchEvents();
-  }, []);
+  }, [currentDate]);
 
   const { defaultDate, scrollToTime } = useMemo(
     () => ({

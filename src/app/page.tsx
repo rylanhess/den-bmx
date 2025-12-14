@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import ThisWeeksEvents from '@/components/ThisWeeksEvents';
 import TracksShowcase from '@/components/TracksShowcase';
+import BMXRacingExplainer from '@/components/BMXRacingExplainer';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
 import { 
@@ -77,6 +78,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* BMX Racing Explainer */}
+      <BMXRacingExplainer />
 
       {/* Main Content */}
       <main className="container mx-auto py-4 px-4 sm:px-6 pb-24 sm:pb-28 relative z-10">

@@ -39,7 +39,7 @@ const TracksShowcase = () => {
     return (
       <div className="max-w-6xl mx-auto mb-12">
         <h2 className="text-4xl font-black text-[#00ff0c] text-center mb-8 bg-black px-6 py-3 inline-block border-4 border-[#00ff0c]">
-          OUR TRACKS
+          DENVER AREA TRACKS
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[1, 2, 3].map((i) => (
@@ -61,7 +61,7 @@ const TracksShowcase = () => {
     <div className="max-w-6xl mx-auto mb-8 sm:mb-12">
       <div className="text-center mb-6 sm:mb-8">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#00ff0c] bg-black px-4 sm:px-6 py-2 sm:py-3 inline-block border-4 border-[#00ff0c]">
-          OUR TRACKS
+          DENVER AREA TRACKS
         </h2>
       </div>
       

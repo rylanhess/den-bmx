@@ -50,6 +50,13 @@ export async function GET(request: Request) {
     const futureDate = new Date(denverNow);
     futureDate.setDate(futureDate.getDate() + days);
     
+    // For large day ranges (like 365+), ensure we don't hit any limits
+    // Cap at a reasonable maximum (2 years) to prevent performance issues
+    const maxDays = 730; // 2 years
+    const effectiveDays = Math.min(days, maxDays);
+    const effectiveFutureDate = new Date(denverNow);
+    effectiveFutureDate.setDate(effectiveFutureDate.getDate() + effectiveDays);
+    
     // Build query
     let query = supabase
       .from('events')
@@ -58,7 +65,7 @@ export async function GET(request: Request) {
         track:tracks(*)
       `)
       .gte('start_at', denverNow.toISOString())
-      .lte('start_at', futureDate.toISOString())
+      .lte('start_at', effectiveFutureDate.toISOString())
       .in('status', ['scheduled', 'updated'])
       .order('start_at', { ascending: true });
     
