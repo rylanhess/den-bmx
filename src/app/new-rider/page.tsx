@@ -38,13 +38,13 @@ export default function NewRiderPage() {
         {/* Back Button - Mobile Only */}
         <Link 
           href="/"
-          className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
+          className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] rounded-xl active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
         >
           ← BACK TO HOME
         </Link>
         {/* Hero - Professional Punk */}
         <div className="text-center mb-12">
-          <div className="inline-block bg-black border-4 border-[#00ff0c] p-8 mb-6">
+          <div className="inline-block bg-black border-4 border-[#00ff0c] rounded-xl p-8 mb-6">
             <h1 className="text-5xl md:text-7xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
               NEW RIDERS
             </h1>
@@ -53,7 +53,7 @@ export default function NewRiderPage() {
         </div>
 
         {/* Quick Start Card */}
-        <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 md:p-8 mb-12 backdrop-blur-sm">
+        <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 md:p-8 mb-12 backdrop-blur-sm">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-4">
             YOUR FIRST DAY IS FREE
           </h2>
@@ -65,7 +65,7 @@ export default function NewRiderPage() {
         {/* Main Content Sections */}
         <div className="space-y-8">
           {/* USA BMX Membership */}
-          <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
+          <section className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6">
               USA BMX MEMBERSHIP
             </h2>
@@ -73,7 +73,7 @@ export default function NewRiderPage() {
               <p className="text-white text-xl font-bold">
                 After your FREE first day, you&apos;ll need a <span className="text-[#00ff0c] text-2xl">USA BMX MEMBERSHIP</span> to keep racing. Memberships are ANNUAL and give you access to ALL USA BMX tracks NATIONWIDE.
               </p>
-              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 space-y-3 backdrop-blur-sm">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 space-y-3 backdrop-blur-sm">
                 <p className="font-black text-[#00ff0c] text-2xl">MEMBERSHIP TYPES & PRICES:</p>
                 <ul className="space-y-3 ml-4 text-white font-bold text-lg">
                   <li className="border-l-4 border-[#00ff0c] pl-3"><strong className="text-[#00ff0c]">Race (Annual):</strong> ~$60 - Full racing privileges</li>
@@ -96,12 +96,12 @@ export default function NewRiderPage() {
           </section>
 
           {/* What to Bring */}
-          <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
+          <section className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6">
               WHAT TO BRING
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 backdrop-blur-sm">
                 <h3 className="text-2xl font-black text-[#00ff0c] mb-4">REQUIRED GEAR</h3>
                 <ul className="space-y-3 text-white font-bold text-lg">
                   <li className="border-l-4 border-[#00ff0c] pl-3">
@@ -121,7 +121,7 @@ export default function NewRiderPage() {
                   Most tracks have loaner helmets
                 </p>
               </div>
-              <div className="bg-gray-800/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+              <div className="bg-gray-800/90 border-4 border-[#00ff0c] rounded-xl p-6 backdrop-blur-sm">
                 <h3 className="text-2xl font-black text-[#00ff0c] mb-4">+ RECOMMENDED</h3>
                 <ul className="space-y-3 text-white font-bold text-lg">
                   <li className="border-l-4 border-[#00ff0c] pl-3">
@@ -145,7 +145,7 @@ export default function NewRiderPage() {
           </section>
 
           {/* Strider Riders */}
-          <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
+          <section className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6">
               STRIDER RIDERS (AGES 2-5)
             </h2>
@@ -153,7 +153,7 @@ export default function NewRiderPage() {
               <p className="text-white text-xl font-bold">
                 <span className="text-[#00ff0c] text-2xl">STRIDER RACES</span> are for YOUNG KIDS on balance bikes (no pedals). Races are 25-50 feet long and are FUN, LOW-PRESSURE intro to BMX.
               </p>
-              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 space-y-3 backdrop-blur-sm">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 space-y-3 backdrop-blur-sm">
                 <p className="font-black text-[#00ff0c] text-2xl">WHAT TO KNOW:</p>
                 <ul className="space-y-2 ml-4 text-white font-bold text-lg">
                   <li className="border-l-4 border-[#00ff0c] pl-3">Races are SHORT & NON-COMPETITIVE - ALL ABOUT FUN</li>
@@ -178,18 +178,18 @@ export default function NewRiderPage() {
           </section>
 
           {/* How Racing Works */}
-          <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
+          <section className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6">
               HOW BMX RACING WORKS
             </h2>
             <div className="space-y-6">
-              <div className="bg-gray-800/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+              <div className="bg-gray-800/90 border-4 border-[#00ff0c] rounded-xl p-6 backdrop-blur-sm">
                 <h3 className="text-2xl font-black text-[#00ff0c] mb-3">RACE FORMAT</h3>
                 <p className="leading-relaxed mb-3 text-white font-bold text-lg">
                   BMX races are SHORT, INTENSE SPRINTS around a dirt track with JUMPS, BERMS, and STRAIGHTAWAYS. 
                   Races last 30-45 seconds with 8 riders at a time.
                 </p>
-                <div className="bg-black border-4 border-[#00ff0c] p-4">
+                <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-4">
                   <ol className="space-y-2 ml-4 list-decimal text-[#00ff0c] font-bold">
                     <li><strong>MOTOS (Qualifying):</strong> Race 3 times against different riders</li>
                     <li><strong>POINTS:</strong> 1st = 1pt, 2nd = 2pts, etc</li>
@@ -200,7 +200,7 @@ export default function NewRiderPage() {
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+                <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 backdrop-blur-sm">
                   <p className="font-black text-[#00ff0c] text-xl mb-3">AGE GROUPS</p>
                   <ul className="space-y-1 text-white font-bold">
                     <li>• Strider (2-5)</li>
@@ -210,7 +210,7 @@ export default function NewRiderPage() {
                     <li>• Masters classes (36+)</li>
                   </ul>
                 </div>
-                <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+                <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 backdrop-blur-sm">
                   <p className="font-black text-[#00ff0c] text-xl mb-3">SKILL LEVELS</p>
                   <ul className="space-y-1 text-white font-bold">
                     <li>• <strong className="text-[#00ff0c]">NOVICE:</strong> 0-50 pts (beginners)</li>
@@ -222,13 +222,13 @@ export default function NewRiderPage() {
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+                <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 backdrop-blur-sm">
                   <p className="font-black text-[#00ff0c] text-xl mb-2">PRACTICE NIGHT</p>
                   <p className="text-white font-bold">
                     Weekday evenings • Lap the track 1-2 hours • Learn & build skills • $5-10
                   </p>
                 </div>
-                <div className="bg-gray-800/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+                <div className="bg-gray-800/90 border-4 border-[#00ff0c] rounded-xl p-6 backdrop-blur-sm">
                   <p className="font-black text-[#00ff0c] text-xl mb-2">RACE DAY</p>
                   <p className="text-white font-bold">
                     Usually Sundays • Motos & main events • Register 1-2hrs before • $15-25
@@ -239,13 +239,13 @@ export default function NewRiderPage() {
           </section>
 
           {/* Track-Specific Info */}
-          <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
+          <section className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6">
               DENVER METRO TRACKS
             </h2>
             <div className="space-y-6">
               {/* Mile High BMX */}
-              <div className="bg-gray-800/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+              <div className="bg-gray-800/90 border-4 border-[#00ff0c] rounded-xl p-6 backdrop-blur-sm">
                 <h3 className="text-3xl font-black text-[#00ff0c] mb-2">MILE HIGH BMX</h3>
                 <p className="text-white font-black text-xl mb-3">Lakewood, CO</p>
                 <div className="space-y-2 text-white font-bold">
@@ -256,7 +256,7 @@ export default function NewRiderPage() {
                     href="https://www.facebook.com/MileHighBmx/" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-black text-[#00ff0c] px-4 py-2 border-4 border-[#00ff0c] font-black hover:bg-[#00ff0c] hover:text-black transition-colors mt-2"
+                    className="inline-flex items-center gap-2 bg-black text-[#00ff0c] px-4 py-2 border-4 border-[#00ff0c] rounded-xl font-black hover:bg-[#00ff0c] hover:text-black transition-colors mt-2"
                   >
                     <LinkIcon className="w-5 h-5" /> FACEBOOK
                   </a>
@@ -264,7 +264,7 @@ export default function NewRiderPage() {
               </div>
 
               {/* Dacono BMX */}
-              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 backdrop-blur-sm">
                 <h3 className="text-3xl font-black text-[#00ff0c] mb-2">DACONO BMX</h3>
                 <p className="text-white font-black text-xl mb-3">Dacono, CO</p>
                 <div className="space-y-2 text-white font-bold">
@@ -275,7 +275,7 @@ export default function NewRiderPage() {
                     href="https://www.facebook.com/DaconoBMXTrack/" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-black text-[#00ff0c] px-4 py-2 border-4 border-[#00ff0c] font-black hover:bg-[#00ff0c] hover:text-black transition-colors mt-2"
+                    className="inline-flex items-center gap-2 bg-black text-[#00ff0c] px-4 py-2 border-4 border-[#00ff0c] rounded-xl font-black hover:bg-[#00ff0c] hover:text-black transition-colors mt-2"
                   >
                     <LinkIcon className="w-5 h-5" /> FACEBOOK
                   </a>
@@ -283,7 +283,7 @@ export default function NewRiderPage() {
               </div>
 
               {/* County Line BMX */}
-              <div className="bg-gray-800/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+              <div className="bg-gray-800/90 border-4 border-[#00ff0c] rounded-xl p-6 backdrop-blur-sm">
                 <h3 className="text-3xl font-black text-[#00ff0c] mb-2">COUNTY LINE BMX</h3>
                 <p className="text-white font-black text-xl mb-3">Highlands Ranch, CO</p>
                 <div className="space-y-2 text-white font-bold">
@@ -294,14 +294,14 @@ export default function NewRiderPage() {
                     href="https://www.facebook.com/CountyLineBMX/" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-black text-[#00ff0c] px-4 py-2 border-4 border-[#00ff0c] font-black hover:bg-[#00ff0c] hover:text-black transition-colors mt-2"
+                    className="inline-flex items-center gap-2 bg-black text-[#00ff0c] px-4 py-2 border-4 border-[#00ff0c] rounded-xl font-black hover:bg-[#00ff0c] hover:text-black transition-colors mt-2"
                   >
                     <LinkIcon className="w-5 h-5" /> FACEBOOK
                   </a>
                 </div>
               </div>
 
-              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-4 mt-4 backdrop-blur-sm">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-4 mt-4 backdrop-blur-sm">
                 <p className="text-white font-black">
                   IMPORTANT: Schedules & fees CAN change. ALWAYS check track Facebook before visiting. Weather affects schedules.
                 </p>
@@ -310,28 +310,28 @@ export default function NewRiderPage() {
           </section>
 
           {/* FAQs */}
-          <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
+          <section className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6">
               FAQS
             </h2>
             <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-4 backdrop-blur-sm">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-black text-[#00ff0c] mb-2">NEED YOUR OWN BIKE?</h3>
                 <p className="text-white font-bold">YES. Some tracks have loaners. Find used bikes on Facebook/Craigslist.</p>
               </div>
-              <div className="bg-gray-800/90 border-4 border-[#00ff0c] p-4 backdrop-blur-sm">
+              <div className="bg-gray-800/90 border-4 border-[#00ff0c] rounded-xl p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-black text-[#00ff0c] mb-2">WHAT AGE TO START?</h3>
                 <p className="text-white font-bold">Kids as young as 2. No upper limit - adults race too.</p>
               </div>
-              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-4 backdrop-blur-sm">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-black text-[#00ff0c] mb-2">IS IT DANGEROUS?</h3>
                 <p className="text-white font-bold">Has risks like any sport, but SAFE with proper gear. Start slow.</p>
               </div>
-              <div className="bg-gray-800/90 border-4 border-[#00ff0c] p-4 backdrop-blur-sm">
+              <div className="bg-gray-800/90 border-4 border-[#00ff0c] rounded-xl p-4 backdrop-blur-sm">
                 <h3 className="text-lg font-black text-[#00ff0c] mb-2">HOW MUCH $$$?</h3>
                 <p className="text-white font-bold">Bike $150-300, helmet $50-100, gear $50. Then $60/year + $5-25/week.</p>
               </div>
-              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-4 md:col-span-2 backdrop-blur-sm">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-4 md:col-span-2 backdrop-blur-sm">
                 <h3 className="text-lg font-black text-[#00ff0c] mb-2">NEED TO JUMP?</h3>
                 <p className="text-white font-bold">NO. Beginners can ROLL over jumps. You&apos;ll learn naturally.</p>
               </div>
@@ -339,7 +339,7 @@ export default function NewRiderPage() {
           </section>
 
           {/* Resources */}
-          <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
+          <section className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6">
               HELPFUL RESOURCES
             </h2>
@@ -348,7 +348,7 @@ export default function NewRiderPage() {
                 href="https://www.usabmx.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-6 bg-gray-900/90 border-4 border-[#00ff0c] hover:bg-gray-800/90 transition-colors backdrop-blur-sm"
+                className="flex items-center justify-between p-6 bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl hover:bg-gray-800/90 transition-colors backdrop-blur-sm"
               >
                 <div>
                   <p className="font-black text-[#00ff0c] text-xl">USA BMX OFFICIAL</p>
@@ -361,7 +361,7 @@ export default function NewRiderPage() {
                 href="https://www.usabmx.com/tracks" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-6 bg-gray-800/90 border-4 border-[#00ff0c] hover:bg-gray-700/90 transition-colors backdrop-blur-sm"
+                className="flex items-center justify-between p-6 bg-gray-800/90 border-4 border-[#00ff0c] rounded-xl hover:bg-gray-700/90 transition-colors backdrop-blur-sm"
               >
                 <div>
                   <p className="font-black text-[#00ff0c] text-xl">TRACK FINDER</p>
@@ -374,7 +374,7 @@ export default function NewRiderPage() {
                 href="https://www.usabmx.com/page/rulebook" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-6 bg-gray-900/90 border-4 border-[#00ff0c] hover:bg-gray-800/90 transition-colors backdrop-blur-sm"
+                className="flex items-center justify-between p-6 bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl hover:bg-gray-800/90 transition-colors backdrop-blur-sm"
               >
                 <div>
                   <p className="font-black text-[#00ff0c] text-xl">RULEBOOK</p>
@@ -386,7 +386,7 @@ export default function NewRiderPage() {
           </section>
 
           {/* CTA */}
-          <div className="bg-black border-4 border-[#00ff0c] p-8 text-center">
+          <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-8 text-center">
             <h2 className="text-5xl font-black text-[#00ff0c] mb-4">
               READY TO START
             </h2>

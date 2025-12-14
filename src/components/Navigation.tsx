@@ -65,7 +65,7 @@ export default function Navigation() {
                       rel="noopener noreferrer"
                       className={`
                         flex-1 flex flex-col items-center justify-center gap-0.5 lg:gap-1
-                        py-2 lg:py-3 px-1 lg:px-2 border-2 border-[#00ff0c]
+                        py-2 lg:py-3 px-1 lg:px-2 border-2 border-[#00ff0c] rounded-lg
                         font-black
                         transition-all duration-200
                         hover:bg-[#00ff0c] hover:text-black
@@ -85,7 +85,7 @@ export default function Navigation() {
                     href={item.href}
                     className={`
                       flex-1 flex flex-col items-center justify-center gap-0.5 lg:gap-1
-                      py-2 lg:py-3 px-1 lg:px-2 border-2 border-[#00ff0c]
+                      py-2 lg:py-3 px-1 lg:px-2 border-2 border-[#00ff0c] rounded-lg
                       font-black
                       transition-all duration-200
                       hover:bg-[#00ff0c] hover:text-black

@@ -67,7 +67,7 @@ export default function ShopPage() {
       <div className="relative z-10 container mx-auto px-4 pt-4 md:hidden">
         <Link 
           href="/"
-          className="inline-block bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
+          className="inline-block bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] rounded-xl active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
         >
           ← BACK TO HOME
         </Link>
@@ -87,7 +87,7 @@ export default function ShopPage() {
             href="https://store.bmxdenver.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-[#00ff0c] hover:bg-white text-black hover:text-black font-black px-12 py-6 border-4 border-black transition-colors transform hover:scale-110 text-3xl md:text-4xl shadow-2xl"
+            className="inline-block bg-[#00ff0c] hover:bg-white text-black hover:text-black font-black px-12 py-6 border-4 border-black rounded-xl transition-colors transform hover:scale-110 text-3xl md:text-4xl shadow-2xl"
           >
             <ShoppingBagIcon className="w-8 h-8 inline mr-3" />
             SHOP NOW
@@ -112,7 +112,7 @@ export default function ShopPage() {
               href="https://store.bmxdenver.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-black border-4 border-[#00ff0c] hover:border-white transition-all overflow-hidden transform hover:scale-105 cursor-pointer"
+              className="group bg-black border-4 border-[#00ff0c] rounded-xl hover:border-white transition-all overflow-hidden transform hover:scale-105 cursor-pointer"
             >
               <div className="relative w-full aspect-square overflow-hidden">
                 <Image
@@ -130,7 +130,7 @@ export default function ShopPage() {
               href="https://store.bmxdenver.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-black border-4 border-[#00ff0c] hover:border-white transition-all overflow-hidden transform hover:scale-105 cursor-pointer"
+              className="group bg-black border-4 border-[#00ff0c] rounded-xl hover:border-white transition-all overflow-hidden transform hover:scale-105 cursor-pointer"
             >
               <div className="relative w-full aspect-square overflow-hidden">
                 <Image
@@ -148,7 +148,7 @@ export default function ShopPage() {
               href="https://store.bmxdenver.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-black border-4 border-[#00ff0c] hover:border-white transition-all overflow-hidden transform hover:scale-105 cursor-pointer"
+              className="group bg-black border-4 border-[#00ff0c] rounded-xl hover:border-white transition-all overflow-hidden transform hover:scale-105 cursor-pointer"
             >
               <div className="relative w-full aspect-square overflow-hidden">
                 <Image
@@ -166,7 +166,7 @@ export default function ShopPage() {
               href="https://store.bmxdenver.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-black border-4 border-[#00ff0c] hover:border-white transition-all overflow-hidden transform hover:scale-105 cursor-pointer"
+              className="group bg-black border-4 border-[#00ff0c] rounded-xl hover:border-white transition-all overflow-hidden transform hover:scale-105 cursor-pointer"
             >
               <div className="relative w-full aspect-square overflow-hidden">
                 <Image
@@ -181,7 +181,7 @@ export default function ShopPage() {
           </div>
         </div>
         {/* Store Info Card */}
-        <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 md:p-8 mb-12 backdrop-blur-sm">
+        <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 md:p-8 mb-12 backdrop-blur-sm">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-4">
             OFFICIAL MERCH!
           </h2>

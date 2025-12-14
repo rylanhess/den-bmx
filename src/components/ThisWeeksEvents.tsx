@@ -135,7 +135,7 @@ const ThisWeeksEvents = () => {
         </div>
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-black rounded-lg p-4 border border-[#00ff0c] animate-pulse">
+            <div key={i} className="bg-black rounded-xl p-4 border border-[#00ff0c] animate-pulse">
               <div className="h-4 bg-gray-800 rounded w-3/4 mb-3"></div>
               <div className="h-3 bg-gray-800 rounded w-1/2 mb-2"></div>
               <div className="h-3 bg-gray-800 rounded w-2/3"></div>
@@ -159,7 +159,7 @@ const ThisWeeksEvents = () => {
             see full Calendar
           </Link>
         </div>
-        <div className="bg-black border border-[#00ff0c] rounded-lg p-6">
+        <div className="bg-black border border-[#00ff0c] rounded-xl p-6">
           <p className="font-semibold text-[#00ff0c]">Error loading events</p>
           <p className="text-sm text-white/70 mt-1">{error}</p>
         </div>
@@ -190,7 +190,7 @@ const ThisWeeksEvents = () => {
       </div>
 
       {noEvents ? (
-        <div className="bg-black rounded-lg p-12 text-center border border-[#00ff0c]">
+        <div className="bg-black rounded-xl p-12 text-center border border-[#00ff0c]">
           <p className="text-white text-lg">No upcoming events</p>
           <p className="text-white/60 text-sm mt-2">Check back soon for updates from the tracks!</p>
         </div>
@@ -201,7 +201,7 @@ const ThisWeeksEvents = () => {
           {events.map((event) => (
             <article
               key={event.id}
-              className="bg-black rounded-lg border border-[#00ff0c] hover:border-white transition-colors overflow-hidden"
+              className="bg-black rounded-xl border border-[#00ff0c] hover:border-white transition-colors overflow-hidden"
             >
               <div className="flex flex-col sm:flex-row">
                 {/* Main content */}
@@ -311,7 +311,7 @@ const ThisWeeksEvents = () => {
           {events.map((event) => (
             <article
               key={event.id}
-              className="bg-black rounded-lg border border-[#00ff0c] hover:border-white transition-colors overflow-hidden"
+              className="bg-black rounded-xl border border-[#00ff0c] hover:border-white transition-colors overflow-hidden"
             >
               <div className="flex flex-col sm:flex-row">
                 {/* Main content */}

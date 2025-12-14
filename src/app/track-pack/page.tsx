@@ -65,14 +65,14 @@ export default function TrackPackPage() {
         {/* Back Button - Mobile Only */}
         <Link 
           href="/"
-          className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
+          className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] rounded-xl active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
         >
           ← BACK TO HOME
         </Link>
 
         {/* Hero - Professional Punk */}
         <div className="text-center mb-12">
-          <div className="inline-block bg-black border-4 border-[#00ff0c] p-8 mb-6">
+          <div className="inline-block bg-black border-4 border-[#00ff0c] rounded-xl p-8 mb-6">
             <h1 className="text-5xl md:text-7xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
               TRACK PACK
             </h1>
@@ -81,7 +81,7 @@ export default function TrackPackPage() {
         </div>
 
         {/* Intro Card */}
-        <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 md:p-8 mb-12 backdrop-blur-sm">
+        <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 md:p-8 mb-12 backdrop-blur-sm">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-4">
             FREE TEMPLATES FOR TRACK OPERATORS
           </h2>
@@ -98,11 +98,11 @@ export default function TrackPackPage() {
           {imageTemplates.map((item, index) => (
             <div
               key={index}
-              className="bg-black border-4 border-[#00ff0c] p-6 md:p-8"
+              className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8"
             >
               <div className="grid md:grid-cols-2 gap-6 items-center">
                 {/* Preview */}
-                <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 flex items-center justify-center min-h-[200px] backdrop-blur-sm">
+                <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 flex items-center justify-center min-h-[200px] backdrop-blur-sm">
                   {item.example ? (
                     // Show both template and example side by side on desktop, stacked on mobile
                     <div className="w-full space-y-3">
@@ -192,12 +192,12 @@ export default function TrackPackPage() {
         </div>
 
         {/* Usage Instructions */}
-        <section className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 md:p-8 mb-12 backdrop-blur-sm">
+        <section className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 md:p-8 mb-12 backdrop-blur-sm">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-6">
             HOW TO USE
           </h2>
           <div className="space-y-4">
-            <div className="bg-black border-4 border-[#00ff0c] p-6">
+            <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-6">
               <h3 className="text-2xl font-black text-[#00ff0c] mb-3">
                 1. DOWNLOAD THE TEMPLATES
               </h3>
@@ -205,7 +205,7 @@ export default function TrackPackPage() {
                 Click the download button for any template you want to use. Files will download directly to your computer.
               </p>
             </div>
-            <div className="bg-black border-4 border-[#00ff0c] p-6">
+            <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-6">
               <h3 className="text-2xl font-black text-[#00ff0c] mb-3">
                 2. CUSTOMIZE AS NEEDED
               </h3>
@@ -213,7 +213,7 @@ export default function TrackPackPage() {
                 All templates are <strong className="text-xl text-[#00ff0c]">FREE TO MODIFY</strong>. Edit text, change colors, add your track-specific information - make them your own!
               </p>
             </div>
-            <div className="bg-black border-4 border-[#00ff0c] p-6">
+            <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-6">
               <h3 className="text-2xl font-black text-[#00ff0c] mb-3">
                 3. SHARE ON SOCIAL MEDIA
               </h3>
@@ -225,7 +225,7 @@ export default function TrackPackPage() {
         </section>
 
         {/* License Info */}
-        <div className="bg-black border-4 border-[#00ff0c] p-6 md:p-8 text-center mb-12">
+        <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8 text-center mb-12">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-4">
             COMPLETELY FREE
           </h2>
@@ -235,7 +235,7 @@ export default function TrackPackPage() {
         </div>
 
         {/* Not What You're Looking For */}
-        <section className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 md:p-8 text-center backdrop-blur-sm">
+        <section className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 md:p-8 text-center backdrop-blur-sm">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-4">
             NOT WHAT YOU&apos;RE LOOKING FOR?
           </h2>

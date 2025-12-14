@@ -34,20 +34,20 @@ export default function MerchPage() {
       <main className="container mx-auto px-4 py-12 md:py-16 max-w-6xl relative z-10">
         {/* Hero - Professional Punk */}
         <div className="text-center mb-12">
-          <div className="inline-block bg-black border-4 border-[#00ff0c] p-8 mb-6">
+          <div className="inline-block bg-black border-4 border-[#00ff0c] rounded-xl p-8 mb-6">
             <h1 className="text-5xl md:text-7xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
               MERCH STORE
             </h1>
             <div className="h-2 bg-[#00ff0c]"></div>
           </div>
-          <p className="text-3xl text-white font-black bg-black px-8 py-4 inline-block border-4 border-[#00ff0c] flex items-center gap-2">
+          <p className="text-3xl text-white font-black bg-black px-8 py-4 inline-block border-4 border-[#00ff0c] rounded-xl flex items-center gap-2">
             <ShoppingBagIcon className="w-8 h-8" />
             REP DEN BMX • SUPPORT THE TRACKS
           </p>
         </div>
 
         {/* Store Link Card */}
-        <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 md:p-8 mb-12 backdrop-blur-sm">
+        <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 md:p-8 mb-12 backdrop-blur-sm">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-4 flex items-center gap-3">
             <ShoppingBagIcon className="w-16 h-16" />
             SHOP NOW!
@@ -69,7 +69,7 @@ export default function MerchPage() {
         {/* What's Coming */}
         <div className="space-y-8 mb-12">
           {/* Apparel */}
-          <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
+          <section className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
               <SparklesIcon className="w-16 h-16" />
               APPAREL
@@ -78,7 +78,7 @@ export default function MerchPage() {
               <p className="text-white text-xl font-bold">
                 Show your <span className="text-[#00ff0c] text-2xl">DEN BMX PRIDE</span> with our custom apparel line!
               </p>
-              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 space-y-3 backdrop-blur-sm">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 space-y-3 backdrop-blur-sm">
                 <p className="font-black text-[#00ff0c] text-2xl">COMING SOON:</p>
                 <ul className="space-y-3 ml-4 text-white font-bold text-lg">
                   <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> T-Shirts & Long Sleeves</li>
@@ -92,7 +92,7 @@ export default function MerchPage() {
           </section>
 
           {/* Stickers & Accessories */}
-          <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
+          <section className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
               <PaintBrushIcon className="w-16 h-16" />
               STICKERS & ACCESSORIES
@@ -101,7 +101,7 @@ export default function MerchPage() {
               <p className="text-white text-xl font-bold">
                 Deck out your gear with <span className="text-[#00ff0c] text-2xl">DEN BMX STICKERS</span> and accessories!
               </p>
-              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 space-y-3 backdrop-blur-sm">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 space-y-3 backdrop-blur-sm">
                 <p className="font-black text-[#00ff0c] text-2xl">COMING SOON:</p>
                 <ul className="space-y-3 ml-4 text-white font-bold text-lg">
                   <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Vinyl Stickers (multiple sizes)</li>
@@ -115,7 +115,7 @@ export default function MerchPage() {
           </section>
 
           {/* BMX Gear */}
-          <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
+          <section className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
               <BoltIcon className="w-16 h-16" />
               BMX GEAR
@@ -124,7 +124,7 @@ export default function MerchPage() {
               <p className="text-white text-xl font-bold">
                 Essential <span className="text-[#00ff0c] text-2xl">BMX EQUIPMENT</span> and gear for riders!
               </p>
-              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 space-y-3 backdrop-blur-sm">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 space-y-3 backdrop-blur-sm">
                 <p className="font-black text-[#00ff0c] text-2xl">COMING SOON:</p>
                 <ul className="space-y-3 ml-4 text-white font-bold text-lg">
                   <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Helmets & Protective Gear</li>
@@ -138,7 +138,7 @@ export default function MerchPage() {
           </section>
 
           {/* Denver Resale Hub */}
-          <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
+          <section className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
               <ArrowPathIcon className="w-16 h-16" />
               DENVER BMX RESALE HUB
@@ -147,7 +147,7 @@ export default function MerchPage() {
               <p className="text-white text-xl font-bold">
                 A <span className="text-[#00ff0c] text-2xl">COMMUNITY MARKETPLACE</span> for buying and selling BMX gear in the Denver area!
               </p>
-              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 space-y-3 backdrop-blur-sm">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 space-y-3 backdrop-blur-sm">
                 <p className="font-black text-[#00ff0c] text-2xl">WHAT TO EXPECT:</p>
                 <ul className="space-y-3 ml-4 text-white font-bold text-lg">
                   <li className="border-l-4 border-[#00ff0c] pl-3 flex items-center gap-2"><BoltIcon className="w-5 h-5" /> Used BMX Bikes & Parts</li>
@@ -165,12 +165,12 @@ export default function MerchPage() {
         </div>
 
         {/* Stay Updated */}
-        <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8 mb-12">
+        <section className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8 mb-12">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-6 flex items-center gap-3">
             <InboxIcon className="w-16 h-16" />
             STAY UPDATED
           </h2>
-          <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+          <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 backdrop-blur-sm">
             <p className="text-white font-bold text-xl leading-relaxed mb-4">
               Want to know when the store opens? Have ideas for merch? Want to sell gear in our resale hub?
             </p>

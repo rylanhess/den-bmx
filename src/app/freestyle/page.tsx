@@ -648,13 +648,13 @@ const ParkCard = ({ park }: { park: Park }) => {
 
   return (
     <div
-      className="bg-black border-8 overflow-hidden transform hover:scale-105 transition-transform"
+      className="bg-black border-8 rounded-xl overflow-hidden transform hover:scale-105 transition-transform"
       style={{ borderColor }}
     >
       <div className="p-6">
         <div className="mb-4">
           <h2 className="text-3xl font-black text-[#00ff0c] mb-2">{park.name}</h2>
-          <div className="flex items-center gap-2 text-white font-bold bg-[#00ff0c] px-3 py-1 inline-block border-2 border-black mb-2">
+          <div className="flex items-center gap-2 text-white font-bold bg-[#00ff0c] px-3 py-1 inline-block border-2 border-black rounded-lg mb-2">
             <MapPinIcon className="w-4 h-4" />
             <span>{park.location}</span>
           </div>
@@ -689,7 +689,7 @@ const ParkCard = ({ park }: { park: Park }) => {
               {park.skillLevels.map((level) => (
                 <span
                   key={level}
-                  className="bg-[#00ff0c] text-black font-black px-2 py-1 text-xs border-2 border-black"
+                  className="bg-[#00ff0c] text-black font-black px-2 py-1 text-xs border-2 border-black rounded-lg"
                 >
                   {level}
                 </span>
@@ -698,7 +698,7 @@ const ParkCard = ({ park }: { park: Park }) => {
           </div>
           {park.toddlerApproved && (
             <div className="flex items-center gap-2 mt-2">
-              <span className="bg-[#00ff0c] text-black font-black px-2 py-1 text-xs border-2 border-black animate-bounce-slow">
+              <span className="bg-[#00ff0c] text-black font-black px-2 py-1 text-xs border-2 border-black rounded-lg animate-bounce-slow">
                 ★ TODDLER APPROVED
               </span>
             </div>
@@ -710,7 +710,7 @@ const ParkCard = ({ park }: { park: Park }) => {
             href={park.googleMapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-black text-[#00ff0c] hover:text-white font-black px-4 py-3 border-4 border-[#00ff0c] hover:border-white transition-colors"
+            className="inline-flex items-center gap-2 bg-black text-[#00ff0c] hover:text-white font-black px-4 py-3 border-4 border-[#00ff0c] rounded-xl hover:border-white transition-colors"
           >
             <LinkIcon className="w-5 h-5" />
             <span>View on Google Maps</span>
@@ -747,14 +747,14 @@ export default function FreestylePage() {
         {/* Back Button - Mobile Only */}
         <Link 
           href="/"
-          className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
+          className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] rounded-xl active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
         >
           ← BACK TO HOME
         </Link>
 
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="inline-block bg-black border-4 border-[#00ff0c] p-8 mb-6">
+          <div className="inline-block bg-black border-4 border-[#00ff0c] rounded-xl p-8 mb-6">
             <h1 className="text-5xl md:text-7xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
               FREESTYLE & PRACTICE
             </h1>
@@ -767,7 +767,7 @@ export default function FreestylePage() {
 
         {/* Park Finder Map */}
         <div className="mb-12">
-          <div className="bg-black border-4 border-[#00ff0c] p-6 mb-4">
+          <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 mb-4">
             <h2 className="text-3xl font-black text-[#00ff0c] mb-2 text-center">
               PARK FINDER MAP
             </h2>
@@ -787,7 +787,7 @@ export default function FreestylePage() {
         </div>
 
         {/* Info Box */}
-        <div className="text-center bg-black border-4 border-[#00ff0c] p-8 mb-12">
+        <div className="text-center bg-black border-4 border-[#00ff0c] rounded-xl p-8 mb-12">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-4">
             READY TO RIDE?
           </h2>
@@ -796,7 +796,7 @@ export default function FreestylePage() {
           </p>
           <Link
             href="/calendar"
-            className="inline-block bg-[#00ff0c] hover:bg-white text-black font-black px-8 py-4 border-4 border-black transition-colors transform hover:scale-110 text-xl"
+            className="inline-block bg-[#00ff0c] hover:bg-white text-black font-black px-8 py-4 border-4 border-black rounded-xl transition-colors transform hover:scale-110 text-xl"
           >
             <BoltIcon className="w-5 h-5 inline mr-2" />
             VIEW RACE CALENDAR

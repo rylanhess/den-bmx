@@ -37,13 +37,13 @@ export default function VolunteerPage() {
         {/* Back Button - Mobile Only */}
         <Link 
           href="/"
-          className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
+          className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] rounded-xl active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
         >
           ← BACK TO HOME
         </Link>
         {/* Hero - Professional Punk */}
         <div className="text-center mb-12">
-          <div className="inline-block bg-black border-4 border-[#00ff0c] p-8 mb-6">
+          <div className="inline-block bg-black border-4 border-[#00ff0c] rounded-xl p-8 mb-6">
             <h1 className="text-5xl md:text-7xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
               VOLUNTEER
             </h1>
@@ -52,7 +52,7 @@ export default function VolunteerPage() {
         </div>
 
         {/* Intro Card */}
-        <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 md:p-8 mb-12 backdrop-blur-sm">
+        <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 md:p-8 mb-12 backdrop-blur-sm">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-4">
             WE NEED YOUR HELP
           </h2>
@@ -64,7 +64,7 @@ export default function VolunteerPage() {
         {/* Volunteer Opportunities */}
         <div className="space-y-8 mb-12">
           {/* Gate Operator */}
-          <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
+          <section className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6">
               GATE OPERATOR
             </h2>
@@ -72,7 +72,7 @@ export default function VolunteerPage() {
               <p className="text-white text-xl font-bold">
                 Run the starting gate during races. This is a <span className="text-[#00ff0c] text-2xl">CRITICAL</span> role that keeps races fair and on schedule.
               </p>
-              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 space-y-3 backdrop-blur-sm">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 space-y-3 backdrop-blur-sm">
                 <p className="font-black text-[#00ff0c] text-2xl">WHAT YOU&apos;LL DO:</p>
                 <ul className="space-y-3 ml-4 text-white font-bold text-lg">
                   <li className="border-l-4 border-[#00ff0c] pl-3">Operate the starting gate mechanism</li>
@@ -88,7 +88,7 @@ export default function VolunteerPage() {
           </section>
 
           {/* Track Maintenance */}
-          <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
+          <section className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6">
               TRACK MAINTENANCE & JUMP WORK
             </h2>
@@ -96,7 +96,7 @@ export default function VolunteerPage() {
               <p className="text-white text-xl font-bold">
                 Keep the track safe and fun. Help maintain jumps, berms, and track surfaces. This is <span className="text-[#00ff0c] text-2xl">ESSENTIAL</span> for rider safety.
               </p>
-              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 space-y-3 backdrop-blur-sm">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 space-y-3 backdrop-blur-sm">
                 <p className="font-black text-[#00ff0c] text-2xl">WHAT YOU&apos;LL DO:</p>
                 <ul className="space-y-3 ml-4 text-white font-bold text-lg">
                   <li className="border-l-4 border-[#00ff0c] pl-3">Repair and shape jumps</li>
@@ -112,7 +112,7 @@ export default function VolunteerPage() {
           </section>
 
           {/* Facility Help */}
-          <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
+          <section className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6">
               FACILITY HELP
             </h2>
@@ -120,7 +120,7 @@ export default function VolunteerPage() {
               <p className="text-white text-xl font-bold">
                 Keep the facilities clean, organized, and welcoming. Help with everything from <span className="text-[#00ff0c] text-2xl">CONCESSIONS</span> to <span className="text-[#00ff0c] text-2xl">SETUP</span>.
               </p>
-              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 space-y-3 backdrop-blur-sm">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 space-y-3 backdrop-blur-sm">
                 <p className="font-black text-[#00ff0c] text-2xl">WHAT YOU&apos;LL DO:</p>
                 <ul className="space-y-3 ml-4 text-white font-bold text-lg">
                   <li className="border-l-4 border-[#00ff0c] pl-3">Help with concessions and food service</li>
@@ -137,7 +137,7 @@ export default function VolunteerPage() {
           </section>
 
           {/* Big Race Staffing */}
-          <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8">
+          <section className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8">
             <h2 className="text-4xl font-black text-[#00ff0c] mb-6">
               BIG RACE STAFFING
             </h2>
@@ -145,7 +145,7 @@ export default function VolunteerPage() {
               <p className="text-white text-xl font-bold">
                 Help make <span className="text-[#00ff0c] text-2xl">MAJOR EVENTS</span> happen. Big races need extra hands for everything from registration to awards.
               </p>
-              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 space-y-3 backdrop-blur-sm">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 space-y-3 backdrop-blur-sm">
                 <p className="font-black text-[#00ff0c] text-2xl">WHAT YOU&apos;LL DO:</p>
                 <ul className="space-y-3 ml-4 text-white font-bold text-lg">
                   <li className="border-l-4 border-[#00ff0c] pl-3">Help with race registration and check-in</li>
@@ -163,18 +163,18 @@ export default function VolunteerPage() {
         </div>
 
         {/* How to Get Involved */}
-        <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8 mb-12">
+        <section className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8 mb-12">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-6">
             HOW TO GET INVOLVED
           </h2>
           <div className="space-y-6">
-            <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+            <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 backdrop-blur-sm">
               <h3 className="text-2xl font-black text-[#00ff0c] mb-4">STEP 1: SHOW UP</h3>
               <p className="text-white font-bold text-lg leading-relaxed">
                 The best way to get started is to <strong className="text-[#00ff0c]">visit your local track</strong> and talk to the track operators or volunteers. They&apos;ll show you around and explain what help is needed.
               </p>
             </div>
-            <div className="bg-gray-800/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+            <div className="bg-gray-800/90 border-4 border-[#00ff0c] rounded-xl p-6 backdrop-blur-sm">
               <h3 className="text-2xl font-black text-[#00ff0c] mb-4">STEP 2: CONTACT THE TRACKS</h3>
               <p className="text-white font-bold text-lg leading-relaxed mb-4">
                 Reach out to your local track through their Facebook pages or contact us through the contact page. We&apos;ll connect you with the right people.
@@ -187,7 +187,7 @@ export default function VolunteerPage() {
                 CONTACT US NOW
               </Link>
             </div>
-            <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+            <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 backdrop-blur-sm">
               <h3 className="text-2xl font-black text-[#00ff0c] mb-4">STEP 3: START VOLUNTEERING</h3>
               <p className="text-white font-bold text-lg leading-relaxed">
                 Once you&apos;re connected, you can start helping out. Most tracks need volunteers for <strong className="text-[#00ff0c]">practice nights</strong> and <strong className="text-[#00ff0c]">race days</strong>. Even a few hours makes a huge difference.
@@ -197,41 +197,41 @@ export default function VolunteerPage() {
         </section>
 
         {/* Service Hours */}
-        <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8 mb-12">
+        <section className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8 mb-12">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-6">
             SERVICE HOURS AVAILABLE
           </h2>
-          <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 md:p-8 backdrop-blur-sm">
+          <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 md:p-8 backdrop-blur-sm">
             <p className="text-white text-xl leading-relaxed font-bold mb-6">
               Need <strong className="text-2xl text-[#00ff0c]">COMMUNITY SERVICE HOURS</strong>? We&apos;ve got you covered. Volunteering at DEN BMX tracks counts toward service hour requirements for:
             </p>
             <div className="grid md:grid-cols-2 gap-6 mb-6">
-              <div className="bg-black border-4 border-[#00ff0c] p-6">
+              <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-6">
                 <h3 className="text-2xl font-black text-[#00ff0c] mb-4">BOY SCOUTS & GIRL SCOUTS</h3>
                 <p className="text-white font-bold text-lg leading-relaxed">
                   Perfect for earning merit badges, service project hours, and community service requirements. Track operators can sign off on your service hours.
                 </p>
               </div>
-              <div className="bg-gray-800/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+              <div className="bg-gray-800/90 border-4 border-[#00ff0c] rounded-xl p-6 backdrop-blur-sm">
                 <h3 className="text-2xl font-black text-[#00ff0c] mb-4">HIGH SCHOOL STUDENTS</h3>
                 <p className="text-white font-bold text-lg leading-relaxed">
                   Many high schools require community service hours for graduation. Volunteering at BMX tracks is a fun way to meet those requirements while helping the community.
                 </p>
               </div>
-              <div className="bg-gray-800/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+              <div className="bg-gray-800/90 border-4 border-[#00ff0c] rounded-xl p-6 backdrop-blur-sm">
                 <h3 className="text-2xl font-black text-[#00ff0c] mb-4">OVERACHIEVERS</h3>
                 <p className="text-white font-bold text-lg leading-relaxed">
                   Building your resume? Need service hours for scholarships or college applications? Volunteering here shows leadership, community involvement, and dedication.
                 </p>
               </div>
-              <div className="bg-black border-4 border-[#00ff0c] p-6">
+              <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-6">
                 <h3 className="text-2xl font-black text-[#00ff0c] mb-4">DOCUMENTATION</h3>
                 <p className="text-white font-bold text-lg leading-relaxed">
                   We provide signed documentation of your volunteer hours. Track operators can verify your service time and sign any required forms for your organization or school.
                 </p>
               </div>
             </div>
-            <div className="bg-black border-4 border-[#00ff0c] p-6">
+            <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-6">
               <h3 className="text-2xl font-black text-[#00ff0c] mb-4">FLEXIBLE SCHEDULING</h3>
               <p className="text-white font-bold text-lg leading-relaxed">
                 We understand you have busy schedules. Volunteer when it works for you - practice nights, race days, or special events. Every hour counts, and we&apos;ll track your time accurately.
@@ -241,12 +241,12 @@ export default function VolunteerPage() {
         </section>
 
         {/* Benefits */}
-        <section className="bg-black border-4 border-[#00ff0c] p-6 md:p-8 mb-12">
+        <section className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 md:p-8 mb-12">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-6">
             WHY VOLUNTEER
           </h2>
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+            <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 backdrop-blur-sm">
               <h3 className="text-2xl font-black text-[#00ff0c] mb-3">BENEFITS</h3>
               <ul className="space-y-2 text-white font-bold text-lg">
                 <li className="border-l-4 border-[#00ff0c] pl-3">Free track time for you/family</li>
@@ -256,7 +256,7 @@ export default function VolunteerPage() {
                 <li className="border-l-4 border-[#00ff0c] pl-3">Support young riders</li>
               </ul>
             </div>
-            <div className="bg-gray-800/90 border-4 border-[#00ff0c] p-6 backdrop-blur-sm">
+            <div className="bg-gray-800/90 border-4 border-[#00ff0c] rounded-xl p-6 backdrop-blur-sm">
               <h3 className="text-2xl font-black text-[#00ff0c] mb-3">SKILLS YOU&apos;LL GAIN</h3>
               <ul className="space-y-2 text-white font-bold text-lg">
                 <li className="border-l-4 border-[#00ff0c] pl-3">Event management</li>
@@ -270,7 +270,7 @@ export default function VolunteerPage() {
         </section>
 
         {/* CTA */}
-        <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-8 md:p-12 text-center backdrop-blur-sm">
+        <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-8 md:p-12 text-center backdrop-blur-sm">
           <h2 className="text-5xl md:text-6xl font-black text-[#00ff0c] mb-4">
             READY TO HELP
           </h2>

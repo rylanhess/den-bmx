@@ -60,7 +60,7 @@ export default function Home() {
             className="w-full max-w-[250px] sm:max-w-[300px] md:max-w-[350px] lg:max-w-[400px] h-auto shadow-2xl mx-auto mb-6"
             priority
           />
-          <div className="mt-4 sm:mt-6">
+          {/* <div className="mt-4 sm:mt-6">
             <h2 
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-[#00ff0c] tracking-wider uppercase"
               style={{
@@ -75,7 +75,7 @@ export default function Home() {
             >
               FILL THE GATES!
             </h2>
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -94,55 +94,55 @@ export default function Home() {
 
         {/* Action Buttons - Professional Punk Style - Mobile Only (hidden on desktop, nav bar shown instead) */}
         <div className="md:hidden max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-12">
-          <Link href="/tracks" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+          <Link href="/tracks" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
             <FlagIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">TRACK INFO</div>
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">4 TRACKS • FULL DETAILS</div>
           </Link>
 
-          <Link href="/calendar" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+          <Link href="/calendar" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
             <CalendarIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">CALENDAR</div>
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">ALL EVENTS • SCHEDULE</div>
           </Link>
 
-          <Link href="/freestyle" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+          <Link href="/freestyle" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
             <SparklesIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">FREESTYLE</div>
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">PARKS • PRACTICE</div>
           </Link>
 
-          <Link href="/new-rider" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+          <Link href="/new-rider" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
             <BoltIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">NEW RIDER?</div>
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">START HERE • GET INFO</div>
           </Link>
 
-          <Link href="/volunteer" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+          <Link href="/volunteer" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
             <HeartIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">VOLUNTEER</div>
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">HELP OUT • GET INVOLVED</div>
           </Link>
 
-          <Link href="/track-pack" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+          <Link href="/track-pack" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
             <ArrowDownTrayIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">TRACK PACK</div>
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">FREE TEMPLATES</div>
           </Link>
 
-          <Link href="/shop" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+          <Link href="/shop" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
             <ShoppingBagIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">MERCH</div>
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">SHOP NOW • STORE</div>
           </Link>
 
-          <Link href="/about" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+          <Link href="/about" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
             <HandRaisedIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">ABOUT</div>
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">MEET THE OPERATORS</div>
           </Link>
 
-          <Link href="/contact" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+          <Link href="/contact" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
             <EnvelopeIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">CONTACT</div>
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">GET IN TOUCH • SAY HI</div>

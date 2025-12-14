@@ -84,7 +84,7 @@ export default function NewsletterModal({ isOpen, onClose }: NewsletterModalProp
       />
       
       {/* Modal */}
-      <div className="relative z-10 w-full max-w-md bg-black border-4 border-[#00ff0c] shadow-2xl transform transition-all">
+      <div className="relative z-10 w-full max-w-md bg-black border-4 border-[#00ff0c] rounded-xl shadow-2xl transform transition-all">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -110,7 +110,7 @@ export default function NewsletterModal({ isOpen, onClose }: NewsletterModalProp
             <>
               {/* Icon */}
               <div className="flex justify-center mb-6">
-                <div className="bg-[#00ff0c] p-4 border-4 border-white">
+                <div className="bg-[#00ff0c] p-4 border-4 border-white rounded-xl">
                   <EnvelopeIcon className="w-12 h-12 text-black" />
                 </div>
               </div>
@@ -137,7 +137,7 @@ export default function NewsletterModal({ isOpen, onClose }: NewsletterModalProp
                       setErrorMessage('');
                     }}
                     placeholder="your@email.com"
-                    className="w-full bg-black border-4 border-[#00ff0c] text-white placeholder-gray-500 font-bold py-4 px-6 text-lg focus:outline-none focus:border-white transition-all"
+                    className="w-full bg-black border-4 border-[#00ff0c] rounded-xl text-white placeholder-gray-500 font-bold py-4 px-6 text-lg focus:outline-none focus:border-white transition-all"
                     required
                     disabled={isSubmitting}
                   />
@@ -152,7 +152,7 @@ export default function NewsletterModal({ isOpen, onClose }: NewsletterModalProp
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-[#00ff0c] hover:bg-white text-black font-black py-4 px-8 border-4 border-black transition-all transform hover:scale-105 text-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  className="w-full bg-[#00ff0c] hover:bg-white text-black font-black py-4 px-8 border-4 border-black rounded-xl transition-all transform hover:scale-105 text-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
                   {isSubmitting ? 'SIGNING UP...' : 'SIGN ME UP'}
                 </button>

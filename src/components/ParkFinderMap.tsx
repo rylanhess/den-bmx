@@ -254,7 +254,7 @@ export default function ParkFinderMap({ parks }: ParkFinderMapProps) {
 
   if (mapError) {
     return (
-      <div className="bg-black border-4 border-[#00ff0c] p-8 text-center">
+      <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-8 text-center">
         <p className="text-[#00ff0c] font-bold">
           {mapError}
         </p>
@@ -269,14 +269,14 @@ export default function ParkFinderMap({ parks }: ParkFinderMapProps) {
     <div className="relative">
       <div
         ref={mapContainer}
-        className="w-full h-[400px] sm:h-[500px] md:h-[600px] border-4 border-[#00ff0c]"
+        className="w-full h-[400px] sm:h-[500px] md:h-[600px] border-4 border-[#00ff0c] rounded-xl"
         style={{ 
           minHeight: '400px',
           touchAction: 'pan-x pan-y pinch-zoom',
         }}
       />
       {/* Legend */}
-      <div className="absolute bottom-4 left-4 bg-black border-4 border-[#00ff0c] p-3 z-10 max-w-[220px]">
+      <div className="absolute bottom-4 left-4 bg-black border-4 border-[#00ff0c] rounded-xl p-3 z-10 max-w-[220px]">
         <div className="text-[#00ff0c] font-black text-sm mb-2">LEGEND</div>
         <div className="space-y-2">
           <div className="flex items-center gap-2">
@@ -303,7 +303,7 @@ export default function ParkFinderMap({ parks }: ParkFinderMapProps) {
       </div>
       {/* Desktop hover tooltip - hidden on mobile */}
       {hoveredPark && (
-        <div className="hidden md:block absolute top-4 left-4 bg-black border-4 border-[#00ff0c] p-4 z-10 max-w-xs">
+        <div className="hidden md:block absolute top-4 left-4 bg-black border-4 border-[#00ff0c] rounded-xl p-4 z-10 max-w-xs">
           <h3 className="text-[#00ff0c] font-black text-lg mb-2">{hoveredPark.name}</h3>
           <p className="text-white text-sm font-bold mb-1">{hoveredPark.type} • {hoveredPark.location}</p>
           <p className="text-white text-xs">{hoveredPark.description.substring(0, 150)}...</p>

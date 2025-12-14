@@ -38,12 +38,12 @@ const TracksShowcase = () => {
   if (isLoading) {
     return (
       <div className="max-w-6xl mx-auto mb-12">
-        <h2 className="text-4xl font-black text-[#00ff0c] text-center mb-8 bg-black px-6 py-3 inline-block border-4 border-[#00ff0c]">
+        <h2 className="text-4xl font-black text-[#00ff0c] text-center mb-8 bg-black px-6 py-3 inline-block border-4 border-[#00ff0c] rounded-xl">
           DENVER AREA TRACKS
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-black border-4 border-[#00ff0c] p-6 animate-pulse">
+            <div key={i} className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 animate-pulse">
               <div className="w-24 h-24 bg-gray-800 rounded-full mx-auto mb-4"></div>
               <div className="h-6 bg-gray-800 rounded w-3/4 mx-auto"></div>
             </div>
@@ -60,7 +60,7 @@ const TracksShowcase = () => {
   return (
     <div className="max-w-6xl mx-auto mb-8 sm:mb-12">
       <div className="text-center mb-6 sm:mb-8">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#00ff0c] bg-black px-4 sm:px-6 py-2 sm:py-3 inline-block border-4 border-[#00ff0c]">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#00ff0c] bg-black px-4 sm:px-6 py-2 sm:py-3 inline-block border-4 border-[#00ff0c] rounded-xl">
           DENVER AREA TRACKS
         </h2>
       </div>
@@ -70,7 +70,7 @@ const TracksShowcase = () => {
           <Link
             key={track.id}
             href="/tracks"
-            className="bg-black border-4 border-[#00ff0c] active:border-white overflow-hidden transform active:scale-95 transition-all group relative h-[280px] sm:h-[320px] md:h-[360px]"
+            className="bg-black border-4 border-[#00ff0c] rounded-xl active:border-white overflow-hidden transform active:scale-95 transition-all group relative h-[280px] sm:h-[320px] md:h-[360px]"
           >
             {/* Wallpaper/Header Image */}
             {track.wallpaper ? (

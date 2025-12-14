@@ -13,7 +13,7 @@ export default function BMXRacingExplainer() {
       {/* Collapsed Button State with Background Images */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full bg-black border-4 border-[#00ff0c] hover:border-white transition-all text-left group relative overflow-hidden min-h-[300px] sm:min-h-[350px] md:min-h-[400px]"
+        className={`w-full bg-black border-4 border-[#00ff0c] ${isExpanded ? 'border-b-0 rounded-t-xl rounded-b-none' : 'rounded-xl'} hover:border-white transition-all text-left group relative overflow-hidden min-h-[300px] sm:min-h-[350px] md:min-h-[400px]`}
       >
         {/* Background Images Side by Side */}
         <div className="absolute inset-0 flex">
@@ -63,7 +63,7 @@ export default function BMXRacingExplainer() {
 
       {/* Expanded Content */}
       {isExpanded && (
-        <div className="bg-black border-4 border-t-0 border-[#00ff0c] p-6 md:p-8 space-y-6 animate-in fade-in slide-in-from-top-2 duration-300">
+        <div className="bg-black border-4 border-t-0 border-[#00ff0c] border-b-4 rounded-b-xl p-6 md:p-8 space-y-6 animate-in fade-in slide-in-from-top-2 duration-300">
           {/* Intro */}
           <div className="space-y-4">
             <p className="text-white font-bold text-lg md:text-xl leading-relaxed">
@@ -77,11 +77,11 @@ export default function BMXRacingExplainer() {
           {/* Two Column Comparison */}
           <div className="grid md:grid-cols-2 gap-6 md:gap-8">
             {/* BMX Racing */}
-            <div className="bg-gray-900/50 border-4 border-[#00ff0c] p-6">
+            <div className="bg-gray-900/50 border-4 border-[#00ff0c] rounded-xl p-6">
               <h4 className="text-2xl md:text-3xl font-black text-[#00ff0c] mb-4">
                 BMX RACING
               </h4>
-              <div className="relative w-full aspect-video mb-4 border-2 border-[#00ff0c] overflow-hidden">
+              <div className="relative w-full aspect-video mb-4 border-2 border-[#00ff0c] rounded-lg overflow-hidden">
                 <Image
                   src="/side-view-people-riding-bicycled-sunny-day%20(1).jpg"
                   alt="BMX racers competing on a dirt track"
@@ -115,7 +115,7 @@ export default function BMXRacingExplainer() {
               <div className="mt-6 pt-4 border-t-2 border-[#00ff0c]">
                 <Link
                   href="/tracks"
-                  className="inline-block bg-[#00ff0c] hover:bg-white text-black font-black px-6 py-3 border-4 border-black transition-colors transform hover:scale-105"
+                  className="inline-block bg-[#00ff0c] hover:bg-white text-black font-black px-6 py-3 border-4 border-black rounded-xl transition-colors transform hover:scale-105"
                 >
                   FIND RACE TRACKS →
                 </Link>
@@ -123,11 +123,11 @@ export default function BMXRacingExplainer() {
             </div>
 
             {/* Freestyle BMX */}
-            <div className="bg-gray-900/50 border-4 border-[#00ff0c] p-6">
+            <div className="bg-gray-900/50 border-4 border-[#00ff0c] rounded-xl p-6">
               <h4 className="text-2xl md:text-3xl font-black text-[#00ff0c] mb-4">
                 FREESTYLE BMX
               </h4>
-              <div className="relative w-full aspect-video mb-4 border-2 border-[#00ff0c] overflow-hidden">
+              <div className="relative w-full aspect-video mb-4 border-2 border-[#00ff0c] rounded-lg overflow-hidden">
                 <Image
                   src="/low-section-man-with-bicycle-performing-stunt-against-clear-sky.jpg"
                   alt="BMX rider performing tricks at a skate park"
@@ -161,7 +161,7 @@ export default function BMXRacingExplainer() {
               <div className="mt-6 pt-4 border-t-2 border-[#00ff0c]">
                 <Link
                   href="/freestyle"
-                  className="inline-block bg-[#00ff0c] hover:bg-white text-black font-black px-6 py-3 border-4 border-black transition-colors transform hover:scale-105"
+                  className="inline-block bg-[#00ff0c] hover:bg-white text-black font-black px-6 py-3 border-4 border-black rounded-xl transition-colors transform hover:scale-105"
                 >
                   FIND FREESTYLE PARKS →
                 </Link>

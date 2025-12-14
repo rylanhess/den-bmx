@@ -78,7 +78,7 @@ export default function ContactPage() {
         {/* Back Button - Mobile Only */}
         <Link 
           href="/"
-          className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
+          className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] rounded-xl active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
         >
           ← BACK TO HOME
         </Link>
@@ -96,7 +96,7 @@ export default function ContactPage() {
         {/* Main Content Grid */}
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Image Section */}
-          <div className="bg-black border-4 border-[#00ff0c] p-4 shadow-2xl">
+          <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-4 shadow-2xl">
             <Image
               src="/contactme-img.jpeg"
               alt="BMX Family"
@@ -115,13 +115,13 @@ export default function ContactPage() {
           </div>
 
           {/* Form Section */}
-          <div className="bg-black border-4 border-[#00ff0c] p-8 shadow-2xl">
+          <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-8 shadow-2xl">
             <h2 className="text-3xl font-black text-[#00ff0c] mb-6">
               SEND A MESSAGE
             </h2>
 
             {status === 'success' ? (
-              <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 text-center backdrop-blur-sm">
+              <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 text-center backdrop-blur-sm">
                 <p className="text-2xl font-black text-[#00ff0c] mb-2 flex items-center justify-center gap-2">
                   <CheckIcon className="w-6 h-6" />
                   MESSAGE SENT!
@@ -129,7 +129,7 @@ export default function ContactPage() {
                 <p className="text-white font-bold mb-4">Thanks for reaching out! I&apos;ll get back to you soon.</p>
                 <button
                   onClick={() => setStatus('idle')}
-                  className="bg-black text-[#00ff0c] font-black px-6 py-3 border-4 border-[#00ff0c] hover:bg-[#00ff0c] hover:text-black transition-all"
+                    className="bg-black text-[#00ff0c] font-black px-6 py-3 border-4 border-[#00ff0c] rounded-xl hover:bg-[#00ff0c] hover:text-black transition-all"
                 >
                   SEND ANOTHER MESSAGE
                 </button>
@@ -147,7 +147,7 @@ export default function ContactPage() {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-black text-white border-4 border-[#00ff0c] focus:border-white focus:outline-none font-bold"
+                    className="w-full px-4 py-3 bg-black text-white border-4 border-[#00ff0c] rounded-xl focus:border-white focus:outline-none font-bold"
                     placeholder="John Rider"
                   />
                 </div>
@@ -163,7 +163,7 @@ export default function ContactPage() {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-black text-white border-4 border-[#00ff0c] focus:border-white focus:outline-none font-bold"
+                    className="w-full px-4 py-3 bg-black text-white border-4 border-[#00ff0c] rounded-xl focus:border-white focus:outline-none font-bold"
                     placeholder="john@example.com"
                   />
                 </div>
@@ -179,13 +179,13 @@ export default function ContactPage() {
                     value={formData.message}
                     onChange={handleChange}
                     rows={6}
-                    className="w-full px-4 py-3 bg-black text-white border-4 border-[#00ff0c] focus:border-white focus:outline-none font-bold resize-none"
+                    className="w-full px-4 py-3 bg-black text-white border-4 border-[#00ff0c] rounded-xl focus:border-white focus:outline-none font-bold resize-none"
                     placeholder="Tell me about your BMX experience, questions, or just say hi!"
                   />
                 </div>
 
                 {status === 'error' && (
-                  <div className="bg-black border-4 border-[#00ff0c] p-4">
+                  <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-4">
                     <p className="text-[#00ff0c] font-bold flex items-center gap-2">
                       <ExclamationTriangleIcon className="w-5 h-5" />
                       {errorMessage}
@@ -196,7 +196,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={status === 'sending'}
-                  className="w-full bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-4 px-6 sm:px-8 border-4 border-[#00ff0c] shadow-2xl transform active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
+                  className="w-full bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-4 px-6 sm:px-8 border-4 border-[#00ff0c] rounded-xl shadow-2xl transform active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
                 >
                   {status === 'sending' ? (
                     <span className="flex items-center justify-center gap-2">

@@ -294,7 +294,7 @@ export default function CalendarPage() {
     };
 
     return (
-      <div className="flex flex-col gap-3 sm:gap-4 mb-4 p-3 sm:p-4 bg-black border-4 border-[#00ff0c]">
+      <div className="flex flex-col gap-3 sm:gap-4 mb-4 p-3 sm:p-4 bg-black border-4 border-[#00ff0c] rounded-xl">
         {/* Date and Navigation - Stack on mobile */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-2">
           {/* Date Label */}
@@ -686,21 +686,21 @@ export default function CalendarPage() {
             {/* Back Button - Mobile Only */}
             <Link 
               href="/"
-              className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
+              className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] rounded-xl active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
             >
               ← BACK TO HOME
             </Link>
 
             {/* Hero - Professional Punk */}
             <div className="text-center mb-12">
-              <div className="inline-block bg-black border-4 border-[#00ff0c] p-8 mb-6">
+              <div className="inline-block bg-black border-4 border-[#00ff0c] rounded-xl p-8 mb-6">
                 <h1 className="text-5xl md:text-7xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
                   EVENT CALENDAR
                 </h1>
                 <div className="h-2 bg-[#00ff0c]"></div>
               </div>
             </div>
-            <div className="bg-black border-4 border-[#00ff0c] p-12 text-center">
+            <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-12 text-center">
               <div className="text-[#00ff0c] font-black text-lg">Loading events...</div>
             </div>
           </div>
@@ -747,7 +747,7 @@ export default function CalendarPage() {
             {/* Back Button - Mobile Only */}
             <Link 
               href="/"
-              className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
+              className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] rounded-xl active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
             >
               ← BACK TO HOME
             </Link>
@@ -756,7 +756,7 @@ export default function CalendarPage() {
               <CalendarIcon className="w-8 h-8 sm:w-10 sm:h-10 text-[#00ff0c]" />
               EVENT CALENDAR
             </h1>
-            <div className="bg-black border-4 border-[#00ff0c] p-12 text-center">
+            <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-12 text-center">
               <div className="text-[#00ff0c] font-black text-lg mb-2">Error loading events</div>
               <div className="text-white/70 text-sm">{error}</div>
             </div>
@@ -803,14 +803,14 @@ export default function CalendarPage() {
           {/* Back Button - Mobile Only */}
           <Link 
             href="/"
-            className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
+            className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] rounded-xl active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
           >
             ← BACK TO HOME
           </Link>
 
           {/* Hero - Professional Punk */}
           <div className="text-center mb-12">
-            <div className="inline-block bg-black border-4 border-[#00ff0c] p-8 mb-6">
+            <div className="inline-block bg-black border-4 border-[#00ff0c] rounded-xl p-8 mb-6">
               <h1 className="text-5xl md:text-7xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
                 EVENT CALENDAR
               </h1>
@@ -818,7 +818,7 @@ export default function CalendarPage() {
             </div>
           </div>
 
-          <div className="bg-black border-4 border-[#00ff0c] p-4 sm:p-6">
+          <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-4 sm:p-6">
             {/* Custom Toolbar for all views */}
             <CustomToolbar
               label={view === 'month' ? (isNaN(currentDate.getTime()) ? format(new Date(), 'MMMM yyyy') : format(currentDate, 'MMMM yyyy')) : ''}

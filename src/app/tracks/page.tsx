@@ -24,7 +24,7 @@ const TrackLink = ({
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="inline-flex items-center gap-1 bg-black text-[#00ff0c] hover:text-white font-black px-3 py-2 border-4 border-[#00ff0c] hover:border-white transition-colors text-sm"
+    className="inline-flex items-center gap-1 bg-black text-[#00ff0c] hover:text-white font-black px-3 py-2 border-4 border-[#00ff0c] rounded-xl hover:border-white transition-colors text-sm"
   >
     <LinkIcon className="w-4 h-4" />
     {children}
@@ -53,7 +53,7 @@ const TrackCard = ({
   const overheadImage = trackOverheadImages[track.slug];
   
   return (
-    <div className={`bg-black border-8 border-${color} overflow-hidden transform hover:scale-105 transition-transform`}>
+    <div className={`bg-black border-8 border-${color} rounded-xl overflow-hidden transform hover:scale-105 transition-transform`}>
       {/* Wallpaper/Header Image */}
       {track.wallpaper && (
         <div className="relative h-48 w-full overflow-hidden">
@@ -110,7 +110,7 @@ const TrackCard = ({
 
         {/* Overhead Track Image */}
         {overheadImage && (
-          <div className="mb-4 border-4 border-[#00ff0c] overflow-hidden relative w-full aspect-video">
+          <div className="mb-4 border-4 border-[#00ff0c] rounded-xl overflow-hidden relative w-full aspect-video">
             <Image 
               src={overheadImage} 
               alt={`${track.name} overhead view`}
@@ -161,7 +161,7 @@ const TrackCard = ({
 };
 
 const LoadingCard = () => (
-  <div className="bg-black border-4 border-[#00ff0c] overflow-hidden animate-pulse">
+  <div className="bg-black border-4 border-[#00ff0c] rounded-xl overflow-hidden animate-pulse">
     <div className="h-48 bg-gray-800"></div>
     <div className="p-6 space-y-4">
       <div className="h-8 bg-gray-800 rounded w-3/4"></div>
@@ -172,7 +172,7 @@ const LoadingCard = () => (
 );
 
 const ErrorState = ({ error }: { readonly error: string }) => (
-  <div className="bg-black border-4 border-[#00ff0c] p-8 text-center">
+  <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-8 text-center">
     <p className="text-2xl font-black text-[#00ff0c] mb-2 flex items-center justify-center gap-2">
       <ExclamationTriangleIcon className="w-6 h-6" />
       ERROR LOADING TRACKS
@@ -182,7 +182,7 @@ const ErrorState = ({ error }: { readonly error: string }) => (
 );
 
 const NoTracksState = () => (
-  <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-8 text-center backdrop-blur-sm">
+  <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-8 text-center backdrop-blur-sm">
     <p className="text-2xl font-black text-[#00ff0c]">NO TRACKS FOUND</p>
     <p className="text-white font-bold mt-2">Check back soon!</p>
   </div>
@@ -289,14 +289,14 @@ export default function TracksPage() {
         {/* Back Button - Mobile Only */}
         <Link 
           href="/"
-          className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
+          className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] rounded-xl active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
         >
           ← BACK TO HOME
         </Link>
 
         {/* Header - Professional Punk */}
         <div className="text-center mb-12">
-          <div className="inline-block bg-black border-4 border-[#00ff0c] p-8 mb-6">
+          <div className="inline-block bg-black border-4 border-[#00ff0c] rounded-xl p-8 mb-6">
             <h1 className="text-5xl md:text-7xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
               TRACKS
             </h1>
@@ -305,7 +305,7 @@ export default function TracksPage() {
         </div>
 
         {/* High Elevation Notice */}
-        <div className="bg-gray-900/90 border-4 border-[#00ff0c] p-6 mb-8 backdrop-blur-sm">
+        <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 mb-8 backdrop-blur-sm">
           <div className="flex items-center gap-4">
             <ExclamationTriangleIcon className="w-16 h-16 text-[#00ff0c]" />
             <div>
@@ -353,7 +353,7 @@ export default function TracksPage() {
         )}
 
         {/* Footer Info */}
-        <div className="text-center bg-black border-4 border-[#00ff0c] p-8">
+        <div className="text-center bg-black border-4 border-[#00ff0c] rounded-xl p-8">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-4">
             NEW TO BMX RACING?
           </h2>
@@ -362,7 +362,7 @@ export default function TracksPage() {
           </p>
           <Link
             href="/"
-            className="inline-block bg-[#00ff0c] hover:bg-white text-black font-black px-8 py-4 border-4 border-black transition-colors transform hover:scale-110 text-xl"
+            className="inline-block bg-[#00ff0c] hover:bg-white text-black font-black px-8 py-4 border-4 border-black rounded-xl transition-colors transform hover:scale-110 text-xl"
           >
             <FlagIcon className="w-5 h-5 inline mr-2" />
             VIEW RACE CALENDAR
