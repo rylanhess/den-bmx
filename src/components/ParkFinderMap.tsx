@@ -170,7 +170,6 @@ export default function ParkFinderMap({ parks }: ParkFinderMapProps) {
             <p style="margin: 0 0 4px 0; font-size: 12px;"><strong>Size:</strong> ${park.size}</p>
             <p style="margin: 0 0 4px 0; font-size: 12px;"><strong>Quality:</strong> ${park.quality}</p>
             <p style="margin: 0 0 8px 0; font-size: 12px;"><strong>Skill Levels:</strong> ${park.skillLevels.join(', ')}</p>
-            ${park.toddlerApproved ? '<p style="margin: 0 0 8px 0; font-size: 12px; font-weight: bold; color: #00aa00;">★ Toddler Approved</p>' : ''}
             <a href="${park.googleMapsUrl}" target="_blank" rel="noopener noreferrer" style="color: #00ff0c; text-decoration: none; font-weight: bold; font-size: 12px; display: inline-block; padding: 4px 8px; background: #000; border: 2px solid #00ff0c;">View on Google Maps →</a>
           </div>
         `);

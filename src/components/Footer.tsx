@@ -49,11 +49,6 @@ export default function Footer() {
                   Volunteer
                 </Link>
               </li>
-              <li>
-                <Link href="/about" className="text-white hover:text-[#00ff0c] font-bold text-sm transition-colors">
-                  About Us
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -199,10 +194,6 @@ export default function Footer() {
               © {currentYear} DEN BMX. All rights reserved.
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm">
-              <Link href="/about" className="text-white hover:text-[#00ff0c] font-bold transition-colors">
-                About
-              </Link>
-              <span className="text-[#00ff0c]">•</span>
               <Link href="/contact" className="text-white hover:text-[#00ff0c] font-bold transition-colors">
                 Contact
               </Link>

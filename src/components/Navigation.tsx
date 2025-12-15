@@ -8,24 +8,22 @@ import {
   HeartIcon,
   EnvelopeIcon,
   ShoppingBagIcon,
-  HandRaisedIcon,
   BoltIcon,
   HomeIcon,
   ArrowDownTrayIcon,
   CalendarIcon,
-  SparklesIcon,
+  MapPinIcon,
 } from '@heroicons/react/24/solid';
 
 const navItems = [
   { href: '/', label: 'HOME', icon: HomeIcon },
-  { href: '/tracks', label: 'TRACKS', icon: FlagIcon },
   { href: '/calendar', label: 'CALENDAR', icon: CalendarIcon },
-  { href: '/freestyle', label: 'FREESTYLE', icon: SparklesIcon },
+  { href: '/tracks', label: 'RACE', icon: FlagIcon },
+  { href: '/freestyle', label: 'FIND', icon: MapPinIcon },
   { href: '/new-rider', label: 'NEW RIDER', icon: BoltIcon },
   { href: '/volunteer', label: 'VOLUNTEER', icon: HeartIcon },
   { href: '/track-pack', label: 'TRACK PACK', icon: ArrowDownTrayIcon },
   { href: '/shop', label: 'MERCH', icon: ShoppingBagIcon },
-  { href: '/about', label: 'ABOUT', icon: HandRaisedIcon },
   { href: '/contact', label: 'CONTACT', icon: EnvelopeIcon },
 ];
 

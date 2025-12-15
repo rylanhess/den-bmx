@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -7,6 +8,7 @@ import {
   LinkIcon,
   StarIcon,
   BoltIcon,
+  MagnifyingGlassIcon,
 } from '@heroicons/react/24/solid';
 import Footer from '@/components/Footer';
 import ParkFinderMap from '@/components/ParkFinderMap';
@@ -567,9 +569,9 @@ const parks: Park[] = [
     coordinates: [40.15982031197992, -105.04154824233038], // [lat, lng] 3001 Colorado Highway 119
   },
   {
-    name: 'Longmont BMX Park',
+    name: 'Sandstone Skate Park',
     location: 'Longmont, CO',
-    type: 'BMX Track',
+    type: 'Skate Park',
     googleMapsUrl: 'https://maps.app.goo.gl/vYNYVSRsBYnWXidi7',
     size: 'Small',
     sizeRating: 2,
@@ -696,13 +698,6 @@ const ParkCard = ({ park }: { park: Park }) => {
               ))}
             </div>
           </div>
-          {park.toddlerApproved && (
-            <div className="flex items-center gap-2 mt-2">
-              <span className="bg-[#00ff0c] text-black font-black px-2 py-1 text-xs border-2 border-black rounded-lg animate-bounce-slow">
-                ★ TODDLER APPROVED
-              </span>
-            </div>
-          )}
         </div>
 
         <div className="border-t-4 border-[#00ff0c] pt-4">
@@ -721,7 +716,70 @@ const ParkCard = ({ park }: { park: Park }) => {
   );
 };
 
+type VenueFilterType = 'All' | 'Race Track' | 'Bike Park' | 'Pump Track' | 'Skate Park' | 'Indoor';
+
 export default function FreestylePage() {
+  const [selectedFilter, setSelectedFilter] = useState<VenueFilterType>('Bike Park');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
+  // Map filter types to park types
+  const getParkTypeFromFilter = (filter: VenueFilterType): Park['type'] | null => {
+    switch (filter) {
+      case 'Race Track':
+        return 'BMX Track';
+      case 'Indoor':
+        return 'Indoor Park';
+      case 'Bike Park':
+      case 'Pump Track':
+      case 'Skate Park':
+        return filter;
+      default:
+        return null;
+    }
+  };
+
+  // Filter parks based on selected filter
+  const typeFilteredParks = selectedFilter === 'All' 
+    ? parks 
+    : parks.filter(park => park.type === getParkTypeFromFilter(selectedFilter));
+
+  // Search function - matches against all metadata fields
+  const searchParks = (parksToSearch: Park[], query: string): Park[] => {
+    if (!query.trim()) return parksToSearch;
+    
+    const searchTerm = query.toLowerCase().trim();
+    
+    return parksToSearch.filter(park => {
+      // Search in name
+      if (park.name.toLowerCase().includes(searchTerm)) return true;
+      
+      // Search in location
+      if (park.location.toLowerCase().includes(searchTerm)) return true;
+      
+      // Search in type
+      if (park.type.toLowerCase().includes(searchTerm)) return true;
+      
+      // Search in description
+      if (park.description.toLowerCase().includes(searchTerm)) return true;
+      
+      // Search in size
+      if (park.size.toLowerCase().includes(searchTerm)) return true;
+      
+      // Search in quality
+      if (park.quality.toLowerCase().includes(searchTerm)) return true;
+      
+      // Search in skill levels
+      if (park.skillLevels.some(level => level.toLowerCase().includes(searchTerm))) return true;
+      
+      return false;
+    });
+  };
+
+  // Apply both type filter and search filter
+  const filteredParks = searchParks(typeFilteredParks, searchQuery);
+
+  const filterOptions: VenueFilterType[] = ['All', 'Race Track', 'Bike Park', 'Pump Track', 'Skate Park', 'Indoor'];
+
   return (
     <main className="min-h-screen bg-black relative overflow-hidden">
       {/* Background Image */}
@@ -779,12 +837,71 @@ export default function FreestylePage() {
           <ParkFinderMap parks={parks} />
         </div>
 
-        {/* Park Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {parks.map((park) => (
-            <ParkCard key={park.name} park={park} />
-          ))}
+        {/* Venue Type Toggle */}
+        <div className="mb-8">
+          <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-4 sm:p-6">
+            <h3 className="text-xl sm:text-2xl font-black text-[#00ff0c] mb-4 text-center">
+              FILTER BY VENUE TYPE
+            </h3>
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+              {filterOptions.map((filterType) => (
+                <button
+                  key={filterType}
+                  onClick={() => setSelectedFilter(filterType)}
+                  className={`
+                    px-4 sm:px-6 py-2 sm:py-3 border-4 font-black text-sm sm:text-base rounded-xl
+                    transition-all transform active:scale-95
+                    ${selectedFilter === filterType
+                      ? 'bg-[#00ff0c] text-black border-black'
+                      : 'bg-black text-[#00ff0c] border-[#00ff0c] hover:border-white hover:text-white'
+                    }
+                  `}
+                >
+                  {filterType}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
+
+        {/* Search Box */}
+        <div className="mb-8">
+          <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-4 sm:p-6">
+            <label htmlFor="park-search" className="block text-xl sm:text-2xl font-black text-[#00ff0c] mb-4 text-center">
+              SEARCH PARKS
+            </label>
+            <div className="relative">
+              <MagnifyingGlassIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 sm:w-6 sm:h-6 text-[#00ff0c]" />
+              <input
+                id="park-search"
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search by name, location, description, size, quality, or skill level..."
+                className="w-full bg-black text-white border-4 border-[#00ff0c] rounded-xl pl-12 sm:pl-14 pr-4 py-3 sm:py-4 font-bold text-sm sm:text-base focus:outline-none focus:border-white transition-colors placeholder-gray-500"
+              />
+            </div>
+            {searchQuery && (
+              <p className="text-white/70 text-sm mt-2 text-center">
+                Showing {filteredParks.length} {filteredParks.length === 1 ? 'result' : 'results'}
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Park Cards Grid */}
+        {filteredParks.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {filteredParks.map((park) => (
+              <ParkCard key={park.name} park={park} />
+            ))}
+          </div>
+        ) : (
+          <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-12 text-center mb-12">
+            <p className="text-white font-bold text-xl mb-2">No venues found</p>
+            <p className="text-white/70 text-sm">Try selecting a different filter type.</p>
+          </div>
+        )}
 
         {/* Info Box */}
         <div className="text-center bg-black border-4 border-[#00ff0c] rounded-xl p-8 mb-12">
