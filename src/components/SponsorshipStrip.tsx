@@ -60,22 +60,18 @@ export default function SponsorshipStrip() {
     setSelectedItem(sponsorshipConfig.featuredItems[randomIndex]);
   }, []);
 
-  const config = sponsorshipConfig.type === 'merchandise' 
-    ? selectedItem 
-    : sponsorshipConfig.sponsor;
-
   return (
     <div className="bg-black border-b-2 border-[#00ff0c]/40 sticky z-40 shadow-sm md:top-[64px] top-[48px]">
       <div className="container mx-auto px-4">
         <Link
-          href={config.link}
-          target={config.link.startsWith('http') ? '_blank' : undefined}
-          rel={config.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+          href={sponsorshipConfig.type === 'merchandise' ? selectedItem.link : sponsorshipConfig.sponsor.link}
+          target={(sponsorshipConfig.type === 'merchandise' ? selectedItem.link : sponsorshipConfig.sponsor.link).startsWith('http') ? '_blank' : undefined}
+          rel={(sponsorshipConfig.type === 'merchandise' ? selectedItem.link : sponsorshipConfig.sponsor.link).startsWith('http') ? 'noopener noreferrer' : undefined}
           className="flex items-center justify-center gap-3 sm:gap-4 py-2 sm:py-2.5 hover:bg-[#00ff0c]/5 transition-colors group"
         >
           {/* Label */}
           <span className="text-[#00ff0c] font-black text-xs sm:text-sm uppercase tracking-wider whitespace-nowrap">
-            {sponsorshipConfig.type === 'merchandise' ? config.label : sponsorshipConfig.sponsor.label}
+            {sponsorshipConfig.type === 'merchandise' ? selectedItem.label : sponsorshipConfig.sponsor.label}
           </span>
           
           {/* Divider */}
@@ -85,16 +81,16 @@ export default function SponsorshipStrip() {
           <div className="relative w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 border-2 border-[#00ff0c]/40 rounded group-hover:border-[#00ff0c] transition-colors overflow-hidden">
             {sponsorshipConfig.type === 'merchandise' ? (
               <Image
-                src={config.image}
-                alt={config.alt}
+                src={selectedItem.image}
+                alt={selectedItem.alt}
                 fill
                 className="object-cover"
                 unoptimized
               />
             ) : (
               <Image
-                src={config.logo}
-                alt={config.alt}
+                src={sponsorshipConfig.sponsor.logo}
+                alt={sponsorshipConfig.sponsor.alt}
                 fill
                 className="object-contain p-1"
                 unoptimized
@@ -104,7 +100,7 @@ export default function SponsorshipStrip() {
           
           {/* CTA Text */}
           <span className="text-white font-bold text-xs sm:text-sm group-hover:text-[#00ff0c] transition-colors whitespace-nowrap">
-            {config.cta}
+            {sponsorshipConfig.type === 'merchandise' ? selectedItem.cta : sponsorshipConfig.sponsor.cta}
           </span>
           
           {/* Arrow icon */}

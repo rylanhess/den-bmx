@@ -2,14 +2,12 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import {
   ShoppingBagIcon,
-  ExclamationTriangleIcon,
   SparklesIcon,
   BoltIcon,
   PaintBrushIcon,
   ArrowPathIcon,
   InboxIcon,
   EnvelopeIcon,
-  FlagIcon
 } from '@heroicons/react/24/solid';
 import Footer from '@/components/Footer';
 
