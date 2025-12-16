@@ -6,6 +6,7 @@ import { format, parse, startOfWeek, getDay, isSameDay, eachDayOfInterval } from
 import { enUS } from 'date-fns/locale';
 import type { Event as EventType } from '@/lib/supabase';
 import Footer from '@/components/Footer';
+import ThisWeeksEvents from '@/components/ThisWeeksEvents';
 import {
   CalendarIcon,
   ChevronLeftIcon,
@@ -837,6 +838,12 @@ export default function CalendarPage() {
           {/* Event Details Modal could be added here */}
         </div>
       </div>
+
+      {/* Upcoming Events Section */}
+      <div className="container mx-auto px-4 py-8 relative z-10">
+        <ThisWeeksEvents />
+      </div>
+
       <Footer />
     </div>
   );
