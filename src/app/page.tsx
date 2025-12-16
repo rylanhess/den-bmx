@@ -93,31 +93,31 @@ export default function Home() {
 
         {/* Action Buttons - Professional Punk Style - Mobile Only (hidden on desktop, nav bar shown instead) */}
         <div className="md:hidden max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-12">
-          <Link href="/calendar" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+          <Link href="/denver-bmx-races" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
             <CalendarIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">CALENDAR</div>
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">ALL EVENTS • SCHEDULE</div>
           </Link>
 
-          <Link href="/tracks" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+          <Link href="/bmx-tracks-denver" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
             <FlagIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">RACE</div>
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">4 TRACKS • FULL DETAILS</div>
           </Link>
 
-          <Link href="/freestyle" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+          <Link href="/bmx-parks-denver" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
             <MapPinIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">FIND</div>
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">PARKS • PRACTICE</div>
           </Link>
 
-          <Link href="/new-rider" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+          <Link href="/kids-bmx-denver" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
             <BoltIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">NEW RIDER?</div>
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">START HERE • GET INFO</div>
           </Link>
 
-          <Link href="/volunteer" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+          <Link href="/volunteer-bmx-denver" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
             <HeartIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">VOLUNTEER</div>
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">HELP OUT • GET INVOLVED</div>
@@ -129,7 +129,7 @@ export default function Home() {
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">FREE TEMPLATES</div>
           </Link>
 
-          <Link href="/shop" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
+          <Link href="/denver-bmx-merch" className="bg-black active:bg-[#00ff0c] text-white active:text-black font-black py-6 sm:py-8 px-4 sm:px-6 border-4 border-[#00ff0c] rounded-xl shadow-2xl block transform active:scale-95 transition-all min-h-[120px] sm:min-h-[140px] flex flex-col justify-center items-center">
             <ShoppingBagIcon className="w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3" />
             <div className="text-xl sm:text-2xl mb-2">MERCH</div>
             <div className="text-xs sm:text-sm font-bold bg-[#00ff0c] text-black px-2 sm:px-3 py-1 inline-block">SHOP NOW • STORE</div>

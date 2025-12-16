@@ -41,7 +41,7 @@
       "name": "Tracks",
       "short_name": "Tracks",
       "description": "View BMX track information",
-      "url": "/tracks",
+      "url": "/bmx-tracks-denver",
       "icons": [{ "src": "/logos/DEN_BMX_FINAL_Green.png", "sizes": "96x96" }]
     }
   ]

@@ -127,7 +127,7 @@ const ThisWeeksEvents = () => {
         <div className="flex items-baseline gap-3 mb-6">
           <h2 className="text-3xl font-bold text-white">This Week&apos;s Events</h2>
           <Link 
-            href="/calendar"
+            href="/denver-bmx-races"
             className="text-[#00ff0c] hover:text-white text-sm sm:text-base font-medium transition-colors"
           >
             see full Calendar
@@ -153,7 +153,7 @@ const ThisWeeksEvents = () => {
         <div className="flex items-baseline gap-3 mb-6">
           <h2 className="text-3xl font-bold text-white">Upcoming Events</h2>
           <Link 
-            href="/calendar"
+            href="/denver-bmx-races"
             className="text-[#00ff0c] hover:text-white text-sm sm:text-base font-medium transition-colors"
           >
             see full Calendar
@@ -176,7 +176,7 @@ const ThisWeeksEvents = () => {
         <div className="flex items-baseline gap-3">
           <h2 className="text-2xl sm:text-3xl font-bold text-white">Upcoming Events</h2>
           <Link 
-            href="/calendar"
+            href="/denver-bmx-races"
             className="text-[#00ff0c] hover:text-white text-sm sm:text-base font-medium transition-colors"
           >
             see full Calendar

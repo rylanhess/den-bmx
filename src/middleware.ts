@@ -2,15 +2,37 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const response = NextResponse.next();
   const { pathname } = request.nextUrl;
 
+  // SEO Redirects - Redirect old URLs to new SEO-friendly URLs
+  const redirects: Record<string, string> = {
+    '/tracks': '/bmx-tracks-denver',
+    '/freestyle': '/bmx-parks-denver',
+    '/calendar': '/denver-bmx-races',
+    '/new-rider': '/kids-bmx-denver',
+    '/shop': '/denver-bmx-merch',
+    '/merch': '/denver-bmx-merch',
+    '/volunteer': '/volunteer-bmx-denver',
+  };
+
+  // Check if this path should be redirected
+  if (redirects[pathname]) {
+    return NextResponse.redirect(new URL(redirects[pathname], request.url), 301);
+  }
+
+  const response = NextResponse.next();
+
   // Don't cache HTML pages - always fetch fresh
-  if (pathname === '/' || pathname.startsWith('/calendar') || pathname.startsWith('/tracks') || 
-      pathname.startsWith('/contact') || pathname.startsWith('/new-rider') || 
-      pathname.startsWith('/merch') || pathname.startsWith('/shop') || 
-      pathname.startsWith('/volunteer') || pathname.startsWith('/about') ||
-      pathname.startsWith('/track-pack') || pathname.startsWith('/freestyle')) {
+  if (pathname === '/' || pathname.startsWith('/denver-bmx-races') || pathname.startsWith('/bmx-tracks-denver') || 
+      pathname.startsWith('/contact') || pathname.startsWith('/kids-bmx-denver') || 
+      pathname.startsWith('/denver-bmx-merch') || pathname.startsWith('/volunteer-bmx-denver') || 
+      pathname.startsWith('/about') || pathname.startsWith('/track-pack') || 
+      pathname.startsWith('/bmx-parks-denver') ||
+      // Legacy paths (for redirects)
+      pathname.startsWith('/calendar') || pathname.startsWith('/tracks') || 
+      pathname.startsWith('/new-rider') || pathname.startsWith('/merch') || 
+      pathname.startsWith('/shop') || pathname.startsWith('/volunteer') || 
+      pathname.startsWith('/freestyle')) {
     response.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
     response.headers.set('Pragma', 'no-cache');
     response.headers.set('Expires', '0');

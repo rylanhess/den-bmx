@@ -69,7 +69,7 @@ const TracksShowcase = () => {
         {tracks.map((track) => (
           <Link
             key={track.id}
-            href="/tracks"
+            href="/bmx-tracks-denver"
             className="bg-black border-4 border-[#00ff0c] rounded-xl active:border-white overflow-hidden transform active:scale-95 transition-all group relative h-[280px] sm:h-[320px] md:h-[360px]"
           >
             {/* Wallpaper/Header Image */}

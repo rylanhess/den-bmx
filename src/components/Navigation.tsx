@@ -17,13 +17,13 @@ import {
 
 const navItems = [
   { href: '/', label: 'HOME', icon: HomeIcon },
-  { href: '/calendar', label: 'CALENDAR', icon: CalendarIcon },
-  { href: '/tracks', label: 'RACE', icon: FlagIcon },
-  { href: '/freestyle', label: 'FIND', icon: MapPinIcon },
-  { href: '/new-rider', label: 'NEW RIDER', icon: BoltIcon },
-  { href: '/volunteer', label: 'VOLUNTEER', icon: HeartIcon },
+  { href: '/denver-bmx-races', label: 'CALENDAR', icon: CalendarIcon },
+  { href: '/bmx-tracks-denver', label: 'RACE', icon: FlagIcon },
+  { href: '/bmx-parks-denver', label: 'FIND', icon: MapPinIcon },
+  { href: '/kids-bmx-denver', label: 'NEW RIDER', icon: BoltIcon },
+  { href: '/volunteer-bmx-denver', label: 'VOLUNTEER', icon: HeartIcon },
   { href: '/track-pack', label: 'TRACK PACK', icon: ArrowDownTrayIcon },
-  { href: '/shop', label: 'MERCH', icon: ShoppingBagIcon },
+  { href: '/denver-bmx-merch', label: 'MERCH', icon: ShoppingBagIcon },
   { href: '/contact', label: 'CONTACT', icon: EnvelopeIcon },
 ];
 

@@ -114,7 +114,7 @@ export default function BMXRacingExplainer() {
               </ul>
               <div className="mt-6 pt-4 border-t-2 border-[#00ff0c]">
                 <Link
-                  href="/tracks"
+                  href="/bmx-tracks-denver"
                   className="inline-block bg-[#00ff0c] hover:bg-white text-black font-black px-6 py-3 border-4 border-black rounded-xl transition-colors transform hover:scale-105"
                 >
                   FIND RACE TRACKS →
@@ -160,7 +160,7 @@ export default function BMXRacingExplainer() {
               </ul>
               <div className="mt-6 pt-4 border-t-2 border-[#00ff0c]">
                 <Link
-                  href="/freestyle"
+                  href="/bmx-parks-denver"
                   className="inline-block bg-[#00ff0c] hover:bg-white text-black font-black px-6 py-3 border-4 border-black rounded-xl transition-colors transform hover:scale-105"
                 >
                   FIND FREESTYLE PARKS →

@@ -30,22 +30,22 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/tracks" className="text-white hover:text-[#00ff0c] font-bold text-sm transition-colors">
+                <Link href="/bmx-tracks-denver" className="text-white hover:text-[#00ff0c] font-bold text-sm transition-colors">
                   Tracks
                 </Link>
               </li>
               <li>
-                <Link href="/calendar" className="text-white hover:text-[#00ff0c] font-bold text-sm transition-colors">
+                <Link href="/denver-bmx-races" className="text-white hover:text-[#00ff0c] font-bold text-sm transition-colors">
                   Calendar
                 </Link>
               </li>
               <li>
-                <Link href="/new-rider" className="text-white hover:text-[#00ff0c] font-bold text-sm transition-colors">
+                <Link href="/kids-bmx-denver" className="text-white hover:text-[#00ff0c] font-bold text-sm transition-colors">
                   New Rider Guide
                 </Link>
               </li>
               <li>
-                <Link href="/volunteer" className="text-white hover:text-[#00ff0c] font-bold text-sm transition-colors">
+                <Link href="/volunteer-bmx-denver" className="text-white hover:text-[#00ff0c] font-bold text-sm transition-colors">
                   Volunteer
                 </Link>
               </li>
@@ -82,7 +82,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <Link href="/shop" className="text-white hover:text-[#00ff0c] font-bold text-sm transition-colors">
+                <Link href="/denver-bmx-merch" className="text-white hover:text-[#00ff0c] font-bold text-sm transition-colors">
                   Shop
                 </Link>
               </li>
