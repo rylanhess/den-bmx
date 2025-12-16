@@ -62,14 +62,6 @@ export default function TrackPackPage() {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-12 md:py-16 max-w-6xl relative z-10">
-        {/* Back Button - Mobile Only */}
-        <Link 
-          href="/"
-          className="md:hidden inline-block mb-6 sm:mb-8 bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] rounded-xl active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
-        >
-          ← BACK TO HOME
-        </Link>
-
         {/* Hero - Professional Punk */}
         <div className="text-center mb-12">
           <div className="inline-block bg-black border-4 border-[#00ff0c] rounded-xl p-8 mb-6">

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
 import { ShoppingBagIcon } from '@heroicons/react/24/solid';
 import Footer from '@/components/Footer';
 
@@ -62,15 +61,6 @@ export default function ShopPage() {
         />
         {/* Dark overlay to ensure text readability */}
         <div className="absolute inset-0 w-full h-full bg-black/50" />
-      </div>
-      {/* Back Button - Mobile Only - Above Hero */}
-      <div className="relative z-10 container mx-auto px-4 pt-4 md:hidden">
-        <Link 
-          href="/"
-          className="inline-block bg-black text-[#00ff0c] font-black px-4 sm:px-6 py-3 border-4 border-[#00ff0c] rounded-xl active:bg-[#00ff0c] active:text-black transition-all transform active:scale-95 min-h-[44px] flex items-center justify-center"
-        >
-          ← BACK TO HOME
-        </Link>
       </div>
       {/* Hero Section with Logo and Shop Now Button */}
       <section className="relative z-10 flex flex-col justify-center items-center px-4 py-8 sm:py-12 md:py-16">
