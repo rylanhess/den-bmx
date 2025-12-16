@@ -251,6 +251,216 @@ export default function ParkFinderMap({ parks }: ParkFinderMapProps) {
     };
   }, [parks]);
 
+  // Update markers when parks change (for filtering)
+  useEffect(() => {
+    if (!map.current) return;
+
+    // Remove all existing markers
+    markersRef.current.forEach((marker) => marker.remove());
+    markersRef.current = [];
+
+    // Wait for map to be ready
+    if (!map.current.loaded()) {
+      map.current.once('load', () => {
+        addMarkers();
+      });
+    } else {
+      addMarkers();
+    }
+
+    function addMarkers() {
+      if (!map.current) return;
+
+      // Define marker styles by park type
+      const getMarkerStyle = (type: Park['type']) => {
+        switch (type) {
+          case 'Bike Park':
+            return {
+              backgroundColor: '#00ff0c', // Neon green
+              borderColor: '#000',
+              shadowColor: '#00ff0c',
+              shape: 'circle' as const,
+            };
+          case 'Skate Park':
+            return {
+              backgroundColor: '#0066ff', // Blue
+              borderColor: '#000',
+              shadowColor: '#0066ff',
+              shape: 'square' as const,
+            };
+          case 'Pump Track':
+            return {
+              backgroundColor: '#ffaa00', // Orange
+              borderColor: '#000',
+              shadowColor: '#ffaa00',
+              shape: 'diamond' as const,
+            };
+          case 'BMX Track':
+            return {
+              backgroundColor: '#ff0000', // Red
+              borderColor: '#000',
+              shadowColor: '#ff0000',
+              shape: 'triangle' as const,
+            };
+          case 'Indoor Park':
+            return {
+              backgroundColor: '#ff00ff', // Magenta for indoor
+              borderColor: '#000',
+              shadowColor: '#ff00ff',
+              shape: 'square' as const,
+            };
+          default:
+            return {
+              backgroundColor: '#00ff0c',
+              borderColor: '#000',
+              shadowColor: '#00ff0c',
+              shape: 'circle' as const,
+            };
+        }
+      };
+
+      // Create markers for each park
+      parks.forEach((park) => {
+        const markerStyle = getMarkerStyle(park.type);
+        
+        // Create outer container that Mapbox will position
+        const container = document.createElement('div');
+        container.style.width = '30px';
+        container.style.height = '30px';
+        container.style.cursor = 'pointer';
+        container.style.display = 'flex';
+        container.style.alignItems = 'center';
+        container.style.justifyContent = 'center';
+        container.style.overflow = 'visible';
+        container.style.boxSizing = 'content-box';
+        container.style.flexShrink = '0';
+        container.style.flexGrow = '0';
+        container.style.minWidth = '30px';
+        container.style.minHeight = '30px';
+        container.style.maxWidth = '30px';
+        container.style.maxHeight = '30px';
+        
+        // Create inner element for the visual marker
+        const el = document.createElement('div');
+        el.className = 'park-marker';
+        el.style.width = '30px';
+        el.style.height = '30px';
+        el.style.flexShrink = '0';
+        el.style.backgroundColor = markerStyle.backgroundColor;
+        el.style.border = '3px solid ' + markerStyle.borderColor;
+        el.style.boxShadow = `0 0 10px ${markerStyle.shadowColor}`;
+        el.style.transition = 'transform 0.2s ease, box-shadow 0.2s ease';
+        el.style.transformOrigin = 'center center';
+        el.style.position = 'relative';
+        
+        // Apply shape based on type
+        if (markerStyle.shape === 'circle') {
+          el.style.borderRadius = '50%';
+        } else if (markerStyle.shape === 'square') {
+          el.style.borderRadius = '4px';
+        } else if (markerStyle.shape === 'diamond') {
+          el.style.borderRadius = '0';
+          el.style.transform = 'rotate(45deg)';
+          el.style.width = '21px';
+          el.style.height = '21px';
+        } else if (markerStyle.shape === 'triangle') {
+          el.style.borderRadius = '0';
+          el.style.width = '0';
+          el.style.height = '0';
+          el.style.borderLeft = '15px solid transparent';
+          el.style.borderRight = '15px solid transparent';
+          el.style.borderBottom = `26px solid ${markerStyle.backgroundColor}`;
+          el.style.borderTop = 'none';
+          el.style.backgroundColor = 'transparent';
+          el.style.boxShadow = 'none';
+        }
+        
+        container.appendChild(el);
+        
+        // Create popup with mobile-friendly configuration
+        const popup = new mapboxgl.Popup({ 
+          offset: 25,
+          closeOnClick: false,
+          closeButton: true,
+          closeOnMove: false,
+          maxWidth: '280px',
+        })
+          .setHTML(`
+            <div style="color: #000; font-family: Arial, sans-serif; padding: 8px;">
+              <h3 style="margin: 0 0 8px 0; font-weight: bold; color: #00ff0c; font-size: 16px;">${park.name}</h3>
+              <p style="margin: 0 0 4px 0; font-size: 12px;"><strong>Type:</strong> ${park.type}</p>
+              <p style="margin: 0 0 4px 0; font-size: 12px;"><strong>Size:</strong> ${park.size}</p>
+              <p style="margin: 0 0 4px 0; font-size: 12px;"><strong>Quality:</strong> ${park.quality}</p>
+              <p style="margin: 0 0 8px 0; font-size: 12px;"><strong>Skill Levels:</strong> ${park.skillLevels.join(', ')}</p>
+              <a href="${park.googleMapsUrl}" target="_blank" rel="noopener noreferrer" style="color: #00ff0c; text-decoration: none; font-weight: bold; font-size: 12px; display: inline-block; padding: 4px 8px; background: #000; border: 2px solid #00ff0c;">View on Google Maps →</a>
+            </div>
+          `);
+
+        const marker = new mapboxgl.Marker({
+          element: container,
+          anchor: 'center',
+        })
+          .setLngLat([park.coordinates[1], park.coordinates[0]] as [number, number])
+          .setPopup(popup);
+        
+        if (map.current) {
+          marker.addTo(map.current);
+        }
+
+        // Add hover effects for desktop
+        container.addEventListener('mouseenter', () => {
+          setHoveredPark(park);
+          if (markerStyle.shape === 'triangle') {
+            el.style.filter = `drop-shadow(0 0 10px ${markerStyle.shadowColor}) drop-shadow(0 0 20px ${markerStyle.shadowColor})`;
+          } else if (markerStyle.shape === 'diamond') {
+            el.style.transform = 'rotate(45deg) scale(1.3)';
+            el.style.boxShadow = `0 0 20px ${markerStyle.shadowColor}, 0 0 30px ${markerStyle.shadowColor}`;
+          } else {
+            el.style.transform = 'scale(1.3)';
+            el.style.boxShadow = `0 0 20px ${markerStyle.shadowColor}, 0 0 30px ${markerStyle.shadowColor}`;
+          }
+        });
+
+        container.addEventListener('mouseleave', () => {
+          setHoveredPark(null);
+          if (markerStyle.shape === 'triangle') {
+            el.style.filter = 'none';
+          } else if (markerStyle.shape === 'diamond') {
+            el.style.transform = 'rotate(45deg) scale(1)';
+            el.style.boxShadow = `0 0 10px ${markerStyle.shadowColor}`;
+          } else {
+            el.style.transform = 'scale(1)';
+            el.style.boxShadow = `0 0 10px ${markerStyle.shadowColor}`;
+          }
+        });
+
+        // Add touch events for mobile
+        container.addEventListener('touchstart', (e) => {
+          e.stopPropagation();
+        });
+
+        container.addEventListener('touchend', (e) => {
+          e.stopPropagation();
+          marker.togglePopup();
+        });
+
+        markersRef.current.push(marker);
+      });
+
+      // Fit map to show all visible markers
+      if (parks.length > 0 && map.current) {
+        const bounds = new mapboxgl.LngLatBounds();
+        parks.forEach((park) => {
+          bounds.extend([park.coordinates[1], park.coordinates[0]]);
+        });
+        map.current.fitBounds(bounds, {
+          padding: { top: 50, bottom: 50, left: 50, right: 50 },
+          maxZoom: 12,
+        });
+      }
+    }
+  }, [parks]);
+
   if (mapError) {
     return (
       <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-8 text-center">

@@ -286,31 +286,6 @@ export default function TracksPage() {
         <div className="absolute inset-0 w-full h-full bg-black/50" />
       </div>
       <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 relative z-10">
-        {/* Header - Professional Punk */}
-        <div className="text-center mb-12">
-          <div className="inline-block bg-black border-4 border-[#00ff0c] rounded-xl p-8 mb-6">
-            <h1 className="text-5xl md:text-7xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
-              TRACKS
-            </h1>
-            <div className="h-2 bg-[#00ff0c]"></div>
-          </div>
-        </div>
-
-        {/* High Elevation Notice */}
-        <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 mb-8 backdrop-blur-sm">
-          <div className="flex items-center gap-4">
-            <ExclamationTriangleIcon className="w-16 h-16 text-[#00ff0c]" />
-            <div>
-              <h3 className="text-2xl font-black text-[#00ff0c] mb-2">
-                HIGH ELEVATION RACING!
-              </h3>
-              <p className="text-white font-bold text-lg">
-                All Denver metro tracks are at 5,000+ feet elevation! Bring LOTS of water! Stay hydrated or DIE!
-              </p>
-            </div>
-          </div>
-        </div>
-
         {/* Loading State */}
         {isLoading && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">

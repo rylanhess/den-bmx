@@ -33,46 +33,10 @@ export const metadata: Metadata = {
 export default function ShopPage() {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Background Images - Responsive: Single Rider (Mobile) / Two Riders (Desktop) */}
-      <div 
-        className="fixed inset-0 z-0 w-full h-full" 
-        style={{ 
-          opacity: 0.25,
-          pointerEvents: 'none',
-        }}
-      >
-        {/* Mobile: Single Rider (Vertical) */}
-        <div 
-          className="md:hidden absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('/black-white-portrait-athlete-participating-olympic-championship-sports.jpg')`,
-            backgroundPosition: 'center center',
-            backgroundSize: 'cover',
-          }}
-        />
-        {/* Desktop: Two Riders (Landscape) */}
-        <div 
-          className="hidden md:block absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('/black-white-portrait-athlete-participating-olympic-championship-sports%20(1).jpg')`,
-            backgroundPosition: 'center center',
-            backgroundSize: 'cover',
-          }}
-        />
-        {/* Dark overlay to ensure text readability */}
-        <div className="absolute inset-0 w-full h-full bg-black/50" />
-      </div>
-      {/* Hero Section with Logo and Shop Now Button */}
-      <section className="relative z-10 flex flex-col justify-center items-center px-4 py-8 sm:py-12 md:py-16">
-        <div className="text-center">
-          <Image
-            src="/logos/DEN_BMX_FINAL_Green.png"
-            alt="DEN BMX Logo"
-            width={400}
-            height={400}
-            className="w-full max-w-[250px] sm:max-w-[300px] md:max-w-[350px] lg:max-w-[400px] h-auto shadow-2xl mx-auto mb-6"
-            priority
-          />
+      {/* Main Content */}
+      <main className="container mx-auto px-4 py-8 md:py-12 max-w-6xl relative z-10">
+        {/* Shop Now Button */}
+        <div className="text-center mb-12">
           <a
             href="https://store.bmxdenver.com"
             target="_blank"
@@ -82,13 +46,6 @@ export default function ShopPage() {
             <ShoppingBagIcon className="w-8 h-8 inline mr-3" />
             SHOP NOW
           </a>
-        </div>
-      </section>
-
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-0 md:py-0 max-w-6xl relative z-10">
-        {/* Hero - Professional Punk */}
-        <div className="text-center mb-12">
         </div>
 
         {/* Featured Products */}

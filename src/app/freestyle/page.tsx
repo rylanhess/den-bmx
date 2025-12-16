@@ -719,8 +719,9 @@ const ParkCard = ({ park }: { park: Park }) => {
 type VenueFilterType = 'All' | 'Race Track' | 'Bike Park' | 'Pump Track' | 'Skate Park' | 'Indoor';
 
 export default function FreestylePage() {
-  const [selectedFilter, setSelectedFilter] = useState<VenueFilterType>('Bike Park');
+  const [selectedFilter, setSelectedFilter] = useState<VenueFilterType>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [showSearchResults, setShowSearchResults] = useState<boolean>(false);
 
   // Map filter types to park types
   const getParkTypeFromFilter = (filter: VenueFilterType): Park['type'] | null => {
@@ -778,7 +779,29 @@ export default function FreestylePage() {
   // Apply both type filter and search filter
   const filteredParks = searchParks(typeFilteredParks, searchQuery);
 
+  // Universal search - search across ALL parks regardless of filter
+  const universalSearchResults = searchParks(parks, searchQuery);
+
   const filterOptions: VenueFilterType[] = ['All', 'Race Track', 'Bike Park', 'Pump Track', 'Skate Park', 'Indoor'];
+
+  // Handle park selection from search results
+  const handleParkSelect = (park: Park) => {
+    // Find the filter that matches this park's type
+    const parkType = park.type;
+    let matchingFilter: VenueFilterType = 'All';
+    
+    if (parkType === 'BMX Track') {
+      matchingFilter = 'Race Track';
+    } else if (parkType === 'Indoor Park') {
+      matchingFilter = 'Indoor';
+    } else if (['Bike Park', 'Pump Track', 'Skate Park'].includes(parkType)) {
+      matchingFilter = parkType;
+    }
+    
+    setSelectedFilter(matchingFilter);
+    setSearchQuery(park.name);
+    setShowSearchResults(false);
+  };
 
   return (
     <main className="min-h-screen bg-black relative overflow-hidden">
@@ -802,83 +825,102 @@ export default function FreestylePage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-block bg-black border-4 border-[#00ff0c] rounded-xl p-8 mb-6">
-            <h1 className="text-5xl md:text-7xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
-              FREESTYLE & PRACTICE
-            </h1>
-            <div className="h-2 bg-[#00ff0c]"></div>
+        {/* Filters Container - Combined Search and Filter Toggles */}
+        <div className="mb-8">
+          <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-4 sm:p-6 relative">
+            <h3 className="text-xl sm:text-2xl font-black text-[#00ff0c] mb-6 text-center">
+              FIND PARKS
+            </h3>
+            
+            {/* Search Box */}
+            <div className="mb-6">
+              <div className="relative">
+                <MagnifyingGlassIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 sm:w-6 sm:h-6 text-[#00ff0c] z-10" />
+                <input
+                  id="park-search"
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setShowSearchResults(e.target.value.trim().length > 0);
+                  }}
+                  onFocus={() => {
+                    if (searchQuery.trim().length > 0) {
+                      setShowSearchResults(true);
+                    }
+                  }}
+                  onBlur={() => {
+                    // Delay hiding to allow clicks on results
+                    setTimeout(() => setShowSearchResults(false), 200);
+                  }}
+                  placeholder="Search by name, location, description, size, quality, or skill level..."
+                  className="w-full bg-black text-white border-4 border-[#00ff0c] rounded-xl pl-12 sm:pl-14 pr-4 py-3 sm:py-4 font-bold text-sm sm:text-base focus:outline-none focus:border-white transition-colors placeholder-gray-500"
+                />
+                {/* Search Results Dropdown */}
+                {showSearchResults && universalSearchResults.length > 0 && (
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-black border-4 border-[#00ff0c] rounded-xl max-h-[400px] overflow-y-auto z-20">
+                    {universalSearchResults.slice(0, 10).map((park) => (
+                      <button
+                        key={park.name}
+                        onClick={() => handleParkSelect(park)}
+                        className="w-full text-left p-4 hover:bg-[#00ff0c]/10 border-b-2 border-[#00ff0c]/20 last:border-b-0 transition-colors"
+                      >
+                        <div className="text-[#00ff0c] font-black text-lg mb-1">{park.name}</div>
+                        <div className="text-white font-bold text-sm mb-1">{park.type} • {park.location}</div>
+                        <div className="text-white/70 text-xs line-clamp-2">{park.description}</div>
+                      </button>
+                    ))}
+                    {universalSearchResults.length > 10 && (
+                      <div className="p-4 text-center text-white/70 text-sm font-bold">
+                        +{universalSearchResults.length - 10} more results
+                      </div>
+                    )}
+                  </div>
+                )}
+                {showSearchResults && searchQuery.trim().length > 0 && universalSearchResults.length === 0 && (
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-black border-4 border-[#00ff0c] rounded-xl p-4 z-20">
+                    <div className="text-white/70 text-sm text-center font-bold">No results found</div>
+                  </div>
+                )}
+              </div>
+              {searchQuery && !showSearchResults && (
+                <p className="text-white/70 text-sm mt-2 text-center">
+                  Showing {filteredParks.length} {filteredParks.length === 1 ? 'result' : 'results'}
+                </p>
+              )}
+            </div>
+
+            {/* Venue Type Filter Toggles */}
+            <div>
+              <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+                {filterOptions.map((filterType) => (
+                  <button
+                    key={filterType}
+                    onClick={() => {
+                      setSelectedFilter(filterType);
+                      setSearchQuery(''); // Clear search when filter changes
+                      setShowSearchResults(false);
+                    }}
+                    className={`
+                      px-4 sm:px-6 py-2 sm:py-3 border-4 font-black text-sm sm:text-base rounded-xl
+                      transition-all transform active:scale-95
+                      ${selectedFilter === filterType
+                        ? 'bg-[#00ff0c] text-black border-black'
+                        : 'bg-black text-[#00ff0c] border-[#00ff0c] hover:border-white hover:text-white'
+                      }
+                    `}
+                  >
+                    {filterType}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
-          <p className="text-white font-bold text-xl max-w-3xl mx-auto">
-            Find the best skate parks, bike parks, and pump tracks in the Denver metro area to practice your jumping skills and freestyle riding.
-          </p>
         </div>
 
         {/* Park Finder Map */}
         <div className="mb-12">
-          <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-6 mb-4">
-            <h2 className="text-3xl font-black text-[#00ff0c] mb-2 text-center">
-              PARK FINDER MAP
-            </h2>
-            <p className="text-white font-bold text-center">
-              <span className="hidden md:inline">Hover over the pins to see park details. Click for more information!</span>
-              <span className="md:hidden">Tap the pins to see park details and get directions!</span>
-            </p>
-          </div>
-          <ParkFinderMap parks={parks} />
-        </div>
-
-        {/* Venue Type Toggle */}
-        <div className="mb-8">
-          <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-4 sm:p-6">
-            <h3 className="text-xl sm:text-2xl font-black text-[#00ff0c] mb-4 text-center">
-              FILTER BY VENUE TYPE
-            </h3>
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-              {filterOptions.map((filterType) => (
-                <button
-                  key={filterType}
-                  onClick={() => setSelectedFilter(filterType)}
-                  className={`
-                    px-4 sm:px-6 py-2 sm:py-3 border-4 font-black text-sm sm:text-base rounded-xl
-                    transition-all transform active:scale-95
-                    ${selectedFilter === filterType
-                      ? 'bg-[#00ff0c] text-black border-black'
-                      : 'bg-black text-[#00ff0c] border-[#00ff0c] hover:border-white hover:text-white'
-                    }
-                  `}
-                >
-                  {filterType}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Search Box */}
-        <div className="mb-8">
-          <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-4 sm:p-6">
-            <label htmlFor="park-search" className="block text-xl sm:text-2xl font-black text-[#00ff0c] mb-4 text-center">
-              SEARCH PARKS
-            </label>
-            <div className="relative">
-              <MagnifyingGlassIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 sm:w-6 sm:h-6 text-[#00ff0c]" />
-              <input
-                id="park-search"
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by name, location, description, size, quality, or skill level..."
-                className="w-full bg-black text-white border-4 border-[#00ff0c] rounded-xl pl-12 sm:pl-14 pr-4 py-3 sm:py-4 font-bold text-sm sm:text-base focus:outline-none focus:border-white transition-colors placeholder-gray-500"
-              />
-            </div>
-            {searchQuery && (
-              <p className="text-white/70 text-sm mt-2 text-center">
-                Showing {filteredParks.length} {filteredParks.length === 1 ? 'result' : 'results'}
-              </p>
-            )}
-          </div>
+          <ParkFinderMap parks={filteredParks} />
         </div>
 
         {/* Park Cards Grid */}

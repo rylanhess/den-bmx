@@ -35,16 +35,6 @@ export default function NewRiderPage() {
       </div>
       {/* Main Content */}
       <main className="container mx-auto px-4 py-12 md:py-16 max-w-6xl relative z-10">
-        {/* Hero - Professional Punk */}
-        <div className="text-center mb-12">
-          <div className="inline-block bg-black border-4 border-[#00ff0c] rounded-xl p-8 mb-6">
-            <h1 className="text-5xl md:text-7xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
-              NEW RIDERS
-            </h1>
-            <div className="h-2 bg-[#00ff0c]"></div>
-          </div>
-        </div>
-
         {/* Quick Start Card */}
         <div className="bg-gray-900/90 border-4 border-[#00ff0c] rounded-xl p-6 md:p-8 mb-12 backdrop-blur-sm">
           <h2 className="text-4xl font-black text-[#00ff0c] mb-4">

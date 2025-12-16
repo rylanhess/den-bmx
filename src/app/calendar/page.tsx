@@ -682,15 +682,6 @@ export default function CalendarPage() {
         </div>
         <div className="container mx-auto px-4 py-8 relative z-10">
           <div className="max-w-7xl mx-auto">
-            {/* Hero - Professional Punk */}
-            <div className="text-center mb-12">
-              <div className="inline-block bg-black border-4 border-[#00ff0c] rounded-xl p-8 mb-6">
-                <h1 className="text-5xl md:text-7xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
-                  EVENT CALENDAR
-                </h1>
-                <div className="h-2 bg-[#00ff0c]"></div>
-              </div>
-            </div>
             <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-12 text-center">
               <div className="text-[#00ff0c] font-black text-lg">Loading events...</div>
             </div>
@@ -735,10 +726,6 @@ export default function CalendarPage() {
         </div>
         <div className="container mx-auto px-4 py-8 relative z-10">
           <div className="max-w-7xl mx-auto">
-            <h1 className="text-3xl sm:text-4xl font-black text-white mb-8 flex items-center gap-3">
-              <CalendarIcon className="w-8 h-8 sm:w-10 sm:h-10 text-[#00ff0c]" />
-              EVENT CALENDAR
-            </h1>
             <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-12 text-center">
               <div className="text-[#00ff0c] font-black text-lg mb-2">Error loading events</div>
               <div className="text-white/70 text-sm">{error}</div>
@@ -783,16 +770,6 @@ export default function CalendarPage() {
       </div>
       <div className="container mx-auto px-4 py-8 relative z-10">
         <div className="max-w-7xl mx-auto">
-          {/* Hero - Professional Punk */}
-          <div className="text-center mb-12">
-            <div className="inline-block bg-black border-4 border-[#00ff0c] rounded-xl p-8 mb-6">
-              <h1 className="text-5xl md:text-7xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
-                EVENT CALENDAR
-              </h1>
-              <div className="h-2 bg-[#00ff0c]"></div>
-            </div>
-          </div>
-
           <div className="bg-black border-4 border-[#00ff0c] rounded-xl p-4 sm:p-6">
             {/* Custom Toolbar for all views */}
             <CustomToolbar

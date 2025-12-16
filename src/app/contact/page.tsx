@@ -74,16 +74,6 @@ export default function ContactPage() {
         <div className="absolute inset-0 w-full h-full bg-black/50" />
       </div>
       <main className="container mx-auto px-4 py-12 md:py-20 relative z-10">
-        {/* Hero - Professional Punk */}
-        <div className="text-center mb-12">
-          <div className="inline-block bg-black border-4 border-[#00ff0c] p-8 mb-6">
-            <h1 className="text-5xl md:text-7xl font-black text-[#00ff0c] mb-2" style={{textShadow: '0 0 20px #00ff0c, 4px 4px 0px rgba(0,0,0,0.8)'}}>
-              CONTACT ME
-            </h1>
-            <div className="h-2 bg-[#00ff0c]"></div>
-          </div>
-        </div>
-
         {/* Main Content Grid */}
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Image Section */}
