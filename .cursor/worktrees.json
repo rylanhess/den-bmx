@@ -1,0 +1,8 @@
+{
+  "setup-worktree": [
+    "npm install",
+    "node scripts/generate-version.js || true",
+    "npx tsc --noEmit || true"
+  ],
+  "description": "General-purpose worktree setup for Next.js/TypeScript project"
+}
