@@ -180,9 +180,18 @@ async def main():
         try:
             # Fetch tracks from Supabase that have usabmx_url
             tracks_result = supabase.table("tracks").select("*").not_.is_("usabmx_url", "null").execute()
-            tracks = tracks_result.data
+            all_tracks = tracks_result.data
             
-            print(f"\nFound {len(tracks)} tracks with USA BMX URLs")
+            # Filter to only BMX race tracks (not skate parks, pump tracks, etc.)
+            # Must have "BMX" in name AND usabmx_url must point to actual usabmx.com domain
+            tracks = [
+                t for t in all_tracks 
+                if "BMX" in t.get("name", "") 
+                and "usabmx.com" in t.get("usabmx_url", "")
+            ]
+            
+            print(f"\nFound {len(all_tracks)} total tracks with URLs")
+            print(f"Filtered to {len(tracks)} BMX race tracks only")
             
             all_events = []
             
