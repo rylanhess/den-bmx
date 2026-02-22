@@ -1,3 +1,7 @@
 # Ignore credentials and env files
 credentials/
 .env
+
+# Local data and venv
+scraped_data/
+venv/
