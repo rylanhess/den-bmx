@@ -7,25 +7,67 @@ Outputs events in a clean format for manual review and Supabase entry.
 
 import asyncio
 import json
+import os
 import re
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import Optional, List, Dict
+from typing import List, Dict, Tuple, Optional
 from playwright.async_api import async_playwright, Page
-from supabase import create_client, Client
-import dateutil.parser
+from supabase import create_client
+from dateutil.relativedelta import relativedelta
 
 # Configuration
-SUPABASE_URL = "https://vtmlxqmvuvvyisfphrzt.supabase.co"
-OUTPUT_DIR = Path(__file__).parent.parent / "scraped_data"
+PROJECT_ROOT = Path(__file__).parent.parent
+OUTPUT_DIR = PROJECT_ROOT / "scraped_data"
 STATE_FILE = Path(__file__).parent / "usabmx_scraper_state.json"
 
-# Load credentials
-def load_supabase_key():
-    """Load Supabase key from secure storage"""
-    creds_dir = Path("/root/.openclaw/workspace/credentials")
-    with open(creds_dir / "supabase_secret.txt", "r") as f:
-        return f.read().strip()
+
+def _read_env_local_value(key: str) -> Optional[str]:
+    """Read KEY=value from .env.local (same pattern as scripts/config.ts)."""
+    env_path = PROJECT_ROOT / ".env.local"
+    if not env_path.is_file():
+        return None
+    prefix = f"{key}="
+    for raw in env_path.read_text().splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        if line.startswith(prefix):
+            val = line[len(prefix) :].strip()
+            if (val.startswith('"') and val.endswith('"')) or (
+                val.startswith("'") and val.endswith("'")
+            ):
+                val = val[1:-1]
+            return val
+    return None
+
+
+def load_supabase_url() -> str:
+    url = (
+        os.environ.get("SUPABASE_URL")
+        or os.environ.get("NEXT_PUBLIC_SUPABASE_URL")
+        or _read_env_local_value("SUPABASE_URL")
+        or _read_env_local_value("NEXT_PUBLIC_SUPABASE_URL")
+    )
+    if url:
+        return url.strip()
+    raise RuntimeError(
+        "Missing Supabase URL: set SUPABASE_URL or NEXT_PUBLIC_SUPABASE_URL "
+        "(env or .env.local at project root)"
+    )
+
+
+def load_supabase_key() -> str:
+    """Service role key from env or .env.local."""
+    key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "").strip()
+    if key:
+        return key
+    from_file = _read_env_local_value("SUPABASE_SERVICE_ROLE_KEY")
+    if from_file:
+        return from_file.strip()
+    raise RuntimeError(
+        "Missing SUPABASE_SERVICE_ROLE_KEY (env or .env.local at project root)"
+    )
 
 # State management
 def load_state() -> Dict:
@@ -40,121 +82,127 @@ def save_state(state: Dict):
     with open(STATE_FILE, "w") as f:
         json.dump(state, f, indent=2)
 
+
+def base_track_profile_url(usabmx_url: str) -> str:
+    """Strip query/hash and /events suffix so we have .../tracks/co-mile-high%20bmx."""
+    u = usabmx_url.strip().split("#")[0].split("?")[0].rstrip("/")
+    if "/events" in u:
+        u = u[: u.index("/events")].rstrip("/")
+    return u
+
+
+def schedule_page_urls(usabmx_url: str, num_months: int = 6) -> List[str]:
+    """
+    USA BMX puts the calendar at:
+      {profile}/events?year=YYYY&month=MM
+    (e.g. https://www.usabmx.com/tracks/co-mile-high%20bmx/events?year=2026&month=04)
+    The profile URL in Supabase is correct; we must append /events and month params.
+    """
+    base = base_track_profile_url(usabmx_url)
+    out: List[str] = []
+    start = datetime.now().date().replace(day=1)
+    for i in range(num_months):
+        cur = start + relativedelta(months=i)
+        out.append(f"{base}/events?year={cur.year}&month={cur.month:02d}")
+    return out
+
+
+def extract_schedule_events_from_body(
+    body: str, track_id: str, track_name: str, source_url: str
+) -> List[Dict]:
+    """
+    Schedule pages embed listings as DATE: / TYPE: blocks with ISO dates (not table rows).
+    """
+    # Non-greedy gap between date line and type (handles blank lines)
+    pairs: List[Tuple[str, str]] = re.findall(
+        r"DATE:\s*(\d{4}-\d{2}-\d{2})\s*TYPE:\s*([^\n\r]+)",
+        body,
+        flags=re.IGNORECASE,
+    )
+    events: List[Dict] = []
+    seen: set = set()
+    for date_iso, raw_type in pairs:
+        raw_type = raw_type.strip()
+        key = (date_iso, raw_type.lower())
+        if key in seen:
+            continue
+        seen.add(key)
+        etype = classify_usabmx_event_type(raw_type)
+        events.append(
+            {
+                "track_id": track_id,
+                "track_name": track_name,
+                "title": f"{track_name} — {raw_type}",
+                "date": date_iso,
+                "time": None,
+                "description": raw_type[:500],
+                "type": etype,
+                "source": "usabmx.com",
+                "source_url": source_url,
+                "scraped_at": datetime.now().isoformat(),
+            }
+        )
+    return events
+
+
+def classify_usabmx_event_type(type_label: str) -> str:
+    s = type_label.lower()
+    if "practice" in s:
+        return "Practice"
+    if "registration" in s:
+        return "Registration"
+    if "gate" in s and "practice" in s:
+        return "Gate Practice"
+    if "race" in s or "local" in s or "single" in s or "mot" in s:
+        return "Race"
+    return "Race"
+
+
 async def scrape_usabmx_track(page: Page, track: Dict) -> List[Dict]:
-    """Scrape race events from a USA BMX track page"""
-    events = []
+    """Scrape race events from USA BMX schedule pages (/events?year=&month=)."""
+    events: List[Dict] = []
     track_id = track["id"]
     track_name = track["name"]
     usabmx_url = track.get("usabmx_url")
-    
+
     if not usabmx_url:
         print(f"No USA BMX URL for {track_name}, skipping")
         return events
-    
+
     print(f"\nScraping {track_name}...")
-    print(f"URL: {usabmx_url}")
-    
+    print(f"Profile URL (from DB): {usabmx_url}")
+
+    urls = schedule_page_urls(usabmx_url, num_months=3)
+    print(f"Schedule pages: {len(urls)} month(s), e.g. {urls[0]}")
+
     try:
-        await page.goto(usabmx_url)
-        await page.wait_for_timeout(3000)
-        
-        # Look for schedule/calendar section
-        # USA BMX typically has race dates in tables or list format
-        
-        # Try to find race schedule table
-        schedule_selectors = [
-            'table tbody tr',  # Table rows
-            '.race-schedule .event',  # Event containers
-            '[class*="schedule"] tr',  # Schedule rows
-            '[class*="event"] .date',  # Date elements
-        ]
-        
-        races_found = []
-        
-        for selector in schedule_selectors:
-            try:
-                elements = await page.locator(selector).all()
-                if elements:
-                    print(f"Found {len(elements)} elements with selector: {selector}")
-                    for elem in elements[:20]:  # Limit to first 20
-                        try:
-                            text = await elem.inner_text()
-                            if text and len(text) > 10:
-                                races_found.append(text.strip())
-                        except:
-                            continue
-                    if races_found:
-                        break
-            except:
-                continue
-        
-        # Also try to get page title and any visible race info
-        page_title = await page.title()
-        
-        # Extract dates from found text
-        for race_text in races_found:
-            event = parse_race_info(race_text, track_id, track_name, usabmx_url)
-            if event:
-                events.append(event)
-                print(f"  Found: {event['title']} on {event['date']}")
-        
-        # If no structured data, save raw page content for manual review
+        for sched_url in urls:
+            await page.goto(sched_url, wait_until="domcontentloaded", timeout=60000)
+            await page.wait_for_timeout(4500)
+            body = await page.inner_text("body")
+            found = extract_schedule_events_from_body(
+                body, track_id, track_name, sched_url
+            )
+            for ev in found:
+                events.append(ev)
+                print(f"  [{sched_url.split('month=')[-1]}] {ev['date']} — {ev['description']}")
+
         if not events:
-            print(f"  ⚠️ No structured race data found - saving screenshot for review")
+            print("  ⚠️ No DATE:/TYPE: blocks found — saving screenshot from last month viewed")
             screenshot_path = OUTPUT_DIR / f"{track_name.replace(' ', '_')}_screenshot.png"
             await page.screenshot(path=str(screenshot_path), full_page=True)
             print(f"  Screenshot saved: {screenshot_path}")
-        
+
     except Exception as e:
         print(f"Error scraping {track_name}: {e}")
-    
-    return events
 
-def parse_race_info(text: str, track_id: str, track_name: str, source_url: str) -> Optional[Dict]:
-    """Parse race information from scraped text"""
-    # Common patterns for race dates
-    date_patterns = [
-        r'(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2})(?:st|nd|rd|th)?,?\s*(\d{4})?',
-        r'(\d{1,2})/(\d{1,2})/(\d{2,4})',
-        r'(\d{1,2})-(\d{1,2})-(\d{2,4})',
-    ]
-    
-    event_date = None
-    for pattern in date_patterns:
-        match = re.search(pattern, text, re.IGNORECASE)
-        if match:
-            try:
-                # Try to parse the date
-                date_str = match.group(0)
-                event_date = dateutil.parser.parse(date_str, fuzzy=True)
-                break
-            except:
-                continue
-    
-    if not event_date:
-        return None
-    
-    # Determine event type
-    event_type = "Race"
-    if "practice" in text.lower():
-        event_type = "Practice"
-    elif "registration" in text.lower():
-        event_type = "Registration"
-    elif "gate" in text.lower():
-        event_type = "Gate Practice"
-    
-    return {
-        "track_id": track_id,
-        "track_name": track_name,
-        "title": f"{track_name} {event_type}",
-        "date": event_date.strftime("%Y-%m-%d"),
-        "time": None,  # USA BMX often doesn't list specific times
-        "description": text[:500],
-        "type": event_type,
-        "source": "usabmx.com",
-        "source_url": source_url,
-        "scraped_at": datetime.now().isoformat()
-    }
+    # Same DATE+TYPE can appear on overlapping month views
+    deduped: Dict[Tuple[str, str], Dict] = {}
+    for ev in events:
+        key = (ev["date"], (ev.get("description") or "").strip().lower())
+        deduped[key] = ev
+    return list(deduped.values())
+
 
 async def main():
     """Main scraper function"""
@@ -163,8 +211,9 @@ async def main():
     print("=" * 60)
     
     # Initialize Supabase (for reading track list)
+    supabase_url = load_supabase_url()
     supabase_key = load_supabase_key()
-    supabase = create_client(SUPABASE_URL, supabase_key)
+    supabase = create_client(supabase_url, supabase_key)
     
     # Load state
     state = load_state()
