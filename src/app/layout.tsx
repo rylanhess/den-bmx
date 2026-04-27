@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import ServiceWorkerRegistration from "./sw-register";
 import Navigation from "@/components/Navigation";
 import SponsorshipStrip from "@/components/SponsorshipStrip";
+import CheckinSummaryBanner from "@/components/CheckinSummaryBanner";
 import NewsletterModalTrigger from "@/components/NewsletterModalTrigger";
 import "./globals.css";
 
@@ -95,6 +96,7 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen">
           <Navigation />
           <SponsorshipStrip />
+          <CheckinSummaryBanner />
           <main className="flex-1">
             {children}
           </main>
