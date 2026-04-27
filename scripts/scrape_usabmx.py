@@ -1,17 +1,29 @@
 #!/usr/bin/env python3
 """
 USA BMX Track Scraper for BMX Denver
-Scrapes official race schedules from USA BMX track pages.
-Outputs events in a clean format for manual review and Supabase entry.
+Scrapes schedule pages: {track}/events?year=&month=
+
+Uses DATE:/TYPE: blocks in the page body (same listings USA BMX shows as
+"add to calendar" detail). Those blocks are usually only published for a
+short lookahead; fetching months through November does not guarantee
+November rows—full grid data may require additional parsing later.
+
+Usage:
+  python scripts/scrape_usabmx.py [--through YYYY-MM] [--push]
+  --push  Insert rows into Supabase public.events (needs service role key).
 """
 
+import argparse
 import asyncio
 import json
 import os
 import re
-from datetime import datetime
+import sys
+from datetime import date, datetime
 from pathlib import Path
 from typing import List, Dict, Tuple, Optional
+from zoneinfo import ZoneInfo
+
 from playwright.async_api import async_playwright, Page
 from supabase import create_client
 from dateutil.relativedelta import relativedelta
@@ -91,20 +103,73 @@ def base_track_profile_url(usabmx_url: str) -> str:
     return u
 
 
-def schedule_page_urls(usabmx_url: str, num_months: int = 6) -> List[str]:
+def schedule_page_urls_through(
+    usabmx_url: str, end_year: int, end_month: int
+) -> List[str]:
     """
-    USA BMX puts the calendar at:
+    USA BMX schedule URLs:
       {profile}/events?year=YYYY&month=MM
-    (e.g. https://www.usabmx.com/tracks/co-mile-high%20bmx/events?year=2026&month=04)
-    The profile URL in Supabase is correct; we must append /events and month params.
+    From the first day of the current month through end_year/end_month (inclusive).
     """
     base = base_track_profile_url(usabmx_url)
     out: List[str] = []
-    start = datetime.now().date().replace(day=1)
-    for i in range(num_months):
-        cur = start + relativedelta(months=i)
+    cur = datetime.now().date().replace(day=1)
+    end = date(end_year, end_month, 1)
+    while cur <= end:
         out.append(f"{base}/events?year={cur.year}&month={cur.month:02d}")
+        cur = cur + relativedelta(months=1)
     return out
+
+
+def default_schedule_end() -> Tuple[int, int]:
+    """If we're still in or before November, end at November of this year; else November next year."""
+    today = datetime.now().date()
+    if today.month <= 11:
+        return (today.year, 11)
+    return (today.year + 1, 11)
+
+
+def denver_noon_iso(date_str: str) -> str:
+    """Calendar day at 12:00 America/Denver for start_at."""
+    d = datetime.strptime(date_str, "%Y-%m-%d").date()
+    dt = datetime.combine(
+        d,
+        datetime.min.time().replace(hour=12, minute=0),
+        tzinfo=ZoneInfo("America/Denver"),
+    )
+    return dt.isoformat()
+
+
+def push_usabmx_events_to_db(supabase, events: List[Dict]) -> Dict[str, int]:
+    """Insert scraped rows into public.events (same shape as add2026Events / processEvents)."""
+    stats = {"inserted": 0, "skipped_duplicate": 0, "errors": 0}
+    for ev in events:
+        row = {
+            "track_id": ev["track_id"],
+            "title": ev["title"],
+            "description": ev.get("description"),
+            "start_at": denver_noon_iso(ev["date"]),
+            "end_at": None,
+            "status": "scheduled",
+            "url": ev.get("source_url"),
+            "image": None,
+            "gate_fee": None,
+            "class": None,
+        }
+        try:
+            res = supabase.table("events").insert(row).execute()
+            if res.data:
+                stats["inserted"] += 1
+            else:
+                stats["errors"] += 1
+        except Exception as ex:  # noqa: BLE001
+            err = str(ex).lower()
+            if "23505" in str(ex) or "duplicate" in err or "unique" in err:
+                stats["skipped_duplicate"] += 1
+            else:
+                stats["errors"] += 1
+                print(f"  DB insert error: {ex}", file=sys.stderr)
+    return stats
 
 
 def extract_schedule_events_from_body(
@@ -158,7 +223,9 @@ def classify_usabmx_event_type(type_label: str) -> str:
     return "Race"
 
 
-async def scrape_usabmx_track(page: Page, track: Dict) -> List[Dict]:
+async def scrape_usabmx_track(
+    page: Page, track: Dict, end_year: int, end_month: int
+) -> List[Dict]:
     """Scrape race events from USA BMX schedule pages (/events?year=&month=)."""
     events: List[Dict] = []
     track_id = track["id"]
@@ -172,8 +239,10 @@ async def scrape_usabmx_track(page: Page, track: Dict) -> List[Dict]:
     print(f"\nScraping {track_name}...")
     print(f"Profile URL (from DB): {usabmx_url}")
 
-    urls = schedule_page_urls(usabmx_url, num_months=3)
-    print(f"Schedule pages: {len(urls)} month(s), e.g. {urls[0]}")
+    urls = schedule_page_urls_through(usabmx_url, end_year, end_month)
+    print(
+        f"Schedule pages: {len(urls)} month(s) through {end_year}-{end_month:02d}, e.g. {urls[0]}"
+    )
 
     try:
         for sched_url in urls:
@@ -206,10 +275,39 @@ async def scrape_usabmx_track(page: Page, track: Dict) -> List[Dict]:
 
 async def main():
     """Main scraper function"""
+    parser = argparse.ArgumentParser(description="USA BMX track schedule scraper")
+    parser.add_argument(
+        "--through",
+        metavar="YYYY-MM",
+        help="Last month to scrape (default: November of current or next year)",
+        default=None,
+    )
+    parser.add_argument(
+        "--push",
+        action="store_true",
+        help="Insert scraped events into Supabase public.events",
+    )
+    args = parser.parse_args()
+
+    if args.through:
+        parts = args.through.split("-")
+        if len(parts) != 2:
+            print("--through must be YYYY-MM", file=sys.stderr)
+            sys.exit(2)
+        end_year, end_month = int(parts[0]), int(parts[1])
+        if not (1 <= end_month <= 12):
+            print("month must be 01-12", file=sys.stderr)
+            sys.exit(2)
+    else:
+        end_year, end_month = default_schedule_end()
+
     print("=" * 60)
     print("USA BMX Track Scraper")
+    print(f"Schedule through: {end_year}-{end_month:02d}")
+    if args.push:
+        print("Push to Supabase: YES")
     print("=" * 60)
-    
+
     # Initialize Supabase (for reading track list)
     supabase_url = load_supabase_url()
     supabase_key = load_supabase_key()
@@ -245,7 +343,7 @@ async def main():
             all_events = []
             
             for track in tracks:
-                events = await scrape_usabmx_track(page, track)
+                events = await scrape_usabmx_track(page, track, end_year, end_month)
                 all_events.extend(events)
                 
                 # Small delay between tracks
@@ -253,6 +351,15 @@ async def main():
             
             print(f"\n{'='*60}")
             print(f"Total events found: {len(all_events)}")
+            if all_events:
+                max_d = max(ev["date"] for ev in all_events)
+                want_end = f"{end_year}-{end_month:02d}"
+                if max_d < want_end:
+                    print(
+                        f"\n⚠️  Latest scraped date is {max_d}; USA BMX HTML may not list "
+                        f"DATE:/TYPE: entries through {want_end}. Calendar still benefits from "
+                        "Facebook scrapers + processEvents for longer-range posts."
+                    )
             
             # Save results to JSON file for manual review
             if all_events:
@@ -277,6 +384,15 @@ async def main():
                         f.write("-" * 40 + "\n\n")
                 
                 print(f"✅ Summary saved to: {summary_file}")
+
+                if args.push:
+                    print("\nPushing events to Supabase (public.events)...")
+                    db_stats = push_usabmx_events_to_db(supabase, all_events)
+                    print(
+                        f"  inserted={db_stats['inserted']} "
+                        f"skipped_duplicate={db_stats['skipped_duplicate']} "
+                        f"errors={db_stats['errors']}"
+                    )
             else:
                 print("\nNo events found in this run")
             
