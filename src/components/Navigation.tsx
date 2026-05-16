@@ -13,7 +13,6 @@ import {
   ArrowDownTrayIcon,
   CalendarIcon,
   MapPinIcon,
-  UserGroupIcon,
 } from '@heroicons/react/24/solid';
 
 const navItems = [
@@ -24,7 +23,6 @@ const navItems = [
   { href: '/kids-bmx-denver', label: 'NEW RIDER', icon: BoltIcon },
   { href: '/volunteer-bmx-denver', label: 'VOLUNTEER', icon: HeartIcon },
   { href: '/track-pack', label: 'TRACK PACK', icon: ArrowDownTrayIcon },
-  { href: '/check-ins', label: 'CHECK INS', icon: UserGroupIcon },
   { href: '/denver-bmx-merch', label: 'MERCH', icon: ShoppingBagIcon },
   { href: '/contact', label: 'CONTACT', icon: EnvelopeIcon },
 ];

@@ -103,11 +103,6 @@ textarea {
   50% { transform: translateY(-10px); }
 }
 
-@keyframes checkins-marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
 .animate-blink {
   animation: blink 2s infinite;
 }
@@ -138,12 +133,6 @@ textarea {
 
 .animate-bounce-slow {
   animation: bounce-slow 2s ease-in-out infinite;
-}
-
-.checkins-marquee-track {
-  display: inline-flex;
-  width: max-content;
-  animation: checkins-marquee 18s linear infinite;
 }
 
 /* Hide scrollbar but allow scrolling */
