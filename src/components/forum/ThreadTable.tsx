@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { formatRelativeDate } from '@/lib/forum';
+import UserProfileLink from '@/components/profile/UserProfileLink';
 import type { ForumThread, Profile } from '@/lib/supabase';
 
 interface ThreadWithAuthor extends ForumThread {
@@ -28,6 +29,7 @@ export default function ThreadTable({
           <tr className="bg-[#00ff0c]/10 border-b border-[#00ff0c]/30">
             <th className="text-left px-4 py-3 font-black text-[#00ff0c]">Topic</th>
             <th className="text-center px-4 py-3 font-black text-[#00ff0c] hidden sm:table-cell">Replies</th>
+            <th className="text-center px-4 py-3 font-black text-[#00ff0c] hidden sm:table-cell">Posts</th>
             <th className="text-left px-4 py-3 font-black text-[#00ff0c] hidden md:table-cell">Author</th>
             <th className="text-right px-4 py-3 font-black text-[#00ff0c] hidden sm:table-cell">Last Post</th>
           </tr>
@@ -64,8 +66,14 @@ export default function ThreadTable({
               <td className="text-center px-4 py-3 text-gray-400 hidden sm:table-cell">
                 {thread.reply_count}
               </td>
+              <td className="text-center px-4 py-3 text-gray-400 hidden sm:table-cell">
+                {thread.reply_count + 1}
+              </td>
               <td className="px-4 py-3 text-gray-400 hidden md:table-cell">
-                {thread.author?.display_name ?? 'System'}
+                <UserProfileLink
+                  userId={thread.author_id}
+                  displayName={thread.author?.display_name ?? 'System'}
+                />
               </td>
               <td className="text-right px-4 py-3 text-gray-500 text-xs hidden sm:table-cell">
                 {formatRelativeDate(thread.last_post_at)}

@@ -9,6 +9,7 @@ interface CategoryStat {
   sort_order: number;
   track_id: string | null;
   thread_count: number;
+  post_count: number;
   latest_thread_title: string | null;
   latest_post_at: string | null;
 }
@@ -16,29 +17,40 @@ interface CategoryStat {
 export type { CategoryStat };
 
 export default function CategoryTable({ categories }: { categories: CategoryStat[] }) {
+  const trackBoards = categories.filter((c) => c.track_id);
   const general = categories.filter((c) => !c.track_id);
-  const trackComms = categories.filter((c) => c.track_id);
 
   return (
     <div className="space-y-8">
+      <CategorySection title="Track Message Boards" categories={trackBoards} priority />
       <CategorySection title="Discussion Boards" categories={general} />
-      <CategorySection title="Track Communications" categories={trackComms} />
     </div>
   );
 }
 
-function CategorySection({ title, categories }: { title: string; categories: CategoryStat[] }) {
+function CategorySection({
+  title,
+  categories,
+  priority,
+}: {
+  title: string;
+  categories: CategoryStat[];
+  priority?: boolean;
+}) {
   if (categories.length === 0) return null;
 
   return (
     <div>
-      <h2 className="text-lg font-black text-[#00ff0c] mb-3 uppercase tracking-wide">{title}</h2>
+      <h2 className={`font-black text-[#00ff0c] mb-3 uppercase tracking-wide ${priority ? 'text-xl' : 'text-lg'}`}>
+        {title}
+      </h2>
       <div className="border-2 border-[#00ff0c]/30 rounded-lg overflow-hidden">
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-[#00ff0c]/10 border-b border-[#00ff0c]/30">
               <th className="text-left px-4 py-3 font-black text-[#00ff0c]">Board</th>
               <th className="text-center px-4 py-3 font-black text-[#00ff0c] hidden sm:table-cell">Topics</th>
+              <th className="text-center px-4 py-3 font-black text-[#00ff0c] hidden sm:table-cell">Posts</th>
               <th className="text-left px-4 py-3 font-black text-[#00ff0c] hidden md:table-cell">Last Post</th>
             </tr>
           </thead>
@@ -47,7 +59,7 @@ function CategorySection({ title, categories }: { title: string; categories: Cat
               <tr key={cat.id} className="border-b border-[#00ff0c]/10 hover:bg-[#00ff0c]/5 transition-colors">
                 <td className="px-4 py-3">
                   <Link href={`/forum/${cat.slug}`} className="font-bold text-white hover:text-[#00ff0c] transition-colors">
-                    {cat.name}
+                    {cat.name.replace(' — Track Comms', '')}
                   </Link>
                   {cat.description && (
                     <p className="text-gray-500 text-xs mt-0.5 line-clamp-1">{cat.description}</p>
@@ -55,6 +67,9 @@ function CategorySection({ title, categories }: { title: string; categories: Cat
                 </td>
                 <td className="text-center px-4 py-3 text-gray-400 hidden sm:table-cell">
                   {cat.thread_count}
+                </td>
+                <td className="text-center px-4 py-3 text-gray-400 hidden sm:table-cell">
+                  {cat.post_count}
                 </td>
                 <td className="px-4 py-3 hidden md:table-cell">
                   {cat.latest_thread_title ? (

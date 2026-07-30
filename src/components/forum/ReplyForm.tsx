@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import GuestPostPrompt from '@/components/auth/GuestPostPrompt';
 import { createClient } from '@/lib/supabase/client';
+import GuestPostPrompt from '@/components/auth/GuestPostPrompt';
+import ImageUploadField from '@/components/forum/ImageUploadField';
 
 export default function ReplyForm({ threadId, isLocked }: { threadId: string; isLocked: boolean }) {
   const [body, setBody] = useState('');
+  const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
@@ -33,14 +35,14 @@ export default function ReplyForm({ threadId, isLocked }: { threadId: string; is
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!body.trim()) return;
+    if (!body.trim() && images.length === 0) return;
     setLoading(true);
     setError('');
 
     const res = await fetch('/api/forum/posts', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ thread_id: threadId, body: body.trim() }),
+      body: JSON.stringify({ thread_id: threadId, body: body.trim(), image_urls: images }),
     });
 
     if (!res.ok) {
@@ -51,6 +53,7 @@ export default function ReplyForm({ threadId, isLocked }: { threadId: string; is
     }
 
     setBody('');
+    setImages([]);
     setLoading(false);
     router.refresh();
   };
@@ -63,13 +66,15 @@ export default function ReplyForm({ threadId, isLocked }: { threadId: string; is
         value={body}
         onChange={(e) => setBody(e.target.value)}
         rows={5}
-        required
         placeholder="Write your reply... (supports **bold** and [links](url))"
         className="w-full px-4 py-3 bg-black border-2 border-[#00ff0c]/40 rounded text-white focus:border-[#00ff0c] focus:outline-none resize-y"
       />
+      <div className="mt-2">
+        <ImageUploadField images={images} onChange={setImages} disabled={loading} />
+      </div>
       <button
         type="submit"
-        disabled={loading || !body.trim()}
+        disabled={loading || (!body.trim() && images.length === 0)}
         className="mt-3 px-6 py-2 bg-[#00ff0c] text-black font-black rounded hover:bg-[#00cc0a] transition-colors disabled:opacity-50"
       >
         {loading ? 'Posting...' : 'POST REPLY'}

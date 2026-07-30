@@ -1,4 +1,6 @@
 import { formatRelativeDate, renderMarkdownLite } from '@/lib/forum';
+import UserAvatar from '@/components/forum/UserAvatar';
+import UserProfileLink from '@/components/profile/UserProfileLink';
 import type { ForumPost, Profile } from '@/lib/supabase';
 
 interface PostWithAuthor extends ForumPost {
@@ -14,11 +16,26 @@ export default function PostList({ posts }: { posts: PostWithAuthor[] }) {
           className={`flex gap-4 p-4 ${i % 2 === 0 ? 'bg-black' : 'bg-[#00ff0c]/5'} border-b border-[#00ff0c]/10 last:border-b-0`}
         >
           <div className="w-24 shrink-0 text-center">
-            <div className="w-12 h-12 mx-auto bg-[#00ff0c]/20 rounded-full flex items-center justify-center text-[#00ff0c] font-black text-lg">
-              {(post.author?.display_name ?? 'S')[0].toUpperCase()}
-            </div>
+            {post.author_id ? (
+              <a href={`/users/${post.author_id}`} className="block hover:opacity-80 transition-opacity">
+                <UserAvatar
+                  displayName={post.author?.display_name ?? 'System'}
+                  avatarUrl={post.author?.avatar_url}
+                  size={48}
+                />
+              </a>
+            ) : (
+              <UserAvatar
+                displayName={post.author?.display_name ?? 'System'}
+                avatarUrl={post.author?.avatar_url}
+                size={48}
+              />
+            )}
             <p className="text-xs font-bold text-[#00ff0c] mt-2 break-words">
-              {post.author?.display_name ?? 'System'}
+              <UserProfileLink
+                userId={post.author_id}
+                displayName={post.author?.display_name ?? 'System'}
+              />
             </p>
             <p className="text-xs text-gray-500 mt-1">
               {formatRelativeDate(post.created_at)}
@@ -38,10 +55,26 @@ export default function PostList({ posts }: { posts: PostWithAuthor[] }) {
                 </a>
               </div>
             )}
-            <div
-              className="text-gray-200 prose-sm leading-relaxed break-words"
-              dangerouslySetInnerHTML={{ __html: renderMarkdownLite(post.body) }}
-            />
+            {post.body?.trim() && (
+              <div
+                className="text-gray-200 prose-sm leading-relaxed break-words"
+                dangerouslySetInnerHTML={{ __html: renderMarkdownLite(post.body) }}
+              />
+            )}
+            {post.image_urls && post.image_urls.length > 0 && (
+              <div className={`flex flex-wrap gap-2 ${post.body?.trim() ? 'mt-3' : ''}`}>
+                {post.image_urls.map((url) => (
+                  <a key={url} href={url} target="_blank" rel="noopener noreferrer">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={url}
+                      alt="Attached"
+                      className="max-h-64 rounded border border-[#00ff0c]/20 hover:border-[#00ff0c]/50 transition-colors"
+                    />
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       ))}

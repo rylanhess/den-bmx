@@ -28,6 +28,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: '**.fb.com',
       },
+      {
+        protocol: 'https',
+        hostname: '**.supabase.co',
+      },
     ],
   },
   // Add headers for cache control

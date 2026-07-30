@@ -6,14 +6,14 @@ type WithAuthorId = { author_id: string | null };
 export async function attachAuthors<T extends WithAuthorId>(
   supabase: Awaited<ReturnType<typeof createClient>>,
   items: T[]
-): Promise<(T & { author?: Pick<Profile, 'id' | 'display_name'> })[]> {
+): Promise<(T & { author?: Pick<Profile, 'id' | 'display_name' | 'avatar_url'> })[]> {
   const ids = [...new Set(items.map((i) => i.author_id).filter(Boolean))] as string[];
   if (ids.length === 0) {
     return items.map((i) => ({ ...i, author: undefined }));
   }
   const { data: profiles } = await supabase
     .from('profiles')
-    .select('id, display_name')
+    .select('id, display_name, avatar_url')
     .in('id', ids);
   const map = new Map(profiles?.map((p) => [p.id, p]) ?? []);
   return items.map((i) => ({
@@ -100,10 +100,25 @@ export async function getCategoryStats() {
 
   const stats = await Promise.all(
     categories.map(async (cat) => {
-      const { count } = await supabase
+      const { count: threadCount } = await supabase
         .from('forum_threads')
         .select('*', { count: 'exact', head: true })
         .eq('category_id', cat.id);
+
+      const { data: threadIds } = await supabase
+        .from('forum_threads')
+        .select('id')
+        .eq('category_id', cat.id);
+
+      let postCount = 0;
+      if (threadIds && threadIds.length > 0) {
+        const ids = threadIds.map((t) => t.id);
+        const { count } = await supabase
+          .from('forum_posts')
+          .select('*', { count: 'exact', head: true })
+          .in('thread_id', ids);
+        postCount = count ?? 0;
+      }
 
       const { data: latest } = await supabase
         .from('forum_threads')
@@ -115,7 +130,8 @@ export async function getCategoryStats() {
 
       return {
         ...cat,
-        thread_count: count ?? 0,
+        thread_count: threadCount ?? 0,
+        post_count: postCount,
         latest_thread_title: latest?.title ?? null,
         latest_post_at: latest?.last_post_at ?? null,
       };
@@ -123,6 +139,20 @@ export async function getCategoryStats() {
   );
 
   return stats.sort((a, b) => a.sort_order - b.sort_order);
+}
+
+export async function getCategoryPostCount(categoryId: string) {
+  const supabase = await createClient();
+  const { data: threadIds } = await supabase
+    .from('forum_threads')
+    .select('id')
+    .eq('category_id', categoryId);
+  if (!threadIds?.length) return 0;
+  const { count } = await supabase
+    .from('forum_posts')
+    .select('*', { count: 'exact', head: true })
+    .in('thread_id', threadIds.map((t) => t.id));
+  return count ?? 0;
 }
 
 export function formatRelativeDate(dateStr: string) {

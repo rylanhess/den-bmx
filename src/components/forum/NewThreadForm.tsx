@@ -4,10 +4,12 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import GuestPostPrompt from '@/components/auth/GuestPostPrompt';
+import ImageUploadField from '@/components/forum/ImageUploadField';
 
 export default function NewThreadForm({ categoryId, categorySlug }: { categoryId: string; categorySlug: string }) {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [open, setOpen] = useState(false);
@@ -27,13 +29,19 @@ export default function NewThreadForm({ categoryId, categorySlug }: { categoryId
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!title.trim() || (!body.trim() && images.length === 0)) return;
     setLoading(true);
     setError('');
 
     const res = await fetch('/api/forum/threads', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ category_id: categoryId, title: title.trim(), body: body.trim() }),
+      body: JSON.stringify({
+        category_id: categoryId,
+        title: title.trim(),
+        body: body.trim(),
+        image_urls: images,
+      }),
     });
 
     const data = await res.json();
@@ -74,10 +82,12 @@ export default function NewThreadForm({ categoryId, categorySlug }: { categoryId
         value={body}
         onChange={(e) => setBody(e.target.value)}
         rows={6}
-        required
         placeholder="Your message..."
         className="w-full px-4 py-3 bg-black border-2 border-[#00ff0c]/40 rounded text-white focus:border-[#00ff0c] focus:outline-none resize-y"
       />
+      <div className="mt-2">
+        <ImageUploadField images={images} onChange={setImages} disabled={loading} />
+      </div>
       <div className="flex gap-2 mt-3">
         <button
           type="submit"
