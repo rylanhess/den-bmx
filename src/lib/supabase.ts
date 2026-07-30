@@ -79,6 +79,7 @@ export interface Profile {
   usabmx_synced_at: string | null;
   instagram_url: string | null;
   facebook_url: string | null;
+  is_bot: boolean;
   preferences: UserPreferences;
   created_at: string;
   updated_at: string;
@@ -150,6 +151,8 @@ export interface FbPostSignal {
   id: string;
   track_id: string;
   fb_url: string;
+  platform: 'facebook' | 'instagram';
+  external_post_id: string | null;
   detected_at: string;
   forum_thread_id: string | null;
   track?: Track;

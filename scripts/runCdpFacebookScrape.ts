@@ -447,6 +447,18 @@ const appendHeal = (entry: Record<string, unknown>): void => {
 };
 
 async function main(): Promise<void> {
+  if (!process.argv.includes('--legacy-deep')) {
+    console.warn(
+      'runCdpFacebookScrape.ts is deprecated. Use: npm run scrape:social\n'
+    );
+    const { spawnSync } = await import('child_process');
+    const proc = spawnSync(
+      'npx',
+      ['tsx', path.join(__dirname, 'runSocialMetadataScrape.ts')],
+      { stdio: 'inherit', cwd: repoRoot }
+    );
+    process.exit(proc.status ?? 1);
+  }
   const scrapedAt = new Date().toISOString();
   fs.mkdirSync(outDir, { recursive: true });
 

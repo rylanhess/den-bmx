@@ -1,104 +1,71 @@
-# Local browser Facebook scraper
+# Colorado social metadata scanner
 
-Scrape four track Facebook pages using **your open Chrome** (Chrome DevTools MCP `--autoConnect`), then ingest to Supabase.
+Light scan of **all Colorado BMX track** Facebook and Instagram pages. Captures **post URL + timestamp only** — no post content. New posts create forum threads on each track's comms board, posted by **BMX Colorado Bot**.
+
+## Architecture
+
+| Layer | Where | What |
+|-------|-------|------|
+| **Browser scan** | Mac or small VPS with Chrome + CDP | `runSocialMetadataScrape.ts` — needs logged-in FB/IG session |
+| **Ingest + bot posts** | Same machine, or Vercel API | `ingestFbSignals.ts` or `POST /api/cron/social-ingest` |
+| **Dedup** | Supabase `fb_post_signals` | Unique on `(platform, fb_url)` and `(platform, external_post_id)` |
+| **Site** | Vercel | Forum UI only — **cannot run the browser scrape** |
+
+**Why not Vercel for the full job?** Serverless functions have no persistent Chrome, short timeouts, and Facebook/Instagram block datacenter IPs. Vercel is a good fit for the **ingest API** after a worker POSTs scrape JSON.
+
+**Recommended schedule (3× daily MT):** 8am, 12pm, 6pm via `scripts/launchd/com.denbmx.social-scan.plist`.
 
 ## Prerequisites
 
-1. Chrome with remote debugging: `chrome://inspect/#remote-debugging`
-2. Four tabs: MileHighBmx, DaconoBMXTrack, CountyLineBMX, twinsilobmx
-3. `.env.local`: `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, `CURSOR_API_KEY` (for scheduled/SDK runs)
-4. Cursor MCP: see [`.cursor/mcp.json`](../.cursor/mcp.json)
+1. Chrome remote debugging: `chrome://inspect/#remote-debugging`
+2. Logged into **Facebook** and **Instagram** in that Chrome profile
+3. `.env.local`: `SUPABASE_SERVICE_ROLE_KEY`, `SOCIAL_BOT_USER_ID`
+4. One-time: `npm run scrape:seed-bot`
 
 ## Commands
 
 | Command | Description |
 |---------|-------------|
-| `npm run scrape:now` | Ad hoc — starts immediately |
-| `npm run scrape:daily` | Test daily wrapper (random 0–60 min delay) |
-| `npm run scrape:prepare-chrome` | Open Chrome + four track tabs; wait for CDP on :9222 |
-| `npm run scrape:install-wake` | Install `pmset repeat wake` at 12:55 (sudo) |
-| `npm run scrape:ingest` | Ingest `scripts/output/latest-mcp-scrape.json` |
-| `npm run scrape:escalate` | Send alert email to rylan@bmxdenver.com |
+| `npm run scrape:social` | Scan all CO tracks (FB + IG metadata) |
+| `npm run scrape:ingest-signals` | Ingest → forum bot posts |
+| `npm run scrape:now` | Ad hoc scan + ingest |
+| `npm run scrape:seed-bot` | Create BMX Colorado Bot account |
+| `npm run scrape:prepare-chrome` | Open Chrome + FB/IG; wait for CDP |
 
-## Cursor chat
-
-1. Run MCP preflight: `scripts/agents/mcp-preflight.md`
-2. Run scrape: `scripts/agents/facebook-scrape.md`
-
-## Daily schedule (wake 12:55 → scrape 1–2pm MT)
-
-### 1. Wake the Mac at 12:55
-
-So the machine is up before the 1pm job (launchd does not run while asleep):
+## Daily schedule (8am / 12pm / 6pm MT)
 
 ```bash
-npm run scrape:install-wake
-# or: sudo pmset repeat wake MTWRFSU 12:55:00
-pmset -g sched   # verify
+cp scripts/launchd/com.denbmx.social-scan.plist ~/Library/LaunchAgents/
+launchctl load -w ~/Library/LaunchAgents/com.denbmx.social-scan.plist
 ```
 
-### 2. Optional: Chrome prep at 12:56
+Logs: `~/Library/Logs/den-bmx-social-scan.log`
 
-Opens Chrome, remote-debugging page, and four track tabs; keeps the Mac awake until the scrape window:
+### Optional: POST scrape results to production
+
+After a local scan, push ingest to Vercel (bot posts on production forum):
 
 ```bash
-cp scripts/launchd/com.denbmx.chrome-prep.plist ~/Library/LaunchAgents/
-launchctl load -w ~/Library/LaunchAgents/com.denbmx.chrome-prep.plist
+npm run scrape:post-vercel
 ```
 
-Log: `~/Library/Logs/den-bmx-wake-prep.log`
+`runScrapeJob.sh` does this automatically when `CRON_SECRET` is set.
 
-Manual habit: `npm run scrape:prepare-chrome`
+**Vercel env vars** (Settings → Environment Variables → Production):
 
-### 3. Scrape job at 1:00pm
+| Variable | Purpose |
+|----------|---------|
+| `CRON_SECRET` | Same value as local `.env.local` — protects `/api/cron/social-ingest` |
+| `SOCIAL_BOT_USER_ID` | Bot profile UUID (`npm run scrape:seed-bot`) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Ingest writes to Supabase |
+| `SUPABASE_URL` | Supabase project URL |
+| `NEXT_PUBLIC_SITE_URL` | `https://www.bmxcolorado.com` |
 
-macOS **launchd** runs the scraper **every day at 1:00pm Mountain Time**; the script **caffeinates**, waits a **random 0–60 minutes**, **prepares Chrome again**, then runs the SDK scrape (1–2pm start).
+Deploy `main` after adding env vars so the ingest API route is live.
 
-You only need this if you want **automatic** daily runs without opening Cursor. For manual runs, use `npm run scrape:now` instead.
+For **launchd** without `.env.local` in PATH, copy secrets to `~/.den-bmx-scrape.env` (chmod 600).
 
-```bash
-cp scripts/launchd/com.denbmx.facebook-scrape.plist ~/Library/LaunchAgents/
-launchctl load -w ~/Library/LaunchAgents/com.denbmx.facebook-scrape.plist
-```
+## Instagram notes
 
-Check it’s loaded: `launchctl list | grep denbmx`
-
-Optional secrets for launchd (launchd does not load your shell profile):
-
-```bash
-# ~/.den-bmx-scrape.env (chmod 600)
-CURSOR_API_KEY=cursor_...
-```
-
-Logs: `~/Library/Logs/den-bmx-scrape.log`
-
-## Troubleshooting
-
-### Chrome MCP not connected / preflight fails
-
-Chrome 144+ uses `chrome://inspect/#remote-debugging` (not the old `DevToolsActivePort` file).
-
-1. Open **Google Chrome** (not Safari).
-2. Go to `chrome://inspect/#remote-debugging` → check **Allow remote debugging**.
-3. Confirm: **Server running at: 127.0.0.1:9222**
-4. Keep four track Facebook tabs open.
-5. Verify: `curl -s http://127.0.0.1:9222/json/version` returns JSON with `webSocketDebuggerUrl`.
-6. Re-run `npm run scrape:now` — you should see `✓ Chrome CDP ready at http://127.0.0.1:9222`.
-
-For interactive debugging, use **Cursor chat** with MCP connected (Settings → MCP → chrome-devtools green).
-
-### Resend 403 on escalation email
-
-With `onboarding@resend.dev`, Resend only sends to **hess.rylan@gmail.com** until **bmxdenver.com** is verified.
-
-Until domain verify: add to `.env.local`:
-
-```
-SCRAPER_ALERT_EMAIL=hess.rylan@gmail.com
-```
-
-After verify: use `SCRAPER_FROM_EMAIL="DEN BMX <notifications@bmxdenver.com>"` and `SCRAPER_ALERT_EMAIL=rylan@bmxdenver.com`.
-
-## Branch
-
-`feat/local-browser-scraper`
+- **Posts/reels** on public profiles when timestamps are visible.
+- **Stories** not supported (login-gated, 24h expiry).

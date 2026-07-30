@@ -1,5 +1,8 @@
 #!/usr/bin/env npx tsx
 /**
+ * @deprecated Deep Facebook scrape (full post text + alerts pipeline).
+ * Sunset for bmxcolorado.com — use runSocialMetadataScrape.ts instead.
+ *
  * Scheduled / ad-hoc Facebook scrape via Cursor SDK + Chrome DevTools MCP.
  * Requires CURSOR_API_KEY and Chrome with --autoConnect remote debugging.
  */

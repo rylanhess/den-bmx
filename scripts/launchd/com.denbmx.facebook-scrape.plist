@@ -6,9 +6,8 @@
   <string>com.denbmx.facebook-scrape</string>
   <key>ProgramArguments</key>
   <array>
-    <string>/bin/zsh</string>
-    <string>-lc</string>
-    <string>cd /Users/rylanhess/Documents/Github/den-bmx &amp;&amp; ./scripts/runDailyScrape.sh</string>
+    <string>/bin/bash</string>
+    <string>/Users/rylanhess/Documents/Github/den-bmx/scripts/runDailyScrape.sh</string>
   </array>
   <key>StartCalendarInterval</key>
   <dict>

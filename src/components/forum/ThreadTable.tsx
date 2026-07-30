@@ -49,7 +49,7 @@ export default function ThreadTable({
                   )}
                   {thread.is_system && (
                     <span className="bg-blue-900/50 text-blue-300 text-xs px-1.5 py-0.5 rounded font-bold shrink-0">
-                      FB
+                      BOT
                     </span>
                   )}
                   {thread.is_locked && (

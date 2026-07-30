@@ -1,14 +1,7 @@
 #!/bin/bash
-# Launch Chrome, surface remote-debugging settings, open four track tabs, wait for CDP.
+# Launch Chrome and wait for CDP. Social scraper navigates to each track URL itself.
 set -euo pipefail
 export TZ=America/Denver
-
-TRACK_URLS=(
-  "https://www.facebook.com/MileHighBmx"
-  "https://www.facebook.com/DaconoBMXTrack"
-  "https://www.facebook.com/CountyLineBMX"
-  "https://www.facebook.com/twinsilobmx"
-)
 
 CDP_URL="${CHROME_DEBUG_URL:-http://127.0.0.1:9222}"
 CDP_VERSION="${CDP_URL%/}/json/version"
@@ -23,7 +16,7 @@ cdp_ready() {
   curl -sf -m 2 "$CDP_VERSION" 2>/dev/null | grep -q webSocketDebuggerUrl
 }
 
-log "Preparing Chrome for scrape (CDP: $CDP_URL)"
+log "Preparing Chrome for social metadata scan (CDP: $CDP_URL)"
 
 if ! open -a "Google Chrome" 2>/dev/null; then
   log "ERROR: Google Chrome not found"
@@ -38,10 +31,10 @@ if ! cdp_ready; then
   sleep 4
 fi
 
-for url in "${TRACK_URLS[@]}"; do
-  open -a "Google Chrome" "$url"
-  sleep 1
-done
+# Log into Facebook and Instagram in this Chrome profile if not already
+open -a "Google Chrome" "https://www.facebook.com/"
+sleep 1
+open -a "Google Chrome" "https://www.instagram.com/"
 
 elapsed=0
 while (( elapsed < MAX_WAIT_SEC )); do
