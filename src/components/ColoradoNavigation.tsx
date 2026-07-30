@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 const publicNavItems = [
   { href: '/forum', label: 'FORUM', icon: ChatBubbleLeftRightIcon },
   { href: '/tracks', label: 'TRACKS', icon: MapPinIcon },
+  { href: '/riders', label: 'RIDERS', icon: UserCircleIcon },
   { href: 'https://store.bmxdenver.com', label: 'MERCH', icon: ShoppingBagIcon, external: true },
   { href: '/contact', label: 'CONTACT', icon: EnvelopeIcon },
 ];
