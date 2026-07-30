@@ -1,6 +1,27 @@
 import { createClient } from '@/lib/supabase/server';
 import type { ForumCategory, ForumThread, ForumPost, Profile } from '@/lib/supabase';
 
+type WithAuthorId = { author_id: string | null };
+
+export async function attachAuthors<T extends WithAuthorId>(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  items: T[]
+): Promise<(T & { author?: Pick<Profile, 'id' | 'display_name'> })[]> {
+  const ids = [...new Set(items.map((i) => i.author_id).filter(Boolean))] as string[];
+  if (ids.length === 0) {
+    return items.map((i) => ({ ...i, author: undefined }));
+  }
+  const { data: profiles } = await supabase
+    .from('profiles')
+    .select('id, display_name')
+    .in('id', ids);
+  const map = new Map(profiles?.map((p) => [p.id, p]) ?? []);
+  return items.map((i) => ({
+    ...i,
+    author: i.author_id ? map.get(i.author_id) : undefined,
+  }));
+}
+
 export async function getCategories() {
   const supabase = await createClient();
   const { data, error } = await supabase
@@ -29,25 +50,27 @@ export async function getThreadsByCategory(categoryId: string, page = 1, perPage
 
   const { data, error, count } = await supabase
     .from('forum_threads')
-    .select('*, author:profiles!forum_threads_author_id_fkey(id, display_name)', { count: 'exact' })
+    .select('*', { count: 'exact' })
     .eq('category_id', categoryId)
     .order('is_pinned', { ascending: false })
     .order('last_post_at', { ascending: false })
     .range(from, to);
 
   if (error) throw error;
-  return { threads: data as (ForumThread & { author?: Profile })[], count: count ?? 0 };
+  const threads = await attachAuthors(supabase, data ?? []);
+  return { threads: threads as (ForumThread & { author?: Profile })[], count: count ?? 0 };
 }
 
 export async function getThread(threadId: string) {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from('forum_threads')
-    .select('*, category:forum_categories(*), author:profiles!forum_threads_author_id_fkey(id, display_name)')
+    .select('*, category:forum_categories(*)')
     .eq('id', threadId)
     .single();
-  if (error) return null;
-  return data as ForumThread & { category?: ForumCategory; author?: Profile };
+  if (error || !data) return null;
+  const [withAuthor] = await attachAuthors(supabase, [data]);
+  return withAuthor as ForumThread & { category?: ForumCategory; author?: Profile };
 }
 
 export async function getPostsByThread(threadId: string, page = 1, perPage = 20) {
@@ -57,13 +80,14 @@ export async function getPostsByThread(threadId: string, page = 1, perPage = 20)
 
   const { data, error, count } = await supabase
     .from('forum_posts')
-    .select('*, author:profiles!forum_posts_author_id_fkey(id, display_name)', { count: 'exact' })
+    .select('*', { count: 'exact' })
     .eq('thread_id', threadId)
     .order('created_at', { ascending: true })
     .range(from, to);
 
   if (error) throw error;
-  return { posts: data as (ForumPost & { author?: Profile })[], count: count ?? 0 };
+  const posts = await attachAuthors(supabase, data ?? []);
+  return { posts: posts as (ForumPost & { author?: Profile })[], count: count ?? 0 };
 }
 
 export async function getCategoryStats() {

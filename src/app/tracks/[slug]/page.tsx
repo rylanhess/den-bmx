@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 import TrackHeader from '@/components/forum/TrackHeader';
 import { FbSignalFeed } from '@/components/forum/FbSignalCard';
 import ThreadTable from '@/components/forum/ThreadTable';
+import { attachAuthors } from '@/lib/forum';
 import type { Track, FbPostSignal } from '@/lib/supabase';
 
 interface Props {
@@ -58,12 +59,12 @@ export default async function TrackPage({ params }: Props) {
   if (category) {
     const { data } = await supabase
       .from('forum_threads')
-      .select('*, author:profiles!forum_threads_author_id_fkey(id, display_name)')
+      .select('*')
       .eq('category_id', category.id)
       .order('is_pinned', { ascending: false })
       .order('last_post_at', { ascending: false })
       .limit(10);
-    threads = data ?? [];
+    threads = (await attachAuthors(supabase, data ?? [])) as Parameters<typeof ThreadTable>[0]['threads'];
   }
 
   return (
