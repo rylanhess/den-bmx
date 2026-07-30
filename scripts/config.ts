@@ -71,6 +71,18 @@ export const TRACK_MAPPINGS: Record<string, TrackMapping> = {
     name: 'Twin Silo BMX',
     slug: 'twin-silo-bmx',
     facebookUrl: 'https://www.facebook.com/twinsilobmx/'
+  },
+  'durango-bmx': {
+    id: '45b647e9-cb60-46eb-a88c-e7f08a617961',
+    name: 'Durango BMX',
+    slug: 'durango-bmx',
+    facebookUrl: 'https://www.facebook.com/DurangoBMX/'
+  },
+  'grand-valley-bmx': {
+    id: '2996c95e-d98c-45b8-84c9-307b1e8a908c',
+    name: 'Grand Valley BMX',
+    slug: 'grand-valley-bmx',
+    facebookUrl: 'https://www.facebook.com/grandvalleybmx/'
   }
 };
 

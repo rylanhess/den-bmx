@@ -33,6 +33,25 @@ export interface EventRecord {
 /**
  * Normalize a Facebook post into an alert record
  */
+/** Build alert body from post + top alert-bearing comments */
+export const buildAlertText = (post: FacebookPost): string => {
+  let body = post.text.trim();
+  const comments = post.comments ?? [];
+  const alertComments = comments
+    .filter((c) => {
+      const lower = c.text.toLowerCase();
+      return ['cancel', 'postponed', 'closed', 'weather', 'rain', 'rescheduled', 'alert', 'notice'].some(
+        (k) => lower.includes(k)
+      );
+    })
+    .slice(0, 3);
+  if (alertComments.length > 0) {
+    const block = alertComments.map((c) => `[Comment] ${c.text.trim()}`).join('\n');
+    body = `${body}\n\n---\n${block}`;
+  }
+  return body;
+};
+
 export const normalizeToAlert = (
   post: FacebookPost,
   trackId: string
@@ -40,7 +59,7 @@ export const normalizeToAlert = (
   return {
     track_id: trackId,
     posted_at: post.timestamp ? post.timestamp.toISOString() : new Date().toISOString(),
-    text: post.text.trim(),
+    text: buildAlertText(post),
     url: post.url,
     image: post.image
   };

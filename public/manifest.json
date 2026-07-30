@@ -1,8 +1,8 @@
 {
-  "name": "Denver BMX",
-  "short_name": "DEN BMX",
-  "description": "Your hub for all things BMX in Denver. Find racing tracks, freestyle parks, events, and everything you need for BMX racing and freestyle riding in the Denver metro area.",
-  "start_url": "/",
+  "name": "BMX Colorado",
+  "short_name": "BMX CO",
+  "description": "Colorado BMX community message board. Stay informed on local race tracks, freestyle events, and connect with riders across the state.",
+  "start_url": "/forum",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#00ff0c",
@@ -19,31 +19,23 @@
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
-    },
-    {
-      "src": "/logos/DEN_BMX_FINAL_Green.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
     }
   ],
-  "categories": ["sports", "racing"],
-  "screenshots": [],
+  "categories": ["sports", "social"],
   "shortcuts": [
     {
-      "name": "This Week's Events",
-      "short_name": "Events",
-      "description": "View this week's BMX events",
-      "url": "/?events",
+      "name": "Forum",
+      "short_name": "Forum",
+      "description": "BMX Colorado message board",
+      "url": "/forum",
       "icons": [{ "src": "/logos/DEN_BMX_FINAL_Green.png", "sizes": "96x96" }]
     },
     {
       "name": "Tracks",
       "short_name": "Tracks",
-      "description": "View BMX track information",
-      "url": "/bmx-tracks-denver",
+      "description": "Colorado BMX race tracks",
+      "url": "/tracks",
       "icons": [{ "src": "/logos/DEN_BMX_FINAL_Green.png", "sizes": "96x96" }]
     }
   ]
 }
-

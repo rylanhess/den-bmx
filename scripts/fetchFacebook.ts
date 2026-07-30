@@ -7,6 +7,12 @@
 
 import { chromium, Browser, Page } from 'playwright';
 
+export interface FacebookComment {
+  readonly text: string;
+  readonly author?: string;
+  readonly timestampText?: string;
+}
+
 export interface FacebookPost {
   readonly text: string;
   readonly timestamp: Date | null;
@@ -15,6 +21,9 @@ export interface FacebookPost {
   readonly image: string | null;
   readonly isEvent: boolean;
   readonly hasAlertKeywords: boolean;
+  readonly comments?: FacebookComment[];
+  readonly liked?: boolean;
+  readonly expandFailed?: boolean;
 }
 
 export interface ScraperResult {

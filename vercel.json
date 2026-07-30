@@ -3,6 +3,19 @@
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "outputDirectory": ".next"
+  "outputDirectory": ".next",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "coloradobmx.com" }],
+      "destination": "https://bmxcolorado.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.coloradobmx.com" }],
+      "destination": "https://bmxcolorado.com/:path*",
+      "permanent": true
+    }
+  ]
 }
-

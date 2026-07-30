@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import ServiceWorkerRegistration from "./sw-register";
-import Navigation from "@/components/Navigation";
+import SiteNavigation from "@/components/SiteNavigation";
 import SponsorshipStrip from "@/components/SponsorshipStrip";
 import NewsletterModalTrigger from "@/components/NewsletterModalTrigger";
+import ColoradoShell from "@/components/ColoradoShell";
+import { headers } from "next/headers";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -75,15 +77,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const host = headersList.get('host') ?? '';
+  const isColorado =
+    host.includes('bmxcolorado') || host.includes('coloradobmx');
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Favicon - green mark works on both light and dark themes */}
         <link rel="icon" href="/logos/MARK_ONLY_icon_tab.png?v=5" type="image/png" />
         <link rel="icon" href="/logos/MARK_ONLY_icon_tab.png?v=5" sizes="32x32" type="image/png" />
         <link rel="shortcut icon" href="/logos/MARK_ONLY_icon_tab.png?v=5" type="image/png" />
@@ -93,14 +99,15 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="flex flex-col min-h-screen">
-          <Navigation />
-          <SponsorshipStrip />
+          <SiteNavigation />
+          {!isColorado && <SponsorshipStrip />}
           <main className="flex-1">
             {children}
           </main>
+          {isColorado && <ColoradoShell />}
         </div>
         <ServiceWorkerRegistration />
-        <NewsletterModalTrigger />
+        {!isColorado && <NewsletterModalTrigger />}
         <Analytics />
       </body>
     </html>

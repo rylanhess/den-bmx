@@ -23,12 +23,22 @@
     "events:stats": "tsx scripts/processEvents.ts --stats",
     "events:clean-reprocess": "tsx scripts/cleanAndReprocess.ts",
     "events:create-test": "tsx scripts/createTestEvents.ts",
-    "refresh": "./scripts/refreshData.sh"
+    "refresh": "./scripts/refreshData.sh",
+    "scrape:now": "bash scripts/runAdhocScrape.sh",
+    "scrape:daily": "bash scripts/runDailyScrape.sh",
+    "scrape:prepare-chrome": "bash scripts/prepareChromeForScrape.sh",
+    "scrape:install-wake": "bash scripts/installDailyWake.sh",
+    "scrape:ingest": "tsx scripts/ingestMcpScrape.ts",
+    "scrape:metadata": "tsx scripts/runCdpFacebookScrape.ts --metadata-only",
+    "scrape:ingest-signals": "tsx scripts/ingestFbSignals.ts",
+    "forum:seed": "tsx scripts/seedForum.ts",
+    "scrape:escalate": "tsx scripts/notifyScraperEscalation.ts"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@react-email/components": "^0.5.6",
     "@react-email/render": "^1.3.2",
+    "@supabase/ssr": "^0.12.4",
     "@supabase/supabase-js": "^2.47.10",
     "@types/mapbox-gl": "^3.4.1",
     "@vercel/analytics": "^1.5.0",
@@ -42,6 +52,7 @@
     "resend": "^6.1.3"
   },
   "devDependencies": {
+    "@cursor/sdk": "^1.0.13",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
@@ -52,6 +63,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.9",
     "playwright": "^1.49.1",
+    "puppeteer-core": "^24.43.1",
     "tailwindcss": "^4",
     "tsx": "^4.19.2",
     "typescript": "^5"

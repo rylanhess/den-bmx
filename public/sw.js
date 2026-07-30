@@ -36,6 +36,7 @@ async function initializeVersion() {
 
 const urlsToCache = [
   '/',
+  '/forum',
   '/tracks',
   '/contact',
   '/new-rider',

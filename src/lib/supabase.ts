@@ -1,29 +1,11 @@
 /**
- * Supabase Client for Frontend
+ * Database types and legacy client export
  */
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient as createBrowserClient } from './supabase/client';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+export const supabase = createBrowserClient();
 
-// Create client with placeholder values during build time
-// This prevents build errors when env vars aren't available
-// At runtime, the client will fail if vars are actually missing
-export const supabase = createClient(
-  supabaseUrl || 'https://placeholder.supabase.co',
-  supabaseAnonKey || 'placeholder-key',
-  {
-    auth: {
-      persistSession: false,
-      autoRefreshToken: false,
-    }
-  }
-);
-
-/**
- * Database types
- */
 export interface Track {
   id: string;
   name: string;
@@ -36,6 +18,8 @@ export interface Track {
   lon: number | null;
   logo: string | null;
   wallpaper: string | null;
+  description: string | null;
+  claimed_by: string | null;
   created_at: string;
 }
 
@@ -74,3 +58,73 @@ export interface NewsletterUser {
   updated_at: string;
 }
 
+export interface Profile {
+  id: string;
+  display_name: string;
+  avatar_url: string | null;
+  role: 'user' | 'admin';
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ForumCategory {
+  id: string;
+  slug: string;
+  name: string;
+  description: string | null;
+  sort_order: number;
+  track_id: string | null;
+  created_at: string;
+}
+
+export interface ForumThread {
+  id: string;
+  category_id: string;
+  track_id: string | null;
+  author_id: string | null;
+  title: string;
+  is_pinned: boolean;
+  is_locked: boolean;
+  is_system: boolean;
+  reply_count: number;
+  created_at: string;
+  last_post_at: string;
+  author?: Profile;
+  category?: ForumCategory;
+}
+
+export interface ForumPost {
+  id: string;
+  thread_id: string;
+  author_id: string | null;
+  body: string;
+  fb_url: string | null;
+  is_reported: boolean;
+  created_at: string;
+  edited_at: string | null;
+  author?: Profile;
+}
+
+export interface TrackClaimRequest {
+  id: string;
+  user_id: string;
+  track_id: string;
+  contact_name: string;
+  contact_email: string;
+  message: string | null;
+  status: 'pending' | 'approved' | 'rejected';
+  admin_notes: string | null;
+  created_at: string;
+  updated_at: string;
+  track?: Track;
+  user?: Profile;
+}
+
+export interface FbPostSignal {
+  id: string;
+  track_id: string;
+  fb_url: string;
+  detected_at: string;
+  forum_thread_id: string | null;
+  track?: Track;
+}
