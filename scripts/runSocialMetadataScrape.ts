@@ -9,7 +9,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import puppeteer, { type Page } from 'puppeteer-core';
 import { parseRelativeTimestamp } from './fetchFacebook';
-import { chromeDebugUrl } from './lib/chromeDebug';
+import { chromePuppeteerConnectOptions } from './lib/chromeDebug';
 import {
   loadColoradoTrackSources,
   type SocialPlatform,
@@ -243,11 +243,8 @@ async function main(): Promise<void> {
   console.log(`   Facebook: ${withFb.length} | Instagram: ${withIg.length}`);
   console.log(`   Recent window: last ${2} days\n`);
 
-  const cdp = chromeDebugUrl();
-  const browser = await puppeteer.connect({
-    browserURL: cdp,
-    defaultViewport: null,
-  });
+  const connectOpts = await chromePuppeteerConnectOptions();
+  const browser = await puppeteer.connect(connectOpts);
 
   const pages = await browser.pages();
   const page = pages[0] ?? (await browser.newPage());

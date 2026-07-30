@@ -16,7 +16,7 @@ import {
   type ScraperResult,
 } from './fetchFacebook';
 import { TRACK_MAPPINGS } from './config';
-import { chromeDebugUrl } from './lib/chromeDebug';
+import { chromePuppeteerConnectOptions } from './lib/chromeDebug';
 import { getExtractPostsEvaluateScript, getExtractPostMetadataScript } from './lib/facebookInteractions';
 import {
   HUMANIZE,
@@ -469,11 +469,8 @@ async function main(): Promise<void> {
     filesChanged: ['.cursor/mcp.json', 'scripts/runCdpFacebookScrape.ts', 'package.json'],
   });
 
-  const cdp = chromeDebugUrl();
-  const browser = await puppeteer.connect({
-    browserURL: cdp,
-    defaultViewport: null,
-  });
+  const connectOpts = await chromePuppeteerConnectOptions();
+  const browser = await puppeteer.connect(connectOpts);
   const pages = await browser.pages();
   const likeState = { run: 0, track: 0 };
   const results: ScraperResult[] = [];
