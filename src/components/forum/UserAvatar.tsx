@@ -1,4 +1,7 @@
+'use client';
+
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 interface UserAvatarProps {
   displayName: string;
@@ -7,9 +10,15 @@ interface UserAvatarProps {
 }
 
 export default function UserAvatar({ displayName, avatarUrl, size = 48 }: UserAvatarProps) {
+  const [broken, setBroken] = useState(false);
   const initial = (displayName || 'S')[0].toUpperCase();
+  const showImage = avatarUrl && !broken;
 
-  if (avatarUrl) {
+  useEffect(() => {
+    setBroken(false);
+  }, [avatarUrl]);
+
+  if (showImage) {
     return (
       <Image
         src={avatarUrl}
@@ -19,6 +28,7 @@ export default function UserAvatar({ displayName, avatarUrl, size = 48 }: UserAv
         className="mx-auto rounded-full object-cover border-2 border-[#00ff0c]/30"
         style={{ width: size, height: size }}
         unoptimized
+        onError={() => setBroken(true)}
       />
     );
   }

@@ -25,13 +25,13 @@ export async function uploadForumImage(file: File, userId: string): Promise<stri
   return data.publicUrl;
 }
 
-export async function uploadAvatar(file: File, userId: string): Promise<string> {
+export async function uploadAvatar(file: File | Blob, userId: string): Promise<string> {
   const supabase = createClient();
-  const ext = file.name.split('.').pop()?.toLowerCase() ?? 'jpg';
-  const path = `${userId}/avatar.${ext}`;
+  const path = `${userId}/avatar.jpg`;
   const { error } = await supabase.storage.from('avatars').upload(path, file, {
     cacheControl: '3600',
     upsert: true,
+    contentType: 'image/jpeg',
   });
   if (error) throw error;
   const { data } = supabase.storage.from('avatars').getPublicUrl(path);

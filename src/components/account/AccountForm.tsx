@@ -6,6 +6,8 @@ import { createClient } from '@/lib/supabase/client';
 import { uploadAvatar } from '@/components/forum/ImageUploadField';
 import UserAvatar from '@/components/forum/UserAvatar';
 import UsabmxPointsDisplay from '@/components/profile/UsabmxPointsDisplay';
+import AvatarCropModal from '@/components/account/AvatarCropModal';
+import { AVATAR_ACCEPT, AVATAR_BUCKET_LIMIT_MB, validateAvatarSourceFile } from '@/lib/avatarImage';
 import type { Profile, Track } from '@/lib/supabase';
 
 export default function AccountForm({
@@ -26,12 +28,26 @@ export default function AccountForm({
   const [loading, setLoading] = useState(false);
   const [syncing, setSyncing] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [cropFile, setCropFile] = useState<File | null>(null);
   const [message, setMessage] = useState('');
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAvatarPick = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    if (fileRef.current) fileRef.current.value = '';
     if (!file) return;
+
+    const validationError = validateAvatarSourceFile(file);
+    if (validationError) {
+      setMessage(validationError);
+      return;
+    }
+
+    setMessage('');
+    setCropFile(file);
+  };
+
+  const handleAvatarSave = async (blob: Blob) => {
     setUploading(true);
     setMessage('');
 
@@ -40,7 +56,7 @@ export default function AccountForm({
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error('Not signed in');
 
-      const url = await uploadAvatar(file, user.id);
+      const url = await uploadAvatar(blob, user.id);
       const { error } = await supabase
         .from('profiles')
         .update({ avatar_url: url, updated_at: new Date().toISOString() })
@@ -48,12 +64,12 @@ export default function AccountForm({
 
       if (error) throw error;
       setAvatarUrl(url);
+      setCropFile(null);
       setMessage('Avatar updated!');
     } catch (err) {
       setMessage(err instanceof Error ? err.message : 'Upload failed');
     } finally {
       setUploading(false);
-      if (fileRef.current) fileRef.current.value = '';
     }
   };
 
@@ -111,6 +127,13 @@ export default function AccountForm({
 
   return (
     <div className="max-w-2xl space-y-6">
+      {cropFile && (
+        <AvatarCropModal
+          file={cropFile}
+          onCancel={() => setCropFile(null)}
+          onSave={handleAvatarSave}
+        />
+      )}
       <div className="border-2 border-[#00ff0c]/30 rounded-lg p-6">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-black text-[#00ff0c]">My Account</h1>
@@ -127,9 +150,9 @@ export default function AccountForm({
           <input
             ref={fileRef}
             type="file"
-            accept="image/jpeg,image/png,image/gif,image/webp"
+            accept={AVATAR_ACCEPT}
             className="hidden"
-            onChange={handleAvatarChange}
+            onChange={handleAvatarPick}
           />
           <button
             type="button"
@@ -139,6 +162,9 @@ export default function AccountForm({
           >
             {uploading ? 'Uploading...' : 'Change Avatar'}
           </button>
+          <p className="text-gray-500 text-xs mt-1 text-center max-w-xs">
+            JPEG, PNG, or WebP up to {AVATAR_BUCKET_LIMIT_MB}MB after crop. Drag to position your face in the circle.
+          </p>
         </div>
 
         <form onSubmit={handleSave} className="space-y-4">
