@@ -3,6 +3,7 @@
  */
 
 import { createClient as createBrowserClient } from './supabase/client';
+import type { UserPreferences } from './userPreferences';
 
 export const supabase = createBrowserClient();
 
@@ -78,6 +79,7 @@ export interface Profile {
   usabmx_synced_at: string | null;
   instagram_url: string | null;
   facebook_url: string | null;
+  preferences: UserPreferences;
   created_at: string;
   updated_at: string;
 }

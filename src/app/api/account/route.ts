@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { normalizeUsabmxProfileUrl, parseUsabmxProfileId, syncUsabmxProfile } from '@/lib/usabmx';
 import { normalizeFacebookUrl, normalizeInstagramUrl } from '@/lib/socialUrls';
+import { mergePreferences, parsePreferences, type UserPreferences } from '@/lib/userPreferences';
 
 export async function PATCH(request: Request) {
   const supabase = await createClient();
@@ -16,6 +17,7 @@ export async function PATCH(request: Request) {
     usabmx_profile_url,
     instagram_url,
     facebook_url,
+    preferences,
     sync_usabmx,
   } = body;
 
@@ -66,6 +68,16 @@ export async function PATCH(request: Request) {
       }
       updates.facebook_url = normalized;
     }
+  }
+
+  if (preferences !== undefined) {
+    const { data: existing } = await supabase
+      .from('profiles')
+      .select('preferences')
+      .eq('id', user.id)
+      .single();
+    const current = parsePreferences(existing?.preferences);
+    updates.preferences = mergePreferences(current, preferences as Partial<UserPreferences>);
   }
 
   if (usabmx_profile_url !== undefined) {
