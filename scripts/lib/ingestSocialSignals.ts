@@ -5,9 +5,9 @@
 
 import { supabase } from '../config';
 import { parseRelativeTimestamp } from '../fetchFacebook';
-import { getTrackSourceBySlug, type SocialPlatform } from './lib/coloradoTrackSources';
-import { isWithinRecentWindow } from './lib/recentSocialWindow';
-import { externalPostIdFromUrl, normalizeSocialPostUrl } from './lib/socialPostId';
+import { getTrackSourceBySlug, type SocialPlatform } from './coloradoTrackSources';
+import { isWithinRecentWindow } from './recentSocialWindow';
+import { externalPostIdFromUrl, normalizeSocialPostUrl } from './socialPostId';
 
 export interface MetadataPost {
   url: string;
