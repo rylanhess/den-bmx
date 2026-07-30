@@ -98,6 +98,7 @@ export interface ForumCategory {
   description: string | null;
   sort_order: number;
   track_id: string | null;
+  created_by: string | null;
   created_at: string;
 }
 
