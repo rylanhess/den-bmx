@@ -13,13 +13,17 @@ export interface Track {
   city: string;
   tz: string;
   fb_page_url: string | null;
+  instagram_url: string | null;
   usabmx_url: string | null;
   lat: number | null;
   lon: number | null;
   logo: string | null;
   wallpaper: string | null;
+  image: string | null;
   description: string | null;
   claimed_by: string | null;
+  open_hours: string | null;
+  schedule: string | null;
   created_at: string;
 }
 
@@ -63,8 +67,26 @@ export interface Profile {
   display_name: string;
   avatar_url: string | null;
   role: 'user' | 'admin';
+  home_track_id: string | null;
+  practice_schedule: string | null;
+  usabmx_profile_url: string | null;
+  usabmx_profile_id: string | null;
+  usabmx_rider_name: string | null;
+  usabmx_points: number | null;
+  usabmx_points_rank: number | null;
+  usabmx_points_detail: UsabmxPointEntry[] | null;
+  usabmx_synced_at: string | null;
+  instagram_url: string | null;
+  facebook_url: string | null;
   created_at: string;
   updated_at: string;
+}
+
+export interface UsabmxPointEntry {
+  type: string;
+  skill: string;
+  points: number;
+  rank: number;
 }
 
 export interface ForumCategory {
@@ -99,6 +121,7 @@ export interface ForumPost {
   author_id: string | null;
   body: string;
   fb_url: string | null;
+  image_urls: string[] | null;
   is_reported: boolean;
   created_at: string;
   edited_at: string | null;
