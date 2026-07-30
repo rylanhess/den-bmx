@@ -19,10 +19,14 @@ export default function SignupForm() {
     setError('');
 
     const supabase = createClient();
+    const origin = typeof window !== 'undefined' ? window.location.origin : '';
     const { error: authError } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { display_name: displayName } },
+      options: {
+        data: { display_name: displayName },
+        emailRedirectTo: `${origin}/auth/callback?next=/forum`,
+      },
     });
 
     if (authError) {
@@ -40,7 +44,7 @@ export default function SignupForm() {
       <div className="w-full max-w-md border-2 border-[#00ff0c] rounded-lg p-8 bg-black/95 backdrop-blur-sm text-center shadow-2xl">
         <h1 className="text-2xl font-black text-[#00ff0c] mb-4">Check your email</h1>
         <p className="text-gray-300 mb-6">
-          We sent a confirmation link to <strong>{email}</strong>. Click it to activate your account.
+          We sent a confirmation link to <strong>{email}</strong>. Click it to verify your email and unlock posting.
         </p>
         <Link href="/login" className="text-[#00ff0c] font-bold hover:underline">
           Back to sign in

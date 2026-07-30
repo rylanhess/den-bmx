@@ -1,36 +1,36 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/lib/supabase/client';
 import GuestPostPrompt from '@/components/auth/GuestPostPrompt';
+import EmailVerificationPrompt from '@/components/auth/EmailVerificationPrompt';
 import ImageUploadField from '@/components/forum/ImageUploadField';
+import { useForumAuth } from '@/hooks/useForumAuth';
 
 export default function NewThreadForm({ categoryId, categorySlug }: { categoryId: string; categorySlug: string }) {
+  const { loading, isLoggedIn, emailVerified, email } = useForumAuth();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [images, setImages] = useState<string[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [open, setOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const router = useRouter();
 
-  useEffect(() => {
-    const supabase = createClient();
-    supabase.auth.getUser().then(({ data: { user } }) => setIsLoggedIn(!!user));
-  }, []);
-
-  if (isLoggedIn === null) return null;
+  if (loading) return null;
 
   if (!isLoggedIn) {
     return <GuestPostPrompt action="start a new topic" />;
   }
 
+  if (!emailVerified) {
+    return <EmailVerificationPrompt email={email} action="start a new topic" />;
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim() || (!body.trim() && images.length === 0)) return;
-    setLoading(true);
+    setSubmitting(true);
     setError('');
 
     const res = await fetch('/api/forum/threads', {
@@ -47,7 +47,7 @@ export default function NewThreadForm({ categoryId, categorySlug }: { categoryId
     const data = await res.json();
     if (!res.ok) {
       setError(data.error || 'Failed to create thread');
-      setLoading(false);
+      setSubmitting(false);
       return;
     }
 
@@ -86,15 +86,15 @@ export default function NewThreadForm({ categoryId, categorySlug }: { categoryId
         className="w-full px-4 py-3 bg-black border-2 border-[#00ff0c]/40 rounded text-white focus:border-[#00ff0c] focus:outline-none resize-y"
       />
       <div className="mt-2">
-        <ImageUploadField images={images} onChange={setImages} disabled={loading} />
+        <ImageUploadField images={images} onChange={setImages} disabled={submitting} />
       </div>
       <div className="flex gap-2 mt-3">
         <button
           type="submit"
-          disabled={loading}
+          disabled={submitting}
           className="px-6 py-2 bg-[#00ff0c] text-black font-black rounded hover:bg-[#00cc0a] transition-colors disabled:opacity-50"
         >
-          {loading ? 'Creating...' : 'POST TOPIC'}
+          {submitting ? 'Creating...' : 'POST TOPIC'}
         </button>
         <button
           type="button"

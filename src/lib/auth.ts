@@ -1,5 +1,10 @@
 import { createClient } from '@/lib/supabase/server';
+import type { User } from '@supabase/supabase-js';
 import type { Profile } from '@/lib/supabase';
+
+export function isEmailVerified(user: User): boolean {
+  return !!user.email_confirmed_at;
+}
 
 export async function getCurrentUser() {
   const supabase = await createClient();
@@ -25,6 +30,19 @@ export async function requireAdmin() {
   const result = await getCurrentUser();
   if (!result?.profile || result.profile.role !== 'admin') return null;
   return result;
+}
+
+/** Returns user or a NextResponse-shaped error for API routes. */
+export async function requireVerifiedUserForApi() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    return { error: 'Sign in to continue', status: 401 as const };
+  }
+  if (!isEmailVerified(user)) {
+    return { error: 'Verify your email before posting', status: 403 as const };
+  }
+  return { user, supabase };
 }
 
 export async function isTrackModerator(userId: string, trackId: string) {

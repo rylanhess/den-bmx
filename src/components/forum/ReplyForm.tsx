@@ -1,23 +1,19 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/lib/supabase/client';
 import GuestPostPrompt from '@/components/auth/GuestPostPrompt';
+import EmailVerificationPrompt from '@/components/auth/EmailVerificationPrompt';
 import ImageUploadField from '@/components/forum/ImageUploadField';
+import { useForumAuth } from '@/hooks/useForumAuth';
 
 export default function ReplyForm({ threadId, isLocked }: { threadId: string; isLocked: boolean }) {
+  const { loading, isLoggedIn, emailVerified, email } = useForumAuth();
   const [body, setBody] = useState('');
   const [images, setImages] = useState<string[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const router = useRouter();
-
-  useEffect(() => {
-    const supabase = createClient();
-    supabase.auth.getUser().then(({ data: { user } }) => setIsLoggedIn(!!user));
-  }, []);
 
   if (isLocked) {
     return (
@@ -27,16 +23,20 @@ export default function ReplyForm({ threadId, isLocked }: { threadId: string; is
     );
   }
 
-  if (isLoggedIn === null) return null;
+  if (loading) return null;
 
   if (!isLoggedIn) {
     return <GuestPostPrompt action="reply to this thread" />;
   }
 
+  if (!emailVerified) {
+    return <EmailVerificationPrompt email={email} action="reply to this thread" />;
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!body.trim() && images.length === 0) return;
-    setLoading(true);
+    setSubmitting(true);
     setError('');
 
     const res = await fetch('/api/forum/posts', {
@@ -48,13 +48,13 @@ export default function ReplyForm({ threadId, isLocked }: { threadId: string; is
     if (!res.ok) {
       const data = await res.json();
       setError(data.error || 'Failed to post reply');
-      setLoading(false);
+      setSubmitting(false);
       return;
     }
 
     setBody('');
     setImages([]);
-    setLoading(false);
+    setSubmitting(false);
     router.refresh();
   };
 
@@ -70,14 +70,14 @@ export default function ReplyForm({ threadId, isLocked }: { threadId: string; is
         className="w-full px-4 py-3 bg-black border-2 border-[#00ff0c]/40 rounded text-white focus:border-[#00ff0c] focus:outline-none resize-y"
       />
       <div className="mt-2">
-        <ImageUploadField images={images} onChange={setImages} disabled={loading} />
+        <ImageUploadField images={images} onChange={setImages} disabled={submitting} />
       </div>
       <button
         type="submit"
-        disabled={loading || (!body.trim() && images.length === 0)}
+        disabled={submitting || (!body.trim() && images.length === 0)}
         className="mt-3 px-6 py-2 bg-[#00ff0c] text-black font-black rounded hover:bg-[#00cc0a] transition-colors disabled:opacity-50"
       >
-        {loading ? 'Posting...' : 'POST REPLY'}
+        {submitting ? 'Posting...' : 'POST REPLY'}
       </button>
     </form>
   );

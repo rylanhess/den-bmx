@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { requireVerifiedUserForApi } from '@/lib/auth';
 
 export async function POST(request: Request) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const auth = await requireVerifiedUserForApi();
+  if ('error' in auth) {
+    return NextResponse.json({ error: auth.error }, { status: auth.status });
+  }
 
+  const { user, supabase } = auth;
   const { thread_id, body, image_urls } = await request.json();
   if (!thread_id || (!body?.trim() && (!image_urls || image_urls.length === 0))) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
