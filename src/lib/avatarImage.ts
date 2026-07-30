@@ -35,23 +35,22 @@ export function validateAvatarSourceFile(file: File): string | null {
   return null;
 }
 
-export function loadImageFromFile(file: File): Promise<HTMLImageElement> {
+export function loadImageFromFile(
+  file: File
+): Promise<{ image: HTMLImageElement; previewUrl: string }> {
   return new Promise((resolve, reject) => {
-    const url = URL.createObjectURL(file);
+    const previewUrl = URL.createObjectURL(file);
     const img = new Image();
-    img.onload = () => {
-      URL.revokeObjectURL(url);
-      resolve(img);
-    };
+    img.onload = () => resolve({ image: img, previewUrl });
     img.onerror = () => {
-      URL.revokeObjectURL(url);
+      URL.revokeObjectURL(previewUrl);
       reject(
         new Error(
           'Could not read this image. Use JPEG, PNG, or WebP — on iPhone try Settings → Camera → Formats → Most Compatible.'
         )
       );
     };
-    img.src = url;
+    img.src = previewUrl;
   });
 }
 
@@ -65,9 +64,13 @@ export function getAvatarDrawRect(
   crop: AvatarCropState,
   previewSize: number
 ) {
+  const { naturalWidth, naturalHeight } = image;
+  if (!naturalWidth || !naturalHeight) {
+    return { x: 0, y: 0, drawW: previewSize, drawH: previewSize, scale: 1 };
+  }
   const scale = baseCoverScale(image, previewSize) * crop.scale;
-  const drawW = image.naturalWidth * scale;
-  const drawH = image.naturalHeight * scale;
+  const drawW = naturalWidth * scale;
+  const drawH = naturalHeight * scale;
   const x = (previewSize - drawW) / 2 + crop.offsetX;
   const y = (previewSize - drawH) / 2 + crop.offsetY;
   return { x, y, drawW, drawH, scale };

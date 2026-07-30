@@ -19,6 +19,7 @@ interface AvatarCropModalProps {
 
 export default function AvatarCropModal({ file, onCancel, onSave }: AvatarCropModalProps) {
   const [image, setImage] = useState<HTMLImageElement | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [crop, setCrop] = useState<AvatarCropState>(DEFAULT_AVATAR_CROP);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -26,17 +27,25 @@ export default function AvatarCropModal({ file, onCancel, onSave }: AvatarCropMo
   const dragRef = useRef<{ startX: number; startY: number; originX: number; originY: number } | null>(
     null
   );
+  const previewUrlRef = useRef<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
     setError('');
+    setImage(null);
+    setPreviewUrl(null);
+
     loadImageFromFile(file)
-      .then((img) => {
-        if (!cancelled) {
-          setImage(img);
-          setCrop(DEFAULT_AVATAR_CROP);
+      .then(({ image: img, previewUrl: url }) => {
+        if (cancelled) {
+          URL.revokeObjectURL(url);
+          return;
         }
+        previewUrlRef.current = url;
+        setImage(img);
+        setPreviewUrl(url);
+        setCrop(DEFAULT_AVATAR_CROP);
       })
       .catch((err) => {
         if (!cancelled) {
@@ -46,26 +55,32 @@ export default function AvatarCropModal({ file, onCancel, onSave }: AvatarCropMo
       .finally(() => {
         if (!cancelled) setLoading(false);
       });
+
     return () => {
       cancelled = true;
+      if (previewUrlRef.current) {
+        URL.revokeObjectURL(previewUrlRef.current);
+        previewUrlRef.current = null;
+      }
     };
   }, [file]);
 
   const onPointerDown = useCallback(
-    (e: React.PointerEvent) => {
-      if (!image) return;
-      e.currentTarget.setPointerCapture(e.pointerId);
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      if (!image || loading) return;
+      e.preventDefault();
       dragRef.current = {
         startX: e.clientX,
         startY: e.clientY,
         originX: crop.offsetX,
         originY: crop.offsetY,
       };
+      e.currentTarget.setPointerCapture(e.pointerId);
     },
-    [crop.offsetX, crop.offsetY, image]
+    [crop.offsetX, crop.offsetY, image, loading]
   );
 
-  const onPointerMove = useCallback((e: React.PointerEvent) => {
+  const onPointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     if (!dragRef.current) return;
     const dx = e.clientX - dragRef.current.startX;
     const dy = e.clientY - dragRef.current.startY;
@@ -76,10 +91,11 @@ export default function AvatarCropModal({ file, onCancel, onSave }: AvatarCropMo
     }));
   }, []);
 
-  const onPointerUp = useCallback((e: React.PointerEvent) => {
-    if (dragRef.current) {
+  const endDrag = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (!dragRef.current) return;
+    dragRef.current = null;
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
       e.currentTarget.releasePointerCapture(e.pointerId);
-      dragRef.current = null;
     }
   }, []);
 
@@ -119,18 +135,18 @@ export default function AvatarCropModal({ file, onCancel, onSave }: AvatarCropMo
           style={{ width: AVATAR_PREVIEW_SIZE, height: AVATAR_PREVIEW_SIZE }}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
-          onPointerUp={onPointerUp}
-          onPointerCancel={onPointerUp}
+          onPointerUp={endDrag}
+          onPointerCancel={endDrag}
         >
           {loading && (
             <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-sm">
               Loading…
             </div>
           )}
-          {draw && image && (
+          {draw && previewUrl && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src={image.src}
+              src={previewUrl}
               alt=""
               draggable={false}
               className="absolute max-w-none select-none pointer-events-none"
