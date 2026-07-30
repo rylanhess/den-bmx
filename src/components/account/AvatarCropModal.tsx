@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   AVATAR_BUCKET_LIMIT_MB,
   AVATAR_PREVIEW_SIZE,
@@ -24,6 +24,7 @@ export default function AvatarCropModal({ file, onCancel, onSave }: AvatarCropMo
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [dragging, setDragging] = useState(false);
   const dragRef = useRef<{ startX: number; startY: number; originX: number; originY: number } | null>(
     null
   );
@@ -35,6 +36,7 @@ export default function AvatarCropModal({ file, onCancel, onSave }: AvatarCropMo
     setError('');
     setImage(null);
     setPreviewUrl(null);
+    setCrop(DEFAULT_AVATAR_CROP);
 
     loadImageFromFile(file)
       .then(({ image: img, previewUrl: url }) => {
@@ -45,7 +47,6 @@ export default function AvatarCropModal({ file, onCancel, onSave }: AvatarCropMo
         previewUrlRef.current = url;
         setImage(img);
         setPreviewUrl(url);
-        setCrop(DEFAULT_AVATAR_CROP);
       })
       .catch((err) => {
         if (!cancelled) {
@@ -65,39 +66,49 @@ export default function AvatarCropModal({ file, onCancel, onSave }: AvatarCropMo
     };
   }, [file]);
 
-  const onPointerDown = useCallback(
-    (e: React.PointerEvent<HTMLDivElement>) => {
-      if (!image || loading) return;
+  useEffect(() => {
+    if (!dragging) return;
+
+    const onMove = (e: PointerEvent) => {
+      const drag = dragRef.current;
+      if (!drag) return;
       e.preventDefault();
-      dragRef.current = {
-        startX: e.clientX,
-        startY: e.clientY,
-        originX: crop.offsetX,
-        originY: crop.offsetY,
-      };
-      e.currentTarget.setPointerCapture(e.pointerId);
-    },
-    [crop.offsetX, crop.offsetY, image, loading]
-  );
+      const dx = e.clientX - drag.startX;
+      const dy = e.clientY - drag.startY;
+      setCrop((prev) => ({
+        ...prev,
+        offsetX: drag.originX + dx,
+        offsetY: drag.originY + dy,
+      }));
+    };
 
-  const onPointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    if (!dragRef.current) return;
-    const dx = e.clientX - dragRef.current.startX;
-    const dy = e.clientY - dragRef.current.startY;
-    setCrop((prev) => ({
-      ...prev,
-      offsetX: dragRef.current!.originX + dx,
-      offsetY: dragRef.current!.originY + dy,
-    }));
-  }, []);
+    const onUp = () => {
+      dragRef.current = null;
+      setDragging(false);
+    };
 
-  const endDrag = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    if (!dragRef.current) return;
-    dragRef.current = null;
-    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
-      e.currentTarget.releasePointerCapture(e.pointerId);
-    }
-  }, []);
+    window.addEventListener('pointermove', onMove, { passive: false });
+    window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onUp);
+
+    return () => {
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onUp);
+    };
+  }, [dragging]);
+
+  const startDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!image || loading || saving) return;
+    e.preventDefault();
+    dragRef.current = {
+      startX: e.clientX,
+      startY: e.clientY,
+      originX: crop.offsetX,
+      originY: crop.offsetY,
+    };
+    setDragging(true);
+  };
 
   const handleSave = async () => {
     if (!image) return;
@@ -133,10 +144,7 @@ export default function AvatarCropModal({ file, onCancel, onSave }: AvatarCropMo
         <div
           className="relative mx-auto rounded-full overflow-hidden border-2 border-[#00ff0c]/50 bg-[#111] touch-none cursor-grab active:cursor-grabbing"
           style={{ width: AVATAR_PREVIEW_SIZE, height: AVATAR_PREVIEW_SIZE }}
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={endDrag}
-          onPointerCancel={endDrag}
+          onPointerDown={startDrag}
         >
           {loading && (
             <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-sm">
@@ -168,7 +176,11 @@ export default function AvatarCropModal({ file, onCancel, onSave }: AvatarCropMo
             max={3}
             step={0.02}
             value={crop.scale}
-            onChange={(e) => setCrop((prev) => ({ ...prev, scale: Number(e.target.value) }))}
+            onChange={(e) => {
+              const scale = Number(e.target.value);
+              if (!Number.isFinite(scale)) return;
+              setCrop((prev) => ({ ...prev, scale }));
+            }}
             className="w-full mt-1 accent-[#00ff0c]"
           />
         </label>

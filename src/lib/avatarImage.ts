@@ -89,8 +89,15 @@ export async function renderAvatarBlob(
   if (!ctx) throw new Error('Could not process image in this browser.');
 
   const { x, y, drawW, drawH } = getAvatarDrawRect(image, crop, previewSize);
-  const ratio = outputSize / previewSize;
-  ctx.drawImage(image, x * ratio, y * ratio, drawW * ratio, drawH * ratio);
+
+  // Render the same viewport crop shown in the preview circle.
+  const temp = document.createElement('canvas');
+  temp.width = previewSize;
+  temp.height = previewSize;
+  const tctx = temp.getContext('2d');
+  if (!tctx) throw new Error('Could not process image in this browser.');
+  tctx.drawImage(image, x, y, drawW, drawH);
+  ctx.drawImage(temp, 0, 0, previewSize, previewSize, 0, 0, outputSize, outputSize);
 
   let quality = 0.9;
   let blob = await canvasToBlob(canvas, quality);
