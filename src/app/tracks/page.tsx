@@ -1,25 +1,16 @@
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
+import { COLORADO_BMX_TRACK_SLUGS } from '@/lib/coloradoTracks';
 import type { Track } from '@/lib/supabase';
 
 export const metadata = { title: 'Colorado BMX Tracks' };
-
-const BMX_TRACK_SLUGS = [
-  'mile-high-bmx',
-  'dacono-bmx',
-  'county-line-bmx',
-  'twin-silo-bmx',
-  'durango-bmx',
-  'grand-valley-bmx',
-  'longmont-bmx-park',
-];
 
 export default async function TracksIndexPage() {
   const supabase = await createClient();
   const { data: tracks } = await supabase
     .from('tracks')
     .select('*')
-    .in('slug', BMX_TRACK_SLUGS)
+    .in('slug', [...COLORADO_BMX_TRACK_SLUGS])
     .order('name');
 
   return (

@@ -148,6 +148,11 @@ const TrackCard = ({
                 Facebook Page
               </TrackLink>
             )}
+            {track.instagram_url && (
+              <TrackLink href={track.instagram_url}>
+                Instagram
+              </TrackLink>
+            )}
             {track.usabmx_url && (
               <TrackLink href={track.usabmx_url}>
                 USA BMX Track Info

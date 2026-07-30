@@ -1,7 +1,9 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
+import { getCurrentUser } from '@/lib/auth';
 import TrackHeader from '@/components/forum/TrackHeader';
+import TrackScheduleEditor from '@/components/forum/TrackScheduleEditor';
 import { FbSignalFeed } from '@/components/forum/FbSignalCard';
 import ThreadTable from '@/components/forum/ThreadTable';
 import { attachAuthors } from '@/lib/forum';
@@ -33,6 +35,9 @@ export default async function TrackPage({ params }: Props) {
   const typedTrack = track as Track;
 
   let moderatorName: string | null = null;
+  let canEditTrack = false;
+  const currentUser = await getCurrentUser();
+
   if (typedTrack.claimed_by) {
     const { data: mod } = await supabase
       .from('profiles')
@@ -40,6 +45,17 @@ export default async function TrackPage({ params }: Props) {
       .eq('id', typedTrack.claimed_by)
       .single();
     moderatorName = mod?.display_name ?? null;
+  }
+
+  if (currentUser?.user) {
+    const isAdmin = currentUser.profile?.role === 'admin';
+    const { data: modRow } = await supabase
+      .from('track_moderators')
+      .select('user_id')
+      .eq('user_id', currentUser.user.id)
+      .eq('track_id', typedTrack.id)
+      .single();
+    canEditTrack = isAdmin || !!modRow;
   }
 
   const { data: signals } = await supabase
@@ -70,6 +86,7 @@ export default async function TrackPage({ params }: Props) {
   return (
     <div className="container mx-auto px-4 py-8 max-w-5xl">
       <TrackHeader track={typedTrack} moderatorName={moderatorName} />
+      <TrackScheduleEditor track={typedTrack} canEdit={canEditTrack} />
 
       <div className="grid gap-8 lg:grid-cols-2 mb-8">
         <FbSignalFeed signals={(signals as FbPostSignal[]) ?? []} />
