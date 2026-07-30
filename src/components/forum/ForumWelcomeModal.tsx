@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import GoogleSignInButton from '@/components/auth/GoogleSignInButton';
 import { FORUM_TAGLINE, WELCOME_SEEN_KEY } from '@/lib/userPreferences';
 
 export default function ForumWelcomeModal() {
@@ -39,6 +40,7 @@ export default function ForumWelcomeModal() {
         </p>
 
         <div className="flex flex-col gap-2 mt-6">
+          <GoogleSignInButton label="Continue with Google" onStart={dismiss} />
           <Link
             href="/signup"
             onClick={dismiss}

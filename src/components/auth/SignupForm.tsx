@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
+import GoogleSignInButton, { AuthDivider } from '@/components/auth/GoogleSignInButton';
 
 export default function SignupForm() {
   const [displayName, setDisplayName] = useState('');
@@ -66,6 +67,9 @@ export default function SignupForm() {
       </div>
       <h1 className="text-2xl font-black text-[#00ff0c] text-center mb-2">JOIN BMX COLORADO</h1>
       <p className="text-gray-400 text-center text-sm mb-6">Create an account to start posting</p>
+
+      <GoogleSignInButton label="Sign up with Google" onError={setError} />
+      <AuthDivider />
 
       <form onSubmit={handleSignup} className="space-y-4">
         {error && (

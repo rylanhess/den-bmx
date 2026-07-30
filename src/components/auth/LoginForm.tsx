@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
+import GoogleSignInButton, { AuthDivider } from '@/components/auth/GoogleSignInButton';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -46,6 +47,9 @@ export default function LoginForm() {
       </div>
       <h1 className="text-2xl font-black text-[#00ff0c] text-center mb-2">BMX COLORADO</h1>
       <p className="text-gray-400 text-center text-sm mb-6">Sign in to post and join the conversation</p>
+
+      <GoogleSignInButton onError={setError} />
+      <AuthDivider />
 
       <form onSubmit={handleLogin} className="space-y-4">
         {error && (
