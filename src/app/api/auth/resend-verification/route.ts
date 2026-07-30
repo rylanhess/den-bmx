@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { authCallbackUrl } from '@/lib/siteUrl';
 
 export async function POST() {
   const supabase = await createClient();
@@ -13,14 +14,11 @@ export async function POST() {
     return NextResponse.json({ message: 'Email already verified' });
   }
 
-  const origin = process.env.NEXT_PUBLIC_SITE_URL
-    ?? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
-
   const { error } = await supabase.auth.resend({
     type: 'signup',
     email: user.email,
     options: {
-      emailRedirectTo: `${origin}/auth/callback?next=/forum`,
+      emailRedirectTo: authCallbackUrl('/forum'),
     },
   });
 

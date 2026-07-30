@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
+import { authCallbackUrl } from '@/lib/siteUrl';
 import GoogleSignInButton, { AuthDivider } from '@/components/auth/GoogleSignInButton';
 
 export default function SignupForm() {
@@ -20,13 +21,12 @@ export default function SignupForm() {
     setError('');
 
     const supabase = createClient();
-    const origin = typeof window !== 'undefined' ? window.location.origin : '';
     const { error: authError } = await supabase.auth.signUp({
       email,
       password,
       options: {
         data: { display_name: displayName },
-        emailRedirectTo: `${origin}/auth/callback?next=/forum`,
+        emailRedirectTo: authCallbackUrl('/forum'),
       },
     });
 

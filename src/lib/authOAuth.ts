@@ -1,11 +1,12 @@
+import { authCallbackUrl } from '@/lib/siteUrl';
 import { createClient } from '@/lib/supabase/client';
 
 /** Build the OAuth callback URL, preserving ?redirect= from login/signup pages. */
 export function getOAuthRedirectTo(): string {
-  if (typeof window === 'undefined') return '';
+  if (typeof window === 'undefined') return authCallbackUrl();
   const params = new URLSearchParams(window.location.search);
   const next = params.get('redirect') || '/forum';
-  return `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`;
+  return authCallbackUrl(next);
 }
 
 export async function signInWithGoogle(): Promise<void> {
