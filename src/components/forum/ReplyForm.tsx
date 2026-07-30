@@ -1,13 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import GuestPostPrompt from '@/components/auth/GuestPostPrompt';
+import { createClient } from '@/lib/supabase/client';
 
 export default function ReplyForm({ threadId, isLocked }: { threadId: string; isLocked: boolean }) {
   const [body, setBody] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data: { user } }) => setIsLoggedIn(!!user));
+  }, []);
 
   if (isLocked) {
     return (
@@ -15,6 +23,12 @@ export default function ReplyForm({ threadId, isLocked }: { threadId: string; is
         This thread is locked. No new replies allowed.
       </div>
     );
+  }
+
+  if (isLoggedIn === null) return null;
+
+  if (!isLoggedIn) {
+    return <GuestPostPrompt action="reply to this thread" />;
   }
 
   const handleSubmit = async (e: React.FormEvent) => {

@@ -13,6 +13,8 @@ interface CategoryStat {
   latest_post_at: string | null;
 }
 
+export type { CategoryStat };
+
 export default function CategoryTable({ categories }: { categories: CategoryStat[] }) {
   const general = categories.filter((c) => !c.track_id);
   const trackComms = categories.filter((c) => c.track_id);

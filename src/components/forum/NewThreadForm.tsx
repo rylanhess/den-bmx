@@ -1,7 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
+import GuestPostPrompt from '@/components/auth/GuestPostPrompt';
 
 export default function NewThreadForm({ categoryId, categorySlug }: { categoryId: string; categorySlug: string }) {
   const [title, setTitle] = useState('');
@@ -9,7 +11,19 @@ export default function NewThreadForm({ categoryId, categorySlug }: { categoryId
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [open, setOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data: { user } }) => setIsLoggedIn(!!user));
+  }, []);
+
+  if (isLoggedIn === null) return null;
+
+  if (!isLoggedIn) {
+    return <GuestPostPrompt action="start a new topic" />;
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

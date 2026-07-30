@@ -4,7 +4,7 @@ import { updateSession } from '@/lib/supabase/middleware';
 
 const COLORADO_HOSTS = ['bmxcolorado.com', 'www.bmxcolorado.com', 'coloradobmx.com', 'www.coloradobmx.com'];
 
-const PROTECTED_PREFIXES = ['/forum', '/tracks', '/account', '/admin'];
+const AUTH_REQUIRED_PREFIXES = ['/account', '/admin'];
 
 const PUBLIC_PATHS = ['/login', '/signup', '/forgot-password', '/auth/callback', '/contact'];
 
@@ -34,17 +34,15 @@ export async function middleware(request: NextRequest) {
   const { supabaseResponse, user } = await updateSession(request);
 
   const isColoradoHost = COLORADO_HOSTS.some((h) => host.includes(h.replace('www.', '')));
-  const isProtected = PROTECTED_PREFIXES.some((p) => pathname.startsWith(p));
-  const isPublicAuth = PUBLIC_PATHS.some((p) => pathname.startsWith(p));
+  const isClaimPage = /\/tracks\/[^/]+\/claim/.test(pathname);
+  const requiresAuth =
+    AUTH_REQUIRED_PREFIXES.some((p) => pathname.startsWith(p)) || isClaimPage;
 
   if (isColoradoHost && pathname === '/') {
-    if (user) {
-      return NextResponse.redirect(new URL('/forum', request.url));
-    }
-    return NextResponse.redirect(new URL('/login', request.url));
+    return NextResponse.redirect(new URL('/forum', request.url));
   }
 
-  if (isProtected && !user && !isPublicAuth) {
+  if (requiresAuth && !user) {
     const loginUrl = new URL('/login', request.url);
     loginUrl.searchParams.set('redirect', pathname);
     return NextResponse.redirect(loginUrl);
@@ -61,6 +59,8 @@ export async function middleware(request: NextRequest) {
     pathname === '/' ||
     pathname.startsWith('/forum') ||
     pathname.startsWith('/tracks') ||
+    pathname.startsWith('/login') ||
+    pathname.startsWith('/signup') ||
     pathname.startsWith('/denver-bmx-races') ||
     pathname.startsWith('/bmx-tracks-denver') ||
     pathname.startsWith('/contact') ||
