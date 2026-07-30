@@ -4,7 +4,7 @@
  */
 
 import { supabase } from '../config';
-import { parseRelativeTimestamp } from './lib/parseRelativeTimestamp';
+import { parseRelativeTimestamp } from './parseRelativeTimestamp';
 import { getTrackSourceBySlug, type SocialPlatform } from './coloradoTrackSources';
 import { isWithinRecentWindow } from './recentSocialWindow';
 import { externalPostIdFromUrl, normalizeSocialPostUrl } from './socialPostId';

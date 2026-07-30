@@ -100,7 +100,9 @@ export const isEventRelated = (text: string): boolean => {
   return EVENT_KEYWORDS.some(keyword => lowerText.includes(keyword));
 };
 
-export { parseRelativeTimestamp } from './lib/parseRelativeTimestamp';
+import { parseRelativeTimestamp } from './lib/parseRelativeTimestamp';
+
+export { parseRelativeTimestamp };
 
 /**
  * Extract posts from a Facebook page
