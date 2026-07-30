@@ -30,6 +30,8 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const postCount = await getCategoryPostCount(category.id);
   const totalPages = Math.ceil(count / 25);
 
+  const replyCount = Math.max(0, postCount - count);
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-5xl">
       <MarkBoardSeen categoryId={category.id} isLoggedIn={!!user} />
@@ -42,7 +44,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
 
       <h1 className="text-2xl font-black text-[#00ff0c] mb-1">{category.name.replace(' — Track Comms', '')}</h1>
       <p className="text-gray-500 text-sm mb-2">
-        {count} topic{count !== 1 ? 's' : ''} · {postCount} post{postCount !== 1 ? 's' : ''}
+        {count} post{count !== 1 ? 's' : ''} · {replyCount} repl{replyCount !== 1 ? 'ies' : 'y'} in threads
       </p>
       {category.description && (
         <p className="text-gray-400 text-sm mb-6">{category.description}</p>

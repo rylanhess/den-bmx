@@ -23,7 +23,7 @@ import {
   randomInt,
   getScrollEvaluateScript,
 } from './lib/humanize';
-import { isWithinRecentWindow } from './lib/recentSocialWindow';
+import { isWithinRecentWindow, RECENT_CALENDAR_DAYS_PRIOR } from './lib/recentSocialWindow';
 
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
@@ -241,7 +241,7 @@ async function main(): Promise<void> {
 
   console.log(`\n🔍 Social metadata scan — ${tracks.length} Colorado tracks`);
   console.log(`   Facebook: ${withFb.length} | Instagram: ${withIg.length}`);
-  console.log(`   Recent window: last ${2} days\n`);
+  console.log(`   Recent window: today + prior ${RECENT_CALENDAR_DAYS_PRIOR} calendar days (MT)\n`);
 
   const connectOpts = await chromePuppeteerConnectOptions();
   const browser = await puppeteer.connect(connectOpts);

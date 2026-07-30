@@ -12,12 +12,6 @@ export async function PATCH(
 
   const body = await request.json();
   const updates: Record<string, boolean> = {};
-  if (typeof body.is_pinned === 'boolean') updates.is_pinned = body.is_pinned;
-  if (typeof body.is_locked === 'boolean') updates.is_locked = body.is_locked;
-
-  if (Object.keys(updates).length === 0) {
-    return NextResponse.json({ error: 'No valid updates' }, { status: 400 });
-  }
 
   const { data: thread } = await supabase
     .from('forum_threads')
@@ -45,8 +39,28 @@ export async function PATCH(
     isMod = !!mod;
   }
 
-  if (!isAdmin && !isMod && thread.author_id !== user.id) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  if (typeof body.is_pinned === 'boolean') {
+    if (!thread.track_id) {
+      return NextResponse.json({ error: 'Only track board posts can be pinned' }, { status: 400 });
+    }
+    if (!isAdmin && !isMod) {
+      return NextResponse.json(
+        { error: 'Only track operators or admins can pin posts' },
+        { status: 403 }
+      );
+    }
+    updates.is_pinned = body.is_pinned;
+  }
+
+  if (typeof body.is_locked === 'boolean') {
+    if (!isAdmin && !isMod && thread.author_id !== user.id) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
+    updates.is_locked = body.is_locked;
+  }
+
+  if (Object.keys(updates).length === 0) {
+    return NextResponse.json({ error: 'No valid updates' }, { status: 400 });
   }
 
   const { data, error } = await supabase

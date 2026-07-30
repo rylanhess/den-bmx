@@ -70,8 +70,8 @@ function CategorySection({
           <thead>
             <tr className="bg-[#00ff0c]/10 border-b border-[#00ff0c]/30">
               <th className="text-left px-4 py-3 font-black text-[#00ff0c]">Board</th>
-              <th className="text-center px-4 py-3 font-black text-[#00ff0c] hidden sm:table-cell">Topics</th>
               <th className="text-center px-4 py-3 font-black text-[#00ff0c] hidden sm:table-cell">Posts</th>
+              <th className="text-center px-4 py-3 font-black text-[#00ff0c] hidden sm:table-cell">Replies</th>
               <th className="text-left px-4 py-3 font-black text-[#00ff0c] hidden md:table-cell">Last Post</th>
             </tr>
           </thead>
@@ -90,7 +90,7 @@ function CategorySection({
                   {cat.thread_count}
                 </td>
                 <td className="text-center px-4 py-3 text-gray-400 hidden sm:table-cell">
-                  {cat.post_count}
+                  {Math.max(0, cat.post_count - cat.thread_count)}
                 </td>
                 <td className="px-4 py-3 hidden md:table-cell">
                   {cat.latest_thread_title ? (

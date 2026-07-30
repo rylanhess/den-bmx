@@ -103,7 +103,7 @@ export default async function TrackPage({ params }: Props) {
               View all →
             </Link>
           </div>
-          <ThreadTable threads={threads} categorySlug={category.slug} />
+          <ThreadTable threads={threads} categorySlug={category.slug} showPinIcon />
         </div>
       )}
     </div>

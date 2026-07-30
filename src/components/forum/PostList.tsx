@@ -44,14 +44,16 @@ export default function PostList({ posts }: { posts: PostWithAuthor[] }) {
           <div className="flex-1 min-w-0">
             {post.fb_url && (
               <div className="mb-3 inline-flex items-center gap-2 bg-blue-900/30 border border-blue-500/40 rounded px-3 py-1.5 text-sm">
-                <span className="text-blue-300 font-bold">Facebook</span>
+                <span className="text-blue-300 font-bold">
+                  {post.fb_url.includes('instagram.com') ? 'Instagram' : 'Facebook'}
+                </span>
                 <a
                   href={post.fb_url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#00ff0c] underline"
                 >
-                  View on Facebook →
+                  View on {post.fb_url.includes('instagram.com') ? 'Instagram' : 'Facebook'} →
                 </a>
               </div>
             )}

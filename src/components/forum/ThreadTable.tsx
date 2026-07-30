@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { formatRelativeDate } from '@/lib/forum';
 import UserProfileLink from '@/components/profile/UserProfileLink';
+import PinnedPostIcon from '@/components/forum/PinnedPostIcon';
 import type { ForumThread, Profile } from '@/lib/supabase';
 
 interface ThreadWithAuthor extends ForumThread {
@@ -10,14 +11,17 @@ interface ThreadWithAuthor extends ForumThread {
 export default function ThreadTable({
   threads,
   categorySlug,
+  showPinIcon = false,
 }: {
   threads: ThreadWithAuthor[];
   categorySlug: string;
+  /** Use pushpin icon for pinned rows (track pages). */
+  showPinIcon?: boolean;
 }) {
   if (threads.length === 0) {
     return (
       <div className="border-2 border-[#00ff0c]/30 rounded-lg p-8 text-center text-gray-400">
-        No threads yet. Be the first to start a discussion!
+        No posts yet. Be the first to start a thread!
       </div>
     );
   }
@@ -27,11 +31,10 @@ export default function ThreadTable({
       <table className="w-full text-sm">
         <thead>
           <tr className="bg-[#00ff0c]/10 border-b border-[#00ff0c]/30">
-            <th className="text-left px-4 py-3 font-black text-[#00ff0c]">Topic</th>
+            <th className="text-left px-4 py-3 font-black text-[#00ff0c]">Post</th>
             <th className="text-center px-4 py-3 font-black text-[#00ff0c] hidden sm:table-cell">Replies</th>
-            <th className="text-center px-4 py-3 font-black text-[#00ff0c] hidden sm:table-cell">Posts</th>
             <th className="text-left px-4 py-3 font-black text-[#00ff0c] hidden md:table-cell">Author</th>
-            <th className="text-right px-4 py-3 font-black text-[#00ff0c] hidden sm:table-cell">Last Post</th>
+            <th className="text-right px-4 py-3 font-black text-[#00ff0c] hidden sm:table-cell">Last Activity</th>
           </tr>
         </thead>
         <tbody>
@@ -44,7 +47,13 @@ export default function ThreadTable({
             >
               <td className="px-4 py-3">
                 <div className="flex items-start gap-2">
-                  {thread.is_pinned && (
+                  {thread.is_pinned && showPinIcon && (
+                    <PinnedPostIcon
+                      className="w-4 h-4 text-[#00ff0c] shrink-0 mt-0.5"
+                      title="Pinned"
+                    />
+                  )}
+                  {thread.is_pinned && !showPinIcon && (
                     <span className="text-[#00ff0c] text-xs font-black shrink-0">PIN</span>
                   )}
                   {thread.is_system && (
@@ -65,9 +74,6 @@ export default function ThreadTable({
               </td>
               <td className="text-center px-4 py-3 text-gray-400 hidden sm:table-cell">
                 {thread.reply_count}
-              </td>
-              <td className="text-center px-4 py-3 text-gray-400 hidden sm:table-cell">
-                {thread.reply_count + 1}
               </td>
               <td className="px-4 py-3 text-gray-400 hidden md:table-cell">
                 <UserProfileLink

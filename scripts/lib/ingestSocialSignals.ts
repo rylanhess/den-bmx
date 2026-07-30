@@ -6,8 +6,12 @@
 import { supabase } from '../config';
 import { parseRelativeTimestamp } from './parseRelativeTimestamp';
 import { getTrackSourceBySlug, type SocialPlatform } from './coloradoTrackSources';
-import { isWithinRecentWindow } from './recentSocialWindow';
+import { isWithinRecentWindow, RECENT_CALENDAR_DAYS_PRIOR } from './recentSocialWindow';
 import { externalPostIdFromUrl, normalizeSocialPostUrl } from './socialPostId';
+import {
+  formatSocialPostTimestamp,
+  formatSocialPostTitleDate,
+} from './formatSocialTimestamp';
 
 export interface MetadataPost {
   url: string;
@@ -133,13 +137,14 @@ export async function ingestPlatformResult(result: PlatformResult): Promise<Inge
     }
 
     const detectedAt = postTime?.toISOString() ?? new Date().toISOString();
-    const dateLabel =
-      post.timestampText ||
-      (postTime
-        ? postTime.toLocaleDateString('en-US', { timeZone: 'America/Denver' })
-        : new Date().toLocaleDateString('en-US', { timeZone: 'America/Denver' }));
-    const title = `New ${platformLabel} post — ${track.name}`;
-    const body = `${track.name} has a new ${platformLabel} post (${dateLabel}). [View on ${platformLabel} →](${normalizedUrl})`;
+    const whenLabel = postTime
+      ? formatSocialPostTimestamp(postTime)
+      : post.timestampText || formatSocialPostTimestamp(new Date(detectedAt));
+    const titleWhen = postTime
+      ? formatSocialPostTitleDate(postTime)
+      : post.timestampText || formatSocialPostTitleDate(new Date(detectedAt));
+    const title = `New ${platformLabel} post — ${track.name} (${titleWhen})`;
+    const body = `${track.name} posted on ${platformLabel} on **${whenLabel}**. [View on ${platformLabel} →](${normalizedUrl})`;
 
     const { data: thread, error: threadError } = await supabase
       .from('forum_threads')
