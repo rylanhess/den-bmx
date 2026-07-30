@@ -1,4 +1,5 @@
 import CategoryTable from '@/components/forum/CategoryTable';
+import { FORUM_TAGLINE } from '@/lib/userPreferences';
 import type { CategoryStat } from '@/components/forum/CategoryTable';
 
 interface AuthPageLayoutProps {
@@ -16,11 +17,11 @@ export default function AuthPageLayout({ categories, children }: AuthPageLayoutP
       >
         <div className="opacity-30 blur-[1px] scale-[1.02]">
           <div className="container mx-auto px-4 py-8 max-w-5xl">
-            <h1 className="text-3xl font-black text-[#00ff0c] mb-2">BMX COLORADO FORUM</h1>
+            <h1 className="text-3xl font-black text-[#00ff0c] mb-2">{FORUM_TAGLINE}</h1>
             <p className="text-gray-400 text-sm mb-6">
-              Colorado BMX racing, freestyle, tracks, and community discussion
+              Colorado&apos;s home for BMX racing talk
             </p>
-            <CategoryTable categories={categories} />
+            <CategoryTable categories={categories} discussionOnly={false} />
           </div>
         </div>
         <div className="absolute inset-0 bg-black/70" />

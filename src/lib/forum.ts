@@ -90,7 +90,8 @@ export async function getPostsByThread(threadId: string, page = 1, perPage = 20)
   return { posts: posts as (ForumPost & { author?: Profile })[], count: count ?? 0 };
 }
 
-export async function getCategoryStats() {
+export async function getCategoryStats(options?: { boardLastSeen?: Record<string, string> }) {
+  const boardLastSeen = options?.boardLastSeen ?? {};
   const supabase = await createClient();
   const { data: categories } = await supabase
     .from('forum_categories')
@@ -128,10 +129,23 @@ export async function getCategoryStats() {
         .limit(1)
         .single();
 
+      let newPostCount = 0;
+      const lastSeen = boardLastSeen[cat.id];
+      if (lastSeen && threadIds && threadIds.length > 0) {
+        const ids = threadIds.map((t) => t.id);
+        const { count: newCount } = await supabase
+          .from('forum_posts')
+          .select('*', { count: 'exact', head: true })
+          .in('thread_id', ids)
+          .gt('created_at', lastSeen);
+        newPostCount = newCount ?? 0;
+      }
+
       return {
         ...cat,
         thread_count: threadCount ?? 0,
         post_count: postCount,
+        new_post_count: newPostCount,
         latest_thread_title: latest?.title ?? null,
         latest_post_at: latest?.last_post_at ?? null,
       };
@@ -155,27 +169,4 @@ export async function getCategoryPostCount(categoryId: string) {
   return count ?? 0;
 }
 
-export function formatRelativeDate(dateStr: string) {
-  const date = new Date(dateStr);
-  const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
-  const diffMins = Math.floor(diffMs / 60000);
-  const diffHours = Math.floor(diffMs / 3600000);
-  const diffDays = Math.floor(diffMs / 86400000);
-
-  if (diffMins < 1) return 'just now';
-  if (diffMins < 60) return `${diffMins}m ago`;
-  if (diffHours < 24) return `${diffHours}h ago`;
-  if (diffDays < 7) return `${diffDays}d ago`;
-  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-}
-
-export function renderMarkdownLite(text: string): string {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-[#00ff0c] underline">$1</a>')
-    .replace(/\n/g, '<br />');
-}
+export { formatRelativeDate, renderMarkdownLite } from '@/lib/forumFormat';

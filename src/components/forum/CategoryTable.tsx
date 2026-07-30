@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { formatRelativeDate } from '@/lib/forum';
+import { formatRelativeDate } from '@/lib/forumFormat';
 
-interface CategoryStat {
+export interface CategoryStat {
   id: string;
   slug: string;
   name: string;
@@ -10,19 +10,31 @@ interface CategoryStat {
   track_id: string | null;
   thread_count: number;
   post_count: number;
+  new_post_count?: number;
   latest_thread_title: string | null;
   latest_post_at: string | null;
 }
 
-export type { CategoryStat };
+interface CategoryTableProps {
+  categories: CategoryStat[];
+  /** When true (default), only discussion boards. Set false for full table preview (e.g. auth blur). */
+  discussionOnly?: boolean;
+}
 
-export default function CategoryTable({ categories }: { categories: CategoryStat[] }) {
-  const trackBoards = categories.filter((c) => c.track_id);
+export default function CategoryTable({
+  categories,
+  discussionOnly = true,
+}: CategoryTableProps) {
   const general = categories.filter((c) => !c.track_id);
 
+  if (discussionOnly) {
+    return <CategorySection title="Discussion Boards" categories={general} />;
+  }
+
+  const trackBoards = categories.filter((c) => c.track_id);
   return (
     <div className="space-y-8">
-      <CategorySection title="Track Message Boards" categories={trackBoards} priority />
+      <CategorySection title="Track Message Boards" categories={trackBoards} />
       <CategorySection title="Discussion Boards" categories={general} />
     </div>
   );
@@ -31,17 +43,15 @@ export default function CategoryTable({ categories }: { categories: CategoryStat
 function CategorySection({
   title,
   categories,
-  priority,
 }: {
   title: string;
   categories: CategoryStat[];
-  priority?: boolean;
 }) {
   if (categories.length === 0) return null;
 
   return (
     <div>
-      <h2 className={`font-black text-[#00ff0c] mb-3 uppercase tracking-wide ${priority ? 'text-xl' : 'text-lg'}`}>
+      <h2 className="font-black text-[#00ff0c] mb-3 uppercase tracking-wide text-lg">
         {title}
       </h2>
       <div className="border-2 border-[#00ff0c]/30 rounded-lg overflow-hidden">
@@ -59,7 +69,7 @@ function CategorySection({
               <tr key={cat.id} className="border-b border-[#00ff0c]/10 hover:bg-[#00ff0c]/5 transition-colors">
                 <td className="px-4 py-3">
                   <Link href={`/forum/${cat.slug}`} className="font-bold text-white hover:text-[#00ff0c] transition-colors">
-                    {cat.name.replace(' — Track Comms', '')}
+                    {cat.name}
                   </Link>
                   {cat.description && (
                     <p className="text-gray-500 text-xs mt-0.5 line-clamp-1">{cat.description}</p>

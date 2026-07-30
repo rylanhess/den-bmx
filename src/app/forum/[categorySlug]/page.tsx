@@ -1,8 +1,10 @@
 import { notFound } from 'next/navigation';
 import { getCategoryBySlug, getThreadsByCategory, getCategoryPostCount } from '@/lib/forum';
+import { getCurrentUser } from '@/lib/auth';
 import ThreadTable from '@/components/forum/ThreadTable';
 import NewThreadForm from '@/components/forum/NewThreadForm';
 import BreadcrumbNav from '@/components/forum/BreadcrumbNav';
+import MarkBoardSeen from '@/components/forum/MarkBoardSeen';
 
 interface Props {
   params: Promise<{ categorySlug: string }>;
@@ -23,12 +25,14 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const category = await getCategoryBySlug(categorySlug);
   if (!category) notFound();
 
+  const user = await getCurrentUser();
   const { threads, count } = await getThreadsByCategory(category.id, page);
   const postCount = await getCategoryPostCount(category.id);
   const totalPages = Math.ceil(count / 25);
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-5xl">
+      <MarkBoardSeen categoryId={category.id} isLoggedIn={!!user} />
       <BreadcrumbNav
         items={[
           { label: 'Forum', href: '/forum' },
