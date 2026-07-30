@@ -95,7 +95,7 @@ export async function getCategoryStats(options?: { boardLastSeen?: Record<string
   const supabase = await createClient();
   const { data: categories } = await supabase
     .from('forum_categories')
-    .select('id, slug, name, description, sort_order, track_id');
+    .select('id, slug, name, description, sort_order, track_id, created_at');
 
   if (!categories) return [];
 

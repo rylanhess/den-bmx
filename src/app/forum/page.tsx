@@ -1,5 +1,5 @@
 import { getCategoryStats } from '@/lib/forum';
-import { getCurrentUser } from '@/lib/auth';
+import { getCurrentUser, isEmailVerified } from '@/lib/auth';
 import { parsePreferences } from '@/lib/userPreferences';
 import ForumHomeClient from '@/components/forum/ForumHomeClient';
 import BreadcrumbNav from '@/components/forum/BreadcrumbNav';
@@ -20,6 +20,8 @@ export default async function ForumPage() {
       <ForumHomeClient
         categories={categories}
         isLoggedIn={!!user}
+        emailVerified={user ? isEmailVerified(user.user) : false}
+        userEmail={user?.user.email ?? null}
         serverPreferences={user?.profile?.preferences}
       />
     </div>

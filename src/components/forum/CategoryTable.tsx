@@ -8,6 +8,7 @@ export interface CategoryStat {
   description: string | null;
   sort_order: number;
   track_id: string | null;
+  created_at: string;
   thread_count: number;
   post_count: number;
   new_post_count?: number;
@@ -17,21 +18,27 @@ export interface CategoryStat {
 
 interface CategoryTableProps {
   categories: CategoryStat[];
+  title?: string;
+  subtitle?: string;
   /** When true (default), only discussion boards. Set false for full table preview (e.g. auth blur). */
   discussionOnly?: boolean;
 }
 
 export default function CategoryTable({
   categories,
+  title = 'Discussion Boards',
+  subtitle,
   discussionOnly = true,
 }: CategoryTableProps) {
-  const general = categories.filter((c) => !c.track_id);
-
   if (discussionOnly) {
-    return <CategorySection title="Discussion Boards" categories={general} />;
+    return (
+      <CategorySection title={title} subtitle={subtitle} categories={categories} />
+    );
   }
 
   const trackBoards = categories.filter((c) => c.track_id);
+  const general = categories.filter((c) => !c.track_id);
+
   return (
     <div className="space-y-8">
       <CategorySection title="Track Message Boards" categories={trackBoards} />
@@ -42,18 +49,22 @@ export default function CategoryTable({
 
 function CategorySection({
   title,
+  subtitle,
   categories,
 }: {
   title: string;
+  subtitle?: string;
   categories: CategoryStat[];
 }) {
   if (categories.length === 0) return null;
 
   return (
     <div>
-      <h2 className="font-black text-[#00ff0c] mb-3 uppercase tracking-wide text-lg">
+      <h2 className="font-black text-[#00ff0c] uppercase tracking-wide text-lg">
         {title}
       </h2>
+      {subtitle && <p className="text-gray-500 text-xs mt-0.5 mb-3">{subtitle}</p>}
+      {!subtitle && <div className="mb-3" />}
       <div className="border-2 border-[#00ff0c]/30 rounded-lg overflow-hidden">
         <table className="w-full text-sm">
           <thead>

@@ -1,29 +1,40 @@
 'use client';
 
 import Link from 'next/link';
-import CategoryTable, { type CategoryStat } from '@/components/forum/CategoryTable';
+import DiscussionBoardsPanel from '@/components/forum/DiscussionBoardsPanel';
 import ForumWelcomeModal from '@/components/forum/ForumWelcomeModal';
 import TrackBoardGrid from '@/components/forum/TrackBoardGrid';
+import EmailVerificationPrompt from '@/components/auth/EmailVerificationPrompt';
 import { FORUM_TAGLINE, parsePreferences, type UserPreferences } from '@/lib/userPreferences';
+import type { CategoryStat } from '@/components/forum/CategoryTable';
 
 interface ForumHomeClientProps {
   categories: CategoryStat[];
   isLoggedIn: boolean;
+  emailVerified?: boolean;
+  userEmail?: string | null;
   serverPreferences?: unknown;
 }
 
 export default function ForumHomeClient({
   categories,
   isLoggedIn,
+  emailVerified = false,
+  userEmail,
   serverPreferences,
 }: ForumHomeClientProps) {
   const preferences: UserPreferences = parsePreferences(serverPreferences);
   const trackBoards = categories.filter((c) => c.track_id);
-  const general = categories.filter((c) => !c.track_id);
 
   return (
     <>
       <ForumWelcomeModal />
+
+      {isLoggedIn && !emailVerified && (
+        <div className="mb-6">
+          <EmailVerificationPrompt email={userEmail} action="post or start boards" />
+        </div>
+      )}
 
       {!isLoggedIn && (
         <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-2 border-[#00ff0c]/30 rounded-lg px-4 py-3 bg-[#00ff0c]/5">
@@ -78,7 +89,7 @@ export default function ForumHomeClient({
         isLoggedIn={isLoggedIn}
       />
 
-      <CategoryTable categories={general} />
+      <DiscussionBoardsPanel categories={categories.filter((c) => !c.track_id)} />
     </>
   );
 }
