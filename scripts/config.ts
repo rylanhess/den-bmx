@@ -4,31 +4,47 @@
  * Centralized configuration for Supabase connection and track mappings
  */
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 
 // Load .env.local from project root
 dotenv.config({ path: path.join(__dirname, '..', '.env.local') });
 
-// Supabase Configuration
-const SUPABASE_URL = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
-const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+let _supabase: SupabaseClient | undefined;
 
-if (!SUPABASE_URL) {
-  throw new Error('Missing SUPABASE_URL environment variable');
-}
+function createSupabaseClient(): SupabaseClient {
+  const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-if (!SUPABASE_SERVICE_ROLE_KEY) {
-  throw new Error('Missing SUPABASE_SERVICE_ROLE_KEY environment variable');
-}
-
-// Create Supabase client with service role key (bypass RLS)
-export const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
-  auth: {
-    autoRefreshToken: false,
-    persistSession: false
+  if (!url) {
+    throw new Error('Missing SUPABASE_URL environment variable');
   }
+  if (!key) {
+    throw new Error('Missing SUPABASE_SERVICE_ROLE_KEY environment variable');
+  }
+
+  return createClient(url, key, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  });
+}
+
+/** Lazy admin client — avoids throwing during Next.js build when env is unset. */
+export function getSupabase(): SupabaseClient {
+  if (!_supabase) _supabase = createSupabaseClient();
+  return _supabase;
+}
+
+/** Back-compat for scripts that import `supabase` directly. */
+export const supabase = new Proxy({} as SupabaseClient, {
+  get(_target, prop) {
+    const client = getSupabase();
+    const value = Reflect.get(client, prop, client);
+    return typeof value === 'function' ? value.bind(client) : value;
+  },
 });
 
 /**

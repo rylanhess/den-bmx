@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ingestSocialMetadata, type ScrapeOutput } from '../../../../../scripts/lib/ingestSocialSignals';
 
 export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
 function authorized(request: NextRequest): boolean {
@@ -20,21 +20,33 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  let body: ScrapeOutput;
+  let body: unknown;
   try {
-    body = (await request.json()) as ScrapeOutput;
+    body = await request.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
   }
 
-  if (!body?.results || !Array.isArray(body.results)) {
+  if (
+    !body ||
+    typeof body !== 'object' ||
+    !('results' in body) ||
+    !Array.isArray((body as { results: unknown }).results)
+  ) {
     return NextResponse.json({ error: 'Expected { results: [...] }' }, { status: 400 });
   }
 
-  const summary = await ingestSocialMetadata(body);
+  const { ingestSocialMetadata } = await import(
+    '../../../../../scripts/lib/ingestSocialSignals'
+  );
+  const summary = await ingestSocialMetadata(body as Parameters<typeof ingestSocialMetadata>[0]);
+
   return NextResponse.json({
     ok: true,
-    scrapedAt: body.scrapedAt ?? null,
+    scrapedAt:
+      body && typeof body === 'object' && 'scrapedAt' in body
+        ? (body as { scrapedAt: string }).scrapedAt
+        : null,
     ...summary,
   });
 }
