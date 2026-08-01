@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
-import type { ForumCategory, ForumThread, ForumPost, Profile } from '@/lib/supabase';
+import type { ForumCategory, ForumThread, ForumPost, Profile, RecentForumPost } from '@/lib/supabase';
 
 type WithAuthorId = { author_id: string | null };
 
@@ -167,6 +167,73 @@ export async function getCategoryPostCount(categoryId: string) {
     .select('*', { count: 'exact', head: true })
     .in('thread_id', threadIds.map((t) => t.id));
   return count ?? 0;
+}
+
+export async function getRecentForumPosts(limit = 4): Promise<RecentForumPost[]> {
+  const supabase = await createClient();
+  const { data: posts, error } = await supabase
+    .from('forum_posts')
+    .select(
+      `
+      id,
+      thread_id,
+      body,
+      fb_url,
+      created_at,
+      author_id,
+      thread:forum_threads!inner (
+        id,
+        title,
+        category:forum_categories!inner (
+          slug,
+          name
+        )
+      )
+    `
+    )
+    .order('created_at', { ascending: false })
+    .limit(20);
+
+  if (error || !posts?.length) return [];
+
+  const authorIds = [...new Set(posts.map((p) => p.author_id).filter(Boolean))] as string[];
+  let authorMap = new Map<string, string>();
+  if (authorIds.length > 0) {
+    const { data: profiles } = await supabase
+      .from('profiles')
+      .select('id, display_name')
+      .in('id', authorIds);
+    authorMap = new Map(profiles?.map((p) => [p.id, p.display_name]) ?? []);
+  }
+
+  const mapped = posts
+    .map((post) => {
+      const threadRaw = post.thread;
+      const thread = (Array.isArray(threadRaw) ? threadRaw[0] : threadRaw) as {
+        id: string;
+        title: string;
+        category: { slug: string; name: string } | { slug: string; name: string }[];
+      } | null;
+      if (!thread) return null;
+      const categoryRaw = thread.category;
+      const category = Array.isArray(categoryRaw) ? categoryRaw[0] : categoryRaw;
+      if (!category) return null;
+      return {
+        id: post.id,
+        thread_id: thread.id,
+        thread_title: thread.title,
+        category_slug: category.slug,
+        category_name: category.name.replace(' — Track Comms', ''),
+        body: post.body ?? '',
+        fb_url: post.fb_url,
+        created_at: post.created_at,
+        author_name: post.author_id ? authorMap.get(post.author_id) ?? null : null,
+      };
+    })
+    .filter((p): p is RecentForumPost => p !== null)
+    .filter((p) => p.body.trim().length > 0 || p.fb_url);
+
+  return mapped.slice(0, limit);
 }
 
 export { formatRelativeDate, renderMarkdownLite } from '@/lib/forumFormat';

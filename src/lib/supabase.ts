@@ -132,6 +132,18 @@ export interface ForumPost {
   author?: Profile;
 }
 
+export interface RecentForumPost {
+  id: string;
+  thread_id: string;
+  thread_title: string;
+  category_slug: string;
+  category_name: string;
+  body: string;
+  fb_url: string | null;
+  created_at: string;
+  author_name: string | null;
+}
+
 export interface TrackClaimRequest {
   id: string;
   user_id: string;

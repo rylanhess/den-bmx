@@ -24,6 +24,8 @@ interface CategoryTableProps {
   subtitle?: string;
   /** When true (default), only discussion boards. Set false for full table preview (e.g. auth blur). */
   discussionOnly?: boolean;
+  /** Hide section heading (parent renders title). */
+  hideTitle?: boolean;
 }
 
 export default function CategoryTable({
@@ -31,10 +33,11 @@ export default function CategoryTable({
   title = 'Discussion Boards',
   subtitle,
   discussionOnly = true,
+  hideTitle = false,
 }: CategoryTableProps) {
   if (discussionOnly) {
     return (
-      <CategorySection title={title} subtitle={subtitle} categories={categories} />
+      <CategorySection title={title} subtitle={subtitle} categories={categories} hideTitle={hideTitle} />
     );
   }
 
@@ -53,20 +56,26 @@ function CategorySection({
   title,
   subtitle,
   categories,
+  hideTitle = false,
 }: {
   title: string;
   subtitle?: string;
   categories: CategoryStat[];
+  hideTitle?: boolean;
 }) {
   if (categories.length === 0) return null;
 
   return (
     <div>
-      <h2 className="font-black text-[#00ff0c] uppercase tracking-wide text-lg">
-        {title}
-      </h2>
-      {subtitle && <p className="text-gray-500 text-xs mt-0.5 mb-3">{subtitle}</p>}
-      {!subtitle && <div className="mb-3" />}
+      {!hideTitle && (
+        <>
+          <h2 className="font-black text-[#00ff0c] uppercase tracking-wide text-lg">
+            {title}
+          </h2>
+          {subtitle && <p className="text-gray-500 text-xs mt-0.5 mb-3">{subtitle}</p>}
+          {!subtitle && <div className="mb-3" />}
+        </>
+      )}
       <div className="border-2 border-[#00ff0c]/30 rounded-lg overflow-hidden">
         <table className="w-full text-sm">
           <thead>
@@ -96,6 +105,9 @@ function CategorySection({
                   {cat.description && (
                     <p className="text-gray-500 text-xs mt-0.5 line-clamp-1">{cat.description}</p>
                   )}
+                  <p className="text-gray-500 text-xs mt-0.5 sm:hidden">
+                    {cat.post_count} {cat.post_count === 1 ? 'post' : 'posts'}
+                  </p>
                 </td>
                 <td className="text-center px-4 py-3 text-gray-400 hidden sm:table-cell">
                   {cat.thread_count}

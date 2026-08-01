@@ -1,12 +1,18 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import GuestPostPrompt from '@/components/auth/GuestPostPrompt';
 import EmailVerificationPrompt from '@/components/auth/EmailVerificationPrompt';
 import { useForumAuth } from '@/hooks/useForumAuth';
+import { coChipLink } from '@/lib/coloradoUi';
 
-export default function NewBoardForm() {
+interface NewBoardFormProps {
+  variant?: 'default' | 'header';
+}
+
+export default function NewBoardForm({ variant = 'default' }: NewBoardFormProps) {
   const { loading, isLoggedIn, emailVerified, email } = useForumAuth();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -18,6 +24,13 @@ export default function NewBoardForm() {
   if (loading) return null;
 
   if (!isLoggedIn) {
+    if (variant === 'header') {
+      return (
+        <Link href="/signup" className={coChipLink}>
+          + New board
+        </Link>
+      );
+    }
     return <GuestPostPrompt action="start a new discussion board" />;
   }
 
@@ -53,15 +66,22 @@ export default function NewBoardForm() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="mb-4 px-4 py-2 border-2 border-[#00ff0c] text-[#00ff0c] font-black rounded hover:bg-[#00ff0c]/10 transition-colors"
+        className={
+          variant === 'header'
+            ? coChipLink
+            : 'mb-4 px-4 py-2 border-2 border-[#00ff0c] text-[#00ff0c] font-black rounded hover:bg-[#00ff0c]/10 transition-colors'
+        }
       >
-        + NEW DISCUSSION BOARD
+        {variant === 'header' ? '+ New board' : '+ NEW DISCUSSION BOARD'}
       </button>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="border-2 border-[#00ff0c]/30 rounded-lg p-4 mb-6">
+    <form
+      onSubmit={handleSubmit}
+      className={`border-2 border-[#00ff0c]/30 rounded-lg p-4 ${variant === 'header' ? 'mt-2 mb-0' : 'mb-6'}`}
+    >
       <h3 className="font-black text-[#00ff0c] mb-1">Start a Discussion Board</h3>
       <p className="text-gray-500 text-xs mb-3">Up to 2 new boards per day. Anyone can browse; verified members can post.</p>
       {error && <p className="text-red-400 text-sm mb-2">{error}</p>}

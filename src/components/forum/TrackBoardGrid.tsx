@@ -21,6 +21,29 @@ interface TrackBoardGridProps {
   isLoggedIn: boolean;
 }
 
+function BoardStat({
+  label,
+  value,
+  highlight = false,
+}: {
+  label: string;
+  value: number | string;
+  highlight?: boolean;
+}) {
+  return (
+    <div className="text-center min-w-[3.5rem]">
+      <p
+        className={`font-bold tabular-nums leading-none ${
+          highlight ? 'text-[#BF0A30]' : 'text-[#002868]'
+        }`}
+      >
+        {value}
+      </p>
+      <p className="text-[10px] text-gray-500 mt-0.5 uppercase tracking-wide">{label}</p>
+    </div>
+  );
+}
+
 export default function TrackBoardGrid({
   categories,
   initialPreferences = {},
@@ -97,12 +120,16 @@ export default function TrackBoardGrid({
     ? categories
     : categories.filter((c) => !hidden.has(c.id));
 
+  const sorted = [...visibleCategories].sort(
+    (a, b) => b.post_count - a.post_count || a.name.localeCompare(b.name)
+  );
+
   if (categories.length === 0) return null;
 
   return (
-    <div className="mb-8">
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-        <h2 className="font-black text-[#00ff0c] text-xl uppercase tracking-wide">
+    <div className="mb-6">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+        <h2 className="font-black text-[#002868] text-sm sm:text-base uppercase tracking-wide">
           Track Message Boards
         </h2>
         <button
@@ -116,78 +143,112 @@ export default function TrackBoardGrid({
       </div>
 
       {customizing && (
-        <p className="text-gray-500 text-xs mb-3">
-          Toggle which track boards appear on your forum home. Saved {isLoggedIn ? 'to your account' : 'on this device'}.
+        <p className="text-gray-500 text-xs mb-2">
+          Toggle which track boards appear on your forum home. Saved{' '}
+          {isLoggedIn ? 'to your account' : 'on this device'}.
         </p>
       )}
 
-      {visibleCategories.length === 0 ? (
-        <div className="border-2 border-[#00ff0c]/30 rounded-lg p-6 text-center text-gray-400 text-sm">
+      {sorted.length === 0 ? (
+        <div className="rounded-lg bg-white px-4 py-6 text-center text-gray-400 text-sm">
           All track boards hidden.{' '}
-          <button type="button" onClick={() => setCustomizing(true)} className="text-[#00ff0c] font-bold hover:underline">
+          <button type="button" onClick={() => setCustomizing(true)} className="text-[#002868] font-bold hover:underline">
             Customize boards
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-          {visibleCategories.map((cat) => {
-            const isHidden = hidden.has(cat.id);
-            const newCount = newCounts[cat.id] ?? cat.new_post_count ?? 0;
-            const isRecentlyActive = hasRecentBoardActivity(cat.latest_post_at);
-            const name = trackBoardDisplayName(cat.name);
+        <div className="rounded-lg bg-white overflow-hidden">
+          <div className="hidden md:grid md:grid-cols-[4.5rem_minmax(0,1fr)_minmax(0,14rem)_4rem_4rem_4rem_5rem] gap-2 px-3 py-2 bg-[#002868]/5 border-b border-[#D0D7E2]/60 text-[10px] font-black uppercase tracking-wide text-[#002868]/70">
+            <span className="text-center">Posts</span>
+            <span>Track</span>
+            <span className="text-center col-span-1">Last post</span>
+            <span className="text-center">Topics</span>
+            <span className="text-center">New</span>
+            <span className="text-center">Replies</span>
+            <span className="text-center">Active</span>
+          </div>
+          <div className="divide-y divide-[#D0D7E2]/60">
+            {sorted.map((cat) => {
+              const isHidden = hidden.has(cat.id);
+              const newCount = newCounts[cat.id] ?? cat.new_post_count ?? 0;
+              const replyCount = Math.max(0, cat.post_count - cat.thread_count);
+              const isRecentlyActive = hasRecentBoardActivity(cat.latest_post_at);
+              const name = trackBoardDisplayName(cat.name);
+              const lastActive = cat.latest_post_at
+                ? formatRelativeDate(cat.latest_post_at)
+                : '—';
 
-            return (
-              <div key={cat.id} className="relative">
-                {customizing && (
-                  <label className="absolute top-2 right-2 z-10 flex items-center gap-1 bg-black/80 rounded px-2 py-1 text-xs text-gray-300 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={!isHidden}
-                      onChange={(e) => toggleBoard(cat.id, e.target.checked)}
-                      className="accent-[#00ff0c]"
-                    />
-                    Show
-                  </label>
-                )}
-                <Link
-                  href={customizing ? '#' : `/forum/${cat.slug}`}
-                  onClick={customizing ? (e) => e.preventDefault() : undefined}
-                  className={`block h-full border-2 rounded-lg p-3 transition-all ${
-                    customizing
-                      ? 'border-[#00ff0c]/20 opacity-90'
-                      : 'border-[#00ff0c]/30 hover:border-[#00ff0c] hover:bg-[#00ff0c]/5'
-                  } ${isHidden && customizing ? 'opacity-50' : ''}`}
-                >
-                  <h3 className="font-black text-white text-sm leading-snug line-clamp-2 pr-14">
-                    {name}
-                    {isRecentlyActive && (
-                      <>
-                        {' '}
-                        <NewBadge />
-                      </>
-                    )}
-                  </h3>
-                  <p className="text-2xl font-black text-[#00ff0c] mt-2 tabular-nums">
-                    {cat.post_count}
-                    <span className="text-xs font-bold text-gray-500 ml-1">posts</span>
-                  </p>
-                  <div className="mt-2 min-h-[1.25rem] flex flex-wrap items-center gap-1.5">
-                    {newCount > 0 ? (
-                      <span className="inline-block text-xs font-black bg-[#00ff0c]/20 text-[#00ff0c] border border-[#00ff0c]/40 px-2 py-0.5 rounded">
-                        {newCount} unread
+              return (
+                <div key={cat.id} className="relative flex items-stretch">
+                  {customizing && (
+                    <label className="absolute top-2 right-2 z-10 flex items-center gap-1 bg-black/80 rounded px-1.5 py-0.5 text-[10px] text-gray-300 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={!isHidden}
+                        onChange={(e) => toggleBoard(cat.id, e.target.checked)}
+                        className="accent-[#002868]"
+                      />
+                      Show
+                    </label>
+                  )}
+                  <Link
+                    href={customizing ? '#' : `/forum/${cat.slug}`}
+                    onClick={customizing ? (e) => e.preventDefault() : undefined}
+                    className={`flex flex-1 items-center gap-3 px-3 py-2.5 hover:bg-[#002868]/5 transition-colors min-w-0 md:grid md:grid-cols-[4.5rem_minmax(0,1fr)_minmax(0,14rem)_4rem_4rem_4rem_5rem] md:gap-2 md:items-center ${
+                      isHidden && customizing ? 'opacity-50' : ''
+                    }`}
+                  >
+                    <span className="w-12 md:w-auto shrink-0 text-center tabular-nums leading-none">
+                      <span className="block font-black text-sm text-[#002868]">
+                        {cat.post_count}
                       </span>
-                    ) : cat.latest_post_at ? (
-                      <span className="text-xs text-gray-400">
-                        {formatRelativeDate(cat.latest_post_at)}
+                      <span className="block text-[9px] uppercase tracking-wide text-gray-500 mt-0.5">
+                        {cat.post_count === 1 ? 'post' : 'posts'}
                       </span>
-                    ) : (
-                      <span className="text-xs text-gray-600">No posts yet</span>
-                    )}
-                  </div>
-                </Link>
-              </div>
-            );
-          })}
+                    </span>
+
+                    <span className="min-w-0 flex-1 md:flex-none">
+                      <span className="font-bold text-sm text-[#0B1C2D] leading-snug">
+                        {name}
+                        {isRecentlyActive && (
+                          <>
+                            {' '}
+                            <NewBadge />
+                          </>
+                        )}
+                      </span>
+                      <span className="block text-[11px] text-gray-500 mt-0.5 md:hidden">
+                        {cat.thread_count} {cat.thread_count === 1 ? 'topic' : 'topics'}
+                        {newCount > 0 && ` · ${newCount} new`}
+                        {cat.latest_post_at && ` · ${lastActive}`}
+                      </span>
+                    </span>
+
+                    <span className="hidden md:block text-xs text-gray-500 truncate px-1">
+                      {cat.latest_thread_title ? (
+                        <span title={cat.latest_thread_title}>{cat.latest_thread_title}</span>
+                      ) : (
+                        <span className="text-gray-400">No posts yet</span>
+                      )}
+                    </span>
+
+                    <span className="hidden md:block">
+                      <BoardStat label="Topics" value={cat.thread_count} />
+                    </span>
+                    <span className="hidden md:block">
+                      <BoardStat label="New" value={newCount} highlight={newCount > 0} />
+                    </span>
+                    <span className="hidden md:block">
+                      <BoardStat label="Replies" value={replyCount} />
+                    </span>
+                    <span className="hidden md:block text-center text-xs text-gray-500 tabular-nums">
+                      {lastActive}
+                    </span>
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
     </div>

@@ -9,6 +9,7 @@ import {
   ShoppingBagIcon,
   EnvelopeIcon,
   UserCircleIcon,
+  UsersIcon,
   HomeIcon,
 } from '@heroicons/react/24/solid';
 import { createClient } from '@/lib/supabase/client';
@@ -17,7 +18,7 @@ import { useEffect, useState } from 'react';
 const publicNavItems = [
   { href: '/forum', label: 'FORUM', icon: ChatBubbleLeftRightIcon },
   { href: '/tracks', label: 'TRACKS', icon: MapPinIcon },
-  { href: '/riders', label: 'RIDERS', icon: UserCircleIcon },
+  { href: '/riders', label: 'RIDERS', icon: UsersIcon },
   { href: 'https://store.bmxdenver.com', label: 'MERCH', icon: ShoppingBagIcon, external: true },
   { href: '/contact?co=1', label: 'CONTACT', icon: EnvelopeIcon },
 ];

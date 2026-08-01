@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Fragment } from 'react';
 
 interface BreadcrumbItem {
   label: string;
@@ -7,18 +8,28 @@ interface BreadcrumbItem {
 
 export default function BreadcrumbNav({ items }: { items: BreadcrumbItem[] }) {
   return (
-    <nav className="text-sm text-gray-400 mb-4 flex flex-wrap items-center gap-1">
+    <nav
+      aria-label="Breadcrumb"
+      className="mb-4 flex items-center gap-1.5 text-sm text-gray-500 overflow-x-auto whitespace-nowrap scrollbar-hide"
+    >
       {items.map((item, i) => (
-        <span key={i} className="flex items-center gap-1">
-          {i > 0 && <span className="text-gray-600">›</span>}
+        <Fragment key={i}>
+          {i > 0 && (
+            <span aria-hidden className="text-gray-400 shrink-0">
+              ›
+            </span>
+          )}
           {item.href ? (
-            <Link href={item.href} className="text-[#00ff0c] hover:underline">
+            <Link
+              href={item.href}
+              className="co-text-link text-[#002868] hover:underline font-medium shrink-0"
+            >
               {item.label}
             </Link>
           ) : (
-            <span className="text-white">{item.label}</span>
+            <span className="text-[#0B1C2D] font-medium shrink-0">{item.label}</span>
           )}
-        </span>
+        </Fragment>
       ))}
     </nav>
   );

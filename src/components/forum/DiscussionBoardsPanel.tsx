@@ -2,34 +2,30 @@
 
 import CategoryTable, { type CategoryStat } from '@/components/forum/CategoryTable';
 import NewBoardForm from '@/components/forum/NewBoardForm';
-import { partitionDiscussionBoards } from '@/lib/forumBoards';
+import { isDiscussionBoard } from '@/lib/forumBoards';
 
 interface DiscussionBoardsPanelProps {
   categories: CategoryStat[];
 }
 
 export default function DiscussionBoardsPanel({ categories }: DiscussionBoardsPanelProps) {
-  const { newBoards, mainBoards } = partitionDiscussionBoards(categories);
+  const boards = categories
+    .filter(isDiscussionBoard)
+    .sort((a, b) => b.post_count - a.post_count || a.name.localeCompare(b.name));
 
   return (
-    <div className="space-y-8">
-      <div>
-        <NewBoardForm />
+    <div>
+      <div className="flex flex-wrap items-end justify-between gap-2 mb-2">
+        <div>
+          <h2 className="font-black text-[#00ff0c] text-sm sm:text-base uppercase tracking-wide">
+            Discussion Boards
+          </h2>
+          <p className="text-gray-500 text-xs mt-0.5">Ranked by total posts</p>
+        </div>
+        <NewBoardForm variant="header" />
       </div>
 
-      {newBoards.length > 0 && (
-        <CategoryTable
-          title="New Discussion Boards"
-          subtitle="Started in the last 30 days"
-          categories={newBoards}
-        />
-      )}
-
-      <CategoryTable
-        title="Discussion Boards"
-        subtitle="Ranked by total posts"
-        categories={mainBoards}
-      />
+      <CategoryTable categories={boards} hideTitle />
     </div>
   );
 }

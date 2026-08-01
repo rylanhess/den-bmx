@@ -4,13 +4,16 @@ import Link from 'next/link';
 import DiscussionBoardsPanel from '@/components/forum/DiscussionBoardsPanel';
 import ForumWelcomeModal from '@/components/forum/ForumWelcomeModal';
 import TrackBoardGrid from '@/components/forum/TrackBoardGrid';
+import RecentPostsSection from '@/components/forum/RecentPostsSection';
 import EmailVerificationPrompt from '@/components/auth/EmailVerificationPrompt';
 import { FORUM_TAGLINE, parsePreferences, type UserPreferences } from '@/lib/userPreferences';
 import type { CategoryStat } from '@/components/forum/CategoryTable';
+import type { RecentForumPost } from '@/lib/supabase';
 import { coChipLink, coPrimaryChip } from '@/lib/coloradoUi';
 
 interface ForumHomeClientProps {
   categories: CategoryStat[];
+  recentPosts: RecentForumPost[];
   isLoggedIn: boolean;
   emailVerified?: boolean;
   userEmail?: string | null;
@@ -19,6 +22,7 @@ interface ForumHomeClientProps {
 
 export default function ForumHomeClient({
   categories,
+  recentPosts,
   isLoggedIn,
   emailVerified = false,
   userEmail,
@@ -32,13 +36,13 @@ export default function ForumHomeClient({
       <ForumWelcomeModal />
 
       {isLoggedIn && !emailVerified && (
-        <div className="mb-6">
+        <div className="mb-4">
           <EmailVerificationPrompt email={userEmail} action="post or start boards" />
         </div>
       )}
 
       {!isLoggedIn && (
-        <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-2 border-[#00ff0c]/30 rounded-lg px-4 py-3 bg-[#00ff0c]/5">
+        <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-2 border-[#00ff0c]/30 rounded-lg px-4 py-3 bg-[#00ff0c]/5">
           <p className="text-gray-300 text-sm">Browsing as guest — sign in to post and reply.</p>
           <div className="flex gap-2 shrink-0">
             <Link href="/signup" className={coPrimaryChip}>
@@ -51,29 +55,11 @@ export default function ForumHomeClient({
         </div>
       )}
 
-      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
-        <div>
-          <h1 className="text-3xl sm:text-4xl font-black text-[#00ff0c] leading-tight">
-            {FORUM_TAGLINE}
-          </h1>
-          <p className="text-gray-400 mt-2 text-sm max-w-xl">
-            Colorado&apos;s home for BMX racing talk — track boards, race strategy, and rider community.
-          </p>
-        </div>
-        <div className="flex gap-2 shrink-0">
-          <Link href="/tracks" className={coChipLink}>
-            TRACKS
-          </Link>
-          <Link
-            href="https://store.bmxdenver.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={coChipLink}
-          >
-            MERCH
-          </Link>
-        </div>
-      </div>
+      <h1 className="text-2xl sm:text-3xl font-black text-[#00ff0c] leading-tight mb-4">
+        {FORUM_TAGLINE}
+      </h1>
+
+      <RecentPostsSection posts={recentPosts} />
 
       <TrackBoardGrid
         categories={trackBoards}
@@ -81,7 +67,7 @@ export default function ForumHomeClient({
         isLoggedIn={isLoggedIn}
       />
 
-      <DiscussionBoardsPanel categories={categories.filter((c) => !c.track_id)} />
+      <DiscussionBoardsPanel categories={categories} />
     </>
   );
 }

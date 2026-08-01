@@ -43,6 +43,15 @@ a.co-chip-link {
   min-width: 0;
 }
 
+/* Carousel pagination — tiny dots, not touch targets */
+button.co-carousel-dot {
+  min-height: 0;
+  min-width: 0;
+  padding: 0;
+  width: 12px;
+  height: 12px;
+}
+
 /* Ensure buttons and links are touch-friendly */
 button,
 a,
