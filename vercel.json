@@ -7,14 +7,20 @@
   "redirects": [
     {
       "source": "/:path*",
+      "has": [{ "type": "host", "value": "bmxcolorado.com" }],
+      "destination": "https://www.bmxcolorado.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
       "has": [{ "type": "host", "value": "coloradobmx.com" }],
-      "destination": "https://bmxcolorado.com/:path*",
+      "destination": "https://www.bmxcolorado.com/:path*",
       "permanent": true
     },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.coloradobmx.com" }],
-      "destination": "https://bmxcolorado.com/:path*",
+      "destination": "https://www.bmxcolorado.com/:path*",
       "permanent": true
     }
   ]

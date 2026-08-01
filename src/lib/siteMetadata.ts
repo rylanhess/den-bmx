@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
+import { COLORADO_CANONICAL_ORIGIN, DENVER_CANONICAL_ORIGIN } from '@/lib/canonicalSite';
 
-const DENVER_SITE_URL = 'https://bmxdenver.com';
-const COLORADO_SITE_URL = 'https://www.bmxcolorado.com';
+const DENVER_SITE_URL = DENVER_CANONICAL_ORIGIN;
+const COLORADO_SITE_URL = COLORADO_CANONICAL_ORIGIN;
 
 const DENVER_OG_IMAGE = {
   url: '/DENBMX-og.png?v=2',
@@ -28,6 +29,9 @@ const denverMetadata: Metadata = {
   description:
     'Your hub for all things BMX in Denver. Find racing tracks, freestyle parks, events, and everything you need for BMX racing and freestyle riding in the Denver metro area.',
   metadataBase: new URL(DENVER_SITE_URL),
+  alternates: {
+    canonical: './',
+  },
   manifest: '/manifest.json',
   themeColor: '#00ff0c',
   appleWebApp: {
@@ -74,6 +78,9 @@ const coloradoMetadata: Metadata = {
   description:
     "Colorado's community message board for BMX racing, freestyle, and track news. Talk BMX with riders and tracks across the state.",
   metadataBase: new URL(COLORADO_SITE_URL),
+  alternates: {
+    canonical: './',
+  },
   manifest: '/manifest.json',
   themeColor: '#002868',
   appleWebApp: {
