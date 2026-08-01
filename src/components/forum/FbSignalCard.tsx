@@ -1,5 +1,6 @@
 import { formatRelativeDate } from '@/lib/forum';
 import type { FbPostSignal, Track } from '@/lib/supabase';
+import { coPrimaryChip } from '@/lib/coloradoUi';
 
 interface SignalWithTrack extends FbPostSignal {
   track?: Track;
@@ -13,7 +14,7 @@ export default function FbSignalCard({ signal }: { signal: SignalWithTrack }) {
   const label = platformLabel(signal.platform ?? 'facebook');
 
   return (
-    <div className="border-2 border-blue-500/30 bg-blue-900/10 rounded-lg p-4 flex items-center justify-between gap-4">
+    <div className="border-2 border-[#00ff0c]/30 bg-[#00ff0c]/5 rounded-lg p-4 flex items-center justify-between gap-4">
       <div>
         <p className="font-bold text-white">
           New {label} post — {signal.track?.name ?? 'Track'}
@@ -26,7 +27,7 @@ export default function FbSignalCard({ signal }: { signal: SignalWithTrack }) {
         href={signal.fb_url}
         target="_blank"
         rel="noopener noreferrer"
-        className="shrink-0 px-4 py-2 bg-[#00ff0c] text-black font-black text-sm rounded hover:bg-[#00cc0a] transition-colors"
+        className={`${coPrimaryChip} shrink-0`}
       >
         View on {label} →
       </a>

@@ -1,5 +1,7 @@
 import Link from 'next/link';
+import NewBadge from '@/components/forum/NewBadge';
 import { formatRelativeDate } from '@/lib/forumFormat';
+import { hasRecentBoardActivity } from '@/lib/recentPostWindow';
 
 export interface CategoryStat {
   id: string;
@@ -79,8 +81,17 @@ function CategorySection({
             {categories.map((cat) => (
               <tr key={cat.id} className="border-b border-[#00ff0c]/10 hover:bg-[#00ff0c]/5 transition-colors">
                 <td className="px-4 py-3">
-                  <Link href={`/forum/${cat.slug}`} className="font-bold text-white hover:text-[#00ff0c] transition-colors">
+                  <Link
+                    href={`/forum/${cat.slug}`}
+                    className="co-text-link font-bold text-white hover:text-[#00ff0c] transition-colors leading-snug inline"
+                  >
                     {cat.name}
+                    {hasRecentBoardActivity(cat.latest_post_at) && (
+                      <>
+                        {' '}
+                        <NewBadge />
+                      </>
+                    )}
                   </Link>
                   {cat.description && (
                     <p className="text-gray-500 text-xs mt-0.5 line-clamp-1">{cat.description}</p>

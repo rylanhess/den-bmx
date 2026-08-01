@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { Track } from '@/lib/supabase';
+import { coChipLink, coMutedChip, coPrimaryChip } from '@/lib/coloradoUi';
 
 interface TrackHeaderProps {
   track: Track;
@@ -20,11 +21,11 @@ export default function TrackHeader({ track, moderatorName, isModerator }: Track
         </div>
         <div className="flex flex-col gap-2 shrink-0">
           {moderatorName ? (
-            <span className="inline-flex items-center gap-2 bg-[#00ff0c]/10 border border-[#00ff0c]/40 rounded px-3 py-1.5 text-sm text-[#00ff0c] font-bold">
+            <span className="inline-flex items-center gap-2 bg-[#00ff0c]/10 border border-[#00ff0c]/40 rounded px-3 py-1.5 text-sm text-[#00ff0c] font-bold leading-none">
               Moderated by {moderatorName}
             </span>
           ) : (
-            <span className="inline-flex items-center gap-2 bg-yellow-900/30 border border-yellow-500/40 rounded px-3 py-1.5 text-sm text-yellow-300 font-bold">
+            <span className="inline-flex items-center gap-2 bg-[#FFC72C]/20 border border-[#FFC72C]/50 rounded px-3 py-1.5 text-sm text-[#002868] font-bold leading-none">
               Unclaimed — Track operators can claim this page
             </span>
           )}
@@ -37,7 +38,7 @@ export default function TrackHeader({ track, moderatorName, isModerator }: Track
             href={track.usabmx_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-3 py-1.5 border border-[#00ff0c]/40 text-[#00ff0c] text-sm font-bold rounded hover:bg-[#00ff0c]/10 transition-colors"
+            className={coChipLink}
           >
             USA BMX Page →
           </a>
@@ -47,7 +48,7 @@ export default function TrackHeader({ track, moderatorName, isModerator }: Track
             href={track.fb_page_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-3 py-1.5 border border-blue-500/40 text-blue-300 text-sm font-bold rounded hover:bg-blue-900/20 transition-colors"
+            className={coChipLink}
           >
             Facebook →
           </a>
@@ -57,7 +58,7 @@ export default function TrackHeader({ track, moderatorName, isModerator }: Track
             href={track.instagram_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-3 py-1.5 border border-pink-500/40 text-pink-300 text-sm font-bold rounded hover:bg-pink-900/20 transition-colors"
+            className={coChipLink}
           >
             Instagram →
           </a>
@@ -67,24 +68,18 @@ export default function TrackHeader({ track, moderatorName, isModerator }: Track
             href={`https://maps.google.com/?q=${track.lat},${track.lon}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-3 py-1.5 border border-gray-600 text-gray-300 text-sm font-bold rounded hover:bg-gray-800 transition-colors"
+            className={coMutedChip}
           >
             Map →
           </a>
         )}
         {!moderatorName && !isModerator && (
-          <Link
-            href={`/tracks/${track.slug}/claim`}
-            className="px-3 py-1.5 bg-[#00ff0c] text-black text-sm font-black rounded hover:bg-[#00cc0a] transition-colors"
-          >
+          <Link href={`/tracks/${track.slug}/claim`} className={coPrimaryChip}>
             Claim This Track
           </Link>
         )}
         {track.slug && (
-          <Link
-            href={`/forum/${track.slug}-comms`}
-            className="px-3 py-1.5 border border-[#00ff0c]/40 text-[#00ff0c] text-sm font-bold rounded hover:bg-[#00ff0c]/10 transition-colors"
-          >
+          <Link href={`/forum/${track.slug}-comms`} className={coChipLink}>
             Track Message Board →
           </Link>
         )}

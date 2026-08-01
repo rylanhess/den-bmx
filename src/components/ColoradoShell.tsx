@@ -2,33 +2,33 @@ import Link from 'next/link';
 
 export default function ColoradoShell() {
   return (
-    <footer className="border-t-2 border-[#00ff0c]/30 bg-black py-8 mt-8">
+    <footer className="border-t-2 border-[#D0D7E2] bg-white py-8 mt-8">
       <div className="container mx-auto px-4 max-w-5xl">
         <div className="grid gap-6 sm:grid-cols-3 text-sm">
           <div>
-            <h3 className="font-black text-[#00ff0c] mb-2">BMX COLORADO</h3>
-            <p className="text-gray-400">
+            <h3 className="font-black text-[#002868] mb-2">BMX COLORADO</h3>
+            <p className="text-[#4A5568]">
               Colorado&apos;s community message board for BMX racing, freestyle, and track news.
             </p>
           </div>
           <div>
-            <h3 className="font-black text-[#00ff0c] mb-2">Links</h3>
-            <ul className="space-y-1 text-gray-400">
-              <li><Link href="/forum" className="hover:text-[#00ff0c]">Forum</Link></li>
-              <li><Link href="/tracks" className="hover:text-[#00ff0c]">Tracks</Link></li>
-              <li><a href="https://www.bmxdenver.com/denver-bmx-races" className="hover:text-[#00ff0c]">Denver Calendar</a></li>
-              <li><a href="https://store.bmxdenver.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#00ff0c]">Merch Store</a></li>
+            <h3 className="font-black text-[#002868] mb-2">Links</h3>
+            <ul className="space-y-1 text-[#4A5568]">
+              <li><Link href="/forum" className="hover:text-[#BF0A30]">Forum</Link></li>
+              <li><Link href="/tracks" className="hover:text-[#BF0A30]">Tracks</Link></li>
+              <li><a href="https://www.bmxdenver.com/denver-bmx-races" className="hover:text-[#BF0A30]">Denver Calendar</a></li>
+              <li><a href="https://store.bmxdenver.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#BF0A30]">Merch Store</a></li>
             </ul>
           </div>
           <div>
-            <h3 className="font-black text-[#00ff0c] mb-2">Contact</h3>
-            <ul className="space-y-1 text-gray-400">
-              <li><Link href="/contact" className="hover:text-[#00ff0c]">Contact Us</Link></li>
-              <li><a href="mailto:rylan@bmxdenver.com" className="hover:text-[#00ff0c]">rylan@bmxdenver.com</a></li>
+            <h3 className="font-black text-[#002868] mb-2">Contact</h3>
+            <ul className="space-y-1 text-[#4A5568]">
+              <li><Link href="/contact?co=1" className="hover:text-[#BF0A30]">Contact Us</Link></li>
+              <li><a href="mailto:rylan@bmxdenver.com" className="hover:text-[#BF0A30]">rylan@bmxdenver.com</a></li>
             </ul>
           </div>
         </div>
-        <p className="text-gray-600 text-xs mt-6 text-center">
+        <p className="text-[#6B7280] text-xs mt-6 text-center">
           © {new Date().getFullYear()} BMX Colorado · Powered by BMX Denver
         </p>
       </div>

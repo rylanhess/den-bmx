@@ -4,13 +4,32 @@
  */
 
 export function parseRelativeTimestamp(timestampText: string): Date | null {
+  const normalized = timestampText.replace(/[\u200B-\u200D\uFEFF\u034F\u180E\u2060]/g, '').trim();
   const now = new Date();
 
-  if (timestampText.toLowerCase().includes('just now')) {
+  if (normalized.toLowerCase().includes('just now')) {
     return now;
   }
 
-  const absoluteMatch = timestampText.match(
+  if (/^yesterday\b/i.test(normalized)) {
+    now.setDate(now.getDate() - 1);
+    return now;
+  }
+
+  const wordRelativeMatch = normalized.match(
+    /\b(an?)\s+(minute|hour|day|week)s?\s+ago\b/i
+  );
+  if (wordRelativeMatch) {
+    const value = wordRelativeMatch[1].toLowerCase() === 'a' || wordRelativeMatch[1].toLowerCase() === 'an' ? 1 : 1;
+    const unit = wordRelativeMatch[2].toLowerCase();
+    if (unit.startsWith('minute')) now.setMinutes(now.getMinutes() - value);
+    else if (unit.startsWith('hour')) now.setHours(now.getHours() - value);
+    else if (unit.startsWith('day')) now.setDate(now.getDate() - value);
+    else if (unit.startsWith('week')) now.setDate(now.getDate() - value * 7);
+    return now;
+  }
+
+  const absoluteMatch = normalized.match(
     /([A-Za-z]+)\s+(\d{1,2})(?:\s+at\s+(\d{1,2}):(\d{2})\s*(AM|PM)?)?/i
   );
   if (absoluteMatch) {
@@ -68,7 +87,7 @@ export function parseRelativeTimestamp(timestampText: string): Date | null {
     }
   }
 
-  const relativeMatch = timestampText.match(
+  const relativeMatch = normalized.match(
     /(\d+)\s*(m|min|mins|minute|minutes|h|hr|hrs|hour|hours|d|day|days|w|week|weeks)/i
   );
 

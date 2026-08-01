@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 import { authCallbackUrl } from '@/lib/siteUrl';
 import GoogleSignInButton, { AuthDivider } from '@/components/auth/GoogleSignInButton';
+import { CO_MARK_BLUE } from '@/lib/coloradoUi';
 
 export default function SignupForm() {
   const [displayName, setDisplayName] = useState('');
@@ -58,10 +59,10 @@ export default function SignupForm() {
     <div className="w-full max-w-md border-2 border-[#00ff0c] rounded-lg p-8 bg-black/95 backdrop-blur-sm shadow-2xl shadow-[#00ff0c]/10">
       <div className="flex justify-center mb-6">
         <Image
-          src="/logos/DEN_BMX_FINAL_Green.png"
+          src={CO_MARK_BLUE}
           alt="BMX Colorado"
-          width={80}
-          height={80}
+          width={160}
+          height={103}
           className="h-20 w-auto"
         />
       </div>

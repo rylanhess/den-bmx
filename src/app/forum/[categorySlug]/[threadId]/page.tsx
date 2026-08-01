@@ -66,7 +66,7 @@ export default async function ThreadPage({ params }: Props) {
               <span className="text-[#00ff0c] text-xs font-black shrink-0">PINNED</span>
             )}
             {thread.is_system && (
-              <span className="bg-blue-900/50 text-blue-300 text-xs px-2 py-0.5 rounded font-bold shrink-0">
+              <span className="bg-[#00ff0c]/20 text-[#00ff0c] text-xs px-2 py-0.5 rounded font-bold shrink-0 leading-none inline-flex items-center">
                 SOCIAL
               </span>
             )}

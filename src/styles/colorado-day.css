@@ -1,0 +1,155 @@
+/**
+ * Colorado Day theme — flag-inspired light UI for outdoor readability.
+ * Applied via .theme-colorado-day on <body> for Colorado host / forum paths.
+ * Remaps existing neon-green utilities without rewriting every component.
+ */
+
+.theme-colorado-day {
+  --background: #f4f6f8;
+  --foreground: #0b1c2d;
+  --accent: #002868;
+  --co-brand: #002868;
+  --co-action: #bf0a30;
+  --co-action-hover: #9e0828;
+  --co-gold: #ffc72c;
+  --co-border: #d0d7e2;
+  --co-surface: #ffffff;
+  --co-muted: #4a5568;
+  --co-tint: rgba(0, 40, 104, 0.06);
+  --co-tint-strong: rgba(0, 40, 104, 0.1);
+
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-tap-highlight-color: rgba(191, 10, 48, 0.15);
+}
+
+/* —— Surfaces: black → white cards / light inputs —— */
+.theme-colorado-day .bg-black,
+.theme-colorado-day .bg-black\/95,
+.theme-colorado-day .bg-\[\#111\] {
+  background-color: var(--co-surface) !important;
+}
+
+/* —— Body text that assumed dark mode —— */
+.theme-colorado-day .text-white {
+  color: var(--foreground) !important;
+}
+
+.theme-colorado-day .text-gray-300 {
+  color: #5a6577 !important;
+}
+
+.theme-colorado-day .text-gray-400 {
+  color: var(--co-muted) !important;
+}
+
+.theme-colorado-day .text-gray-500 {
+  color: #5a6577 !important;
+}
+
+.theme-colorado-day .text-gray-600 {
+  color: #6b7280 !important;
+}
+
+/* —— Neon green → Colorado brand / action —— */
+.theme-colorado-day .text-\[\#00ff0c\] {
+  color: var(--co-brand) !important;
+}
+
+.theme-colorado-day .bg-\[\#00ff0c\] {
+  background-color: var(--co-action) !important;
+  color: #ffffff !important;
+}
+
+.theme-colorado-day .hover\:bg-\[\#00cc0a\]:hover,
+.theme-colorado-day .hover\:bg-\[\#00cc0a\]:focus {
+  background-color: var(--co-action-hover) !important;
+  color: #ffffff !important;
+}
+
+.theme-colorado-day .border-\[\#00ff0c\] {
+  border-color: var(--co-brand) !important;
+}
+
+.theme-colorado-day .border-\[\#00ff0c\]\/20 {
+  border-color: rgba(0, 40, 104, 0.2) !important;
+}
+
+.theme-colorado-day .border-\[\#00ff0c\]\/30 {
+  border-color: rgba(0, 40, 104, 0.28) !important;
+}
+
+.theme-colorado-day .border-\[\#00ff0c\]\/40 {
+  border-color: rgba(0, 40, 104, 0.4) !important;
+}
+
+.theme-colorado-day .border-\[\#00ff0c\]\/50 {
+  border-color: rgba(0, 40, 104, 0.5) !important;
+}
+
+.theme-colorado-day .bg-\[\#00ff0c\]\/5 {
+  background-color: var(--co-tint) !important;
+}
+
+.theme-colorado-day .bg-\[\#00ff0c\]\/10 {
+  background-color: var(--co-tint-strong) !important;
+}
+
+.theme-colorado-day .bg-\[\#00ff0c\]\/20 {
+  background-color: rgba(255, 199, 44, 0.25) !important;
+}
+
+.theme-colorado-day .hover\:bg-\[\#00ff0c\]\/5:hover,
+.theme-colorado-day .hover\:bg-\[\#00ff0c\]\/10:hover {
+  background-color: var(--co-tint-strong) !important;
+}
+
+.theme-colorado-day .hover\:text-\[\#00ff0c\]:hover {
+  color: var(--co-action) !important;
+}
+
+.theme-colorado-day .hover\:border-\[\#00ff0c\]:hover,
+.theme-colorado-day .hover\:border-\[\#00ff0c\]\/50:hover {
+  border-color: var(--co-brand) !important;
+}
+
+.theme-colorado-day .focus\:border-\[\#00ff0c\]:focus {
+  border-color: var(--co-brand) !important;
+}
+
+.theme-colorado-day .accent-\[\#00ff0c\] {
+  accent-color: var(--co-action) !important;
+}
+
+.theme-colorado-day .shadow-\[\#00ff0c\]\/10,
+.theme-colorado-day .shadow-2xl {
+  --tw-shadow-color: rgba(0, 40, 104, 0.12);
+}
+
+/* Filled primary buttons that used green text-black */
+.theme-colorado-day .bg-\[\#00ff0c\].text-black,
+.theme-colorado-day .bg-\[\#00ff0c\] .text-black {
+  color: #ffffff !important;
+}
+
+.theme-colorado-day a.bg-\[\#00ff0c\],
+.theme-colorado-day button.bg-\[\#00ff0c\],
+.theme-colorado-day .bg-\[\#00ff0c\] {
+  color: #ffffff !important;
+}
+
+/* Gold “NEW” badges (class applied in NewBadge) */
+.theme-colorado-day .co-badge-new {
+  background-color: var(--co-gold) !important;
+  color: var(--co-brand) !important;
+  border: 1px solid rgba(0, 40, 104, 0.15);
+}
+
+/* Nav stays high-contrast navy (see ColoradoNavigation) */
+.theme-colorado-day nav.co-day-nav .text-white {
+  color: #ffffff !important;
+}
+
+.theme-colorado-day nav.co-day-nav .bg-black {
+  background-color: transparent !important;
+}

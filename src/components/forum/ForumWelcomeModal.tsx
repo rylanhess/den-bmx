@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import GoogleSignInButton from '@/components/auth/GoogleSignInButton';
 import { FORUM_TAGLINE, WELCOME_SEEN_KEY } from '@/lib/userPreferences';
@@ -29,13 +30,23 @@ export default function ForumWelcomeModal() {
       aria-labelledby="welcome-title"
     >
       <div className="w-full max-w-md border-2 border-[#00ff0c] rounded-xl bg-black shadow-2xl shadow-[#00ff0c]/10 p-6 sm:p-8">
-        <p className="text-[#00ff0c] text-xs font-black uppercase tracking-widest mb-2">
+        <div className="flex justify-center mb-4">
+          <Image
+            src="/logos/BMX_CO_MARK.png"
+            alt="BMX Colorado"
+            width={180}
+            height={116}
+            className="h-16 w-auto"
+            priority
+          />
+        </div>
+        <p className="text-[#00ff0c] text-xs font-black uppercase tracking-widest mb-2 text-center">
           BMX Colorado
         </p>
-        <h2 id="welcome-title" className="text-2xl sm:text-3xl font-black text-white leading-tight">
+        <h2 id="welcome-title" className="text-2xl sm:text-3xl font-black text-white leading-tight text-center">
           {FORUM_TAGLINE}
         </h2>
-        <p className="text-gray-400 text-sm mt-3 leading-relaxed">
+        <p className="text-gray-400 text-sm mt-3 leading-relaxed text-center">
           Track talk, race chatter, and community boards for every Colorado BMX track. Create a free profile to post, or browse as a guest.
         </p>
 

@@ -55,6 +55,10 @@ export async function middleware(request: NextRequest) {
   const response = supabaseResponse;
   response.headers.set('x-pathname', pathname);
 
+  if (pathname.startsWith('/contact') && request.nextUrl.searchParams.get('co') === '1') {
+    response.headers.set('x-co-contact', '1');
+  }
+
   if (
     pathname === '/' ||
     pathname.startsWith('/forum') ||

@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Suspense } from "react";
 import { Analytics } from "@vercel/analytics/next";
 import ServiceWorkerRegistration from "./sw-register";
 import SiteNavigation from "@/components/SiteNavigation";
 import SponsorshipStrip from "@/components/SponsorshipStrip";
 import NewsletterModalTrigger from "@/components/NewsletterModalTrigger";
-import ColoradoShell from "@/components/ColoradoShell";
+import ColoradoShellGate from "@/components/ColoradoShellGate";
+import ColoradoThemeSync from "@/components/ColoradoThemeSync";
+import { isColoradoExperience } from "@/lib/coloradoTheme";
 import { headers } from "next/headers";
 import "./globals.css";
 
@@ -84,8 +87,12 @@ export default async function RootLayout({
 }>) {
   const headersList = await headers();
   const host = headersList.get('host') ?? '';
-  const isColorado =
-    host.includes('bmxcolorado') || host.includes('coloradobmx');
+  const pathname = headersList.get('x-pathname') ?? '';
+  const params = new URLSearchParams();
+  if (headersList.get('x-co-contact') === '1') {
+    params.set('co', '1');
+  }
+  const isColorado = isColoradoExperience(host, pathname, params);
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -94,17 +101,25 @@ export default async function RootLayout({
         <link rel="icon" href="/logos/MARK_ONLY_icon_tab.png?v=5" sizes="32x32" type="image/png" />
         <link rel="shortcut icon" href="/logos/MARK_ONLY_icon_tab.png?v=5" type="image/png" />
         <link rel="apple-touch-icon" href="/logos/MARK_ONLY_icon_tab.png?v=5" />
+        {isColorado && <meta name="theme-color" content="#002868" />}
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased${isColorado ? ' theme-colorado-day' : ''}`}
       >
+        <Suspense fallback={null}>
+          <ColoradoThemeSync />
+        </Suspense>
         <div className="flex flex-col min-h-screen">
-          <SiteNavigation />
+          <Suspense fallback={null}>
+            <SiteNavigation />
+          </Suspense>
           {!isColorado && <SponsorshipStrip />}
           <main className="flex-1">
             {children}
           </main>
-          {isColorado && <ColoradoShell />}
+          <Suspense fallback={null}>
+            <ColoradoShellGate />
+          </Suspense>
         </div>
         <ServiceWorkerRegistration />
         {!isColorado && <NewsletterModalTrigger />}

@@ -7,6 +7,7 @@ import TrackBoardGrid from '@/components/forum/TrackBoardGrid';
 import EmailVerificationPrompt from '@/components/auth/EmailVerificationPrompt';
 import { FORUM_TAGLINE, parsePreferences, type UserPreferences } from '@/lib/userPreferences';
 import type { CategoryStat } from '@/components/forum/CategoryTable';
+import { coChipLink, coPrimaryChip } from '@/lib/coloradoUi';
 
 interface ForumHomeClientProps {
   categories: CategoryStat[];
@@ -40,16 +41,10 @@ export default function ForumHomeClient({
         <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-2 border-[#00ff0c]/30 rounded-lg px-4 py-3 bg-[#00ff0c]/5">
           <p className="text-gray-300 text-sm">Browsing as guest — sign in to post and reply.</p>
           <div className="flex gap-2 shrink-0">
-            <Link
-              href="/signup"
-              className="px-4 py-2 bg-[#00ff0c] text-black font-black text-sm rounded hover:bg-[#00cc0a]"
-            >
+            <Link href="/signup" className={coPrimaryChip}>
               Create Account
             </Link>
-            <Link
-              href="/login"
-              className="px-4 py-2 border-2 border-[#00ff0c] text-[#00ff0c] font-bold text-sm rounded hover:bg-[#00ff0c]/10"
-            >
+            <Link href="/login" className={coChipLink}>
               Sign In
             </Link>
           </div>
@@ -66,17 +61,14 @@ export default function ForumHomeClient({
           </p>
         </div>
         <div className="flex gap-2 shrink-0">
-          <Link
-            href="/tracks"
-            className="px-4 py-2 border-2 border-[#00ff0c] text-[#00ff0c] font-bold text-sm rounded hover:bg-[#00ff0c]/10 transition-colors"
-          >
+          <Link href="/tracks" className={coChipLink}>
             TRACKS
           </Link>
           <Link
             href="https://store.bmxdenver.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 border-2 border-[#00ff0c] text-[#00ff0c] font-bold text-sm rounded hover:bg-[#00ff0c]/10 transition-colors"
+            className={coChipLink}
           >
             MERCH
           </Link>

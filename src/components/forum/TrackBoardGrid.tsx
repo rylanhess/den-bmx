@@ -2,7 +2,10 @@
 
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import NewBadge from '@/components/forum/NewBadge';
 import { formatRelativeDate } from '@/lib/forumFormat';
+import { hasRecentBoardActivity } from '@/lib/recentPostWindow';
+import { coChipLink } from '@/lib/coloradoUi';
 import {
   loadGuestPreferences,
   mergePreferences,
@@ -105,7 +108,7 @@ export default function TrackBoardGrid({
         <button
           type="button"
           onClick={() => setCustomizing((v) => !v)}
-          className="text-sm font-bold text-[#00ff0c] border border-[#00ff0c]/40 rounded px-3 py-1.5 hover:bg-[#00ff0c]/10 transition-colors"
+          className={coChipLink}
         >
           {customizing ? 'Done' : 'Customize boards'}
           {saving && !customizing ? '…' : ''}
@@ -130,6 +133,7 @@ export default function TrackBoardGrid({
           {visibleCategories.map((cat) => {
             const isHidden = hidden.has(cat.id);
             const newCount = newCounts[cat.id] ?? cat.new_post_count ?? 0;
+            const isRecentlyActive = hasRecentBoardActivity(cat.latest_post_at);
             const name = trackBoardDisplayName(cat.name);
 
             return (
@@ -154,17 +158,23 @@ export default function TrackBoardGrid({
                       : 'border-[#00ff0c]/30 hover:border-[#00ff0c] hover:bg-[#00ff0c]/5'
                   } ${isHidden && customizing ? 'opacity-50' : ''}`}
                 >
-                  <h3 className="font-black text-white text-sm leading-tight pr-14 line-clamp-2">
+                  <h3 className="font-black text-white text-sm leading-snug line-clamp-2 pr-14">
                     {name}
+                    {isRecentlyActive && (
+                      <>
+                        {' '}
+                        <NewBadge />
+                      </>
+                    )}
                   </h3>
                   <p className="text-2xl font-black text-[#00ff0c] mt-2 tabular-nums">
                     {cat.post_count}
                     <span className="text-xs font-bold text-gray-500 ml-1">posts</span>
                   </p>
-                  <div className="mt-2 min-h-[1.25rem]">
+                  <div className="mt-2 min-h-[1.25rem] flex flex-wrap items-center gap-1.5">
                     {newCount > 0 ? (
-                      <span className="inline-block text-xs font-black bg-[#00ff0c] text-black px-2 py-0.5 rounded">
-                        {newCount} new
+                      <span className="inline-block text-xs font-black bg-[#00ff0c]/20 text-[#00ff0c] border border-[#00ff0c]/40 px-2 py-0.5 rounded">
+                        {newCount} unread
                       </span>
                     ) : cat.latest_post_at ? (
                       <span className="text-xs text-gray-400">

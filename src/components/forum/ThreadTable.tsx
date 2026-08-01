@@ -11,12 +11,9 @@ interface ThreadWithAuthor extends ForumThread {
 export default function ThreadTable({
   threads,
   categorySlug,
-  showPinIcon = false,
 }: {
   threads: ThreadWithAuthor[];
   categorySlug: string;
-  /** Use pushpin icon for pinned rows (track pages). */
-  showPinIcon?: boolean;
 }) {
   if (threads.length === 0) {
     return (
@@ -47,17 +44,14 @@ export default function ThreadTable({
             >
               <td className="px-4 py-3">
                 <div className="flex items-start gap-2">
-                  {thread.is_pinned && showPinIcon && (
+                  {thread.is_pinned && (
                     <PinnedPostIcon
                       className="w-4 h-4 text-[#00ff0c] shrink-0 mt-0.5"
                       title="Pinned"
                     />
                   )}
-                  {thread.is_pinned && !showPinIcon && (
-                    <span className="text-[#00ff0c] text-xs font-black shrink-0">PIN</span>
-                  )}
                   {thread.is_system && (
-                    <span className="bg-blue-900/50 text-blue-300 text-xs px-1.5 py-0.5 rounded font-bold shrink-0">
+                    <span className="bg-[#00ff0c]/20 text-[#00ff0c] text-xs px-1.5 py-0.5 rounded font-bold shrink-0 leading-none inline-flex items-center">
                       BOT
                     </span>
                   )}

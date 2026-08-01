@@ -106,6 +106,22 @@ async function navigateTo(page: Page, url: string): Promise<void> {
   await sleep(randomDelayMs(HUMANIZE.afterTabFocusMs.min, HUMANIZE.afterTabFocusMs.max));
 }
 
+async function waitForFacebookFeed(page: Page): Promise<void> {
+  await page
+    .waitForFunction(
+      () => {
+        for (const article of document.querySelectorAll('div[role="article"]')) {
+          if ((article.textContent || '').trim().length > 30) return true;
+        }
+        const photos = document.querySelectorAll('a[href*="photo/?fbid="]');
+        return photos.length >= 2;
+      },
+      { timeout: 45_000 }
+    )
+    .catch(() => undefined);
+  await sleep(randomDelayMs(1500, 3000));
+}
+
 async function scrapeFacebook(
   page: Page,
   track: TrackSocialSource,
@@ -124,6 +140,7 @@ async function scrapeFacebook(
   try {
     await navigateTo(page, track.fbPageUrl);
     if (track.slug === 'twin-silo-bmx') await ensureTwinSiloPostsTab(page);
+    await waitForFacebookFeed(page);
     await gentleScroll(page);
 
     const code = getExtractPostMetadataScript(MAX_POSTS_PER_SOURCE);
