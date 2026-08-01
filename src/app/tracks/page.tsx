@@ -4,6 +4,8 @@ import { getCategoryStats } from '@/lib/forum';
 import { createClient } from '@/lib/supabase/server';
 import { COLORADO_BMX_TRACK_SLUGS } from '@/lib/coloradoTracks';
 import { hasRecentBoardActivity } from '@/lib/recentPostWindow';
+import { coChipLink } from '@/lib/coloradoUi';
+import { formatTrackLocation, formatTrackShortName } from '@/lib/trackDisplay';
 import type { Track } from '@/lib/supabase';
 
 export const metadata = { title: 'Colorado BMX Tracks' };
@@ -35,27 +37,40 @@ export default async function TracksIndexPage() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         {(tracks as Track[] ?? []).map((track) => (
-          <Link
+          <div
             key={track.id}
-            href={`/tracks/${track.slug}`}
             className="border-2 border-[#00ff0c]/30 rounded-lg p-5 hover:border-[#00ff0c] hover:bg-[#00ff0c]/5 transition-all"
           >
-            <h2 className="font-black text-white text-lg leading-snug">
-              {track.name}
-              {recentTrackIds.has(track.id) && (
-                <>
-                  {' '}
-                  <NewBadge />
-                </>
+            <Link href={`/tracks/${track.slug}`} className="block group">
+              <h2 className="font-black text-white text-lg leading-snug group-hover:text-[#00ff0c] transition-colors">
+                {formatTrackShortName(track.name)}
+                {recentTrackIds.has(track.id) && (
+                  <>
+                    {' '}
+                    <NewBadge />
+                  </>
+                )}
+              </h2>
+              <p className="text-gray-400 text-sm mt-1">{formatTrackLocation(track.city)}</p>
+            </Link>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-2">
+              {track.claimed_by ? (
+                <span className="text-xs text-[#00ff0c] font-bold">Claimed</span>
+              ) : (
+                <span className="text-xs text-yellow-400 font-bold">Unclaimed</span>
               )}
-            </h2>
-            <p className="text-gray-400 text-sm mt-1">{track.city}, CO</p>
-            {track.claimed_by ? (
-              <span className="inline-block mt-2 text-xs text-[#00ff0c] font-bold">Claimed</span>
-            ) : (
-              <span className="inline-block mt-2 text-xs text-yellow-400 font-bold">Unclaimed</span>
-            )}
-          </Link>
+              {track.fb_page_url && (
+                <a
+                  href={track.fb_page_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={coChipLink}
+                >
+                  Facebook →
+                </a>
+              )}
+            </div>
+          </div>
         ))}
       </div>
     </div>

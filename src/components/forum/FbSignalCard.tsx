@@ -1,6 +1,7 @@
 import { formatRelativeDate } from '@/lib/forum';
 import type { FbPostSignal, Track } from '@/lib/supabase';
 import { coPrimaryChip } from '@/lib/coloradoUi';
+import { formatTrackShortName } from '@/lib/trackDisplay';
 
 interface SignalWithTrack extends FbPostSignal {
   track?: Track;
@@ -17,7 +18,7 @@ export default function FbSignalCard({ signal }: { signal: SignalWithTrack }) {
     <div className="border-2 border-[#00ff0c]/30 bg-[#00ff0c]/5 rounded-lg p-4 flex items-center justify-between gap-4">
       <div>
         <p className="font-bold text-white">
-          New {label} post — {signal.track?.name ?? 'Track'}
+          New {label} post — {signal.track ? formatTrackShortName(signal.track.name) : 'Track'}
         </p>
         <p className="text-gray-400 text-sm mt-1">
           Detected {formatRelativeDate(signal.detected_at)}

@@ -1,9 +1,8 @@
+import { formatTrackShortName } from '@/lib/trackDisplay';
+
 /** Short label for social posts, e.g. "Dacono BMX" → "Dacono". */
 export function shortTrackLabel(name: string): string {
-  return name
-    .replace(/\s*—\s*Track Comms$/i, '')
-    .replace(/\s+BMX$/i, '')
-    .trim();
+  return formatTrackShortName(name);
 }
 
 export function socialPlatformLabel(url: string): 'Facebook' | 'Instagram' {

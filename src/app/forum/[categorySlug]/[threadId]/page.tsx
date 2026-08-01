@@ -8,6 +8,7 @@ import ReplyForm from '@/components/forum/ReplyForm';
 import BreadcrumbNav from '@/components/forum/BreadcrumbNav';
 import PinPostButton from '@/components/forum/PinPostButton';
 import PinnedPostIcon from '@/components/forum/PinnedPostIcon';
+import { trackBoardDisplayName } from '@/lib/userPreferences';
 
 interface Props {
   params: Promise<{ categorySlug: string; threadId: string }>;
@@ -51,7 +52,7 @@ export default async function ThreadPage({ params }: Props) {
       <BreadcrumbNav
         items={[
           { label: 'Forum', href: '/forum' },
-          { label: category.name, href: `/forum/${categorySlug}` },
+          { label: trackBoardDisplayName(category.name), href: `/forum/${categorySlug}` },
           { label: thread.title },
         ]}
       />
@@ -81,7 +82,7 @@ export default async function ThreadPage({ params }: Props) {
 
       <PostList
         posts={posts}
-        boardName={category.name.replace(' — Track Comms', '')}
+        boardName={trackBoardDisplayName(category.name)}
       />
 
       <div className="mt-6">

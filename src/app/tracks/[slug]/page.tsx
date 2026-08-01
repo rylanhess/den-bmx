@@ -8,6 +8,7 @@ import BoardSubscribeButton from '@/components/forum/BoardSubscribeButton';
 import { FbSignalFeed } from '@/components/forum/FbSignalCard';
 import ThreadTable from '@/components/forum/ThreadTable';
 import { attachAuthors } from '@/lib/forum';
+import { trackBoardDisplayName } from '@/lib/userPreferences';
 import type { Track, FbPostSignal } from '@/lib/supabase';
 
 interface Props {
@@ -91,7 +92,7 @@ export default async function TrackPage({ params }: Props) {
         <div className="mb-4">
           <BoardSubscribeButton
             categoryId={category.id}
-            boardName={category.name.replace(' — Track Comms', '')}
+            boardName={trackBoardDisplayName(category.name)}
           />
         </div>
       )}

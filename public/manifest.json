@@ -9,13 +9,13 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/logos/BMX_CO_MARK.png",
+      "src": "/logos/BMX_CO_TAB_ICON-512.png?v=1",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/logos/BMX_CO_MARK.png",
+      "src": "/logos/BMX_CO_TAB_ICON-192.png?v=1",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
@@ -28,14 +28,14 @@
       "short_name": "Forum",
       "description": "BMX Colorado message board",
       "url": "/forum",
-      "icons": [{ "src": "/logos/BMX_CO_MARK.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/logos/BMX_CO_TAB_ICON-192.png?v=1", "sizes": "96x96" }]
     },
     {
       "name": "Tracks",
       "short_name": "Tracks",
       "description": "Colorado BMX race tracks",
       "url": "/tracks",
-      "icons": [{ "src": "/logos/BMX_CO_MARK.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/logos/BMX_CO_TAB_ICON-192.png?v=1", "sizes": "96x96" }]
     }
   ]
 }

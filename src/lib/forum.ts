@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
+import { trackBoardDisplayName } from '@/lib/userPreferences';
 import type { ForumCategory, ForumThread, ForumPost, Profile, RecentForumPost } from '@/lib/supabase';
 
 type WithAuthorId = { author_id: string | null };
@@ -223,7 +224,7 @@ export async function getRecentForumPosts(limit = 4): Promise<RecentForumPost[]>
         thread_id: thread.id,
         thread_title: thread.title,
         category_slug: category.slug,
-        category_name: category.name.replace(' — Track Comms', ''),
+        category_name: trackBoardDisplayName(category.name),
         body: post.body ?? '',
         fb_url: post.fb_url,
         created_at: post.created_at,

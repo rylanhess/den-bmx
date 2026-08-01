@@ -6,6 +6,7 @@ import NewThreadForm from '@/components/forum/NewThreadForm';
 import BreadcrumbNav from '@/components/forum/BreadcrumbNav';
 import MarkBoardSeen from '@/components/forum/MarkBoardSeen';
 import BoardSubscribeButton from '@/components/forum/BoardSubscribeButton';
+import { trackBoardDisplayName } from '@/lib/userPreferences';
 
 interface Props {
   params: Promise<{ categorySlug: string }>;
@@ -39,18 +40,18 @@ export default async function CategoryPage({ params, searchParams }: Props) {
       <BreadcrumbNav
         items={[
           { label: 'Forum', href: '/forum' },
-          { label: category.name },
+          { label: trackBoardDisplayName(category.name) },
         ]}
       />
 
-      <h1 className="text-2xl font-black text-[#00ff0c] mb-1">{category.name.replace(' — Track Comms', '')}</h1>
+      <h1 className="text-2xl font-black text-[#00ff0c] mb-1">{trackBoardDisplayName(category.name)}</h1>
       <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
         <p className="text-gray-500 text-sm">
           {count} post{count !== 1 ? 's' : ''} · {replyCount} repl{replyCount !== 1 ? 'ies' : 'y'} in threads
         </p>
         <BoardSubscribeButton
           categoryId={category.id}
-          boardName={category.name.replace(' — Track Comms', '')}
+          boardName={trackBoardDisplayName(category.name)}
         />
       </div>
       {category.description && (

@@ -55,6 +55,8 @@ export function saveGuestPreferences(prefs: UserPreferences) {
   localStorage.setItem(GUEST_PREFS_KEY, JSON.stringify(prefs));
 }
 
+import { formatTrackShortName } from '@/lib/trackDisplay';
+
 export function trackBoardDisplayName(name: string): string {
-  return name.replace(' — Track Comms', '');
+  return formatTrackShortName(name);
 }

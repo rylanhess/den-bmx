@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { Track } from '@/lib/supabase';
 import { coChipLink, coMutedChip, coPrimaryChip } from '@/lib/coloradoUi';
+import { formatTrackLocation, formatTrackShortName } from '@/lib/trackDisplay';
 
 interface TrackHeaderProps {
   track: Track;
@@ -13,8 +14,8 @@ export default function TrackHeader({ track, moderatorName, isModerator }: Track
     <div className="border-2 border-[#00ff0c]/30 rounded-lg p-6 mb-6">
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-[#00ff0c]">{track.name}</h1>
-          <p className="text-gray-400 mt-1">{track.city}, Colorado</p>
+          <h1 className="text-2xl font-black text-[#00ff0c]">{formatTrackShortName(track.name)}</h1>
+          <p className="text-gray-400 mt-1">{formatTrackLocation(track.city, 'Colorado')}</p>
           {track.description && (
             <p className="text-gray-300 mt-3 text-sm leading-relaxed">{track.description}</p>
           )}
