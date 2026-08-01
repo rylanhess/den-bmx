@@ -18,7 +18,6 @@ export default function ColoradoShell() {
             <ul className="space-y-1 text-[#4A5568]">
               <li><Link href="/forum" className="hover:text-[#BF0A30]">Forum</Link></li>
               <li><Link href="/tracks" className="hover:text-[#BF0A30]">Tracks</Link></li>
-              <li><Link href="/riders" className="hover:text-[#BF0A30]">Riders</Link></li>
               <li>
                 <a
                   href="https://store.bmxdenver.com"

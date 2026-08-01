@@ -9,7 +9,6 @@ import {
   ShoppingBagIcon,
   EnvelopeIcon,
   UserCircleIcon,
-  UsersIcon,
   HomeIcon,
 } from '@heroicons/react/24/solid';
 import { createClient } from '@/lib/supabase/client';
@@ -18,7 +17,6 @@ import { useEffect, useState } from 'react';
 const publicNavItems = [
   { href: '/forum', label: 'FORUM', icon: ChatBubbleLeftRightIcon },
   { href: '/tracks', label: 'TRACKS', icon: MapPinIcon },
-  { href: '/riders', label: 'RIDERS', icon: UsersIcon },
   { href: 'https://store.bmxdenver.com', label: 'MERCH', icon: ShoppingBagIcon, external: true },
   { href: '/contact?co=1', label: 'CONTACT', icon: EnvelopeIcon },
 ];
@@ -56,9 +54,6 @@ export default function ColoradoNavigation() {
               priority
             />
           </Link>
-          <span className="hidden sm:block font-black text-white text-sm mr-2 tracking-wide">
-            BMX COLORADO
-          </span>
           <div className="flex items-center flex-1 gap-1 overflow-x-auto scrollbar-hide">
             {navItems.map((item) => {
               const Icon = item.icon;

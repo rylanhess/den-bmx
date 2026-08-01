@@ -215,9 +215,7 @@ export default function AccountForm({
               className="w-full px-4 py-3 bg-black border-2 border-[#00ff0c]/40 rounded text-white focus:border-[#00ff0c] focus:outline-none"
             />
             <p className="text-gray-500 text-xs mt-1">
-              Shown on your public profile and the{' '}
-              <Link href="/riders" className="text-[#00ff0c] hover:underline">rider leaderboard</Link>
-              {' '}when points are synced.
+              Shown on your public profile when points are synced.
             </p>
           </div>
 
