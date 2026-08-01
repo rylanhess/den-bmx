@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { claimReviewEmails } from '@/lib/email';
+import { notifyClaimApproved, notifyClaimRejected } from '@/lib/claimNotifications';
 
 export async function PATCH(
   request: Request,
@@ -20,6 +22,11 @@ export async function PATCH(
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
+  const reviewers = claimReviewEmails();
+  if (!reviewers.includes(user.email ?? '')) {
+    return NextResponse.json({ error: 'Only the designated claim reviewer can approve claims' }, { status: 403 });
+  }
+
   const { status, admin_notes } = await request.json();
   if (!['approved', 'rejected'].includes(status)) {
     return NextResponse.json({ error: 'Invalid status' }, { status: 400 });
@@ -27,7 +34,7 @@ export async function PATCH(
 
   const { data: claim } = await supabase
     .from('track_claim_requests')
-    .select('*')
+    .select('*, track:tracks(name, slug)')
     .eq('id', id)
     .single();
 
@@ -46,6 +53,9 @@ export async function PATCH(
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
+  const track = (claim as { track?: { name: string; slug: string } }).track;
+  const trackName = track?.name ?? 'the track';
+
   if (status === 'approved') {
     await supabase.from('track_moderators').upsert({
       user_id: claim.user_id,
@@ -56,6 +66,27 @@ export async function PATCH(
       .from('tracks')
       .update({ claimed_by: claim.user_id })
       .eq('id', claim.track_id);
+
+    if (track) {
+      const emailResult = await notifyClaimApproved({
+        track,
+        contactName: claim.contact_name,
+        contactEmail: claim.contact_email,
+      });
+      if (!emailResult.ok) {
+        console.error('[claims] Failed to send approval email:', emailResult.error);
+      }
+    }
+  } else if (status === 'rejected') {
+    const emailResult = await notifyClaimRejected({
+      trackName,
+      contactName: claim.contact_name,
+      contactEmail: claim.contact_email,
+      adminNotes: admin_notes,
+    });
+    if (!emailResult.ok) {
+      console.error('[claims] Failed to send rejection email:', emailResult.error);
+    }
   }
 
   return NextResponse.json({ claim: updated });

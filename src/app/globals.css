@@ -30,15 +30,20 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Mobile-first optimizations */
-* {
-  /* Improve tap targets on mobile */
+/* Mobile-first optimizations — Denver neon tap flash (not Colorado Day) */
+body:not(.theme-colorado-day),
+body:not(.theme-colorado-day) * {
   -webkit-tap-highlight-color: rgba(0, 255, 12, 0.2);
 }
 
 /* Inline text links (table titles, etc.) — not full touch targets */
 a.co-text-link,
 a.co-chip-link {
+  min-height: 0;
+  min-width: 0;
+}
+
+button.co-secondary-btn {
   min-height: 0;
   min-width: 0;
 }

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import GuestPostPrompt from '@/components/auth/GuestPostPrompt';
 import EmailVerificationPrompt from '@/components/auth/EmailVerificationPrompt';
 import ImageUploadField from '@/components/forum/ImageUploadField';
+import { coPrimaryChip } from '@/lib/coloradoUi';
 import { useForumAuth } from '@/hooks/useForumAuth';
 
 export default function ReplyForm({ threadId, isLocked }: { threadId: string; isLocked: boolean }) {
@@ -75,9 +76,9 @@ export default function ReplyForm({ threadId, isLocked }: { threadId: string; is
       <button
         type="submit"
         disabled={submitting || (!body.trim() && images.length === 0)}
-        className="mt-3 px-6 py-2 bg-[#00ff0c] text-black font-black rounded hover:bg-[#00cc0a] transition-colors disabled:opacity-50"
+        className={`mt-3 ${coPrimaryChip} disabled:opacity-50`}
       >
-        {submitting ? 'Posting...' : 'POST REPLY'}
+        {submitting ? 'Posting...' : 'Post reply'}
       </button>
     </form>
   );

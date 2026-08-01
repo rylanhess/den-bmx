@@ -79,7 +79,10 @@ export default async function ThreadPage({ params }: Props) {
         <h1 className="text-2xl font-black text-white mt-1">{thread.title}</h1>
       </div>
 
-      <PostList posts={posts} />
+      <PostList
+        posts={posts}
+        boardName={category.name.replace(' — Track Comms', '')}
+      />
 
       <div className="mt-6">
         <ReplyForm threadId={threadId} isLocked={thread.is_locked} />

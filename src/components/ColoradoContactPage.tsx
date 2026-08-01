@@ -39,7 +39,7 @@ export default function ColoradoContactPage() {
     } catch {
       setStatus('error');
       setErrorMessage(
-        'Something went wrong. Please try again or email rylan@bmxdenver.com directly.'
+        'Something went wrong. Please try again or email hess.rylan@gmail.com directly.'
       );
     }
   };
@@ -160,10 +160,10 @@ export default function ColoradoContactPage() {
         <div className="mt-8 pt-6 border-t border-[#D0D7E2] text-center">
           <p className="text-[#4A5568] text-sm font-medium">Or email directly:</p>
           <a
-            href="mailto:rylan@bmxdenver.com"
+            href="mailto:hess.rylan@gmail.com"
             className="inline-block mt-1 text-[#002868] font-black text-lg hover:text-[#BF0A30] transition-colors"
           >
-            rylan@bmxdenver.com
+            hess.rylan@gmail.com
           </a>
         </div>
       </div>

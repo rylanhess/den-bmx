@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { coPrimaryChip } from '@/lib/coloradoUi';
 
 interface EmailVerificationPromptProps {
   email?: string | null;
@@ -32,20 +33,20 @@ export default function EmailVerificationPrompt({
   };
 
   return (
-    <div className="border-2 border-amber-500/40 rounded-lg p-6 bg-amber-500/5 text-center">
-      <p className="text-amber-200 font-bold mb-2">Verify your email to {action}</p>
-      <p className="text-gray-400 text-sm mb-4">
+    <div className="border-2 border-[#FFC72C]/60 rounded-lg p-6 bg-[#FFC72C]/10 text-center">
+      <p className="text-[#002868] font-bold mb-2">Verify your email to {action}</p>
+      <p className="text-gray-500 text-sm mb-4">
         We sent a confirmation link{email ? ` to ${email}` : ''}. Click it to prove you own the address and unlock posting.
       </p>
-      {message && <p className="text-[#00ff0c] text-sm mb-3">{message}</p>}
-      {error && <p className="text-red-400 text-sm mb-3">{error}</p>}
+      {message && <p className="text-[#002868] text-sm mb-3">{message}</p>}
+      {error && <p className="text-[#BF0A30] text-sm mb-3">{error}</p>}
       <button
         type="button"
         onClick={resend}
         disabled={loading}
-        className="px-6 py-2 bg-[#00ff0c] text-black font-black rounded hover:bg-[#00cc0a] disabled:opacity-50"
+        className={`${coPrimaryChip} disabled:opacity-50`}
       >
-        {loading ? 'Sending…' : 'Resend Verification Email'}
+        {loading ? 'Sending…' : 'Resend verification email'}
       </button>
     </div>
   );

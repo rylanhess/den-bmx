@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { requireVerifiedUserForApi } from '@/lib/auth';
+import { queueForumPostNotification } from '@/lib/forumNotifications';
 
 export async function POST(request: Request) {
   const auth = await requireVerifiedUserForApi();
@@ -15,7 +16,7 @@ export async function POST(request: Request) {
 
   const { data: thread } = await supabase
     .from('forum_threads')
-    .select('is_locked')
+    .select('is_locked, category_id')
     .eq('id', thread_id)
     .single();
 
@@ -47,6 +48,14 @@ export async function POST(request: Request) {
       last_post_at: new Date().toISOString(),
     })
     .eq('id', thread_id);
+
+  queueForumPostNotification({
+    postId: post.id,
+    threadId: thread_id,
+    authorId: user.id,
+    body: body?.trim() || '',
+    isNewThread: false,
+  });
 
   return NextResponse.json({ post });
 }

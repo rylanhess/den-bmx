@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import NewBadge from '@/components/forum/NewBadge';
 import { formatRelativeDate } from '@/lib/forumFormat';
 import { hasRecentBoardActivity } from '@/lib/recentPostWindow';
-import { coChipLink } from '@/lib/coloradoUi';
+import { coChipLink, coTogglePill } from '@/lib/coloradoUi';
 import {
   loadGuestPreferences,
   mergePreferences,
@@ -158,7 +158,7 @@ export default function TrackBoardGrid({
         </div>
       ) : (
         <div className="rounded-lg bg-white overflow-hidden">
-          <div className="hidden md:grid md:grid-cols-[4.5rem_minmax(0,1fr)_minmax(0,14rem)_4rem_4rem_4rem_5rem] gap-2 px-3 py-2 bg-[#002868]/5 border-b border-[#D0D7E2]/60 text-[10px] font-black uppercase tracking-wide text-[#002868]/70">
+          <div className="hidden md:grid md:grid-cols-[4.5rem_minmax(0,1fr)_minmax(0,14rem)_4rem_4rem_4rem_5rem] gap-2 px-3 py-2.5 bg-[#E8EEF5] border-b-2 border-[#002868] text-[10px] font-black uppercase tracking-wide text-[#002868]">
             <span className="text-center">Posts</span>
             <span>Track</span>
             <span className="text-center col-span-1">Last post</span>
@@ -181,14 +181,14 @@ export default function TrackBoardGrid({
               return (
                 <div key={cat.id} className="relative flex items-stretch">
                   {customizing && (
-                    <label className="absolute top-2 right-2 z-10 flex items-center gap-1 bg-black/80 rounded px-1.5 py-0.5 text-[10px] text-gray-300 cursor-pointer">
+                    <label className={`absolute top-2 right-2 z-10 ${coTogglePill}`}>
                       <input
                         type="checkbox"
                         checked={!isHidden}
                         onChange={(e) => toggleBoard(cat.id, e.target.checked)}
-                        className="accent-[#002868]"
+                        className="accent-[#002868] w-3 h-3"
                       />
-                      Show
+                      {isHidden ? 'Show' : 'Hide'}
                     </label>
                   )}
                   <Link
@@ -224,7 +224,7 @@ export default function TrackBoardGrid({
                       </span>
                     </span>
 
-                    <span className="hidden md:block text-xs text-gray-500 truncate px-1">
+                    <span className="hidden md:block text-xs text-[#4A5568] truncate px-1">
                       {cat.latest_thread_title ? (
                         <span title={cat.latest_thread_title}>{cat.latest_thread_title}</span>
                       ) : (

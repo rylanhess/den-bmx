@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { Resend } from 'resend';
-
-const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+import { notifyClaimSubmitted } from '@/lib/claimNotifications';
 
 export async function POST(request: Request) {
   const supabase = await createClient();
@@ -40,14 +38,18 @@ export async function POST(request: Request) {
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-  if (resend) {
-    const trackName = (claim as { track?: { name: string } }).track?.name ?? 'Unknown';
-    await resend.emails.send({
-      from: 'BMX Colorado <onboarding@resend.dev>',
-      to: process.env.ADMIN_EMAIL || 'rylan@bmxdenver.com',
-      subject: `Track claim request: ${trackName}`,
-      text: `${contact_name} (${contact_email}) wants to claim ${trackName}.\n\nMessage: ${message || '(none)'}\n\nReview at /admin/claims`,
-    });
+  const track = claim as { track?: { name: string; slug: string } };
+  const trackName = track.track?.name ?? 'Unknown';
+
+  const emailResult = await notifyClaimSubmitted({
+    trackName,
+    contactName: contact_name.trim(),
+    contactEmail: contact_email.trim(),
+    message,
+  });
+
+  if (!emailResult.ok) {
+    console.error('[claims] Failed to notify reviewer:', emailResult.error);
   }
 
   return NextResponse.json({ claim });

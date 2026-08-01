@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 import { getCurrentUser } from '@/lib/auth';
 import TrackHeader from '@/components/forum/TrackHeader';
 import TrackScheduleEditor from '@/components/forum/TrackScheduleEditor';
+import BoardSubscribeButton from '@/components/forum/BoardSubscribeButton';
 import { FbSignalFeed } from '@/components/forum/FbSignalCard';
 import ThreadTable from '@/components/forum/ThreadTable';
 import { attachAuthors } from '@/lib/forum';
@@ -67,7 +68,7 @@ export default async function TrackPage({ params }: Props) {
 
   const { data: category } = await supabase
     .from('forum_categories')
-    .select('id, slug')
+    .select('id, slug, name')
     .eq('slug', `${slug}-comms`)
     .single();
 
@@ -86,6 +87,14 @@ export default async function TrackPage({ params }: Props) {
   return (
     <div className="container mx-auto px-4 py-8 max-w-5xl">
       <TrackHeader track={typedTrack} moderatorName={moderatorName} />
+      {category && (
+        <div className="mb-4">
+          <BoardSubscribeButton
+            categoryId={category.id}
+            boardName={category.name.replace(' — Track Comms', '')}
+          />
+        </div>
+      )}
       <TrackScheduleEditor track={typedTrack} canEdit={canEditTrack} />
 
       <div className="grid gap-8 lg:grid-cols-2 mb-8">

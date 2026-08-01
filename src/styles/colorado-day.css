@@ -20,7 +20,17 @@
 
   background: var(--background);
   color: var(--foreground);
-  -webkit-tap-highlight-color: rgba(191, 10, 48, 0.15);
+  -webkit-tap-highlight-color: rgba(191, 10, 48, 0.12);
+}
+
+.theme-colorado-day,
+.theme-colorado-day * {
+  -webkit-tap-highlight-color: rgba(191, 10, 48, 0.12);
+}
+
+.theme-colorado-day ::selection {
+  background-color: rgba(0, 40, 104, 0.2);
+  color: var(--foreground);
 }
 
 /* —— Surfaces: black → white cards / light inputs —— */
@@ -32,6 +42,10 @@
 
 /* —— Body text that assumed dark mode —— */
 .theme-colorado-day .text-white {
+  color: var(--foreground) !important;
+}
+
+.theme-colorado-day .text-gray-200 {
   color: var(--foreground) !important;
 }
 
@@ -100,8 +114,42 @@
 }
 
 .theme-colorado-day .hover\:bg-\[\#00ff0c\]\/5:hover,
-.theme-colorado-day .hover\:bg-\[\#00ff0c\]\/10:hover {
+.theme-colorado-day .hover\:bg-\[\#00ff0c\]\/5:active {
+  background-color: var(--co-tint) !important;
+}
+
+.theme-colorado-day .hover\:bg-\[\#00ff0c\]\/10:hover,
+.theme-colorado-day .hover\:bg-\[\#00ff0c\]\/10:active {
   background-color: var(--co-tint-strong) !important;
+}
+
+.theme-colorado-day .active\:bg-\[\#00ff0c\]:active {
+  background-color: var(--co-action-hover) !important;
+  color: #ffffff !important;
+}
+
+.theme-colorado-day .active\:bg-\[\#00ff0c\].active\:text-black:active,
+.theme-colorado-day .active\:text-black:active {
+  color: #ffffff !important;
+}
+
+.theme-colorado-day a:active,
+.theme-colorado-day button:active,
+.theme-colorado-day [role="button"]:active {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.theme-colorado-day a:focus-visible,
+.theme-colorado-day button:focus-visible,
+.theme-colorado-day [role="button"]:focus-visible {
+  outline: 2px solid var(--co-brand);
+  outline-offset: 2px;
+}
+
+.theme-colorado-day input:focus-visible,
+.theme-colorado-day textarea:focus-visible,
+.theme-colorado-day select:focus-visible {
+  outline: none;
 }
 
 .theme-colorado-day .hover\:text-\[\#00ff0c\]:hover {
@@ -152,4 +200,32 @@
 
 .theme-colorado-day nav.co-day-nav .bg-black {
   background-color: transparent !important;
+}
+
+/* Secondary / cancel buttons */
+.theme-colorado-day .border-gray-600 {
+  border-color: rgba(0, 40, 104, 0.3) !important;
+}
+
+.theme-colorado-day .border-gray-700 {
+  border-color: rgba(0, 40, 104, 0.25) !important;
+}
+
+.theme-colorado-day .hover\:border-gray-400:hover {
+  border-color: var(--co-brand) !important;
+}
+
+.theme-colorado-day button.border-gray-600,
+.theme-colorado-day button.border-gray-600 .text-gray-400 {
+  color: var(--co-muted) !important;
+}
+
+.theme-colorado-day button.border-gray-600:hover {
+  color: var(--co-brand) !important;
+}
+
+/* Modal overlays */
+.theme-colorado-day .bg-black\/75,
+.theme-colorado-day .bg-black\/80 {
+  background-color: rgba(0, 40, 104, 0.45) !important;
 }

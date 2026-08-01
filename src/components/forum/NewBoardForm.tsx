@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import GuestPostPrompt from '@/components/auth/GuestPostPrompt';
 import EmailVerificationPrompt from '@/components/auth/EmailVerificationPrompt';
 import { useForumAuth } from '@/hooks/useForumAuth';
-import { coChipLink } from '@/lib/coloradoUi';
+import { coChipLink, coPrimaryChip, coSecondaryButton } from '@/lib/coloradoUi';
 
 interface NewBoardFormProps {
   variant?: 'default' | 'header';
@@ -69,10 +69,10 @@ export default function NewBoardForm({ variant = 'default' }: NewBoardFormProps)
         className={
           variant === 'header'
             ? coChipLink
-            : 'mb-4 px-4 py-2 border-2 border-[#00ff0c] text-[#00ff0c] font-black rounded hover:bg-[#00ff0c]/10 transition-colors'
+            : `mb-4 ${coChipLink}`
         }
       >
-        {variant === 'header' ? '+ New board' : '+ NEW DISCUSSION BOARD'}
+        {variant === 'header' ? '+ New board' : '+ New discussion board'}
       </button>
     );
   }
@@ -107,15 +107,11 @@ export default function NewBoardForm({ variant = 'default' }: NewBoardFormProps)
         <button
           type="submit"
           disabled={submitting}
-          className="px-6 py-2 bg-[#00ff0c] text-black font-black rounded hover:bg-[#00cc0a] disabled:opacity-50"
+          className={`${coPrimaryChip} disabled:opacity-50`}
         >
-          {submitting ? 'Creating…' : 'CREATE BOARD'}
+          {submitting ? 'Creating…' : 'Create board'}
         </button>
-        <button
-          type="button"
-          onClick={() => setOpen(false)}
-          className="px-6 py-2 border-2 border-gray-600 text-gray-400 font-bold rounded hover:border-gray-400"
-        >
+        <button type="button" onClick={() => setOpen(false)} className={coSecondaryButton}>
           Cancel
         </button>
       </div>

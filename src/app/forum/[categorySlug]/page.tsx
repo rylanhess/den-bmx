@@ -5,6 +5,7 @@ import ThreadTable from '@/components/forum/ThreadTable';
 import NewThreadForm from '@/components/forum/NewThreadForm';
 import BreadcrumbNav from '@/components/forum/BreadcrumbNav';
 import MarkBoardSeen from '@/components/forum/MarkBoardSeen';
+import BoardSubscribeButton from '@/components/forum/BoardSubscribeButton';
 
 interface Props {
   params: Promise<{ categorySlug: string }>;
@@ -43,9 +44,15 @@ export default async function CategoryPage({ params, searchParams }: Props) {
       />
 
       <h1 className="text-2xl font-black text-[#00ff0c] mb-1">{category.name.replace(' — Track Comms', '')}</h1>
-      <p className="text-gray-500 text-sm mb-2">
-        {count} post{count !== 1 ? 's' : ''} · {replyCount} repl{replyCount !== 1 ? 'ies' : 'y'} in threads
-      </p>
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+        <p className="text-gray-500 text-sm">
+          {count} post{count !== 1 ? 's' : ''} · {replyCount} repl{replyCount !== 1 ? 'ies' : 'y'} in threads
+        </p>
+        <BoardSubscribeButton
+          categoryId={category.id}
+          boardName={category.name.replace(' — Track Comms', '')}
+        />
+      </div>
       {category.description && (
         <p className="text-gray-400 text-sm mb-6">{category.description}</p>
       )}

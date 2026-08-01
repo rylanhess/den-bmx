@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+const COLORADO_CONTACT_EMAIL = 'hess.rylan@gmail.com';
+
 export default function ColoradoShell() {
   return (
     <footer className="border-t-2 border-[#D0D7E2] bg-white py-8 mt-8">
@@ -16,20 +18,33 @@ export default function ColoradoShell() {
             <ul className="space-y-1 text-[#4A5568]">
               <li><Link href="/forum" className="hover:text-[#BF0A30]">Forum</Link></li>
               <li><Link href="/tracks" className="hover:text-[#BF0A30]">Tracks</Link></li>
-              <li><a href="https://www.bmxdenver.com/denver-bmx-races" className="hover:text-[#BF0A30]">Denver Calendar</a></li>
-              <li><a href="https://store.bmxdenver.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#BF0A30]">Merch Store</a></li>
+              <li><Link href="/riders" className="hover:text-[#BF0A30]">Riders</Link></li>
+              <li>
+                <a
+                  href="https://store.bmxdenver.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#BF0A30]"
+                >
+                  Merch Store
+                </a>
+              </li>
             </ul>
           </div>
           <div>
             <h3 className="font-black text-[#002868] mb-2">Contact</h3>
             <ul className="space-y-1 text-[#4A5568]">
               <li><Link href="/contact?co=1" className="hover:text-[#BF0A30]">Contact Us</Link></li>
-              <li><a href="mailto:rylan@bmxdenver.com" className="hover:text-[#BF0A30]">rylan@bmxdenver.com</a></li>
+              <li>
+                <a href={`mailto:${COLORADO_CONTACT_EMAIL}`} className="hover:text-[#BF0A30]">
+                  {COLORADO_CONTACT_EMAIL}
+                </a>
+              </li>
             </ul>
           </div>
         </div>
         <p className="text-[#6B7280] text-xs mt-6 text-center">
-          © {new Date().getFullYear()} BMX Colorado · Powered by BMX Denver
+          © {new Date().getFullYear()} BMX Colorado
         </p>
       </div>
     </footer>

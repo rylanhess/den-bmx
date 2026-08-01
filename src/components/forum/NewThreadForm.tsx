@@ -6,6 +6,7 @@ import GuestPostPrompt from '@/components/auth/GuestPostPrompt';
 import EmailVerificationPrompt from '@/components/auth/EmailVerificationPrompt';
 import ImageUploadField from '@/components/forum/ImageUploadField';
 import { useForumAuth } from '@/hooks/useForumAuth';
+import { coPrimaryChip, coSecondaryButton } from '@/lib/coloradoUi';
 
 export default function NewThreadForm({ categoryId, categorySlug }: { categoryId: string; categorySlug: string }) {
   const { loading, isLoggedIn, emailVerified, email } = useForumAuth();
@@ -58,9 +59,9 @@ export default function NewThreadForm({ categoryId, categorySlug }: { categoryId
     return (
       <button
         onClick={() => setOpen(true)}
-        className="mb-4 px-4 py-2 bg-[#00ff0c] text-black font-black rounded hover:bg-[#00cc0a] transition-colors"
+        className={`mb-4 ${coPrimaryChip}`}
       >
-        + NEW POST
+        + New post
       </button>
     );
   }
@@ -92,15 +93,11 @@ export default function NewThreadForm({ categoryId, categorySlug }: { categoryId
         <button
           type="submit"
           disabled={submitting}
-          className="px-6 py-2 bg-[#00ff0c] text-black font-black rounded hover:bg-[#00cc0a] transition-colors disabled:opacity-50"
+          className={`${coPrimaryChip} disabled:opacity-50`}
         >
-          {submitting ? 'Creating...' : 'POST'}
+          {submitting ? 'Creating...' : 'Post'}
         </button>
-        <button
-          type="button"
-          onClick={() => setOpen(false)}
-          className="px-6 py-2 border-2 border-gray-600 text-gray-400 font-bold rounded hover:border-gray-400 transition-colors"
-        >
+        <button type="button" onClick={() => setOpen(false)} className={coSecondaryButton}>
           Cancel
         </button>
       </div>

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { formatRelativeDate } from '@/lib/forumFormat';
+import { socialPostSentence } from '@/lib/socialPostDisplay';
 import type { RecentForumPost } from '@/lib/supabase';
 
 function postExcerpt(body: string, maxLen = 100): string {
@@ -32,7 +33,9 @@ export default function RecentPostsSection({ posts }: { posts: RecentForumPost[]
   const post = posts[index];
   const href = `/forum/${post.category_slug}/${post.thread_id}`;
   const excerpt =
-    postExcerpt(post.body) || (post.fb_url ? 'Shared a link on social.' : '');
+    post.fb_url
+      ? `${socialPostSentence(post.category_name, post.fb_url)} Click here to see it.`
+      : postExcerpt(post.body);
 
   return (
     <section className="mb-4">

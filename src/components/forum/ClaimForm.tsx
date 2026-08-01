@@ -50,7 +50,8 @@ export default function ClaimForm({ trackId, trackName, trackSlug }: ClaimPagePr
         <h2 className="text-xl font-black text-[#00ff0c] mb-4">Claim Submitted!</h2>
         <p className="text-gray-300 mb-6">
           Your request to claim <strong>{trackName}</strong> has been submitted.
-          An admin will review it and get back to you.
+          We&apos;ll review your request within one to two business days and email you
+          at <strong>{contactEmail}</strong> once a decision is made.
         </p>
         <Link href={`/tracks/${trackSlug}`} className="text-[#00ff0c] font-bold hover:underline">
           Back to track page
@@ -64,7 +65,8 @@ export default function ClaimForm({ trackId, trackName, trackSlug }: ClaimPagePr
       <h2 className="text-xl font-black text-[#00ff0c] mb-2">Claim {trackName}</h2>
       <p className="text-gray-400 text-sm mb-6">
         Are you a track operator or authorized representative? Submit a claim to become
-        a moderator for this track&apos;s page and discussion board.
+        a moderator for this track&apos;s page and discussion board. We review requests
+        within one to two business days.
       </p>
 
       {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
