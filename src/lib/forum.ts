@@ -100,6 +100,38 @@ export async function getCategoryStats(options?: { boardLastSeen?: Record<string
 
   if (!categories) return [];
 
+  const { data: allThreads } = await supabase
+    .from('forum_threads')
+    .select('id, category_id, author_id');
+
+  const threadToCategory = new Map<string, string>();
+  const usersByCategory = new Map<string, Set<string>>();
+
+  for (const thread of allThreads ?? []) {
+    threadToCategory.set(thread.id, thread.category_id);
+    if (!thread.author_id) continue;
+    const authors = usersByCategory.get(thread.category_id) ?? new Set<string>();
+    authors.add(thread.author_id);
+    usersByCategory.set(thread.category_id, authors);
+  }
+
+  const allThreadIds = [...threadToCategory.keys()];
+  if (allThreadIds.length > 0) {
+    const { data: posts } = await supabase
+      .from('forum_posts')
+      .select('thread_id, author_id')
+      .in('thread_id', allThreadIds)
+      .not('author_id', 'is', null);
+
+    for (const post of posts ?? []) {
+      const categoryId = threadToCategory.get(post.thread_id);
+      if (!categoryId || !post.author_id) continue;
+      const authors = usersByCategory.get(categoryId) ?? new Set<string>();
+      authors.add(post.author_id);
+      usersByCategory.set(categoryId, authors);
+    }
+  }
+
   const stats = await Promise.all(
     categories.map(async (cat) => {
       const { count: threadCount } = await supabase
@@ -146,6 +178,7 @@ export async function getCategoryStats(options?: { boardLastSeen?: Record<string
         ...cat,
         thread_count: threadCount ?? 0,
         post_count: postCount,
+        unique_user_count: usersByCategory.get(cat.id)?.size ?? 0,
         new_post_count: newPostCount,
         latest_thread_title: latest?.title ?? null,
         latest_post_at: latest?.last_post_at ?? null,

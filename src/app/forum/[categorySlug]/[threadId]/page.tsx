@@ -9,6 +9,7 @@ import BreadcrumbNav from '@/components/forum/BreadcrumbNav';
 import PinPostButton from '@/components/forum/PinPostButton';
 import PinnedPostIcon from '@/components/forum/PinnedPostIcon';
 import { trackBoardDisplayName } from '@/lib/userPreferences';
+import ColoradoContentLayout from '@/components/ads/ColoradoContentLayout';
 
 interface Props {
   params: Promise<{ categorySlug: string; threadId: string }>;
@@ -48,7 +49,7 @@ export default async function ThreadPage({ params }: Props) {
   const isTrackBoard = !!thread.track_id;
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-5xl">
+    <ColoradoContentLayout className="py-8">
       <BreadcrumbNav
         items={[
           { label: 'Forum', href: '/forum' },
@@ -88,6 +89,6 @@ export default async function ThreadPage({ params }: Props) {
       <div className="mt-6">
         <ReplyForm threadId={threadId} isLocked={thread.is_locked} />
       </div>
-    </div>
+    </ColoradoContentLayout>
   );
 }

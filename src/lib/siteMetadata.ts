@@ -11,11 +11,11 @@ const DENVER_OG_IMAGE = {
   alt: 'Official Denver BMX',
 } as const;
 
-const COLORADO_TAB_ICON = '/logos/BMX_CO_TAB_ICON-32.png?v=1';
-const COLORADO_APPLE_ICON = '/logos/BMX_CO_TAB_ICON-192.png?v=1';
+const COLORADO_TAB_ICON = '/logos/cbmx_tab_icon-32.png?v=20260802';
+const COLORADO_APPLE_ICON = '/logos/cbmx_tab_icon-192.png?v=20260802';
 
 const COLORADO_OG_IMAGE = {
-  url: '/BMX_CO-og.png?v=1',
+  url: '/logos/cbmx_og_talkbmx.png?v=20260802',
   width: 784,
   height: 472,
   alt: 'Talk BMX at BMX Colorado',

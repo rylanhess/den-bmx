@@ -16,8 +16,11 @@ export const coSecondaryButton =
 export const coTogglePill =
   'inline-flex items-center gap-1.5 bg-white border border-[#002868]/20 rounded-md px-2 py-1 text-[10px] font-bold text-[#002868] shadow-sm cursor-pointer';
 
+/** Full horizontal logo for dark nav (SVG). */
+export const CO_LOGO = '/logos/cbmx_logo_final.svg?v=20260802c';
+
 /** Navy mark for light backgrounds (login, signup). */
 export const CO_MARK_BLUE = '/logos/BMX_CO_MARK_BLUE.png';
 
-/** White mark for dark nav. */
+/** Legacy square mark for dark nav. */
 export const CO_MARK_WHITE = '/logos/BMX_CO_MARK.png';

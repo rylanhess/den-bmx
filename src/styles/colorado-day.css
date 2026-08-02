@@ -17,10 +17,26 @@
   --co-muted: #4a5568;
   --co-tint: rgba(0, 40, 104, 0.06);
   --co-tint-strong: rgba(0, 40, 104, 0.1);
+  /* Nav row + gold border (matches ColoradoNavigation) */
+  --co-nav-height: 48px;
+  --co-banner-height: 88px;
 
   background: var(--background);
   color: var(--foreground);
   -webkit-tap-highlight-color: rgba(191, 10, 48, 0.12);
+}
+
+@media (min-width: 640px) {
+  .theme-colorado-day {
+    --co-nav-height: 52px;
+    --co-banner-height: 96px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .theme-colorado-day {
+    --co-nav-height: 56px;
+  }
 }
 
 .theme-colorado-day,
@@ -193,7 +209,181 @@
   border: 1px solid rgba(0, 40, 104, 0.15);
 }
 
+/* Ad banner — flush under nav, no gap when sticky */
+.theme-colorado-day .co-ad-banner {
+  top: var(--co-nav-height);
+  margin: 0;
+  width: 100%;
+  min-height: var(--co-banner-height);
+}
+
+.theme-colorado-day .co-ad-slot-banner {
+  width: 100%;
+  min-height: var(--co-banner-height);
+}
+
+.theme-colorado-day .co-ad-rail-stick {
+  top: calc(var(--co-nav-height) + var(--co-banner-height));
+}
+
+/* Mobile mid-roll ads — full viewport width, same height as top banner strip */
+.theme-colorado-day .co-mobile-midroll {
+  width: 100vw;
+  max-width: 100vw;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow: hidden;
+  background: #f4f6f8;
+  border-top: 2px solid #d0d7e2;
+  border-bottom: 2px solid #d0d7e2;
+}
+
+/* Ad slide labels — muted so forum NEW badges stay prominent */
+.theme-colorado-day .co-ad-label {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: rgba(0, 40, 104, 0.65) !important;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(0, 40, 104, 0.12);
+  padding: 2px 5px;
+}
+
+@media (min-width: 640px) {
+  .theme-colorado-day .co-ad-label {
+    font-size: 9px;
+    padding: 2px 6px;
+  }
+}
+
+/* Photo / merch captions — immune to .text-white theme remap */
+.theme-colorado-day .co-ad-caption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1.25rem 0.625rem 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .theme-colorado-day .co-ad-caption {
+    padding: 1.5rem 0.75rem 0.625rem;
+  }
+}
+
+.theme-colorado-day .co-ad-caption-photo {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.35) 55%, transparent 100%);
+}
+
+.theme-colorado-day .co-ad-merch-footer {
+  flex-shrink: 0;
+  padding: 0.5rem 0.625rem;
+  background: #ffffff;
+}
+
+.theme-colorado-day .co-ad-merch-footer .co-ad-headline {
+  color: var(--co-brand) !important;
+}
+
+.theme-colorado-day .co-ad-merch-footer .co-ad-subline {
+  color: var(--co-action) !important;
+}
+
+.theme-colorado-day .co-ad-subline {
+  margin-top: 0.125rem;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 1.25;
+}
+
+@media (min-width: 640px) {
+  .theme-colorado-day .co-ad-subline {
+    font-size: 0.75rem;
+  }
+}
+
+.theme-colorado-day .co-ad-caption-photo .co-ad-subline {
+  color: #ffc72c !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+.theme-colorado-day .co-ad-headline {
+  font-weight: 800;
+  line-height: 1.25;
+  font-size: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .theme-colorado-day .co-ad-headline {
+    font-size: 0.875rem;
+  }
+}
+
+.theme-colorado-day .co-ad-caption-photo .co-ad-headline {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.theme-colorado-day .co-ad-caption-banner {
+  padding: 0.5rem 0.5rem 0.375rem;
+}
+
+.theme-colorado-day .co-ad-caption-banner .co-ad-headline {
+  font-size: 0.6875rem;
+}
+
+.theme-colorado-day .co-ad-caption-banner .co-ad-subline {
+  font-size: 9px;
+}
+
+.theme-colorado-day .co-ad-merch-footer-banner {
+  padding: 0.375rem 0.5rem;
+}
+
+.theme-colorado-day .co-ad-merch-footer-banner .co-ad-headline {
+  font-size: 0.6875rem;
+}
+
+.theme-colorado-day .co-ad-merch-footer-banner .co-ad-subline {
+  font-size: 9px;
+}
+
+@media (min-width: 640px) {
+  .theme-colorado-day .co-ad-caption-banner {
+    padding: 0.625rem 0.625rem 0.5rem;
+  }
+
+  .theme-colorado-day .co-ad-caption-banner .co-ad-headline {
+    font-size: 0.8125rem;
+  }
+
+  .theme-colorado-day .co-ad-caption-banner .co-ad-subline {
+    font-size: 10px;
+  }
+
+  .theme-colorado-day .co-ad-merch-footer-banner {
+    padding: 0.375rem 0.625rem;
+  }
+
+  .theme-colorado-day .co-ad-merch-footer-banner .co-ad-headline {
+    font-size: 0.8125rem;
+  }
+
+  .theme-colorado-day .co-ad-merch-footer-banner .co-ad-subline {
+    font-size: 10px;
+  }
+}
+
 /* Nav stays high-contrast navy (see ColoradoNavigation) */
+.theme-colorado-day nav.co-day-nav a {
+  min-height: 0;
+  min-width: 0;
+}
+
 .theme-colorado-day nav.co-day-nav .text-white {
   color: #ffffff !important;
 }

@@ -7,6 +7,7 @@ import BreadcrumbNav from '@/components/forum/BreadcrumbNav';
 import MarkBoardSeen from '@/components/forum/MarkBoardSeen';
 import BoardSubscribeButton from '@/components/forum/BoardSubscribeButton';
 import { trackBoardDisplayName } from '@/lib/userPreferences';
+import ColoradoContentLayout from '@/components/ads/ColoradoContentLayout';
 
 interface Props {
   params: Promise<{ categorySlug: string }>;
@@ -35,7 +36,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const replyCount = Math.max(0, postCount - count);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-5xl">
+    <ColoradoContentLayout className="py-8">
       <MarkBoardSeen categoryId={category.id} isLoggedIn={!!user} />
       <BreadcrumbNav
         items={[
@@ -78,6 +79,6 @@ export default async function CategoryPage({ params, searchParams }: Props) {
           ))}
         </div>
       )}
-    </div>
+    </ColoradoContentLayout>
   );
 }

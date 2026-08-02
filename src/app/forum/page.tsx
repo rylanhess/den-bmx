@@ -2,6 +2,7 @@ import { getCategoryStats, getRecentForumPosts } from '@/lib/forum';
 import { getCurrentUser, isEmailVerified } from '@/lib/auth';
 import { parsePreferences } from '@/lib/userPreferences';
 import ForumHomeClient from '@/components/forum/ForumHomeClient';
+import ColoradoContentLayout from '@/components/ads/ColoradoContentLayout';
 
 export const metadata = {
   title: 'Message Board',
@@ -15,7 +16,7 @@ export default async function ForumPage() {
   const recentPosts = await getRecentForumPosts(5);
 
   return (
-    <div className="container mx-auto px-4 py-4 sm:py-6 max-w-5xl">
+    <ColoradoContentLayout>
       <ForumHomeClient
         categories={categories}
         recentPosts={recentPosts}
@@ -24,6 +25,6 @@ export default async function ForumPage() {
         userEmail={user?.user.email ?? null}
         serverPreferences={user?.profile?.preferences}
       />
-    </div>
+    </ColoradoContentLayout>
   );
 }

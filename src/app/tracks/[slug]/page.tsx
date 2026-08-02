@@ -10,6 +10,7 @@ import ThreadTable from '@/components/forum/ThreadTable';
 import { attachAuthors } from '@/lib/forum';
 import { trackBoardDisplayName } from '@/lib/userPreferences';
 import type { Track, FbPostSignal } from '@/lib/supabase';
+import ColoradoContentLayout from '@/components/ads/ColoradoContentLayout';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -86,7 +87,7 @@ export default async function TrackPage({ params }: Props) {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-5xl">
+    <ColoradoContentLayout className="py-8">
       <TrackHeader track={typedTrack} moderatorName={moderatorName} />
       {category && (
         <div className="mb-4">
@@ -116,6 +117,6 @@ export default async function TrackPage({ params }: Props) {
           <ThreadTable threads={threads} categorySlug={category.slug} />
         </div>
       )}
-    </div>
+    </ColoradoContentLayout>
   );
 }

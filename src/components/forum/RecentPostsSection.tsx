@@ -21,6 +21,10 @@ export default function RecentPostsSection({ posts }: { posts: RecentForumPost[]
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
+    setIndex((i) => (i >= posts.length ? 0 : i));
+  }, [posts.length]);
+
+  useEffect(() => {
     if (posts.length <= 1) return;
     const timer = setInterval(() => {
       setIndex((i) => (i + 1) % posts.length);

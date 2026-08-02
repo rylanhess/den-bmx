@@ -13,6 +13,7 @@ export interface CategoryStat {
   created_at: string;
   thread_count: number;
   post_count: number;
+  unique_user_count: number;
   new_post_count?: number;
   latest_thread_title: string | null;
   latest_post_at: string | null;

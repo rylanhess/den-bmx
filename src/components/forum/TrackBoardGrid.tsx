@@ -21,28 +21,26 @@ interface TrackBoardGridProps {
   isLoggedIn: boolean;
 }
 
-function BoardStat({
-  label,
+function BoardStatValue({
   value,
   highlight = false,
 }: {
-  label: string;
   value: number | string;
   highlight?: boolean;
 }) {
   return (
-    <div className="text-center min-w-[3.5rem]">
-      <p
-        className={`font-bold tabular-nums leading-none ${
-          highlight ? 'text-[#BF0A30]' : 'text-[#002868]'
-        }`}
-      >
-        {value}
-      </p>
-      <p className="text-[10px] text-gray-500 mt-0.5 uppercase tracking-wide">{label}</p>
-    </div>
+    <span
+      className={`block text-center font-bold tabular-nums text-sm leading-none ${
+        highlight ? 'text-[#BF0A30]' : 'text-[#002868]'
+      }`}
+    >
+      {value}
+    </span>
   );
 }
+
+const DESKTOP_GRID =
+  'md:grid md:grid-cols-[3.5rem_7.5rem_minmax(0,1fr)_2.75rem_2.75rem_2.75rem_2.75rem_3.25rem] md:gap-3 md:items-center';
 
 export default function TrackBoardGrid({
   categories,
@@ -158,11 +156,14 @@ export default function TrackBoardGrid({
         </div>
       ) : (
         <div className="rounded-lg bg-white overflow-hidden">
-          <div className="hidden md:grid md:grid-cols-[4.5rem_minmax(0,1fr)_minmax(0,14rem)_4rem_4rem_4rem_5rem] gap-2 px-3 py-2.5 bg-[#E8EEF5] border-b-2 border-[#002868] text-[10px] font-black uppercase tracking-wide text-[#002868]">
+          <div
+            className={`hidden ${DESKTOP_GRID} px-3 py-2.5 bg-[#E8EEF5] border-b-2 border-[#002868] text-[10px] font-black uppercase tracking-wide text-[#002868]`}
+          >
             <span className="text-center">Posts</span>
             <span>Track</span>
-            <span className="text-center col-span-1">Last post</span>
+            <span className="min-w-0">Last post</span>
             <span className="text-center">Topics</span>
+            <span className="text-center">Riders</span>
             <span className="text-center">New</span>
             <span className="text-center">Replies</span>
             <span className="text-center">Active</span>
@@ -194,7 +195,7 @@ export default function TrackBoardGrid({
                   <Link
                     href={customizing ? '#' : `/forum/${cat.slug}`}
                     onClick={customizing ? (e) => e.preventDefault() : undefined}
-                    className={`flex flex-1 items-center gap-3 px-3 py-2.5 hover:bg-[#002868]/5 transition-colors min-w-0 md:grid md:grid-cols-[4.5rem_minmax(0,1fr)_minmax(0,14rem)_4rem_4rem_4rem_5rem] md:gap-2 md:items-center ${
+                    className={`flex flex-1 items-center gap-3 px-3 py-2.5 hover:bg-[#002868]/5 transition-colors min-w-0 ${DESKTOP_GRID} ${
                       isHidden && customizing ? 'opacity-50' : ''
                     }`}
                   >
@@ -202,13 +203,13 @@ export default function TrackBoardGrid({
                       <span className="block font-black text-sm text-[#002868]">
                         {cat.post_count}
                       </span>
-                      <span className="block text-[9px] uppercase tracking-wide text-gray-500 mt-0.5">
+                      <span className="block text-[9px] uppercase tracking-wide text-gray-500 mt-0.5 md:hidden">
                         {cat.post_count === 1 ? 'post' : 'posts'}
                       </span>
                     </span>
 
-                    <span className="min-w-0 flex-1 md:flex-none">
-                      <span className="font-bold text-sm text-[#0B1C2D] leading-snug">
+                    <span className="min-w-0 overflow-hidden md:col-start-auto">
+                      <span className="font-bold text-sm text-[#0B1C2D] leading-snug truncate block">
                         {name}
                         {isRecentlyActive && (
                           <>
@@ -219,29 +220,37 @@ export default function TrackBoardGrid({
                       </span>
                       <span className="block text-[11px] text-gray-500 mt-0.5 md:hidden">
                         {cat.thread_count} {cat.thread_count === 1 ? 'topic' : 'topics'}
+                        {' · '}
+                        {cat.unique_user_count ?? 0}{' '}
+                        {(cat.unique_user_count ?? 0) === 1 ? 'rider' : 'riders'}
                         {newCount > 0 && ` · ${newCount} new`}
                         {cat.latest_post_at && ` · ${lastActive}`}
                       </span>
                     </span>
 
-                    <span className="hidden md:block text-xs text-[#4A5568] truncate px-1">
+                    <span className="hidden md:block min-w-0 overflow-hidden text-xs text-[#4A5568]">
                       {cat.latest_thread_title ? (
-                        <span title={cat.latest_thread_title}>{cat.latest_thread_title}</span>
+                        <span className="block truncate" title={cat.latest_thread_title}>
+                          {cat.latest_thread_title}
+                        </span>
                       ) : (
                         <span className="text-gray-400">No posts yet</span>
                       )}
                     </span>
 
-                    <span className="hidden md:block">
-                      <BoardStat label="Topics" value={cat.thread_count} />
+                    <span className="hidden md:block shrink-0">
+                      <BoardStatValue value={cat.thread_count} />
                     </span>
-                    <span className="hidden md:block">
-                      <BoardStat label="New" value={newCount} highlight={newCount > 0} />
+                    <span className="hidden md:block shrink-0">
+                      <BoardStatValue value={cat.unique_user_count ?? 0} />
                     </span>
-                    <span className="hidden md:block">
-                      <BoardStat label="Replies" value={replyCount} />
+                    <span className="hidden md:block shrink-0">
+                      <BoardStatValue value={newCount} highlight={newCount > 0} />
                     </span>
-                    <span className="hidden md:block text-center text-xs text-gray-500 tabular-nums">
+                    <span className="hidden md:block shrink-0">
+                      <BoardStatValue value={replyCount} />
+                    </span>
+                    <span className="hidden md:block shrink-0 text-center text-xs text-gray-500 tabular-nums whitespace-nowrap">
                       {lastActive}
                     </span>
                   </Link>

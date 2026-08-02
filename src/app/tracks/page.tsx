@@ -6,6 +6,9 @@ import { COLORADO_BMX_TRACK_SLUGS } from '@/lib/coloradoTracks';
 import { hasRecentBoardActivity } from '@/lib/recentPostWindow';
 import { coChipLink } from '@/lib/coloradoUi';
 import { formatTrackLocation, formatTrackShortName } from '@/lib/trackDisplay';
+import ColoradoContentLayout from '@/components/ads/ColoradoContentLayout';
+import ColoradoMobileAd from '@/components/ads/ColoradoMobileAd';
+import { mobileMidroll1 } from '@/lib/adSpaces';
 import type { Track } from '@/lib/supabase';
 
 export const metadata = { title: 'Colorado BMX Tracks' };
@@ -29,11 +32,13 @@ export default async function TracksIndexPage() {
   );
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-5xl">
+    <ColoradoContentLayout className="py-8">
       <h1 className="text-3xl font-black text-[#00ff0c] mb-2">COLORADO BMX TRACKS</h1>
       <p className="text-gray-400 text-sm mb-8">
         Race tracks across Colorado — each with its own page and discussion board
       </p>
+
+      <ColoradoMobileAd slot={mobileMidroll1} />
 
       <div className="grid gap-4 sm:grid-cols-2">
         {(tracks as Track[] ?? []).map((track) => (
@@ -73,6 +78,6 @@ export default async function TracksIndexPage() {
           </div>
         ))}
       </div>
-    </div>
+    </ColoradoContentLayout>
   );
 }

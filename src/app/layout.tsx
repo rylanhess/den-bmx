@@ -7,6 +7,8 @@ import SiteNavigation from "@/components/SiteNavigation";
 import SponsorshipStrip from "@/components/SponsorshipStrip";
 import NewsletterModalTrigger from "@/components/NewsletterModalTrigger";
 import ColoradoShellGate from "@/components/ColoradoShellGate";
+import ColoradoAdBanner from "@/components/ads/ColoradoAdBanner";
+import ColoradoAdCycleShell from "@/components/ads/ColoradoAdCycleShell";
 import ColoradoThemeSync from "@/components/ColoradoThemeSync";
 import { isColoradoExperience } from "@/lib/coloradoTheme";
 import { siteMetadata } from "@/lib/siteMetadata";
@@ -56,10 +58,10 @@ export default async function RootLayout({
   }
   const isColorado = isColoradoExperience(host, pathname, params);
   const favicon = isColorado
-    ? '/logos/BMX_CO_TAB_ICON-32.png?v=1'
+    ? '/logos/cbmx_tab_icon-32.png?v=20260802'
     : '/logos/MARK_ONLY_icon_tab.png?v=5';
   const appleIcon = isColorado
-    ? '/logos/BMX_CO_TAB_ICON-192.png?v=1'
+    ? '/logos/cbmx_tab_icon-192.png?v=20260802'
     : '/logos/MARK_ONLY_icon_tab.png?v=5';
 
   return (
@@ -77,11 +79,13 @@ export default async function RootLayout({
         <Suspense fallback={null}>
           <ColoradoThemeSync />
         </Suspense>
+        <ColoradoAdCycleShell enabled={isColorado}>
         <div className="flex flex-col min-h-screen">
           <Suspense fallback={null}>
             <SiteNavigation />
           </Suspense>
           {!isColorado && <SponsorshipStrip />}
+          {isColorado && <ColoradoAdBanner />}
           <main className="flex-1">
             {children}
           </main>
@@ -89,6 +93,7 @@ export default async function RootLayout({
             <ColoradoShellGate />
           </Suspense>
         </div>
+        </ColoradoAdCycleShell>
         <ServiceWorkerRegistration />
         {!isColorado && <NewsletterModalTrigger />}
         <Analytics />
