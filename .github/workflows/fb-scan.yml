@@ -45,7 +45,7 @@ jobs:
           GH_TOKEN: ${{ secrets.COOKIE_SYNC_PAT }}
         run: |
           if [ -f scripts/output/.fb-cookie-next ]; then
-            gh secret set FB_COOKIE --body-file scripts/output/.fb-cookie-next
+            gh secret set FB_COOKIE < scripts/output/.fb-cookie-next
             echo "FB_COOKIE secret updated with rotated cookies"
           else
             echo "No cookie rotation this run"
