@@ -2,8 +2,10 @@ name: Facebook track scan
 
 on:
   schedule:
-    # 8:00 AM MT daily (14:00 UTC during DST, 15:00 in winter)
+    # 8:00 AM / 12:00 PM / 2:00 PM MT daily (UTC+6 during DST, +7 in winter)
     - cron: '0 14 * * *'
+    - cron: '0 18 * * *'
+    - cron: '0 20 * * *'
   workflow_dispatch:
 
 concurrency:
