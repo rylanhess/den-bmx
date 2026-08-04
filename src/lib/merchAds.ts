@@ -6,6 +6,36 @@ const STORE = 'https://store.bmxdenver.com/product';
 /** BMX Denver store product ads — linked to live merch listings. */
 export const merchAdSlides: CommunitySlide[] = [
   {
+    imageUrl: `${BASE}/colorado-bmx-tee-grey.png`,
+    alt: 'Colorado BMX T-Shirt — Retro State Flag Logo Tee in Grey',
+    headline: 'Colorado BMX Tee',
+    subline: 'Shop now · $36.02',
+    href: `${STORE}/30597476`,
+    label: 'MERCH',
+    isMerch: true,
+    objectPosition: 'center center',
+  },
+  {
+    imageUrl: `${BASE}/colorado-bmx-tee-olive.png`,
+    alt: 'Colorado BMX T-Shirt — Retro State Flag Logo Tee in Olive',
+    headline: 'Colorado BMX Tee',
+    subline: 'Shop now · $36.02',
+    href: `${STORE}/30597476`,
+    label: 'MERCH',
+    isMerch: true,
+    objectPosition: 'center 20%',
+  },
+  {
+    imageUrl: `${BASE}/colorado-bmx-tee-navy.png`,
+    alt: 'Colorado BMX T-Shirt — Retro State Flag Logo Tee in Navy',
+    headline: 'Colorado BMX Tee',
+    subline: 'Shop now · $36.02',
+    href: `${STORE}/30597476`,
+    label: 'MERCH',
+    isMerch: true,
+    objectPosition: 'center center',
+  },
+  {
     imageUrl: `${BASE}/toddler-sweatshirt.png`,
     alt: 'BMX Toddler Sweatshirt – Retro 3D Stunt Bike Crewneck',
     headline: 'BMX Toddler Sweatshirt',
