@@ -2,10 +2,27 @@
 
 Light scan of **all Colorado BMX track** Facebook and Instagram pages. Captures **post URL + timestamp only** — no post content. New posts create forum threads on each track's comms board, posted by **BMX Colorado Bot**.
 
+## Cloud path (Facebook, primary)
+
+`.github/workflows/fb-scan.yml` runs `scripts/scanFbDirect.ts` **once daily at 8am MT** (plus manual `workflow_dispatch`) — no laptop, no Chrome. Facebook login-walls all logged-out fetches, so the job uses a session cookie:
+
+| Secret | Purpose |
+|--------|---------|
+| `FB_COOKIE` | Raw `Cookie` header for facebook.com from logged-in Chrome (DevTools → Network → any request → Request Headers). Must include `c_user` and `xs` |
+| `COOKIE_SYNC_PAT` | GitHub PAT (repo scope) — lets the job write rotated session cookies back into `FB_COOKIE` after each run (this is the daily refresh) |
+| `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` | Load track page URLs |
+| `CRON_SECRET` | Auth for the Vercel ingest POST |
+| `RESEND_API_KEY` | Escalation email when the session dies or all fetches fail |
+
+Facebook rotates session cookies on normal responses; the scanner merges `set-cookie` updates and the workflow persists them back to the secret, so daily runs keep the session warm. If Facebook checkpoints the session (datacenter IPs), every track fails with a login-wall error and you get an email: re-export the Cookie header from Chrome and update `FB_COOKIE`.
+
+**Instagram stays local** (login-gated; no cookie path wired up). Run the local scraper below when you want IG coverage.
+
 ## Architecture
 
 | Layer | Where | What |
 |-------|-------|------|
+| **Cloud scan (FB)** | GitHub Actions, daily 8am MT | `scanFbDirect.ts` — cookie-authed HTTP fetch, URL + timestamp only |
 | **Browser scan** | Mac or small VPS with Chrome + CDP | `runSocialMetadataScrape.ts` — needs logged-in FB/IG session |
 | **Ingest + bot posts** | Same machine, or Vercel API | `ingestFbSignals.ts` or `POST /api/cron/social-ingest` |
 | **Dedup** | Supabase `fb_post_signals` | Unique on `(platform, fb_url)` and `(platform, external_post_id)` |

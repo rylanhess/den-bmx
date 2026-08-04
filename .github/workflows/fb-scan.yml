@@ -1,0 +1,60 @@
+name: Facebook track scan
+
+on:
+  schedule:
+    # 8:00 AM MT daily (14:00 UTC during DST, 15:00 in winter)
+    - cron: '0 14 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: fb-scan
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Scan Facebook track pages
+        env:
+          FB_COOKIE: ${{ secrets.FB_COOKIE }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          TZ: America/Denver
+        run: |
+          echo "::add-mask::$FB_COOKIE"
+          npx tsx scripts/scanFbDirect.ts
+
+      - name: Refresh FB_COOKIE secret with rotated session cookies
+        if: github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ secrets.COOKIE_SYNC_PAT }}
+        run: |
+          if [ -f scripts/output/.fb-cookie-next ]; then
+            gh secret set FB_COOKIE --body-file scripts/output/.fb-cookie-next
+            echo "FB_COOKIE secret updated with rotated cookies"
+          else
+            echo "No cookie rotation this run"
+          fi
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fb-scan-output
+          path: scripts/output/latest-social-metadata.json
+          if-no-files-found: ignore
+          retention-days: 14
