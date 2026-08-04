@@ -6,8 +6,14 @@
  * cookie (GitHub secret `FB_COOKIE`), extracts post URL + timestamp from
  * embedded page JSON (`creation_time` unix seconds paired with post
  * permalinks), then POSTs the standard SocialScrapeOutput shape to the
- * Vercel ingest API. Runs once daily in GitHub Actions; idempotent via
+ * Vercel ingest API. Runs 3× daily in GitHub Actions; idempotent via
  * Supabase `fb_post_signals` dedup on the ingest side.
+ *
+ * Humanization: each run shuffles track order, warms the session on the
+ * home feed first (also early dead-session detection), carries a referer
+ * chain between pages, uses wide jittered delays with occasional long
+ * "reading" pauses, and backs off 60–120s on HTTP 429. The workflow adds
+ * a random 0–4min startup sleep so runs don't fire at exact top-of-hour.
  *
  * Cookie lifecycle: `FB_COOKIE` is a raw Cookie header exported from a
  * logged-in Chrome session. Facebook rotates session cookies via set-cookie
@@ -117,16 +123,33 @@ function pagePath(fbPageUrl: string): string {
 
 class LoginWallError extends Error {}
 
-async function fetchHtml(url: string): Promise<string> {
+/**
+ * referer: the previously-visited facebook.com URL, if any. First request of a
+ * run omits it (sec-fetch-site: none, like typing the URL); later requests send
+ * it and flip sec-fetch-site to same-origin, mimicking in-site navigation.
+ */
+async function fetchHtml(url: string, referer?: string, is429Retry = false): Promise<string> {
+  const headers: Record<string, string> = {
+    ...BROWSER_HEADERS,
+    Cookie: cookieHeader(),
+  };
+  if (referer) {
+    headers['sec-fetch-site'] = 'same-origin';
+    headers['referer'] = referer;
+  }
   const res = await fetch(url, {
     redirect: 'follow',
     signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-    headers: {
-      ...BROWSER_HEADERS,
-      Cookie: cookieHeader(),
-    },
+    headers,
   });
   absorbSetCookies(res);
+  if (res.status === 429) {
+    if (is429Retry) throw new Error('HTTP 429 (persisted after backoff)');
+    const backoffMs = randomDelayMs(60_000, 120_000);
+    console.log(`   429 rate-limited — backing off ${Math.round(backoffMs / 1000)}s`);
+    await sleep(backoffMs);
+    return fetchHtml(url, referer, true);
+  }
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const finalUrl = res.url.toLowerCase();
   if (finalUrl.includes('/login') || finalUrl.includes('checkpoint')) {
@@ -179,7 +202,11 @@ function extractPosts(html: string, fbPageUrl: string): MetadataPost[] {
   return posts;
 }
 
-async function scanTrack(track: TrackSocialSource, referenceDate: Date): Promise<TrackResult> {
+async function scanTrack(
+  track: TrackSocialSource,
+  referenceDate: Date,
+  referer?: string
+): Promise<TrackResult> {
   const base: Omit<TrackResult, 'success'> = {
     trackSlug: track.slug,
     trackName: track.name,
@@ -189,7 +216,7 @@ async function scanTrack(track: TrackSocialSource, referenceDate: Date): Promise
   if (!track.fbPageUrl) return { ...base, success: true };
 
   try {
-    const html = await fetchHtml(`https://www.facebook.com${pagePath(track.fbPageUrl)}`);
+    const html = await fetchHtml(`https://www.facebook.com${pagePath(track.fbPageUrl)}`, referer);
     if (!/"creation_time"/.test(html)) {
       if (/you must log in|log in to continue/i.test(html)) {
         throw new LoginWallError('session expired — login wall HTML');
@@ -268,23 +295,55 @@ function persistCookieJar(): void {
   console.log('Session cookies rotated — wrote .fb-cookie-next for secret refresh');
 }
 
+/** Fisher–Yates — visit order shouldn't be identical across every run. */
+function shuffle<T>(items: T[]): T[] {
+  const arr = [...items];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 async function main(): Promise<void> {
   loadCookieJar();
 
   const referenceDate = new Date();
-  const tracks = (await loadColoradoTrackSources()).filter((t) => t.fbPageUrl);
+  const tracks = shuffle((await loadColoradoTrackSources()).filter((t) => t.fbPageUrl));
 
-  console.log(`\n🔍 Cloud Facebook scan — ${tracks.length} Colorado track pages`);
+  console.log(`\n🔍 Cloud Facebook scan — ${tracks.length} Colorado track pages (shuffled order)`);
   console.log(`   Recent window: today + prior ${RECENT_CALENDAR_DAYS_PRIOR} calendar days (MT)\n`);
 
+  // Warm the session on the home feed first, like a human landing on FB and
+  // then navigating to pages. A login wall here means the session is dead —
+  // bail immediately instead of hammering every track page with a dead cookie.
+  try {
+    await fetchHtml('https://www.facebook.com/');
+  } catch (err) {
+    if (err instanceof LoginWallError) {
+      escalate(
+        'Cloud scan: FB session cookie expired (home feed hit login wall) — re-export the facebook.com Cookie header from logged-in Chrome and update the FB_COOKIE repo secret',
+        tracks.map((t) => t.slug)
+      );
+      process.exit(1);
+    }
+    console.log(`   Home feed warm-up failed (${err instanceof Error ? err.message : err}) — continuing anyway`);
+  }
+  await sleep(randomDelayMs(2500, 6000));
+
   const results: TrackResult[] = [];
+  let referer: string | undefined;
   for (const track of tracks) {
-    const result = await scanTrack(track, referenceDate);
+    const result = await scanTrack(track, referenceDate, referer);
     results.push(result);
     console.log(
       `   FB  ${track.name}: ${result.success ? `${result.posts.length} recent` : `failed: ${result.error}`}`
     );
-    await sleep(randomDelayMs(3000, 8000));
+    referer = `https://www.facebook.com${pagePath(track.fbPageUrl!)}`;
+    // Wide base delay + ~1-in-4 long "reading" pause, like a human browsing.
+    let delayMs = randomDelayMs(4000, 11000);
+    if (Math.random() < 0.25) delayMs += randomDelayMs(15000, 40000);
+    await sleep(delayMs);
   }
 
   const payload: ScrapeOutput = {

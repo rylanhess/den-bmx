@@ -29,6 +29,12 @@ jobs:
 
       - run: npm ci
 
+      - name: Random startup jitter (don't hit FB at exact cron time)
+        run: |
+          DELAY=$((RANDOM % 241))
+          echo "Sleeping ${DELAY}s before scan"
+          sleep "$DELAY"
+
       - name: Scan Facebook track pages
         env:
           FB_COOKIE: ${{ secrets.FB_COOKIE }}
