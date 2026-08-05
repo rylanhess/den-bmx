@@ -2,10 +2,14 @@ name: Facebook track scan
 
 on:
   schedule:
-    # 8:00 AM / 12:00 PM / 2:00 PM MT daily (UTC+6 during DST, +7 in winter)
-    - cron: '0 14 * * *'
-    - cron: '0 18 * * *'
-    - cron: '0 20 * * *'
+    # 8:00 / 12:00 / 2:00 PM MT (± few min) — offset minutes avoid GitHub's
+    # top-of-hour schedule stampede (jobs at :00 UTC are often delayed/dropped).
+    - cron: '17 8 * * *'
+      timezone: America/Denver
+    - cron: '23 12 * * *'
+      timezone: America/Denver
+    - cron: '31 14 * * *'
+      timezone: America/Denver
   workflow_dispatch:
 
 concurrency:
