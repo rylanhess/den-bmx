@@ -10,26 +10,8 @@ export function sharePageUrl(): string {
   return `${COLORADO_CANONICAL_ORIGIN}${SHARE_PATH}`;
 }
 
-function mailtoShareLink(sharerName?: string): string {
-  const who = sharerName?.trim() || 'A friend';
-  const subject = encodeURIComponent('Check out BMX Colorado');
-  const body = encodeURIComponent(
-    [
-      `Hey!`,
-      '',
-      `${who} thought you'd like BMX Colorado — Colorado's community message board for BMX riders.`,
-      '',
-      `Check it out: ${SITE_LINK}`,
-      '',
-      'Race talk, track news, freestyle, and boards for every track in the state.',
-    ].join('\n')
-  );
-  return `mailto:?subject=${subject}&body=${body}`;
-}
-
 function buildWelcomeEmail(displayName: string) {
   const shareUrl = sharePageUrl();
-  const mailto = mailtoShareLink(displayName);
 
   const subject = 'Welcome to BMX Colorado - please help spread the word!';
 
@@ -40,11 +22,9 @@ function buildWelcomeEmail(displayName: string) {
     '',
     'As a small favor, please share this forum with your BMX friends, family, coaches and other riders in Colorado!',
     '',
-    `Share with a friend (send an invite from our site): ${shareUrl}`,
+    `Share page (email an invite or copy the link): ${shareUrl}`,
     '',
-    `Or copy this link: ${SITE_LINK}`,
-    '',
-    `Or email from your own inbox: ${mailto}`,
+    `Link to copy or text: ${SITE_LINK}`,
     '',
     'A text, group chat, or post at your local track goes a long way — we need as many people as possible to drive traffic and keep BMX conversations here instead of scattered across random apps.',
     '',
@@ -57,13 +37,16 @@ function buildWelcomeEmail(displayName: string) {
   return { subject, text };
 }
 
-export async function sendWelcomeEmail(user: User): Promise<{ sent: boolean; error?: string }> {
+export async function sendWelcomeEmail(
+  user: User,
+  options?: { force?: boolean }
+): Promise<{ sent: boolean; error?: string }> {
   if (!user.email || !user.email_confirmed_at) {
     return { sent: false, error: 'email not confirmed' };
   }
 
   const WELCOME_SENT_KEY = 'welcome_email_sent_at';
-  if (user.app_metadata?.[WELCOME_SENT_KEY]) {
+  if (!options?.force && user.app_metadata?.[WELCOME_SENT_KEY]) {
     return { sent: false, error: 'already sent' };
   }
 
