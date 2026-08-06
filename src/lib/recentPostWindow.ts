@@ -53,3 +53,18 @@ export function hasRecentBoardActivity(
 ): boolean {
   return isWithinRecentWindow(null, latestPostAt ?? null, referenceDate);
 }
+
+/** Rolling window for track-board "NEW" badges (last post within N hours). */
+export const RECENT_TRACK_POST_HOURS = 24;
+
+/** True when a track board's latest post is within the last 24 hours. */
+export function hasRecentTrackPost(
+  latestPostAt: string | null | undefined,
+  referenceDate = new Date()
+): boolean {
+  if (!latestPostAt) return false;
+  const posted = new Date(latestPostAt);
+  if (Number.isNaN(posted.getTime())) return false;
+  const ageMs = referenceDate.getTime() - posted.getTime();
+  return ageMs >= 0 && ageMs <= RECENT_TRACK_POST_HOURS * 60 * 60 * 1000;
+}

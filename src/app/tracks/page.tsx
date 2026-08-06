@@ -3,7 +3,7 @@ import NewBadge from '@/components/forum/NewBadge';
 import { getCategoryStats } from '@/lib/forum';
 import { createClient } from '@/lib/supabase/server';
 import { COLORADO_BMX_TRACK_SLUGS } from '@/lib/coloradoTracks';
-import { hasRecentBoardActivity } from '@/lib/recentPostWindow';
+import { hasRecentTrackPost } from '@/lib/recentPostWindow';
 import { coChipLink } from '@/lib/coloradoUi';
 import { formatTrackLocation, formatTrackShortName } from '@/lib/trackDisplay';
 import ColoradoContentLayout from '@/components/ads/ColoradoContentLayout';
@@ -27,7 +27,7 @@ export default async function TracksIndexPage() {
 
   const recentTrackIds = new Set(
     categoryStats
-      .filter((cat) => cat.track_id && hasRecentBoardActivity(cat.latest_post_at))
+      .filter((cat) => cat.track_id && hasRecentTrackPost(cat.latest_post_at))
       .map((cat) => cat.track_id as string)
   );
 

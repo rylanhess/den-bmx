@@ -12,6 +12,7 @@ export default function ShareInviteForm() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const [sandboxMode, setSandboxMode] = useState(false);
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
 
@@ -20,6 +21,7 @@ export default function ShareInviteForm() {
     setLoading(true);
     setError('');
     setSent(false);
+    setSandboxMode(false);
 
     try {
       const res = await fetch('/api/share/invite', {
@@ -34,6 +36,7 @@ export default function ShareInviteForm() {
         return;
       }
       setSent(true);
+      setSandboxMode(Boolean(data.sandboxMode));
       setEmail('');
     } catch {
       setError('Failed to send invite');
@@ -86,7 +89,23 @@ export default function ShareInviteForm() {
           {loading ? 'Sending…' : 'Send invite email'}
         </button>
         {sent && (
-          <p className="text-sm font-bold text-[#002868]">Invite sent! Thanks for spreading the word.</p>
+          <div className="space-y-2">
+            {sandboxMode ? (
+              <>
+                <p className="text-sm font-bold text-[#002868]">
+                  Invite queued in email test mode.
+                </p>
+                <p className="text-sm text-gray-600">
+                  Outbound email is still on Resend&apos;s test sender, so your friend may not
+                  receive it yet. Copy the link below and text or email it to them directly for now.
+                </p>
+              </>
+            ) : (
+              <p className="text-sm font-bold text-[#002868]">
+                Invite sent! Thanks for spreading the word.
+              </p>
+            )}
+          </div>
         )}
         {error && <p className="text-sm text-red-600 font-bold">{error}</p>}
       </form>

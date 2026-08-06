@@ -87,7 +87,13 @@ export async function sendEmail({ to, subject, text, html, plainTextOnly, replyT
     return { ok: false as const, error: error.message };
   }
 
-  return { ok: true as const, id: data?.id };
+  return {
+    ok: true as const,
+    id: data?.id,
+    sandboxRedirected,
+    intended,
+    deliveredTo: deliverTo,
+  };
 }
 
 export function globalForumAlertEmails(): string[] {

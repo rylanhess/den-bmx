@@ -34,7 +34,12 @@ export function buildShareInviteEmail(sharerName?: string | null) {
 export async function sendShareInviteEmail(
   to: string,
   sharerName?: string | null
-): Promise<{ ok: boolean; error?: string }> {
+): Promise<{
+  ok: boolean;
+  error?: string;
+  sandboxRedirected?: boolean;
+  intendedRecipient?: string;
+}> {
   const { subject, text } = buildShareInviteEmail(sharerName);
 
   const result = await sendEmail({
@@ -48,5 +53,9 @@ export async function sendShareInviteEmail(
     return { ok: false, error: result.error };
   }
 
-  return { ok: true };
+  return {
+    ok: true,
+    sandboxRedirected: result.sandboxRedirected,
+    intendedRecipient: result.intended?.[0] ?? to,
+  };
 }

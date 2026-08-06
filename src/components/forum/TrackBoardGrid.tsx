@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import NewBadge from '@/components/forum/NewBadge';
 import { formatRelativeDate } from '@/lib/forumFormat';
-import { hasRecentBoardActivity } from '@/lib/recentPostWindow';
+import { hasRecentTrackPost } from '@/lib/recentPostWindow';
 import { coChipLink, coTogglePill } from '@/lib/coloradoUi';
 import {
   loadGuestPreferences,
@@ -21,26 +21,24 @@ interface TrackBoardGridProps {
   isLoggedIn: boolean;
 }
 
-function BoardStatValue({
-  value,
-  highlight = false,
-}: {
-  value: number | string;
-  highlight?: boolean;
-}) {
+function BoardStatValue({ value }: { value: number | string }) {
   return (
-    <span
-      className={`block text-center font-bold tabular-nums text-sm leading-none ${
-        highlight ? 'text-[#BF0A30]' : 'text-[#002868]'
-      }`}
-    >
+    <span className="block text-center font-bold tabular-nums text-sm leading-none text-[#002868]">
       {value}
     </span>
   );
 }
 
 const DESKTOP_GRID =
-  'md:grid md:grid-cols-[3.5rem_7.5rem_minmax(0,1fr)_2.75rem_2.75rem_2.75rem_2.75rem_3.25rem] md:gap-3 md:items-center';
+  'md:grid md:grid-cols-[2.25rem_3.5rem_minmax(7rem,7.5rem)_minmax(0,1fr)_2.75rem_2.75rem_2.75rem_3.25rem] md:gap-3 md:items-center';
+
+function compareTrackBoards(a: CategoryStat, b: CategoryStat): number {
+  const aTime = a.latest_post_at ? new Date(a.latest_post_at).getTime() : 0;
+  const bTime = b.latest_post_at ? new Date(b.latest_post_at).getTime() : 0;
+  if (bTime !== aTime) return bTime - aTime;
+  if (b.post_count !== a.post_count) return b.post_count - a.post_count;
+  return a.name.localeCompare(b.name);
+}
 
 export default function TrackBoardGrid({
   categories,
@@ -49,7 +47,6 @@ export default function TrackBoardGrid({
 }: TrackBoardGridProps) {
   const [prefs, setPrefs] = useState<UserPreferences>(initialPreferences);
   const [customizing, setCustomizing] = useState(false);
-  const [newCounts, setNewCounts] = useState<Record<string, number>>({});
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -62,26 +59,6 @@ export default function TrackBoardGrid({
     () => new Set(prefs.forum?.hiddenTrackBoardIds ?? []),
     [prefs]
   );
-
-  const boardLastSeen = prefs.forum?.boardLastSeen ?? {};
-
-  const seenForActivity = useMemo(() => {
-    if (isLoggedIn) return initialPreferences.forum?.boardLastSeen ?? {};
-    return boardLastSeen;
-  }, [isLoggedIn, initialPreferences.forum?.boardLastSeen, boardLastSeen]);
-
-  useEffect(() => {
-    if (Object.keys(seenForActivity).length === 0) return;
-
-    fetch('/api/forum/board-activity', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ boardLastSeen: seenForActivity }),
-    })
-      .then((r) => r.json())
-      .then((data) => setNewCounts(data.counts ?? {}))
-      .catch(() => {});
-  }, [seenForActivity]);
 
   const persistPreferences = useCallback(
     async (next: UserPreferences) => {
@@ -118,9 +95,7 @@ export default function TrackBoardGrid({
     ? categories
     : categories.filter((c) => !hidden.has(c.id));
 
-  const sorted = [...visibleCategories].sort(
-    (a, b) => b.post_count - a.post_count || a.name.localeCompare(b.name)
-  );
+  const sorted = [...visibleCategories].sort(compareTrackBoards);
 
   if (categories.length === 0) return null;
 
@@ -159,21 +134,20 @@ export default function TrackBoardGrid({
           <div
             className={`hidden ${DESKTOP_GRID} px-3 py-2.5 bg-[#E8EEF5] border-b-2 border-[#002868] text-[10px] font-black uppercase tracking-wide text-[#002868]`}
           >
+            <span aria-hidden="true" />
             <span className="text-center">Posts</span>
             <span>Track</span>
             <span className="min-w-0">Last post</span>
             <span className="text-center">Topics</span>
             <span className="text-center">Riders</span>
-            <span className="text-center">New</span>
             <span className="text-center">Replies</span>
             <span className="text-center">Active</span>
           </div>
           <div className="divide-y divide-[#D0D7E2]/60">
             {sorted.map((cat) => {
               const isHidden = hidden.has(cat.id);
-              const newCount = newCounts[cat.id] ?? cat.new_post_count ?? 0;
               const replyCount = Math.max(0, cat.post_count - cat.thread_count);
-              const isRecentlyActive = hasRecentBoardActivity(cat.latest_post_at);
+              const isRecentlyActive = hasRecentTrackPost(cat.latest_post_at);
               const name = trackBoardDisplayName(cat.name);
               const lastActive = cat.latest_post_at
                 ? formatRelativeDate(cat.latest_post_at)
@@ -199,6 +173,10 @@ export default function TrackBoardGrid({
                       isHidden && customizing ? 'opacity-50' : ''
                     }`}
                   >
+                    <span className="hidden md:flex justify-center shrink-0">
+                      {isRecentlyActive ? <NewBadge /> : null}
+                    </span>
+
                     <span className="w-12 md:w-auto shrink-0 text-center tabular-nums leading-none">
                       <span className="block font-black text-sm text-[#002868]">
                         {cat.post_count}
@@ -214,7 +192,7 @@ export default function TrackBoardGrid({
                         {isRecentlyActive && (
                           <>
                             {' '}
-                            <NewBadge />
+                            <NewBadge className="md:hidden" />
                           </>
                         )}
                       </span>
@@ -223,7 +201,6 @@ export default function TrackBoardGrid({
                         {' · '}
                         {cat.unique_user_count ?? 0}{' '}
                         {(cat.unique_user_count ?? 0) === 1 ? 'rider' : 'riders'}
-                        {newCount > 0 && ` · ${newCount} new`}
                         {cat.latest_post_at && ` · ${lastActive}`}
                       </span>
                     </span>
@@ -243,9 +220,6 @@ export default function TrackBoardGrid({
                     </span>
                     <span className="hidden md:block shrink-0">
                       <BoardStatValue value={cat.unique_user_count ?? 0} />
-                    </span>
-                    <span className="hidden md:block shrink-0">
-                      <BoardStatValue value={newCount} highlight={newCount > 0} />
                     </span>
                     <span className="hidden md:block shrink-0">
                       <BoardStatValue value={replyCount} />

@@ -9,6 +9,7 @@ import {
   EnvelopeIcon,
   UserCircleIcon,
   HomeIcon,
+  ShareIcon,
 } from '@heroicons/react/24/solid';
 import { createClient } from '@/lib/supabase/client';
 import { useEffect, useState } from 'react';
@@ -19,6 +20,7 @@ const publicNavItems = [
   { href: '/tracks', label: 'TRACKS', icon: MapPinIcon },
   { href: 'https://store.bmxdenver.com', label: 'MERCH', icon: ShoppingBagIcon, external: true },
   { href: '/contact?co=1', label: 'CONTACT', icon: EnvelopeIcon },
+  { href: '/share', label: 'SHARE', icon: ShareIcon },
 ];
 export default function ColoradoNavigation() {
   const pathname = usePathname();
@@ -76,6 +78,7 @@ export default function ColoradoNavigation() {
                   </a>
                 );
               }
+
               return (
                 <Link key={item.href} href={item.href} className={classes}>
                   <Icon className="w-4 h-4 shrink-0" />
