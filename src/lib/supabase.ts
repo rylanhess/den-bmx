@@ -115,6 +115,8 @@ export interface ForumThread {
   reply_count: number;
   created_at: string;
   last_post_at: string;
+  /** Direct social post permalink — populated for bot cross-post threads by list queries. */
+  fb_url?: string | null;
   author?: Profile;
   category?: ForumCategory;
 }

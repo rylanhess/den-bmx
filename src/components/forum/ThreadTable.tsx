@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { formatRelativeDate } from '@/lib/forum';
 import UserProfileLink from '@/components/profile/UserProfileLink';
 import PinnedPostIcon from '@/components/forum/PinnedPostIcon';
+import { SocialPostChip } from '@/components/forum/SocialPostLink';
 import type { ForumThread, Profile } from '@/lib/supabase';
 
 interface ThreadWithAuthor extends ForumThread {
@@ -58,12 +59,17 @@ export default function ThreadTable({
                   {thread.is_locked && (
                     <span className="text-gray-500 text-xs shrink-0">🔒</span>
                   )}
-                  <Link
-                    href={`/forum/${categorySlug}/${thread.id}`}
-                    className="font-bold text-white hover:text-[#00ff0c] transition-colors"
-                  >
-                    {thread.title}
-                  </Link>
+                  <div className="min-w-0">
+                    <Link
+                      href={`/forum/${categorySlug}/${thread.id}`}
+                      className="font-bold text-white hover:text-[#00ff0c] transition-colors"
+                    >
+                      {thread.title}
+                    </Link>
+                    {thread.fb_url && (
+                      <SocialPostChip url={thread.fb_url} className="mt-1 block text-xs" />
+                    )}
+                  </div>
                 </div>
               </td>
               <td className="text-center px-4 py-3 text-gray-400 hidden sm:table-cell">

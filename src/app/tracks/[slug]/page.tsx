@@ -7,7 +7,7 @@ import TrackScheduleEditor from '@/components/forum/TrackScheduleEditor';
 import BoardSubscribeButton from '@/components/forum/BoardSubscribeButton';
 import { FbSignalFeed } from '@/components/forum/FbSignalCard';
 import ThreadTable from '@/components/forum/ThreadTable';
-import { attachAuthors } from '@/lib/forum';
+import { attachAuthors, flattenThreadSignalUrl } from '@/lib/forum';
 import { trackBoardDisplayName } from '@/lib/userPreferences';
 import type { Track, FbPostSignal } from '@/lib/supabase';
 import ColoradoContentLayout from '@/components/ads/ColoradoContentLayout';
@@ -78,12 +78,12 @@ export default async function TrackPage({ params }: Props) {
   if (category) {
     const { data } = await supabase
       .from('forum_threads')
-      .select('*')
+      .select('*, fb_post_signals(fb_url)')
       .eq('category_id', category.id)
       .order('is_pinned', { ascending: false })
       .order('last_post_at', { ascending: false })
       .limit(10);
-    threads = (await attachAuthors(supabase, data ?? [])) as Parameters<typeof ThreadTable>[0]['threads'];
+    threads = (await attachAuthors(supabase, flattenThreadSignalUrl((data ?? []) as Parameters<typeof flattenThreadSignalUrl>[0]))) as Parameters<typeof ThreadTable>[0]['threads'];
   }
 
   return (

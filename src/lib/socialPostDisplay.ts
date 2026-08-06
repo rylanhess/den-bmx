@@ -5,8 +5,14 @@ export function shortTrackLabel(name: string): string {
   return formatTrackShortName(name);
 }
 
+export type SocialPlatform = 'facebook' | 'instagram';
+
+export function socialPlatform(url: string): SocialPlatform {
+  return url.includes('instagram.com') ? 'instagram' : 'facebook';
+}
+
 export function socialPlatformLabel(url: string): 'Facebook' | 'Instagram' {
-  return url.includes('instagram.com') ? 'Instagram' : 'Facebook';
+  return socialPlatform(url) === 'instagram' ? 'Instagram' : 'Facebook';
 }
 
 export function socialPostSentence(trackName: string, url: string): string {

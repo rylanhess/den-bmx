@@ -44,6 +44,20 @@ export async function getCategoryBySlug(slug: string) {
   return data as ForumCategory;
 }
 
+type ThreadWithSignals = ForumThread & {
+  fb_post_signals?: { fb_url: string }[] | null;
+};
+
+/** Collapse embedded fb_post_signals rows into a single direct social post URL per thread. */
+export function flattenThreadSignalUrl(
+  rows: ThreadWithSignals[],
+): (ForumThread & { fb_url: string | null })[] {
+  return rows.map(({ fb_post_signals, ...thread }) => ({
+    ...thread,
+    fb_url: fb_post_signals?.[0]?.fb_url ?? null,
+  }));
+}
+
 export async function getThreadsByCategory(categoryId: string, page = 1, perPage = 25) {
   const supabase = await createClient();
   const from = (page - 1) * perPage;
@@ -51,14 +65,14 @@ export async function getThreadsByCategory(categoryId: string, page = 1, perPage
 
   const { data, error, count } = await supabase
     .from('forum_threads')
-    .select('*', { count: 'exact' })
+    .select('*, fb_post_signals(fb_url)', { count: 'exact' })
     .eq('category_id', categoryId)
     .order('is_pinned', { ascending: false })
     .order('last_post_at', { ascending: false })
     .range(from, to);
 
   if (error) throw error;
-  const threads = await attachAuthors(supabase, data ?? []);
+  const threads = await attachAuthors(supabase, flattenThreadSignalUrl((data ?? []) as ThreadWithSignals[]));
   return { threads: threads as (ForumThread & { author?: Profile })[], count: count ?? 0 };
 }
 

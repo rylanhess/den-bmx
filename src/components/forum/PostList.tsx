@@ -1,5 +1,6 @@
 import { formatRelativeDate, renderMarkdownLite } from '@/lib/forum';
 import { socialPostSentence, shortTrackLabel } from '@/lib/socialPostDisplay';
+import { SocialPostCard } from '@/components/forum/SocialPostLink';
 import UserAvatar from '@/components/forum/UserAvatar';
 import UserProfileLink from '@/components/profile/UserProfileLink';
 import type { ForumPost, Profile } from '@/lib/supabase';
@@ -52,17 +53,10 @@ export default function PostList({ posts, boardName }: PostListProps) {
           </div>
           <div className="flex-1 min-w-0">
             {post.fb_url ? (
-              <p className="text-[#0B1C2D] text-sm leading-relaxed">
-                {socialPostSentence(boardName ?? trackLabel, post.fb_url)}{' '}
-                <a
-                  href={post.fb_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="co-text-link text-[#002868] font-bold underline hover:text-[#BF0A30]"
-                >
-                  Click here to see it.
-                </a>
-              </p>
+              <SocialPostCard
+                url={post.fb_url}
+                sentence={socialPostSentence(boardName ?? trackLabel, post.fb_url)}
+              />
             ) : post.body?.trim() ? (
               <div
                 className="text-[#0B1C2D] prose-sm leading-relaxed break-words"
