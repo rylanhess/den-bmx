@@ -5,6 +5,8 @@ export interface SendEmailInput {
   subject: string;
   text: string;
   html?: string;
+  /** When true, send text only — no HTML body (scrappy plain-text emails). */
+  plainTextOnly?: boolean;
   replyTo?: string;
 }
 
@@ -47,7 +49,7 @@ export function deliverableEmailRecipients(requested: string[]): {
   return { to: [sandbox], sandboxRedirected: true, intended };
 }
 
-export async function sendEmail({ to, subject, text, html, replyTo }: SendEmailInput) {
+export async function sendEmail({ to, subject, text, html, plainTextOnly, replyTo }: SendEmailInput) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     console.warn('[email] RESEND_API_KEY not set — skipping send:', subject);
@@ -74,7 +76,9 @@ export async function sendEmail({ to, subject, text, html, replyTo }: SendEmailI
     to: deliverTo,
     subject: sandboxRedirected ? `[For ${intended.join(', ')}] ${subject}` : subject,
     text: body,
-    html: htmlBody ?? body.replace(/\n/g, '<br>'),
+  ...(plainTextOnly
+    ? {}
+    : { html: htmlBody ?? body.replace(/\n/g, '<br>') }),
     replyTo,
   });
 

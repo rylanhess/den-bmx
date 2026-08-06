@@ -7,7 +7,8 @@ export function isColoradoPath(pathname: string): boolean {
     pathname.startsWith('/account') ||
     pathname.startsWith('/users') ||
     pathname === '/login' ||
-    pathname === '/signup'
+    pathname === '/signup' ||
+    pathname === '/share'
   );
 }
 

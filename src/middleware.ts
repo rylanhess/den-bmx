@@ -66,6 +66,7 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith('/users') ||
     pathname.startsWith('/login') ||
     pathname.startsWith('/signup') ||
+    pathname.startsWith('/share') ||
     pathname.startsWith('/denver-bmx-races') ||
     pathname.startsWith('/bmx-tracks-denver') ||
     pathname.startsWith('/contact') ||
