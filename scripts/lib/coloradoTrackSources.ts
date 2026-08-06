@@ -3,7 +3,7 @@
  */
 
 import { COLORADO_BMX_TRACK_SLUGS } from '../../src/lib/coloradoTracks';
-import { supabase } from '../config';
+import { TRACK_MAPPINGS, supabase } from '../config';
 
 export type SocialPlatform = 'facebook' | 'instagram';
 
@@ -13,6 +13,20 @@ export interface TrackSocialSource {
   name: string;
   fbPageUrl: string | null;
   instagramUrl: string | null;
+}
+
+function loadFallbackTrackSources(): TrackSocialSource[] {
+  return [...COLORADO_BMX_TRACK_SLUGS]
+    .map((slug) => TRACK_MAPPINGS[slug])
+    .filter((m): m is (typeof TRACK_MAPPINGS)[string] => Boolean(m))
+    .map((m) => ({
+      id: m.id,
+      slug: m.slug,
+      name: m.name,
+      fbPageUrl: m.facebookUrl,
+      instagramUrl: null,
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
 }
 
 export function urlNeedleFromSocialUrl(url: string): string {
@@ -26,11 +40,25 @@ export function urlNeedleFromSocialUrl(url: string): string {
 }
 
 export async function loadColoradoTrackSources(): Promise<TrackSocialSource[]> {
-  const { data, error } = await supabase
-    .from('tracks')
-    .select('id, slug, name, fb_page_url, instagram_url')
-    .in('slug', [...COLORADO_BMX_TRACK_SLUGS])
-    .order('name');
+  let data: { id: string; slug: string; name: string; fb_page_url: string | null; instagram_url: string | null }[] | null = null;
+  let error: { message: string } | null = null;
+
+  try {
+    const res = await supabase
+      .from('tracks')
+      .select('id, slug, name, fb_page_url, instagram_url')
+      .in('slug', [...COLORADO_BMX_TRACK_SLUGS])
+      .order('name');
+    data = res.data;
+    error = res.error;
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    if (/Missing SUPABASE_URL|Missing SUPABASE_SERVICE_ROLE_KEY/.test(msg)) {
+      console.warn('Supabase env not set — falling back to TRACK_MAPPINGS from scripts/config.ts');
+      return loadFallbackTrackSources();
+    }
+    throw err;
+  }
 
   if (error) {
     throw new Error(`Failed to load Colorado tracks: ${error.message}`);
