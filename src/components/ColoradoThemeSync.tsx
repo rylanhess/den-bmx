@@ -1,23 +1,16 @@
 'use client';
 
 import { useEffect } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { isColoradoExperience } from '@/lib/coloradoTheme';
 
 const THEME_CLASS = 'theme-colorado-day';
 
-/** Keeps Colorado Day on <body> in sync for local path-based Colorado routes. */
+/** Keeps Colorado Day on <body> after client navigations. */
 export default function ColoradoThemeSync() {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
   useEffect(() => {
-    const host = typeof window !== 'undefined' ? window.location.host : '';
-    const on = isColoradoExperience(host, pathname, searchParams);
-    document.body.classList.toggle(THEME_CLASS, on);
+    document.body.classList.add(THEME_CLASS);
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', on ? '#002868' : '#00ff0c');
-  }, [pathname, searchParams]);
+    if (meta) meta.setAttribute('content', '#002868');
+  }, []);
 
   return null;
 }

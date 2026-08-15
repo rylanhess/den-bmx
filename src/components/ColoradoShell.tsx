@@ -33,7 +33,7 @@ export default function ColoradoShell() {
           <div>
             <h3 className="font-black text-[#002868] mb-2">Contact</h3>
             <ul className="space-y-1 text-[#4A5568]">
-              <li><Link href="/contact?co=1" className="hover:text-[#BF0A30]">Contact Us</Link></li>
+              <li><Link href="/contact" className="hover:text-[#BF0A30]">Contact Us</Link></li>
               <li>
                 <a href={`mailto:${COLORADO_CONTACT_EMAIL}`} className="hover:text-[#BF0A30]">
                   {COLORADO_CONTACT_EMAIL}

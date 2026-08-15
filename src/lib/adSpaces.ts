@@ -39,8 +39,8 @@ export type AdSlotConfig = {
   carousel?: CommunitySlide[];
 };
 
-/** Contact page for ad inquiries — works on Colorado host and local preview. */
-export const AD_CONTACT_PATH = '/contact?co=1';
+/** Contact page for ad inquiries. */
+export const AD_CONTACT_PATH = '/contact';
 
 /** Global ad cycle: one random slot advances every 7–9 seconds. */
 export const AD_CYCLE_MIN_MS = 7000;

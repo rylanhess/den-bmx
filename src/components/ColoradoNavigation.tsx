@@ -19,7 +19,7 @@ const publicNavItems = [
   { href: '/forum', label: 'FORUM', icon: ChatBubbleLeftRightIcon },
   { href: '/tracks', label: 'TRACKS', icon: MapPinIcon },
   { href: 'https://store.bmxdenver.com', label: 'MERCH', icon: ShoppingBagIcon, external: true },
-  { href: '/contact?co=1', label: 'CONTACT', icon: EnvelopeIcon },
+  { href: '/contact', label: 'CONTACT', icon: EnvelopeIcon },
   { href: '/share', label: 'SHARE', icon: ShareIcon },
 ];
 export default function ColoradoNavigation() {

@@ -1,4 +1,4 @@
-// Service Worker for DEN BMX PWA
+// Service Worker for BMX Colorado PWA
 // Cache name will be set dynamically based on version file
 let CACHE_NAME = 'den-bmx-v1';
 let CURRENT_VERSION = null;
@@ -35,12 +35,10 @@ async function initializeVersion() {
 }
 
 const urlsToCache = [
-  '/',
   '/forum',
   '/tracks',
   '/contact',
-  '/new-rider',
-  '/logos/DEN_BMX_FINAL_Green.png',
+  '/logos/cbmx_tab_icon-192.png',
   '/manifest.json',
 ];
 

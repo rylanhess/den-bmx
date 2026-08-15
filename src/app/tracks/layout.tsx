@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Tracks",
   description:
-    "Discover Mile High, County Line, and Dacono BMX tracks in the Denver metro area. Find track information, schedules, and links to stay connected.",
+    "Colorado BMX race tracks. Find track information, schedules, and community message boards.",
 };
 
 export default function TracksLayout({
@@ -13,4 +13,3 @@ export default function TracksLayout({
 }) {
   return <>{children}</>;
 }
-
