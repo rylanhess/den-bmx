@@ -7,6 +7,11 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+export const metadata = {
+  title: 'Claim This Track',
+  robots: { index: false, follow: false },
+};
+
 export default async function ClaimPage({ params }: Props) {
   const { slug } = await params;
   const supabase = await createClient();

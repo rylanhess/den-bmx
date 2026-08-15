@@ -63,9 +63,20 @@ export async function getThreadsByCategory(categoryId: string, page = 1, perPage
   const from = (page - 1) * perPage;
   const to = from + perPage - 1;
 
-  const { data, error, count } = await supabase
+  // PostgREST errors (PGRST103) when the range start exceeds the row count,
+  // so count first and short-circuit out-of-range pages instead of throwing.
+  const { count, error: countError } = await supabase
     .from('forum_threads')
-    .select('*, fb_post_signals(fb_url)', { count: 'exact' })
+    .select('*', { count: 'exact', head: true })
+    .eq('category_id', categoryId);
+
+  if (countError) throw countError;
+  const total = count ?? 0;
+  if (from >= total) return { threads: [], count: total };
+
+  const { data, error } = await supabase
+    .from('forum_threads')
+    .select('*, fb_post_signals(fb_url)')
     .eq('category_id', categoryId)
     .order('is_pinned', { ascending: false })
     .order('last_post_at', { ascending: false })

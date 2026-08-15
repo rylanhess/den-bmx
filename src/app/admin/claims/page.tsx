@@ -4,7 +4,10 @@ import { createClient } from '@/lib/supabase/server';
 import ClaimsQueue from '@/components/admin/ClaimsQueue';
 import BreadcrumbNav from '@/components/forum/BreadcrumbNav';
 
-export const metadata = { title: 'Track Claims — Admin' };
+export const metadata = {
+  title: 'Track Claims — Admin',
+  robots: { index: false, follow: false },
+};
 
 export default async function AdminClaimsPage() {
   const admin = await requireAdmin();

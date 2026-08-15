@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { getCurrentUser } from '@/lib/auth';
 import TrackHeader from '@/components/forum/TrackHeader';
@@ -7,8 +8,12 @@ import TrackScheduleEditor from '@/components/forum/TrackScheduleEditor';
 import BoardSubscribeButton from '@/components/forum/BoardSubscribeButton';
 import { FbSignalFeed } from '@/components/forum/FbSignalCard';
 import ThreadTable from '@/components/forum/ThreadTable';
+import JsonLd from '@/components/JsonLd';
 import { attachAuthors, flattenThreadSignalUrl } from '@/lib/forum';
 import { trackBoardDisplayName } from '@/lib/userPreferences';
+import { formatTrackLocation } from '@/lib/trackDisplay';
+import { trackJsonLd } from '@/lib/structuredData';
+import { coloradoOgImage } from '@/lib/siteMetadata';
 import type { Track, FbPostSignal } from '@/lib/supabase';
 import ColoradoContentLayout from '@/components/ads/ColoradoContentLayout';
 
@@ -16,11 +21,32 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const supabase = await createClient();
-  const { data: track } = await supabase.from('tracks').select('name').eq('slug', slug).single();
-  return { title: track?.name ?? 'Track' };
+  const { data: track } = await supabase
+    .from('tracks')
+    .select('name, city, description')
+    .eq('slug', slug)
+    .single();
+  if (!track) return { title: 'Track' };
+  const location = formatTrackLocation(track.city, 'Colorado');
+  const description =
+    track.description ??
+    `${track.name} in ${location} — schedule, track news, and the rider message board on BMX Colorado.`;
+  return {
+    title: track.name,
+    description,
+    openGraph: {
+      title: `${track.name} - BMX Colorado`,
+      description,
+      url: `/tracks/${slug}`,
+      siteName: 'BMX Colorado',
+      locale: 'en_US',
+      type: 'website',
+      images: coloradoOgImage(`${track.name} on BMX Colorado`),
+    },
+  };
 }
 
 export default async function TrackPage({ params }: Props) {
@@ -88,6 +114,7 @@ export default async function TrackPage({ params }: Props) {
 
   return (
     <ColoradoContentLayout className="py-8">
+      <JsonLd data={trackJsonLd(typedTrack)} />
       <TrackHeader track={typedTrack} moderatorName={moderatorName} />
       {category && (
         <div className="mb-4">

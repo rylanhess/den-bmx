@@ -7,6 +7,7 @@ import BreadcrumbNav from '@/components/forum/BreadcrumbNav';
 import MarkBoardSeen from '@/components/forum/MarkBoardSeen';
 import BoardSubscribeButton from '@/components/forum/BoardSubscribeButton';
 import { trackBoardDisplayName } from '@/lib/userPreferences';
+import { coloradoOgImage } from '@/lib/siteMetadata';
 import ColoradoContentLayout from '@/components/ads/ColoradoContentLayout';
 
 interface Props {
@@ -14,10 +15,31 @@ interface Props {
   searchParams: Promise<{ page?: string }>;
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params, searchParams }: Props) {
   const { categorySlug } = await params;
+  const { page: pageStr } = await searchParams;
+  const page = Math.max(1, parseInt(pageStr ?? '1', 10));
   const category = await getCategoryBySlug(categorySlug);
-  return { title: category?.name ?? 'Forum' };
+  if (!category) return { title: 'Forum' };
+  const boardName = trackBoardDisplayName(category.name);
+  const title = page > 1 ? `${boardName} — Page ${page}` : boardName;
+  return {
+    title,
+    description:
+      category.description ??
+      `${boardName} on BMX Colorado — Colorado's BMX community message board.`,
+    openGraph: {
+      title: `${title} - BMX Colorado`,
+      description:
+        category.description ??
+        `${boardName} on BMX Colorado — Colorado's BMX community message board.`,
+      url: `/forum/${categorySlug}`,
+      siteName: 'BMX Colorado',
+      locale: 'en_US',
+      type: 'website',
+      images: coloradoOgImage(`${boardName} on BMX Colorado`),
+    },
+  };
 }
 
 export default async function CategoryPage({ params, searchParams }: Props) {

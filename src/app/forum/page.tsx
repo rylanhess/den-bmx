@@ -6,6 +6,8 @@ import ColoradoContentLayout from '@/components/ads/ColoradoContentLayout';
 
 export const metadata = {
   title: 'Message Board',
+  description:
+    "Colorado's BMX message board — race results, track conditions, moto sheets, and ride plans from riders and tracks across the state.",
 };
 
 export default async function ForumPage() {

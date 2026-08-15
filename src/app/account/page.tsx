@@ -5,7 +5,10 @@ import { COLORADO_BMX_TRACK_SLUGS } from '@/lib/coloradoTracks';
 import AccountForm from '@/components/account/AccountForm';
 import type { Profile, Track } from '@/lib/supabase';
 
-export const metadata = { title: 'Account' };
+export const metadata = {
+  title: 'Account',
+  robots: { index: false, follow: false },
+};
 
 export default async function AccountPage() {
   const result = await getCurrentUser();

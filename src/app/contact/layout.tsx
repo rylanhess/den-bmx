@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact — BMX Colorado",
+  title: "Contact",
   description:
     "Contact BMX Colorado about the statewide forum, track boards, or community questions.",
 };

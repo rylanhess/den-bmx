@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/admin/', '/api/'],
+      disallow: ['/admin/', '/api/', '/account', '/auth/'],
     },
     sitemap: `${COLORADO_CANONICAL_ORIGIN}/sitemap.xml`,
     host: COLORADO_CANONICAL_ORIGIN.replace(/^https?:\/\//, ''),

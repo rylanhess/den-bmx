@@ -7,7 +7,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const { id } = await params;
   const profile = await getProfileById(id);
   if (!profile) return { title: 'Rider Not Found' };
-  return { title: `${profile.display_name} — BMX Colorado` };
+  return {
+    title: profile.display_name,
+    description: `${profile.display_name}'s rider profile on BMX Colorado — Colorado's BMX community message board.`,
+  };
 }
 
 export default async function UserProfilePage({ params }: { params: Promise<{ id: string }> }) {

@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import { getCategoryBySlug, getThread, getPostsByThread } from '@/lib/forum';
 import { getCurrentUser } from '@/lib/auth';
 import { canPinForumPost } from '@/lib/forumPermissions';
@@ -8,17 +9,55 @@ import ReplyForm from '@/components/forum/ReplyForm';
 import BreadcrumbNav from '@/components/forum/BreadcrumbNav';
 import PinPostButton from '@/components/forum/PinPostButton';
 import PinnedPostIcon from '@/components/forum/PinnedPostIcon';
+import JsonLd from '@/components/JsonLd';
 import { trackBoardDisplayName } from '@/lib/userPreferences';
+import { discussionThreadJsonLd } from '@/lib/structuredData';
+import { coloradoOgImage } from '@/lib/siteMetadata';
 import ColoradoContentLayout from '@/components/ads/ColoradoContentLayout';
 
 interface Props {
   params: Promise<{ categorySlug: string; threadId: string }>;
 }
 
-export async function generateMetadata({ params }: Props) {
-  const { threadId } = await params;
+function excerpt(body: string | null | undefined, max = 160): string | null {
+  const clean = body?.replace(/\s+/g, ' ').trim();
+  if (!clean) return null;
+  return clean.length > max ? `${clean.slice(0, max - 1).trimEnd()}…` : clean;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { categorySlug, threadId } = await params;
   const thread = await getThread(threadId);
-  return { title: thread?.title ?? 'Thread' };
+  if (!thread) return { title: 'Thread' };
+
+  const supabase = await createClient();
+  const { data: firstPost } = await supabase
+    .from('forum_posts')
+    .select('body')
+    .eq('thread_id', threadId)
+    .order('created_at', { ascending: true })
+    .limit(1)
+    .maybeSingle();
+
+  const boardName = thread.category ? trackBoardDisplayName(thread.category.name) : 'Forum';
+  const description =
+    excerpt(firstPost?.body) ?? `${thread.title} — discussion in ${boardName} on BMX Colorado.`;
+
+  return {
+    title: thread.title,
+    description,
+    openGraph: {
+      title: `${thread.title} - BMX Colorado`,
+      description,
+      url: `/forum/${categorySlug}/${threadId}`,
+      siteName: 'BMX Colorado',
+      locale: 'en_US',
+      type: 'article',
+      publishedTime: thread.created_at,
+      modifiedTime: thread.last_post_at,
+      images: coloradoOgImage(thread.title),
+    },
+  };
 }
 
 export default async function ThreadPage({ params }: Props) {
@@ -50,6 +89,19 @@ export default async function ThreadPage({ params }: Props) {
 
   return (
     <ColoradoContentLayout className="py-8">
+      <JsonLd
+        data={discussionThreadJsonLd({
+          threadId,
+          categorySlug,
+          title: thread.title,
+          boardName: trackBoardDisplayName(category.name),
+          createdAt: thread.created_at,
+          lastPostAt: thread.last_post_at,
+          replyCount: thread.reply_count,
+          authorName: posts[0]?.author?.display_name ?? thread.author?.display_name,
+          text: excerpt(posts[0]?.body, 500),
+        })}
+      />
       <BreadcrumbNav
         items={[
           { label: 'Forum', href: '/forum' },

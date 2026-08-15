@@ -8,7 +8,9 @@ import ColoradoShell from "@/components/ColoradoShell";
 import ColoradoAdBanner from "@/components/ads/ColoradoAdBanner";
 import ColoradoAdCycleShell from "@/components/ads/ColoradoAdCycleShell";
 import ColoradoThemeSync from "@/components/ColoradoThemeSync";
+import JsonLd from "@/components/JsonLd";
 import { siteMetadata } from "@/lib/siteMetadata";
+import { organizationJsonLd, webSiteJsonLd } from "@/lib/structuredData";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,6 +29,7 @@ export const viewport: Viewport = {
   maximumScale: 5,
   userScalable: true,
   viewportFit: 'cover',
+  themeColor: '#002868',
 };
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -48,7 +51,6 @@ export default async function RootLayout({
         <link rel="icon" href={favicon} sizes="32x32" type="image/png" />
         <link rel="shortcut icon" href={favicon} type="image/png" />
         <link rel="apple-touch-icon" href={appleIcon} />
-        <meta name="theme-color" content="#002868" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased theme-colorado-day`}
@@ -56,6 +58,7 @@ export default async function RootLayout({
         <Suspense fallback={null}>
           <ColoradoThemeSync />
         </Suspense>
+        <JsonLd data={[organizationJsonLd(), webSiteJsonLd()]} />
         <ColoradoAdCycleShell enabled>
         <div className="flex flex-col min-h-screen">
           <Suspense fallback={null}>

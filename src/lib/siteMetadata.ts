@@ -5,11 +5,19 @@ const COLORADO_TAB_ICON = '/logos/cbmx_tab_icon-32.png?v=20260802';
 const COLORADO_APPLE_ICON = '/logos/cbmx_tab_icon-192.png?v=20260802';
 
 const COLORADO_OG_IMAGE = {
-  url: '/logos/cbmx_og_talkbmx.png?v=20260802',
-  width: 784,
-  height: 472,
+  url: '/logos/cbmx_og_talkbmx_1200.png?v=20260815',
+  width: 1200,
+  height: 630,
   alt: 'Talk BMX at BMX Colorado',
 } as const;
+
+/**
+ * Page-level OpenGraph image entry. Pages that override `openGraph` must
+ * re-declare images — Next.js replaces the whole openGraph object otherwise.
+ */
+export function coloradoOgImage(alt?: string) {
+  return [{ ...COLORADO_OG_IMAGE, ...(alt ? { alt } : {}) }];
+}
 
 const coloradoMetadata: Metadata = {
   title: {
@@ -23,7 +31,6 @@ const coloradoMetadata: Metadata = {
     canonical: './',
   },
   manifest: '/manifest.json',
-  themeColor: '#002868',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',

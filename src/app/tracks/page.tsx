@@ -8,10 +8,16 @@ import { coChipLink } from '@/lib/coloradoUi';
 import { formatTrackLocation, formatTrackShortName } from '@/lib/trackDisplay';
 import ColoradoContentLayout from '@/components/ads/ColoradoContentLayout';
 import ColoradoMobileAd from '@/components/ads/ColoradoMobileAd';
+import JsonLd from '@/components/JsonLd';
+import { trackListJsonLd } from '@/lib/structuredData';
 import { mobileMidroll1 } from '@/lib/adSpaces';
 import type { Track } from '@/lib/supabase';
 
-export const metadata = { title: 'Colorado BMX Tracks' };
+export const metadata = {
+  title: 'Colorado BMX Tracks',
+  description:
+    'Every BMX race track in Colorado — Mile High, Dacono, County Line, Twin Silo, Durango, and more. Schedules, directions, and each track’s message board.',
+};
 
 export default async function TracksIndexPage() {
   const supabase = await createClient();
@@ -33,6 +39,11 @@ export default async function TracksIndexPage() {
 
   return (
     <ColoradoContentLayout className="py-8">
+      <JsonLd
+        data={trackListJsonLd(
+          (tracks as Track[] ?? []).map((t) => ({ name: t.name, slug: t.slug }))
+        )}
+      />
       <h1 className="text-3xl font-black text-[#00ff0c] mb-2">COLORADO BMX TRACKS</h1>
       <p className="text-gray-400 text-sm mb-8">
         Race tracks across Colorado — each with its own page and discussion board
