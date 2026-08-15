@@ -24,8 +24,20 @@
       "permanent": true
     },
     {
+      "source": "/",
+      "has": [{ "type": "host", "value": "bmxdenver.com" }],
+      "destination": "https://www.bmxcolorado.com/forum",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "bmxdenver.com" }],
+      "destination": "https://www.bmxcolorado.com/forum",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "www.bmxdenver.com" }],
       "destination": "https://www.bmxcolorado.com/forum",
       "permanent": true
     },
@@ -36,8 +48,20 @@
       "permanent": true
     },
     {
+      "source": "/",
+      "has": [{ "type": "host", "value": "denverbmx.com" }],
+      "destination": "https://www.bmxcolorado.com/forum",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "denverbmx.com" }],
+      "destination": "https://www.bmxcolorado.com/forum",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "www.denverbmx.com" }],
       "destination": "https://www.bmxcolorado.com/forum",
       "permanent": true
     },

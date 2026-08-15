@@ -3,10 +3,15 @@ import type { NextRequest } from 'next/server';
 import { updateSession } from '@/lib/supabase/middleware';
 
 const AUTH_REQUIRED_PREFIXES = ['/account', '/admin'];
+const DENVER_HOSTS = ['bmxdenver.com', 'denverbmx.com'];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const host = request.headers.get('host') ?? '';
+
+  if (DENVER_HOSTS.some((h) => host.includes(h))) {
+    return NextResponse.redirect('https://www.bmxcolorado.com/forum', 301);
+  }
 
   if (host.includes('coloradobmx.com')) {
     const url = request.nextUrl.clone();
@@ -15,7 +20,7 @@ export async function middleware(request: NextRequest) {
   }
 
   if (pathname === '/') {
-    return NextResponse.redirect(new URL('/forum', request.url));
+    return NextResponse.redirect(new URL('/forum', request.url), 301);
   }
 
   const { supabaseResponse, user } = await updateSession(request);
