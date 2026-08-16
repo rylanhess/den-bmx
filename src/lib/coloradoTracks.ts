@@ -10,5 +10,4 @@ export const COLORADO_BMX_TRACK_SLUGS = [
   'cortez-bmx',
   'cross-creek-bmx',
   'higher-ground-bmx',
-  'rylans-backyard',
 ] as const;

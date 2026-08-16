@@ -6,7 +6,12 @@ import ForumWelcomeModal from '@/components/forum/ForumWelcomeModal';
 import TrackBoardGrid from '@/components/forum/TrackBoardGrid';
 import RecentPostsSection from '@/components/forum/RecentPostsSection';
 import EmailVerificationPrompt from '@/components/auth/EmailVerificationPrompt';
-import { FORUM_TAGLINE, parsePreferences, type UserPreferences } from '@/lib/userPreferences';
+import {
+  FORUM_HEADLINE,
+  FORUM_SUBHEAD,
+  parsePreferences,
+  type UserPreferences,
+} from '@/lib/userPreferences';
 import type { CategoryStat } from '@/components/forum/CategoryTable';
 import type { RecentForumPost } from '@/lib/supabase';
 import { coChipLink, coPrimaryChip } from '@/lib/coloradoUi';
@@ -55,9 +60,12 @@ export default function ForumHomeClient({
         </div>
       )}
 
-      <h1 className="text-2xl sm:text-3xl font-black text-[#00ff0c] leading-tight mb-4">
-        {FORUM_TAGLINE}
+      <h1 className="text-2xl sm:text-3xl font-black text-[#00ff0c] leading-tight">
+        {FORUM_HEADLINE}
       </h1>
+      <p className="text-sm sm:text-base text-[#0B1C2D]/70 mt-1 mb-4 leading-snug">
+        {FORUM_SUBHEAD}
+      </p>
 
       <RecentPostsSection posts={recentPosts} />
 

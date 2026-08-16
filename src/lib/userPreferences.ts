@@ -1,4 +1,7 @@
 export const FORUM_TAGLINE = 'Where Colorado talks BMX!';
+export const FORUM_HEADLINE = 'All your tracks in one place!';
+export const FORUM_SUBHEAD =
+  'Facebook posts and updates from every Colorado BMX track. Where Colorado talks BMX!';
 
 export const WELCOME_SEEN_KEY = 'bmx_colorado_welcome_seen';
 export const GUEST_PREFS_KEY = 'bmx_colorado_preferences';
