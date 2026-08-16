@@ -20,7 +20,11 @@ export interface Track {
   lon: number | null;
   logo: string | null;
   wallpaper: string | null;
-  image: string | null;
+  website: string | null;
+  phone: string | null;
+  operator_name: string | null;
+  address: string | null;
+  aerial_image: string | null;
   description: string | null;
   claimed_by: string | null;
   open_hours: string | null;

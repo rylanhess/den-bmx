@@ -228,9 +228,9 @@ export async function getCategoryPostCount(categoryId: string) {
   return count ?? 0;
 }
 
-export async function getRecentForumPosts(limit = 4): Promise<RecentForumPost[]> {
+export async function getRecentForumPosts(limit = 4, authorId?: string): Promise<RecentForumPost[]> {
   const supabase = await createClient();
-  const { data: posts, error } = await supabase
+  let query = supabase
     .from('forum_posts')
     .select(
       `
@@ -251,7 +251,13 @@ export async function getRecentForumPosts(limit = 4): Promise<RecentForumPost[]>
     `
     )
     .order('created_at', { ascending: false })
-    .limit(20);
+    .limit(authorId ? limit * 2 : 20);
+
+  if (authorId) {
+    query = query.eq('author_id', authorId);
+  }
+
+  const { data: posts, error } = await query;
 
   if (error || !posts?.length) return [];
 

@@ -32,6 +32,18 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: '**.supabase.co',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.usabmx.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'admin.usabmx.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.mapbox.com',
+      },
     ],
   },
   // Add headers for cache control

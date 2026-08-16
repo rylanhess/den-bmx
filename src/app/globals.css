@@ -166,3 +166,22 @@ textarea {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;  /* Chrome, Safari and Opera */
 }
+
+/* Mapbox satellite preview on track profiles */
+.track-satellite-map {
+  position: relative;
+}
+
+.track-satellite-map .mapboxgl-ctrl-attrib {
+  font-size: 10px;
+  background: rgba(11, 28, 45, 0.55) !important;
+  color: #fff !important;
+}
+
+.track-satellite-map .mapboxgl-ctrl-attrib a {
+  color: #fff !important;
+}
+
+.track-satellite-map .mapboxgl-ctrl-logo {
+  margin: 0 8px 4px 0;
+}

@@ -59,9 +59,11 @@ export function breadcrumbJsonLd(items: BreadcrumbJsonLdItem[]) {
 }
 
 export function trackJsonLd(track: Track) {
-  const sameAs = [track.fb_page_url, track.instagram_url, track.usabmx_url].filter(
+  const sameAs = [track.fb_page_url, track.instagram_url, track.usabmx_url, track.website].filter(
     (u): u is string => !!u
   );
+  const uniqueSameAs = [...new Set(sameAs)];
+  const street = track.address?.split(',')[0]?.trim();
   return {
     '@context': 'https://schema.org',
     '@type': 'SportsActivityLocation',
@@ -71,10 +73,12 @@ export function trackJsonLd(track: Track) {
     ...(track.description ? { description: track.description } : {}),
     address: {
       '@type': 'PostalAddress',
+      ...(street ? { streetAddress: street } : {}),
       addressLocality: formatTrackLocation(track.city).replace(/, CO$/, ''),
       addressRegion: 'CO',
       addressCountry: 'US',
     },
+    ...(track.phone ? { telephone: track.phone } : {}),
     ...(track.lat && track.lon
       ? {
           geo: {
@@ -84,7 +88,7 @@ export function trackJsonLd(track: Track) {
           },
         }
       : {}),
-    ...(sameAs.length > 0 ? { sameAs } : {}),
+    ...(uniqueSameAs.length > 0 ? { sameAs: uniqueSameAs } : {}),
     isPartOf: { '@id': `${COLORADO_CANONICAL_ORIGIN}/#website` },
   };
 }

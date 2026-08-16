@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { getCurrentUser } from '@/lib/auth';
 import TrackHeader from '@/components/forum/TrackHeader';
-import TrackScheduleEditor from '@/components/forum/TrackScheduleEditor';
+import TrackProfileEditor from '@/components/forum/TrackProfileEditor';
 import BoardSubscribeButton from '@/components/forum/BoardSubscribeButton';
 import { FbSignalFeed } from '@/components/forum/FbSignalCard';
 import ThreadTable from '@/components/forum/ThreadTable';
@@ -124,7 +124,7 @@ export default async function TrackPage({ params }: Props) {
           />
         </div>
       )}
-      <TrackScheduleEditor track={typedTrack} canEdit={canEditTrack} />
+      <TrackProfileEditor track={typedTrack} canEdit={canEditTrack} />
 
       <div className="grid gap-8 lg:grid-cols-2 mb-8">
         <FbSignalFeed signals={(signals as FbPostSignal[]) ?? []} />

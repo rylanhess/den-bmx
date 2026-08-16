@@ -27,11 +27,26 @@ export async function PATCH(
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
-  const { open_hours, schedule, description } = await request.json();
+  const body = await request.json();
+  const allowed = [
+    'open_hours',
+    'schedule',
+    'description',
+    'website',
+    'phone',
+    'operator_name',
+    'address',
+    'aerial_image',
+  ] as const;
   const updates: Record<string, string | null> = {};
-  if (open_hours !== undefined) updates.open_hours = open_hours;
-  if (schedule !== undefined) updates.schedule = schedule;
-  if (description !== undefined && (isAdmin || mod)) updates.description = description;
+  for (const key of allowed) {
+    if (body[key] !== undefined) {
+      updates[key] = typeof body[key] === 'string' ? body[key].trim() || null : body[key];
+    }
+  }
+  if (Object.keys(updates).length === 0) {
+    return NextResponse.json({ error: 'No updates provided' }, { status: 400 });
+  }
 
   const { data, error } = await supabase
     .from('tracks')
