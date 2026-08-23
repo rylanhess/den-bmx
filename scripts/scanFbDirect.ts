@@ -239,7 +239,7 @@ async function postToVercel(payload: ScrapeOutput): Promise<boolean> {
     console.log('\nCRON_SECRET not set — skipping Vercel ingest POST (JSON written locally)');
     return false;
   }
-  const site = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.bmxcolorado.com').replace(/\/$/, '');
+  const site = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.cobmx.com').replace(/\/$/, '');
   const endpoint = `${site}/api/cron/social-ingest`;
   console.log(`\nPOST latest-social-metadata.json → ${endpoint}`);
 

@@ -16,7 +16,7 @@ if [[ -f "$REPO_ROOT/.env.local" ]]; then
 fi
 
 JSON_FILE="${1:-$REPO_ROOT/scripts/output/latest-social-metadata.json}"
-SITE_URL="${NEXT_PUBLIC_SITE_URL:-https://www.bmxcolorado.com}"
+SITE_URL="${NEXT_PUBLIC_SITE_URL:-https://www.cobmx.com}"
 SITE_URL="${SITE_URL%/}"
 
 if [[ ! -f "$JSON_FILE" ]]; then

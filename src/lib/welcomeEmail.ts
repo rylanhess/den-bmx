@@ -3,7 +3,7 @@ import { sendEmail } from '@/lib/email';
 import { tryCreateAdminClient } from '@/lib/supabase/admin';
 import { COLORADO_CANONICAL_ORIGIN } from '@/lib/canonicalSite';
 
-const SITE_LINK = 'https://bmxcolorado.com';
+const SITE_LINK = 'https://cobmx.com';
 const SHARE_PATH = '/share';
 
 export function sharePageUrl(): string {

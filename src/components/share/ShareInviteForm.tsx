@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useForumAuth } from '@/hooks/useForumAuth';
 import { coPrimaryChip, coSecondaryButton } from '@/lib/coloradoUi';
 
-const COPY_LINK = 'https://bmxcolorado.com';
+const COPY_LINK = 'https://cobmx.com';
 
 export default function ShareInviteForm() {
   const { loading: authLoading, isLoggedIn } = useForumAuth();

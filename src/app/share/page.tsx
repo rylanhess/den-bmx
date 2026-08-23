@@ -4,7 +4,7 @@ import { coChipLink } from '@/lib/coloradoUi';
 
 export const metadata = {
   title: 'Share BMX Colorado',
-  description: 'Invite BMX friends and family to bmxcolorado.com',
+  description: 'Invite BMX friends and family to cobmx.com',
 };
 
 export default function SharePage() {

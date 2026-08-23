@@ -7,68 +7,80 @@
   "redirects": [
     {
       "source": "/:path*",
+      "has": [{ "type": "host", "value": "cobmx.com" }],
+      "destination": "https://www.cobmx.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
       "has": [{ "type": "host", "value": "bmxcolorado.com" }],
-      "destination": "https://www.bmxcolorado.com/:path*",
+      "destination": "https://www.cobmx.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.bmxcolorado.com" }],
+      "destination": "https://www.cobmx.com/:path*",
       "permanent": true
     },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "coloradobmx.com" }],
-      "destination": "https://www.bmxcolorado.com/:path*",
+      "destination": "https://www.cobmx.com/:path*",
       "permanent": true
     },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.coloradobmx.com" }],
-      "destination": "https://www.bmxcolorado.com/:path*",
+      "destination": "https://www.cobmx.com/:path*",
       "permanent": true
     },
     {
       "source": "/",
       "has": [{ "type": "host", "value": "bmxdenver.com" }],
-      "destination": "https://www.bmxcolorado.com/forum",
+      "destination": "https://www.cobmx.com/forum",
       "permanent": true
     },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "bmxdenver.com" }],
-      "destination": "https://www.bmxcolorado.com/forum",
+      "destination": "https://www.cobmx.com/forum",
       "permanent": true
     },
     {
       "source": "/",
       "has": [{ "type": "host", "value": "www.bmxdenver.com" }],
-      "destination": "https://www.bmxcolorado.com/forum",
+      "destination": "https://www.cobmx.com/forum",
       "permanent": true
     },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.bmxdenver.com" }],
-      "destination": "https://www.bmxcolorado.com/forum",
+      "destination": "https://www.cobmx.com/forum",
       "permanent": true
     },
     {
       "source": "/",
       "has": [{ "type": "host", "value": "denverbmx.com" }],
-      "destination": "https://www.bmxcolorado.com/forum",
+      "destination": "https://www.cobmx.com/forum",
       "permanent": true
     },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "denverbmx.com" }],
-      "destination": "https://www.bmxcolorado.com/forum",
+      "destination": "https://www.cobmx.com/forum",
       "permanent": true
     },
     {
       "source": "/",
       "has": [{ "type": "host", "value": "www.denverbmx.com" }],
-      "destination": "https://www.bmxcolorado.com/forum",
+      "destination": "https://www.cobmx.com/forum",
       "permanent": true
     },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.denverbmx.com" }],
-      "destination": "https://www.bmxcolorado.com/forum",
+      "destination": "https://www.cobmx.com/forum",
       "permanent": true
     }
   ]

@@ -1,7 +1,7 @@
 import { sendEmail } from '@/lib/email';
 import { COLORADO_CANONICAL_ORIGIN } from '@/lib/canonicalSite';
 
-const SITE_LINK = 'https://bmxcolorado.com';
+const SITE_LINK = 'https://cobmx.com';
 const FORUM_URL = `${COLORADO_CANONICAL_ORIGIN}/forum`;
 const SIGNUP_URL = `${COLORADO_CANONICAL_ORIGIN}/signup`;
 
@@ -15,7 +15,7 @@ export function buildShareInviteEmail(sharerName?: string | null) {
     '',
     `${who} shared BMX Colorado with you!`,
     '',
-    'bmxcolorado was shared with you — Colorado\'s community message board for BMX riders.',
+    'cobmx.com was shared with you — Colorado\'s community message board for BMX riders.',
     '',
     `Check it out: ${FORUM_URL}`,
     '',

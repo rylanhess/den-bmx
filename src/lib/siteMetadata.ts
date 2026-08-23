@@ -42,7 +42,7 @@ const coloradoMetadata: Metadata = {
   openGraph: {
     title: 'BMX Colorado',
     description:
-      "Talk BMX at bmxcolorado.com — Colorado's community message board for race tracks, freestyle, and track news.",
+      "Talk BMX at cobmx.com — Colorado's community message board for race tracks, freestyle, and track news.",
     url: COLORADO_CANONICAL_ORIGIN,
     siteName: 'BMX Colorado',
     images: [COLORADO_OG_IMAGE],
@@ -53,7 +53,7 @@ const coloradoMetadata: Metadata = {
     card: 'summary_large_image',
     title: 'BMX Colorado',
     description:
-      "Talk BMX at bmxcolorado.com — Colorado's community message board for race tracks, freestyle, and track news.",
+      "Talk BMX at cobmx.com — Colorado's community message board for race tracks, freestyle, and track news.",
     images: [COLORADO_OG_IMAGE.url],
   },
   icons: {

@@ -1,21 +1,32 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { updateSession } from '@/lib/supabase/middleware';
+import { COLORADO_CANONICAL_HOST, COLORADO_CANONICAL_ORIGIN } from '@/lib/canonicalSite';
 
 const AUTH_REQUIRED_PREFIXES = ['/account', '/admin'];
 const DENVER_HOSTS = ['bmxdenver.com', 'denverbmx.com'];
+const PATH_PRESERVE_ALIASES = ['bmxcolorado.com', 'coloradobmx.com'];
+
+function hostname(hostHeader: string): string {
+  return hostHeader.split(':')[0].toLowerCase();
+}
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const host = request.headers.get('host') ?? '';
+  const host = hostname(request.headers.get('host') ?? '');
 
-  if (DENVER_HOSTS.some((h) => host.includes(h))) {
-    return NextResponse.redirect('https://www.bmxcolorado.com/forum', 301);
+  if (DENVER_HOSTS.some((h) => host === h || host === `www.${h}`)) {
+    return NextResponse.redirect(`${COLORADO_CANONICAL_ORIGIN}/forum`, 301);
   }
 
-  if (host.includes('coloradobmx.com')) {
+  const isPathPreserveAlias =
+    host === 'cobmx.com' ||
+    PATH_PRESERVE_ALIASES.some((h) => host === h || host === `www.${h}`);
+
+  if (isPathPreserveAlias) {
     const url = request.nextUrl.clone();
-    url.host = 'www.bmxcolorado.com';
+    url.host = COLORADO_CANONICAL_HOST;
+    url.protocol = 'https:';
     return NextResponse.redirect(url, 301);
   }
 
